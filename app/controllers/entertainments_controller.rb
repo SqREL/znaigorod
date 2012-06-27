@@ -1,0 +1,2 @@
+class EntertainmentsController < InheritedResourceController
+end

@@ -1,18 +1,18 @@
 class Organization < ActiveRecord::Base
   attr_accessible :address_attributes,
-                  :categories,
                   :description,
                   :email,
-                  :feature,
                   :halls_attributes,
                   :images_attributes,
-                  :offer,
-                  :payment,
                   :phone,
                   :schedules_attributes,
                   :site,
                   :title,
                   :vfs_path
+
+  has_one :entertainment, :dependent => :destroy
+  has_one :meal, :dependent => :destroy
+  has_many :organizations, :dependent => :destroy
 
   has_many :halls, :dependent => :destroy
   has_many :images, :dependent => :destroy
@@ -59,7 +59,7 @@ class Organization < ActiveRecord::Base
   end
 
   def term
-   "#{title}, #{address}, #{categories}"
+   "#{title}, #{address}"
   end
 
   def as_json(options)
@@ -72,20 +72,16 @@ end
 #
 # Table name: organizations
 #
-#  id          :integer         not null, primary key
-#  title       :text
-#  categories  :text
-#  payment     :text
-#  cuisine     :text
-#  feature     :text
-#  site        :text
-#  email       :text
-#  description :text
-#  created_at  :datetime        not null
-#  updated_at  :datetime        not null
-#  phone       :text
-#  offer       :text
-#  type        :string(255)
-#  vfs_path    :string(255)
+#  id              :integer         not null, primary key
+#  title           :text
+#  site            :text
+#  email           :text
+#  description     :text
+#  created_at      :datetime        not null
+#  updated_at      :datetime        not null
+#  phone           :text
+#  type            :string(255)
+#  vfs_path        :string(255)
+#  organization_id :integer
 #
 

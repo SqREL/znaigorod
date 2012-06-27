@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120625091023) do
+ActiveRecord::Schema.define(:version => 20120627044240) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -56,6 +56,18 @@ ActiveRecord::Schema.define(:version => 20120625091023) do
     t.string   "image_url"
   end
 
+  create_table "entertainments", :force => true do |t|
+    t.text     "category"
+    t.text     "feature"
+    t.text     "offer"
+    t.string   "payment"
+    t.integer  "organization_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "entertainments", ["organization_id"], :name => "index_entertainments_on_organization_id"
+
   create_table "halls", :force => true do |t|
     t.string   "title"
     t.integer  "seating_capacity"
@@ -76,21 +88,30 @@ ActiveRecord::Schema.define(:version => 20120625091023) do
 
   add_index "images", ["organization_id"], :name => "index_images_on_organization_id"
 
+  create_table "meals", :force => true do |t|
+    t.text     "category"
+    t.text     "feature"
+    t.text     "offer"
+    t.string   "payment"
+    t.text     "cuisine"
+    t.integer  "organization_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "meals", ["organization_id"], :name => "index_meals_on_organization_id"
+
   create_table "organizations", :force => true do |t|
     t.text     "title"
-    t.text     "categories"
-    t.text     "payment"
-    t.text     "cuisine"
-    t.text     "feature"
     t.text     "site"
     t.text     "email"
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
     t.text     "phone"
-    t.text     "offer"
     t.string   "type"
     t.string   "vfs_path"
+    t.integer  "organization_id"
   end
 
   create_table "schedules", :force => true do |t|
