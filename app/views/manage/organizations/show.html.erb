@@ -1,0 +1,44 @@
+<%= link_to "&larr;Родительская организация #{resource.organization}".html_safe, [:manage, resource.organization] if resource.organization %>
+<br/>
+
+<%= resource %>
+<%= link_to 'Редактировать организацию', [:edit, :manage, resource] %>
+<%= link_to 'Удалить организацию', [:manage, resource], :method => :delete, :confirm => 'Вы уверены?' %>
+
+<ul>
+  <li><%= link_to 'Добавить подорганизацию', new_manage_organization_organization_path(resource) %></li>
+  <li><%= link_to "Добавить/редактировать аттрибуты заведения питания", new_manage_organization_meal_path(resource) %></li>
+  <li><%= link_to "Добавить/редактировать аттрибуты развлекательного заведения ", new_manage_organization_entertainment_path(resource) %></li>
+</ul>
+
+<ul>
+  <% resource.additional_attributes.each do |attr| %>
+    <li>
+      <%= attr.class.model_name.human %>
+      <%= link_to "Удалить", [:manage, resource, attr.class.model_name.underscore.to_sym], :method => :delete, :confirm => 'Вы уверены?' %>
+      <ul>
+        <li>Категория: <%= attr.category %></li>
+        <% if attr.respond_to?(:cuisine) %>
+          <li>Кухня: <%= attr.cuisine %></li>
+        <% end %>
+        <li>Особенности: <%= attr.feature %></li>
+        <li>Предложение: <%= attr.offer %></li>
+        <li>Оплата: <%= attr.payment %></li>
+      </ul>
+    </li>
+  <% end %>
+</ul>
+
+<% if resource.organizations.any? %>
+  <h4>Подорганизации</h4>
+  <ul>
+    <% resource.organizations.each do |suborganization| %>
+      <li>
+        <%= link_to suborganization, [:manage, suborganization] %>
+        <%= link_to 'Редактировать подорганизацию', [:edit, :manage, suborganization] %>
+        <%= link_to 'Удалить организацию', [:manage, suborganization], :method => :delete, :confirm => 'Вы уверены?' %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+

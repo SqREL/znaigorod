@@ -1,5 +1,5 @@
 <% content_for :stylesheets do %>
-  <%= stylesheet_link_tag    "manage/application", :media => "all" %>
+  <%= stylesheet_link_tag "manage/application", :media => "all" %>
 <% end %>
 
 <% content_for :javascripts do %>
@@ -27,12 +27,15 @@
               </ul>
             </div>
 
-            <%= form_tag send("manage_#{search_class(resource_class).name.downcase.pluralize}_path"), :method => :get, :class => 'navbar-search pull-right' do %>
-              <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск', :class => 'search-query span2' %>
-              <div>
-                <%= label_tag 'include_gone', 'Включая прошедшие', :style => 'color: white; float: left' %>
-                <%= check_box_tag 'include_gone', '1', params[:include_gone] %>
-              </div>
+            <% if false %>
+            <%# #TODO: наладить поисковую форму %>
+              <%= form_tag send("manage_#{search_class(resource_class).name.downcase.pluralize}_path"), :method => :get, :class => 'navbar-search pull-right' do %>
+                <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск', :class => 'search-query span2' %>
+                <div>
+                  <%= label_tag 'include_gone', 'Включая прошедшие', :style => 'color: white; float: left' %>
+                  <%= check_box_tag 'include_gone', '1', params[:include_gone] %>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>

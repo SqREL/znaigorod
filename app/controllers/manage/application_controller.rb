@@ -1,5 +1,3 @@
-class Manage::ApplicationController < InheritedResourcesController
-  has_searcher
-
+class Manage::ApplicationController < InheritedResources::Base
   layout 'manage'
 end

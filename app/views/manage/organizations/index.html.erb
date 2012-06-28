@@ -1,0 +1,14 @@
+<ul>
+  <% collection.where(:organization_id => nil).each do |item| %>
+    <li>
+      <%= link_to item, [:manage, item] %>
+      <% if item.organizations %>
+        <ul>
+          <% item.organizations.each do |suborganization| %>
+            <li><%= link_to suborganization, [:manage, suborganization] %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>

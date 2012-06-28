@@ -1,2 +1,0 @@
-class MealsController < InheritedResourceController
-end

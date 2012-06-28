@@ -5,7 +5,8 @@ class Schedule < ActiveRecord::Base
 
   attr_accessible :day, :from, :to, :holiday
 
-  validates_presence_of :day, :from, :to
+  validates_presence_of :day
+  validates_presence_of :from, :to, :unless => :holiday?
 
   default_scope order(:day)
 

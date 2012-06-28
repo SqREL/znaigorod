@@ -4,6 +4,7 @@ class Organization < ActiveRecord::Base
                   :email,
                   :halls_attributes,
                   :images_attributes,
+                  :organization_id,
                   :phone,
                   :schedules_attributes,
                   :site,
@@ -13,6 +14,7 @@ class Organization < ActiveRecord::Base
   has_one :entertainment, :dependent => :destroy
   has_one :meal, :dependent => :destroy
   has_many :organizations, :dependent => :destroy
+  belongs_to :organization
 
   has_many :halls, :dependent => :destroy
   has_many :images, :dependent => :destroy
@@ -28,6 +30,8 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :halls, :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :images, :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :schedules, :allow_destroy => true, :reject_if => :all_blank
+
+  scope :ordered_by_updated_at, ->(param) { order('updated_at DESC') }
 
   def self.facet_field(facet)
     "#{model_name.underscore}_#{facet}"
@@ -66,6 +70,16 @@ class Organization < ActiveRecord::Base
     super(:only => :id, :methods => :term)
   end
 
+  def categories
+    res = []
+    res << entertainment.category if entertainment
+    res << meal.category if meal
+    res.join(', ')
+  end
+
+  def additional_attributes
+    [meal, entertainment].compact
+  end
 end
 
 # == Schema Information
@@ -80,7 +94,6 @@ end
 #  created_at      :datetime        not null
 #  updated_at      :datetime        not null
 #  phone           :text
-#  type            :string(255)
 #  vfs_path        :string(255)
 #  organization_id :integer
 #

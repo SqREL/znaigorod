@@ -1,9 +1,5 @@
-<table class='table table-condensed table-striped'>
-  <tbody>
-    <% collection.each do |item| %>
-      <%= render :partial => 'item', :locals => { :item => item } %>
-    <% end %>
-  </tbody>
-</table>
-
-<%= paginate collection %>
+<ul>
+  <% collection.each do |item| %>
+    <li><%= link_to item, [:manage, item] %></li>
+  <% end %>
+</ul>

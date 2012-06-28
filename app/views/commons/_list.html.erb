@@ -1,9 +1,0 @@
-<% if collection.any? %>
-  <% collection.each do |item| %>
-    <%= render :partial => "#{item.class.superclass.model_name.pluralize.underscore}/item", :locals => {:item => item} %>
-  <% end %>
-<% else %>
-  <div class="empty">Ничего не найдено ;(</div>
-<% end %>
-
-<%= paginate collection, :remote => remote if action_name == 'index' %>

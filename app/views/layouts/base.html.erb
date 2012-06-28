@@ -3,7 +3,6 @@
   <head>
     <title><%= t('site_title') %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="verify-reformal" content="4183e30bedc6f2b3bbfb856a" />
     <%= yield :stylesheets %>
     <%= yield :javascripts %>
     <%= csrf_meta_tags %>
@@ -11,6 +10,5 @@
   <body>
     <%= yield :content %>
   </body>
-  <%= render :partial => 'commons/reformal' if Rails.env.production? %>
   <%= render :partial => 'commons/metrics' if Rails.env.production? %>
 </html>

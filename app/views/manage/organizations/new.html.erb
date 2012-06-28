@@ -1,11 +1,3 @@
-<h1>
-  Добавление организации
-</h1>
-
-<ul>
-  <% Organization.descendants.each do |type| %>
-    <% type_name = type.to_s.underscore %>
-    <% vfs_path = "/znaigorod/organizations/#{type_name.pluralize}/#{SecureRandom.hex(4)}"  %>
-    <li><%= link_to type.model_name.human, send("new_manage_#{type_name}_path", "#{type_name}[vfs_path]" => vfs_path) %></li>
-  <% end %>
-</ul>
+<%= simple_nested_form_for [:manage, @organization], :defaults => { :input_html => { :class => 'span8', :rows => 4 }}, :html => { :novalidate => true } do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+<% end %>

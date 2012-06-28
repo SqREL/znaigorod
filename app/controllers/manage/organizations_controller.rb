@@ -1,17 +1,17 @@
 class Manage::OrganizationsController < Manage::ApplicationController
-  actions :index, :new
+  has_scope :ordered_by_updated_at, :default => 1
+  belongs_to :organization, :optional => true
 
-  has_scope :page, :default => 1
+  private
+    def build_resource
+      super
 
-  respond_to :json
+      resource.build_address unless resource.address
 
-  protected
-    def collection
-      @search ||= Sunspot.search([Eating, Funny]) do
-        keywords(params[:q])
-        paginate(:page => params[:page], :per_page => 20)
-      end
+      (1..7).each do |day|
+        resource.schedules.build(:day => day)
+      end unless resource.schedules.any?
 
-      @search.results
+      resource
     end
 end

@@ -5,3 +5,4 @@ class GeocoderController < ApplicationController
     render :json => Geocoder.get_coordinates(params[:street], params[:house]) and return
   end
 end
+

@@ -26,9 +26,9 @@ ru:
     models:
       affiche: Афиша
       concert: Концерты
-      eating: Еда
+      meal: Заведение питания
       exhibition: Выставки
-      funny: Развлечения
+      entertainment: Развлекательное заведение
       movie: Кино
       organization: Организации
       other: Другое
