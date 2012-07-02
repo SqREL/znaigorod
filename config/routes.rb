@@ -23,16 +23,16 @@ Znaigorod::Application.routes.draw do
     root :to => 'organizations#index'
   end
 
-  #get 'search' => 'search#index'
+  get 'search' => 'search#index'
   get 'geocoder' => 'geocoder#get_coordinates'
 
-  #resources :affiches, :only => [:index, :show]
+  resources :affiches, :only => [:index, :show]
 
-  #resources :entertainments
-  #resources :meals
-  #resources :organizations
+  resources :entertainments
+  resources :meals
+  resources :organizations
 
-  #root :to => 'application#main_page'
+  root :to => 'application#main_page'
 
   mount ElVfsClient::Engine => '/'
 end

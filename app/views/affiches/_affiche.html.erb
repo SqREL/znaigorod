@@ -1,0 +1,58 @@
+<div class="show">
+  <div class="breadcrumbs">
+    <ul>
+      <li>
+        <a href="/" class='solid_light_blue'>Главная</a><span class='arrow'>&rarr;</span>
+      </li>
+      <li>
+        <%= link_to t('affiche'), affiches_path, :class => 'solid_light_blue' %><span class='arrow'>&rarr;</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main_info">
+    <h1><%= resource.title %></h1>
+    <h2><%= resource.original_title %></h2>
+
+    <div class='description'>
+      <div class='poster'>
+        <%= image_tag_for(resource.poster_url, 290, 390) %>
+        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="button" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,lj,gplus"></div>
+      </div>
+
+      <div class="info">
+        <div class="story">
+          <%= RedCloth.new(resource.description).to_html.html_safe %>
+        </div>
+      </div>
+
+      <div class="tags">
+        <ul>
+          <% resource.tags.split(', ').flatten.each do |tag| %>
+            <li>
+              <%= tag %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <% if resource.trailer_code? %>
+      <div class='trailer'>
+        <%= raw resource.trailer_code %>
+      </div>
+    <% end %>
+
+    <div class='seance'>
+      <% if Movie === resource %>
+        <h4>Сеансы</h4>
+        <%= render :partial => 'seance', :locals => { :affiche => resource } %>
+      <% else %>
+        <h4>Дата и место проведения</h4>
+        <%= render :partial => 'seance', :locals => { :affiche => resource } %>
+      <% end %>
+    </div>
+    <%= render :partial => 'commons/comments_block' %>
+  </div>
+</div>

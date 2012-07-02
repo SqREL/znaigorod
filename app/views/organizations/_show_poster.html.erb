@@ -1,0 +1,15 @@
+<div class="poster">
+  <% if resource.images.any? %>
+    <%= image_tag_for(resource.images.first.url, 290, 390) %>
+
+    <% if false %>
+      <% (resource.images - [resource.images.first]).each do |image| %>
+        <%= image_tag_for image.url, 290, 390 %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= image_tag "eat/stub.jpg", :width => '274', :height => '200', :alt => resource.title, :title => resource.title %>
+  <% end %>
+  <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+  <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="button" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,lj,gplus"></div>
+</div>

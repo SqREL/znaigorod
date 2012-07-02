@@ -7,6 +7,8 @@ ru:
   add_showing: Добавить сеанс
   add_image: Добавить изображение
   affiche: Афиша
+  meal: Заведения питания
+  entertainment: Развлечения
   funny: Заведения
   eating: Заведения
   clear_filters: Очистить фильтры
@@ -79,7 +81,7 @@ ru:
 
       organization:
         address: Адрес организации
-        categories: Категория
+        category: Категория
         created_at: Создано
         cuisine: Кухня
         description: Описание

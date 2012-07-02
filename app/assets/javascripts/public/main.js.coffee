@@ -9,7 +9,7 @@ $ ->
     init_filter_collapser()
     init_filter_reset()
     init_filter_resizer()       if $('.filter.by_date').length
-    init_filter_checker()       if $('.filter.by_affiche_category, .filter.by_categories, .filter.by_tag').length
+    init_filter_checker()       if $('.filter.by_affiche_category, .filter.by_category, .filter.by_tag').length
     init_range_slider()         if $('.filter.by_date').length
     init_filter_handler()
     init_map_handler()

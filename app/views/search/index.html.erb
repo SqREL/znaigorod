@@ -1,0 +1,16 @@
+<div class="index">
+  <div class="breadcrumbs">
+    <ul>
+      <li>
+        <a href="/" class='solid_light_blue'>Главная</a><span class='arrow'>&rarr;</span>
+      </li>
+    </ul>
+  </div>
+
+  <h1>Результаты поиска<span class='result_count'>Найдено: <%= total %></span></h1>
+
+  <div class="list">
+    <%= render :partial => 'commons/list', :locals => { :collection => collection, :remote => false } %>
+  </div>
+
+</div>

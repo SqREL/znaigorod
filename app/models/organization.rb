@@ -33,29 +33,20 @@ class Organization < ActiveRecord::Base
 
   scope :ordered_by_updated_at, ->(param) { order('updated_at DESC') }
 
-  def self.facet_field(facet)
-    "#{model_name.underscore}_#{facet}"
-  end
+  searchable do
+    string(:kind) { 'organization' }
+    text :address
+    text :category
+    text :description, :boost => 0.5
+    text :email, :boost => 0.5
+    text :feature
+    text :site, :boost => 0.5
+    text :term
+    text :title, :boost => 2
+    text :payment
+    text :offer
 
-  def self.add_sunspot_configuration
-    searchable do |s|
-      s.integer(:capacity, :multiple => true) { halls.pluck(:seating_capacity) }
-      s.string(:kind) { 'organization' }
-      s.text :address
-      s.text :description, :boost => 0.5
-      s.text :email, :boost => 0.5
-      s.text :site, :boost => 0.5
-      s.text :title, :boost => 2
-      s.text(:kind) { self.class.model_name.human }
-      s.text :term
-
-      facets.each do |facet|
-        s.text facet
-        s.string(facet_field(facet), :multiple => true) { self.send(facet).to_s.split(',').map(&:squish) }
-      end
-
-      s.boost 45
-    end
+    boost 45
   end
 
   def to_s
@@ -70,11 +61,47 @@ class Organization < ActiveRecord::Base
     super(:only => :id, :methods => :term)
   end
 
-  def categories
-    res = []
-    res << entertainment.category if entertainment
-    res << meal.category if meal
-    res.join(', ')
+  def nearest_affiches
+    affiches.select{ |a| a.showings.where('starts_at > ?', Date.today).any? }
+  end
+
+  delegate :category, :feature, :offer, :payment, :to => :entertainment, :allow_nil => true, :prefix => true
+  delegate :category, :cuisine, :feature, :offer, :payment, :to => :meal, :allow_nil => true, :prefix => true
+
+  def category
+    [entertainment_category, meal_category].compact.join(', ')
+  end
+
+  def cuisine
+    meal_cuisine
+  end
+
+  def cuisine?
+    cuisine.present?
+  end
+
+  def feature
+    [entertainment_feature, meal_feature].compact.join(', ')
+  end
+
+  def feature?
+    feature.present?
+  end
+
+  def offer
+    [entertainment_offer, meal_offer].compact.join(', ')
+  end
+
+  def offer?
+    offer.present?
+  end
+
+  def payment
+    [entertainment_payment, meal_payment].compact.join(', ')
+  end
+
+  def payment?
+    payment.present?
   end
 
   def additional_attributes

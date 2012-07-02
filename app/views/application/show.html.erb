@@ -1,0 +1,5 @@
+<% if %w(entertainment meal organization).include?(resource.class.name.underscore) %>
+  <%= render :partial => 'organizations/organization' %>
+<% else %>
+  <%= render :partial => 'affiches/affiche' %>
+<% end %>
