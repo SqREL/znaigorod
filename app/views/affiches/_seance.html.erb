@@ -6,10 +6,19 @@
 
 <div class="seance_tabs">
   <ul>
-    <% range.keys.each_with_index do |day, index| %>
-      <li class='fake <%= 'active' if index==0 %>' id='target_t<%= "#{affiche.id}#{index}" %>'>
-        <a href="#"><span class='day'><%= l day, :format => '%e %b' %></span><span class="dow"><%= l(day, :format => '%A').mb_chars.downcase %></span></a>
+    <% if affiche.showings.one? && affiche.showings.first.during_several_days? %>
+      <li class="fake active">
+        <a href="#" class="one_showing">
+          <span class="day"><%= interval_for(affiche.showings.first) %></span>
+          <span class="dow">&nbsp;</span>
+        </a>
       </li>
+    <% else %>
+      <% range.keys[0..9].each_with_index do |day, index| %>
+        <li class='fake <%= 'active' if index==0 %>' id='target_t<%= "#{affiche.id}#{index}" %>'>
+          <a href="#"><span class='day'><%= l day, :format => '%e %b' %></span><span class="dow"><%= l(day, :format => '%A').mb_chars.downcase %></span></a>
+        </li>
+      <% end %>
     <% end %>
   </ul>
 </div>

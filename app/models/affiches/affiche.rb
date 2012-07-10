@@ -39,7 +39,6 @@ class Affiche < ActiveRecord::Base
   def search_showing_ids(search_params)
     search_params ||= {}
     params = search_params.reverse_merge :starts_on_greater_than => Date.today,
-                                         :starts_on_less_than => Date.today + 4.weeks,
                                          :affiche_id => self.id
     HasSearcher.searcher(:showing, params).result_ids
   end

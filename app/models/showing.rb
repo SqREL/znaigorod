@@ -32,8 +32,16 @@ class Showing < ActiveRecord::Base
     time :starts_at
   end
 
+  def ends_on
+    ends_at.try :to_date
+  end
+
   def starts_on
     starts_at.to_date
+  end
+
+  def during_several_days?
+    ends_on ? starts_on != ends_on : false
   end
 
   def self.tags

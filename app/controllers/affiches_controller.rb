@@ -24,7 +24,8 @@ class AffichesController < ApplicationController
     end
 
     def search_results
-      search_params = params[:search] || {:starts_on_greater_than => Date.today, :starts_on_less_than => (Date.today + 6.days).end_of_day}
+      search_params = params[:search] || {}
+      search_params.merge!(:starts_on_greater_than => Date.today, :starts_on_less_than => (Date.today + 6.days).end_of_day)
 
       @affiches_hash = HasSearcher.searcher(:showing, search_params).limit(1_000).order_by(:starts_at).results.group_by(&:affiche)
 

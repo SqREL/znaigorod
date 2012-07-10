@@ -1,6 +1,6 @@
 <div class="seance_tabs">
   <ul>
-    <% if affiche.showings.one? %>
+    <% if affiche.showings.one? && affiche.showings.first.during_several_days? %>
       <li class="fake active">
         <a href="#" class="one_showing">
           <span class="day"><%= interval_for(affiche.showings.first) %></span>
