@@ -46,6 +46,7 @@ class Affiche < ActiveRecord::Base
 
   def showings_grouped_by_day(search_params = nil)
     showing_ids = search_showing_ids(search_params)
+
     Hash[showings.where(:id => showing_ids).group_by(&:starts_on).map.first(9)]
   end
 

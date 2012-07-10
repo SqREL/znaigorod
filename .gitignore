@@ -1,5 +1,7 @@
 *.pid
+*.sql
 *.swp
+.sass-cache/
 /.bundle
 /bin
 /config/database.yml
@@ -13,4 +15,3 @@
 /tmp
 log/sunspot-solr-development.log*
 public/assets/
-*.sql
