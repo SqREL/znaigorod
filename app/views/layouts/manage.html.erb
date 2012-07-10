@@ -7,17 +7,10 @@
 <% end %>
 
 <% content_for :content do  %>
-  <body style='padding-top: 60px'>
-    <div class="container-fluid">
-      <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-          <div class="container-fluid">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </a>
-            <a class="brand" href="/">ЗнайГород</a>
+  <body>
+    <div class="container">
+      <div class="navbar">
+          <a class="brand" href="/">ЗнайГород</a>
             <div class="nav-collapse">
               <ul class="nav">
                 <li><%= link_to "Список организаций", manage_organizations_path %></li>
@@ -42,11 +35,7 @@
               <% end %>
             <% end %>
           </div>
-        </div>
-      </div>
-
       <%= yield %>
-
     </div>
   </body>
 <% end %>

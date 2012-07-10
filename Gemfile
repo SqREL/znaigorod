@@ -6,7 +6,6 @@ group :assets do
   gem 'jquery-rails'
   gem 'sass-rails'
   gem 'therubyracer',                                 :platform => :ruby
-  gem 'twitter-bootstrap-rails'
   gem 'uglifier'
 end
 
