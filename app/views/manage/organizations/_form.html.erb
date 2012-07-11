@@ -3,7 +3,8 @@
 <%= f.input :phone,                   :as => :tel %>
 <%= f.input :email,                   :as => :email %>
 <%= f.input :site,                    :as => :url %>
-<%= f.input :vfs_path, :as => :hidden %>
+<%  f.object.vfs_path ||= "/znaigorod/organizations/#{SecureRandom.hex(4)}" %>
+<%= f.input :vfs_path, :as => :hidden  %>
 <%= f.input :organization_id, :as => :select, :collection => Organization.all %>
 
 <%= field_set_tag "#{t('simple_form.fieldset.images')}".html_safe do %>
