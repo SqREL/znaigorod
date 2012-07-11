@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711020039) do
+ActiveRecord::Schema.define(:version => 20120711080216) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -54,6 +54,15 @@ ActiveRecord::Schema.define(:version => 20120711020039) do
     t.text     "tag"
     t.string   "vfs_path"
     t.string   "image_url"
+  end
+
+  create_table "attachments", :force => true do |t|
+    t.integer  "attachable_id"
+    t.string   "attachable_type"
+    t.string   "url"
+    t.text     "description"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "entertainments", :force => true do |t|

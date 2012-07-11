@@ -1,10 +1,11 @@
 class Affiche < ActiveRecord::Base
   attr_accessible :description, :poster_url, :image_url, :showings_attributes,
                   :tag, :title, :vfs_path, :affiche_schedule_attributes,
-                  :images_attributes
+                  :images_attributes, :attachments_attributes
 
 
-  has_many :images,   :as => :imageable, :dependent => :destroy
+  has_many :images,      :as => :imageable, :dependent => :destroy
+  has_many :attachments, :as => :attachable, :dependent => :destroy
   has_many :showings, :dependent => :destroy, :order => :starts_at
 
   has_one :affiche_schedule, :dependent => :destroy
@@ -13,6 +14,7 @@ class Affiche < ActiveRecord::Base
 
   accepts_nested_attributes_for :affiche_schedule, :allow_destroy => true, :reject_if => :affiche_schedule_attributes_blank?
   accepts_nested_attributes_for :images, :allow_destroy => true, :reject_if => :all_blank
+  accepts_nested_attributes_for :attachments, :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :showings, :allow_destroy => true
 
   default_scope order('affiches.id DESC')

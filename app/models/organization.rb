@@ -1,13 +1,14 @@
 class Organization < ActiveRecord::Base
   attr_accessible :address_attributes, :description, :email, :halls_attributes,
                   :images_attributes, :organization_id, :phone, :schedules_attributes,
-                  :site, :title, :vfs_path
+                  :site, :title, :vfs_path, :attachments_attributes
 
   belongs_to :organization
 
   has_many :affiches,       :through => :showings, :uniq => true
   has_many :halls,          :dependent => :destroy
-  has_many :images,         :as => :imageable, :dependent => :destroy
+  has_many :images,         :as => :imageable,  :dependent => :destroy
+  has_many :attachments,    :as => :attachable, :dependent => :destroy
   has_many :organizations,  :dependent => :destroy
   has_many :schedules,      :dependent => :destroy
   has_many :showings,       :dependent => :destroy
@@ -21,6 +22,7 @@ class Organization < ActiveRecord::Base
   accepts_nested_attributes_for :address,   :reject_if => :all_blank
   accepts_nested_attributes_for :halls,     :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :images,    :allow_destroy => true, :reject_if => :all_blank
+  accepts_nested_attributes_for :attachments,    :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :schedules, :allow_destroy => true, :reject_if => :all_blank
 
   delegate :category, :cuisine, :feature, :offer, :payment,

@@ -16,6 +16,11 @@
   <%= f.simple_fields_for :address %>
 <% end %>
 
+<%= field_set_tag "#{t('simple_form.fieldset.attachments')}".html_safe do %>
+  <%= f.simple_fields_for :attachments %>
+  <%= f.link_to_add t('add_attachment'), :attachments %>
+<% end %>
+
 <%= field_set_tag "#{t('simple_form.fieldset.halls')}".html_safe do %>
   <%= f.simple_fields_for :halls %>
   <%= f.link_to_add t('add_hall'), :halls %>
