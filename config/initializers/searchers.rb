@@ -48,7 +48,7 @@ HasSearcher.create_searcher :showing do
   property :affiche_category
 
   property :starts_on, :modificator => :greater_than do |search|
-    starts_on_gt = Date.today
+    starts_on_gt = search_object.starts_on_greater_than || Date.today
 
     search.any_of do
       with(:starts_on).greater_than(starts_on_gt)
