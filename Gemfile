@@ -28,6 +28,7 @@ group :default do
   gem 'russian'
   gem 'show_for'
   gem 'simple_form'
+  gem 'simple-navigation'
   gem 'sunspot_rails'
 end
 

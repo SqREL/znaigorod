@@ -10,7 +10,7 @@ Znaigorod::Application.routes.draw do
     #end
 
     Affiche.descendants.each do |type|
-      resources type.name.underscore.pluralize, :except => :show
+      resources type.name.underscore.pluralize
     end
 
     resources :search, :only => :index

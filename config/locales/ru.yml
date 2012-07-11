@@ -88,6 +88,7 @@ ru:
         description: Описание
         email: Электронная почта
         feature: Особенности
+        organization_id: Организация
         offer: Предложение
         payment: Способы оплаты
         phone: Телефоны
@@ -95,6 +96,19 @@ ru:
         site: Сайт
         title: Название
         updated_at: Обновлено
+
+      meal:
+        category: Категория
+        cuisine: Кухня
+        feature: Особенности
+        offer: Предложение
+        payment: Способы оплаты
+
+      entertainment:
+        category: Категория
+        feature: Особенности
+        offer: Предложение
+        payment: Способы оплаты
 
       schedule:
         day: День недели
@@ -128,7 +142,6 @@ ru:
       organization:
         organization_categories: 'Например: кафе, бар и т.п.'
         cuisine: 'Например: русская, итальянская и т.п.'
-        description: 'Описание или история'
         feature: 'Отличительные особенности, например: wifi, парковка и т.д.'
         offer: 'Предложение услуг, например: банкеты, бизнес-ланч и т.д.'
         payment: 'Например: наличными, Visa, MasterCard и т.п.'

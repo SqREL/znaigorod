@@ -6,7 +6,7 @@
 <div class='row-fluid'>
   <%= f.simple_fields_for :images do %>
     <div class='span6'>
-      <%= f.input :url, :as => :string, :input_html => { :class => 'span12' }, :label => false  %>
+      <%= f.hidden_field :url, :as => :string, :input_html => { :class => 'span12' }, :label => false  %>
       <%= f.input :description, :input_html => { :class => 'span12', :rows => 2 } %>
       <%= link_to 'Выбрать изображение', '#', :class => 'choose_file', :id => 'image_wrapper', :params => "vfs_path=#{resource.vfs_path}" %>
     </div>

@@ -1,4 +1,5 @@
-<tr>
-  <td><i class='icon-th-list'></i>&nbsp;<%= link_to item.title, [:edit, :manage, item] %></td>
-</tr>
-
+<li class="<%= cycle("even", "odd") %>">
+  <%= link_to item.title, [:manage, item], :class => 'title' %>
+  <span class="date"><%= l item.updated_at, :format => :short %></span>
+  <span class="category"><%= item.class.model_name.human %></span>
+</li>

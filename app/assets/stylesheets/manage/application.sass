@@ -1,30 +1,306 @@
-@import 'compass/reset'
-@import 'compass/utilities'
-@import 'compass/css3'
+@import "compass/reset"
+@import "compass/utilities"
+@import "compass/css3"
 
-@import 'jquery-ui/jquery-ui'
+@import "jquery-ui/jquery-ui"
+@import "jwysiwyg"
 
-@import 'jwysiwyg'
+body
+  color: #444
+  font-family: Verdana, Arial, sans-serif
 
-div.container
-  margin: 0 20px
+h1
+  font-size: 1.8em
+  line-height: 1
+  margin-bottom: 0.1em
 
-div.navbar
-  height: 30px
+h2 
+  font-size: 1.5em
+  margin-bottom: 0.5em
 
-  div.check_boxes
-    margin: 15px 0
+h3
+  font-size: 1.4em
+  line-height: 1 
+  margin-bottom: 1em
 
-    .checkbox
-      +clearfix
-      display: block
+h4
+  font-size: 1.2em
+  line-height: 1.25
+  margin-bottom: 0.5em
 
-      input
-        float: none
+h5
+  font-size: 1em
+  font-weight: bold
+  margin-bottom: 1.5em
 
-      label
-        float: left
-        width: 96px
+h6
+  font-size: 1em
+  font-weight: bold
+a
+  color: #3399cc
 
-#party_description
-  height: 250px
+  &:hover
+    color: #0099cc
+    text-decoration: none
+
+strong
+  font-weight: bold
+
+label
+  color: #777
+  float: left
+  width: 220px
+  text-align: left
+  margin: 2px 10px
+
+input[type='submit']
+  margin-left: 120px
+
+textarea
+  border-color: #ccc
+  width: 398px
+
+legend
+  border-bottom: 1px solid #ccc
+  color: #333
+  display: block
+  padding: 0
+  margin-bottom: 27px
+  font-size: 1.2em
+  line-height: 36px
+  width: 100%
+
+.left
+  float: left
+
+.right
+  float: right
+
+.checkbox
+  min-height: 18px
+  padding-left: 18px
+  float: left
+  margin-left: -18px
+
+.collection_check_boxes
+  float: left
+
+.container
+  margin: 20px
+
+.navbar
+  background: #0a3f89
+  height: 20px  
+  padding: 10px 20px
+
+.nav
+  +clearfix
+  list-style: none
+
+  li
+    float: left
+    margin: 0 10px 0 0
+
+    a
+      color: #fff
+      text-decoration: none
+
+    a:hover
+      color: #0099cc
+
+  .selected
+    a
+      color: #0099cc
+
+.second_menu
+  +clearfix
+  background: #f1f1f1
+  list-style-type: none
+  margin: -20px 0 10px 0
+  padding: 10px 0 10px 10px
+
+  li
+    float: left
+    margin: 0 10px 0 0
+
+.form-actions
+  background-color: #f2f2f2
+  margin: 40px 0 0 0
+  padding: 10px 0 10px 20px
+
+.btn-group
+  border-top: 1px solid #ccc
+  position: relative
+
+.btn, .btn:hover
+  display: inline-block
+  padding: 4px 10px 4px
+  margin-bottom: 0
+  font-size: 13px
+  line-height: 18px
+  color: #333333
+  text-align: center
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75)
+  text-decoration: none
+  vertical-align: middle
+  cursor: pointer
+  background-color: #f5f5f5
+  border: 1px solid #cccccc
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf
+  border-bottom-color: #b3b3b3
+
+.search
+  float: right
+
+  input
+    width: 180px
+
+.include_gone
+  float: right
+  margin: -30px 0 0 0
+  width: 200px
+
+  input
+    width: 20px
+    padding: 0
+    margin: 0
+
+  label
+    color: #fff
+
+.list_header
+  +clearfix
+  background-color: #eee
+  border-bottom: 1px solid #ccc
+  padding: 10px 0
+
+  span
+    color: #777
+    float: left
+    font-weight: bold
+    text-align: center 
+    width: 20%
+
+  .title
+    text-align: center
+    width: 60%
+
+.list_items
+  li
+    +clearfix
+    border-bottom: 1px solid #eee
+    padding: 8px 10px
+
+    &:hover
+      background: #f5f5f5
+
+    .title, .date, .category
+      float: left
+      line-height: 24px
+      text-align: center
+      width: 20%
+
+    .title
+      font-size: 18px
+      width: 60%
+      text-align: left
+
+    .date
+      color: #777
+      font-size: 14px
+
+    .category
+      color: #777
+      font-size: 14px
+
+.even 
+  background: #f6f7f8
+
+.address
+  +clearfix
+  background-color: #eee
+  border-bottom: 1px solid #ccc
+  padding: 10px 0
+
+  .street, .house, .latitude, .longitude
+    color: #777
+    float: left
+    text-align: left
+
+  .street
+    width: 30%
+
+  .house, .latitude, .longitude
+    width: 15%
+
+  .get_coordinates
+    width: 20%
+
+
+.description
+
+.poster
+  float: left
+  height: auto
+  width: 25%
+
+.info
+  float: left
+  height: auto
+  width: 65%
+
+.story 
+  border-bottom: 1px dotted #ccc
+  padding: 0 0 20px 0
+  text-align: justify
+
+.meta
+  color: #555
+  font-size: 14px
+  padding: 20px 0 0 0
+
+.main_form
+  +clearfix
+  width: 100%
+
+.main_form_edit
+  padding: 0 10px 0 0
+  widht: 60%
+
+.main_form_preview
+  margin: 0 0 0 20px
+  width: 40%
+
+.tags
+  overflow: hidden
+  font-size: 12px
+
+  ul
+    li
+      border-radius: 3px
+      display: inline-block
+      vertical-align: middle
+      background: #576D80
+      color: #F6F6F6
+      margin: 0 5px 5px 0
+      padding: 0px 4px 4px 4px
+
+      a
+        color: #f6f6f6
+        text-decoration: none
+
+.pagination
+  padding: 20px
+
+  ul
+    +clearfix
+    text-align: center
+    li
+      +inline-block
+
+      a
+
+    .active
+      a
+        color: #000
+        text-decoration: none

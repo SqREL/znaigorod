@@ -1,4 +1,4 @@
-<%= simple_nested_form_for [:manage, @organization], :defaults => { :input_html => { :class => 'span8', :rows => 4 }}, :html => { :novalidate => true } do |f| %>
+<%= simple_nested_form_for [:manage, @organization], :defaults => { :input_html => { :rows => 4 }}, :html => { :novalidate => true } do |f| %>
   <%= render :partial => 'form', :locals => { :f => f } %>
 <% end %>
 

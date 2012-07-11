@@ -1,44 +1,64 @@
-<%= link_to "&larr;Родительская организация #{resource.organization}".html_safe, [:manage, resource.organization] if resource.organization %>
-<br/>
+<div class="second_menu">
+    <%= link_to "&larr;Родительская организация #{resource.organization}".html_safe, [:manage, resource.organization] if resource.organization %>
 
-<%= resource %>
-<%= link_to 'Редактировать организацию', [:edit, :manage, resource] %>
-<%= link_to 'Удалить организацию', [:manage, resource], :method => :delete, :confirm => 'Вы уверены?' %>
+    <ul>
+      <li><%= link_to 'Добавить подорганизацию', new_manage_organization_organization_path(resource), :class => 'btn' %></li>
+      <li><%= link_to 'Редактировать', [:edit, :manage, resource], :class => 'btn' %></li>
+      <li><%= link_to 'Удалить', [:manage, resource], :method => :delete, :confirm => 'Вы уверены?', :class => 'btn' %></li>
+      <li><%= link_to "Аттрибуты заведения питания", new_manage_organization_meal_path(resource), :class => 'btn' %></li>
+      <li><%= link_to "Аттрибуты развлекательного заведения ", new_manage_organization_entertainment_path(resource), :class => 'btn' %></li>
+    </ul>
+</div>
 
-<ul>
-  <li><%= link_to 'Добавить подорганизацию', new_manage_organization_organization_path(resource) %></li>
-  <li><%= link_to "Добавить/редактировать аттрибуты заведения питания", new_manage_organization_meal_path(resource) %></li>
-  <li><%= link_to "Добавить/редактировать аттрибуты развлекательного заведения ", new_manage_organization_entertainment_path(resource) %></li>
-</ul>
+<div class="description">
+  <h2><%= resource.title %></h2>
 
-<ul>
-  <% resource.additional_attributes.each do |attr| %>
-    <li>
-      <%= attr.class.model_name.human %>
-      <%= link_to "Удалить", [:manage, resource, attr.class.model_name.underscore.to_sym], :method => :delete, :confirm => 'Вы уверены?' %>
-      <ul>
-        <li>Категория: <%= attr.category %></li>
-        <% if attr.respond_to?(:cuisine) %>
-          <li>Кухня: <%= attr.cuisine %></li>
+  <div class="poster">
+    <% if resource.images.any? %>
+      <%= image_tag_for(resource.images.first.url, 290, 390) %>
+
+      <% if false %>
+        <% (resource.images - [resource.images.first]).each do |image| %>
+          <%= image_tag_for image.url, 290, 390 %>
         <% end %>
-        <li>Особенности: <%= attr.feature %></li>
-        <li>Предложение: <%= attr.offer %></li>
-        <li>Оплата: <%= attr.payment %></li>
-      </ul>
-    </li>
-  <% end %>
-</ul>
+      <% end %>
+    <% else %>
+      <%= image_tag "eat/stub.jpg", :width => '274', :height => '200', :alt => resource.title, :title => resource.title %>
+    <% end %>
+  </div>
 
-<% if resource.organizations.any? %>
-  <h4>Подорганизации</h4>
+  <h4>Описание:</h4>
+
   <ul>
-    <% resource.organizations.each do |suborganization| %>
+    <% resource.additional_attributes.each do |attr| %>
       <li>
-        <%= link_to suborganization, [:manage, suborganization] %>
-        <%= link_to 'Редактировать подорганизацию', [:edit, :manage, suborganization] %>
-        <%= link_to 'Удалить организацию', [:manage, suborganization], :method => :delete, :confirm => 'Вы уверены?' %>
+        <%= attr.class.model_name.human %>
+        <%= link_to "Удалить", [:manage, resource, attr.class.model_name.underscore.to_sym], :method => :delete, :confirm => 'Вы уверены?' %>
+        <ul>
+          <li><strong>Категория:</strong> <%= attr.category %></li>
+          <% if attr.respond_to?(:cuisine) %>
+            <li><strong>Кухня:</strong> <%= attr.cuisine %></li>
+          <% end %>
+          <li><strong>Особенности:</strong> <%= attr.feature %></li>
+          <li><strong>Предложение:</strong> <%= attr.offer %></li>
+          <li><strong>Оплата:</strong> <%= attr.payment %></li>
+        </ul>
       </li>
     <% end %>
   </ul>
-<% end %>
+
+  <% if resource.organizations.any? %>
+    <h4>Подорганизации</h4>
+    <ul>
+      <% resource.organizations.each do |suborganization| %>
+        <li>
+          <%= link_to suborganization, [:manage, suborganization] %>
+          <%= link_to 'Редактировать подорганизацию', [:edit, :manage, suborganization] %>
+          <%= link_to 'Удалить организацию', [:manage, suborganization], :method => :delete, :confirm => 'Вы уверены?' %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+</div> <!-- main form -->
 

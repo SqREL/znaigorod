@@ -1,11 +1,13 @@
+<div class="second_menu">
+  <ul>
+    <% Affiche.descendants.each do |type| %>
+      <% type_name = type.to_s.underscore %>
+      <% vfs_path = "/znaigorod/affiches/#{type_name.pluralize}/#{Time.now.strftime('%Y/%m/%d/%H-%M')}-#{SecureRandom.hex(4)}"  %>
+      <li><%= link_to type.model_name.human, send("new_manage_#{type_name}_path", "#{type_name}[vfs_path]" => vfs_path) %></li>
+    <% end %>
+  </ul>
+</div>
+
 <h1>
   Добавление мероприятия
 </h1>
-
-<ul>
-  <% Affiche.descendants.each do |type| %>
-    <% type_name = type.to_s.underscore %>
-    <% vfs_path = "/znaigorod/affiches/#{type_name.pluralize}/#{Time.now.strftime('%Y/%m/%d/%H-%M')}-#{SecureRandom.hex(4)}"  %>
-    <li><%= link_to type.model_name.human, send("new_manage_#{type_name}_path", "#{type_name}[vfs_path]" => vfs_path) %></li>
-  <% end %>
-</ul>

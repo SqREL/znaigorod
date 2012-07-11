@@ -2,7 +2,6 @@
  * = require jquery
  * = require jquery-ui
  * = require jquery_ujs
- * = require twitter/bootstrap
  * = require public/map
  * = require public/main_page_banner
  * = require public/filter_collapser

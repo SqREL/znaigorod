@@ -8,36 +8,29 @@
 
 <% content_for :content do  %>
   <body>
-    <div class="container">
-      <div class="navbar">
-          <a class="brand" href="/">ЗнайГород</a>
-            <div class="nav-collapse">
-              <ul class="nav">
-                <li><%= link_to "Список организаций", manage_organizations_path %></li>
-                <li><%= link_to "Добавить организацию", new_manage_organization_path %></li>
-                <li><%= link_to "Список мероприятий", manage_affiches_path %></li>
-                <li><%= link_to "Добавить мероприятие", new_manage_affiche_path %></li>
-              </ul>
-            </div>
-
-            <% if resource_class == Organization %>
-
-              <%= form_tag manage_organizations_path, :method => :get, :class => 'navbar-search pull-right' do %>
-                <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск', :class => 'search-query span2' %>
-              <% end %>
-            <% else %>
-              <%= form_tag manage_affiches_path, :method => :get, :class => 'navbar-search pull-right' do %>
-                <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск', :class => 'search-query span2' %>
-                <div>
-                  <%= label_tag 'include_gone', 'Включая прошедшие', :style => 'color: white; float: left' %>
-                  <%= check_box_tag 'include_gone', '1', params[:include_gone] %>
-                </div>
-              <% end %>
+    <div class="navbar">
+        <div class="search">
+          <% if resource_class == Organization %>
+            <%= form_tag manage_organizations_path, :method => :get do %>
+              <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск' %>
             <% end %>
-          </div>
+          <% else %>
+            <%= form_tag manage_affiches_path, :method => :get do %>
+              <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск' %>
+              <div class="include_gone">
+                <%= label_tag 'include_gone', 'Включая прошедшие' %>
+                <%= check_box_tag 'include_gone', '1', params[:include_gone] %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <%= render_navigation :context => 'manage' %>
+    </div>
+
+    <div class="container">
       <%= yield %>
     </div>
-  </body>
+</body>
 <% end %>
 
 <%= render :file => 'layouts/base' %>
