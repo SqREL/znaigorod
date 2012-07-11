@@ -80,12 +80,14 @@ ActiveRecord::Schema.define(:version => 20120711020039) do
 
   create_table "images", :force => true do |t|
     t.text     "url"
+    t.integer  "imageable_id"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.text     "description"
     t.string   "imageable_type"
-    t.integer  "imageable_id"
   end
+
+  add_index "images", ["imageable_id"], :name => "index_images_on_organization_id"
 
   create_table "meals", :force => true do |t|
     t.text     "category"

@@ -1,6 +1,8 @@
 class Image < ActiveRecord::Base
   attr_accessible :description, :url
 
+  default_scope :order => :updated_at
+
   belongs_to :imageable, :polymorphic => true
 end
 

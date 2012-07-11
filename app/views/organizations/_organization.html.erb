@@ -128,6 +128,15 @@
         </ul>
       </div>
     </div>
+    <div class="gallery_container" style='margin: 20px auto;'>
+      <ul>
+        <% (resource.images - [resource.images.first]).each do |image| %>
+          <li>
+            <%= image_tag_for image.url, 270, 168 %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
     <div class="map_container" style='width:640px;height:480px;margin: 20px auto;' longitude=<%= resource.address.longitude %> latitude=<%= resource.address.latitude %>></div>
     <% if resource.affiches.any? %>
       <div class="list">
