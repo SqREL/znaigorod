@@ -38,6 +38,14 @@
       </div>
     </div>
 
+    <% if resource.images.any? %>
+      <div class="gallery_container">
+        <% resource.images.each do |image| %>
+          <%= image_tag_for image.url, 270, 168 %>
+        <% end %>
+      </div>
+    <% end %>
+
     <% if resource.trailer_code? %>
       <div class='trailer'>
         <%= raw resource.trailer_code %>
