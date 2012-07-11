@@ -49,10 +49,11 @@ HasSearcher.create_searcher :showing do
 
   property :starts_on, :modificator => :greater_than do |search|
     starts_on_gt = search_object.starts_on_greater_than || Date.today
+    ends_at_gt = search_object.starts_on_less_than || Date.today + 1.week
 
     search.any_of do
       with(:starts_on).greater_than(starts_on_gt)
-      with(:ends_at).greater_than(DateTime.now)
+      with(:ends_at).greater_than(ends_at_gt)
     end
   end
 
