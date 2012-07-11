@@ -24,7 +24,7 @@
         <% end %>
       </div>
       <% if params['search'] && params['search']['starts_on_less_than'] %>
-        <div class="range_slider" id='by_date' <%= "data-count=#{range.count}" %> <%= "data-selected='#{values.index(params['search']['starts_on_greater_than'])}, #{values.index(params['search']['starts_on_less_than'])+1}'" %>></div>
+        <div class="range_slider" id='by_date' <%= "data-count=#{range.count}" %> <%= "data-selected='#{values.index(l(params['search']['starts_on_greater_than'], :format => '%Y-%m-%d'))}, #{values.index(l(params['search']['starts_on_less_than'], :format => '%Y-%m-%d'))+1}'" %>></div>
       <% else %>
         <div class="range_slider" id='by_date' <%= "data-count=#{range.count}" %> <%= "data-selected='0,7'" %>></div>
       <% end %>
