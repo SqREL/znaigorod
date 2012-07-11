@@ -87,6 +87,9 @@
       <% end %>
       </div>
     <% end %>
+    <%= field_set_tag "<i class='icon-picture' style='margin: 5px 5px 0 0'></i>#{t('simple_form.fieldset.images')}".html_safe do %>
+      <%= f.simple_fields_for :images %>
+      <%= f.link_to_add t('add_image'), :images %>
+    <% end %>
   </div> <!--main_form_edit -->
-
 </div> <!--main_form -->

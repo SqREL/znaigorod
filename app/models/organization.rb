@@ -1,40 +1,40 @@
 class Organization < ActiveRecord::Base
-  attr_accessible :address_attributes,
-                  :description,
-                  :email,
-                  :halls_attributes,
-                  :images_attributes,
-                  :organization_id,
-                  :phone,
-                  :schedules_attributes,
-                  :site,
-                  :title,
-                  :vfs_path
+  attr_accessible :address_attributes, :description, :email, :halls_attributes,
+                  :images_attributes, :organization_id, :phone, :schedules_attributes,
+                  :site, :title, :vfs_path
 
-  has_one :entertainment, :dependent => :destroy
-  has_one :meal, :dependent => :destroy
-  has_many :organizations, :dependent => :destroy
   belongs_to :organization
 
-  has_many :halls, :dependent => :destroy
-  has_many :images, :dependent => :destroy
-  has_many :schedules, :dependent => :destroy
-  has_many :showings, :dependent => :destroy
-  has_many :affiches, :through => :showings, :uniq => true
+  has_many :affiches,       :through => :showings, :uniq => true
+  has_many :halls,          :dependent => :destroy
+  has_many :images,         :as => :imageable, :dependent => :destroy
+  has_many :organizations,  :dependent => :destroy
+  has_many :schedules,      :dependent => :destroy
+  has_many :showings,       :dependent => :destroy
 
-  has_one :address, :dependent => :destroy
+  has_one :entertainment,   :dependent => :destroy
+  has_one :meal,            :dependent => :destroy
+  has_one :address,         :dependent => :destroy
 
   validates_presence_of :title
 
-  accepts_nested_attributes_for :address, :reject_if => :all_blank
-  accepts_nested_attributes_for :halls, :allow_destroy => true, :reject_if => :all_blank
-  accepts_nested_attributes_for :images, :allow_destroy => true, :reject_if => :all_blank
+  accepts_nested_attributes_for :address,   :reject_if => :all_blank
+  accepts_nested_attributes_for :halls,     :allow_destroy => true, :reject_if => :all_blank
+  accepts_nested_attributes_for :images,    :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :schedules, :allow_destroy => true, :reject_if => :all_blank
+
+  delegate :category, :cuisine, :feature, :offer, :payment,
+           :to => :meal, :allow_nil => true, :prefix => true
+
+  delegate :category, :feature, :offer, :payment,
+           :to => :entertainment, :allow_nil => true, :prefix => true
 
   delegate :latitude, :longitude, :to => :address
 
   scope :ordered_by_updated_at, order('updated_at DESC')
-  scope :parental, where(:organization_id => nil)
+  scope :parental,              where(:organization_id => nil)
+
+  alias_attribute :to_s, :title
 
   searchable do
     string(:kind) { 'organization' }
@@ -51,10 +51,6 @@ class Organization < ActiveRecord::Base
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
   end
 
-  def to_s
-    title
-  end
-
   def term
    "#{title}, #{address}"
   end
@@ -67,43 +63,20 @@ class Organization < ActiveRecord::Base
     affiches.select{ |a| a.showings.where('starts_at > ?', DateTime.now.utc).any? }
   end
 
-  delegate :category, :feature, :offer, :payment, :to => :entertainment, :allow_nil => true, :prefix => true
-  delegate :category, :cuisine, :feature, :offer, :payment, :to => :meal, :allow_nil => true, :prefix => true
-
-  def category
-    [entertainment_category, meal_category].compact.join(', ')
-  end
-
   def cuisine
     meal_cuisine
   end
 
-  def cuisine?
-    cuisine.present?
+  %w[category feature offer payment].each do |method|
+    define_method method do
+      [send("entertainment_#{method}"), send("meal_#{method}")].compact.join(', ')
+    end
   end
 
-  def feature
-    [entertainment_feature, meal_feature].compact.join(', ')
-  end
-
-  def feature?
-    feature.present?
-  end
-
-  def offer
-    [entertainment_offer, meal_offer].compact.join(', ')
-  end
-
-  def offer?
-    offer.present?
-  end
-
-  def payment
-    [entertainment_payment, meal_payment].compact.join(', ')
-  end
-
-  def payment?
-    payment.present?
+  %w[cuisine feature offer payment].each do |method|
+    define_method "#{method}?" do
+      send(method).present?
+    end
   end
 
   def additional_attributes

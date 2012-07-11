@@ -1,22 +1,27 @@
 class Affiche < ActiveRecord::Base
-  attr_accessible :description, :poster_url, :image_url, :showings_attributes, :tag, :title, :vfs_path, :affiche_schedule_attributes
+  attr_accessible :description, :poster_url, :image_url, :showings_attributes,
+                  :tag, :title, :vfs_path, :affiche_schedule_attributes,
+                  :images_attributes
 
-  validates_presence_of :description, :poster_url, :title
 
+  has_many :images,   :as => :imageable, :dependent => :destroy
   has_many :showings, :dependent => :destroy, :order => :starts_at
 
   has_one :affiche_schedule, :dependent => :destroy
 
+  validates_presence_of :description, :poster_url, :title
+
   accepts_nested_attributes_for :affiche_schedule, :allow_destroy => true, :reject_if => :affiche_schedule_attributes_blank?
+  accepts_nested_attributes_for :images, :allow_destroy => true, :reject_if => :all_blank
   accepts_nested_attributes_for :showings, :allow_destroy => true
 
   default_scope order('affiches.id DESC')
 
+  scope :latest,        ->(count) { limit(count) }
+  scope :with_images,   -> { where('image_url IS NOT NULL') }
   scope :with_showings, -> { includes(:showings).where('showings.starts_at > ?', Date.today) }
 
-  scope :with_images, -> { where('image_url IS NOT NULL') }
-
-  scope :latest, ->(count) { limit(count) }
+  alias_attribute :to_s, :title
 
   normalize_attribute :image_url
 
@@ -82,8 +87,6 @@ class Affiche < ActiveRecord::Base
   def destroy_showings
     showings.destroy_all
   end
-
-  alias_attribute :to_s, :title
 
   private
     def affiche_schedule_attributes_blank?(attributes)
