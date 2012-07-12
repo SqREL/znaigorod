@@ -62,8 +62,10 @@
       <ul>
         <% resource.attachments.each do |attachment| %>
           <li><%= link_to attachment.description, attachment.url %></li>
+          <%= link_to 'Удалить', manage_affiche_attachment_path(resource, attachment), :method => :delete, :confirm => 'Вы уверены?' %>
         <% end %>
       </ul>
     <% end %>
+    <%= link_to 'Добавить файл', new_manage_affiche_attachment_path(resource) %>
   </div>
 </div>

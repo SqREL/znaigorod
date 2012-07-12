@@ -56,7 +56,7 @@
       <% resource.images.each do |image| %>
         <li>
           <%= image_tag_for image.url, 600, 400 %>
-          <%= link_to 'Удалить', [:manage, resource, image], :method => :delete, :confirm => 'Вы уверены?' %>
+          <%= link_to 'Удалить', [:manage, resource, image], :method => :delete, :confirm => 'вы уверены?' %>
         </li>
       <% end %>
     </ul>
@@ -68,8 +68,11 @@
     <ul>
       <% resource.attachments.each do |attachment| %>
         <li><%= link_to attachment.description, attachment.url %></li>
+        <%= link_to 'Удалить файл', [:manage, resource, attachment], :method => :delete, :confirm => 'вы уверены?' %>
       <% end %>
     </ul>
   <% end %>
+  <%= link_to 'Добавить файл', new_manage_organization_attachment_path(resource) %>
+
 </div>
 

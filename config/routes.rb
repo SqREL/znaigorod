@@ -2,14 +2,14 @@ Znaigorod::Application.routes.draw do
   namespace :manage do
     post 'red_cloth' => 'red_cloth#show'
 
-    #Affiche.descendants.each do |type|
-      #resources type.name.underscore.pluralize
-    #end
+    Affiche.descendants.each do |type|
+      resources type.name.underscore.pluralize
+    end
 
     resources :search, :only => :index
 
     resources :affiches do
-      resources :attachements, :only => [:new, :create, :destroy]
+      resources :attachments, :only => [:new, :create, :destroy]
       resources :images, :only => [:new, :create, :destroy]
     end
 
@@ -17,7 +17,7 @@ Znaigorod::Application.routes.draw do
       resource :entertainment
       resource :meal
 
-      resources :attachements, :only => [:new, :create, :destroy]
+      resources :attachments, :only => [:new, :create, :destroy]
       resources :images, :only => [:new, :create, :destroy]
       resources :organizations, :only => [:new, :create, :destroy]
     end
