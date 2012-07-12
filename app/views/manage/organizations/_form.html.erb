@@ -27,7 +27,11 @@
   <div class="control-group">
     <%= f.input :organization_id, :as => :select, :collection => Organization.all %>
   </div>
-	
+
+  <!-- #TODO: Илюха! сделай и расскажи -->
+  <%= link_to 'Добавить логотип', '#', :class => 'choose_file', :id => 'logotype_wrapper', :params => "vfs_path=#{f.object.vfs_path}" %>
+  <%= f.input :logotype_url, :as => :hidden, :input_html => { :id => 'logotype_url' } %>
+
 	<%= field_set_tag "#{t('simple_form.fieldset.address')}".html_safe do %>
 	  <%= f.simple_fields_for :address %>
 	<% end %>

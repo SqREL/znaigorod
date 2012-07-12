@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711080216) do
+ActiveRecord::Schema.define(:version => 20120712043042) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(:version => 20120711080216) do
     t.text     "phone"
     t.string   "vfs_path"
     t.integer  "organization_id"
+    t.text     "logotype_url"
   end
 
   create_table "schedules", :force => true do |t|
