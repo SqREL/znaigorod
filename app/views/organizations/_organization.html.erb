@@ -128,21 +128,36 @@
         </ul>
       </div>
     </div>
-    <div class="gallery_container" style='margin: 20px auto;'>
-      <ul>
-        <% (resource.images - [resource.images.first]).each do |image| %>
-          <li>
+
+    <div class="images">
+      <% if resource.images.any? %>
+        <h4>Фотографии</h4>
+        <div class="gallery_container" style='margin: 20px auto;'>
+          <% (resource.images - [resource.images.first]).each do |image| %>
             <%= image_tag_for image.url, 270, 168 %>
-          </li>
-        <% end %>
-      </ul>
+          <% end %>
+        </div>
+      <% end %>
     </div>
+
+    <div class="attachments">
+      <% if resource.attachments.any? %>
+        <h4>Прикрепленные файлы</h4>
+        <ul>
+          <% resource.attachments.each do |attachment| %>
+            <li><%= link_to attachment.description, attachment.url %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
     <div class="map_container" style='width:640px;height:480px;margin: 20px auto;' longitude=<%= resource.address.longitude %> latitude=<%= resource.address.latitude %>></div>
     <% if resource.affiches.any? %>
       <div class="list">
         <%= render :partial => 'commons/list', :locals => { :collection => resource.nearest_affiches, :remote => true } %>
       </div>
     <% end %>
+
     <%= render :partial => 'commons/comments_block' %>
   </div>
 </div>

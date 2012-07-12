@@ -38,13 +38,27 @@
       </div>
     </div>
 
-    <% if resource.images.any? %>
-      <div class="gallery_container">
-        <% resource.images.each do |image| %>
-          <%= image_tag_for image.url, 270, 168 %>
-        <% end %>
-      </div>
-    <% end %>
+    <div class="images">
+      <% if resource.images.any? %>
+        <h4>Фотографии</h4>
+        <div class="gallery_container">
+          <% resource.images.each do |image| %>
+            <%= image_tag_for image.url, 270, 168 %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="attachments">
+      <% if resource.attachments.any? %>
+        <h4>Прикрепленные файлы</h4>
+        <ul>
+          <% resource.attachments.each do |attachment| %>
+            <li><%= link_to attachment.description, attachment.url %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
 
     <% if resource.trailer_code? %>
       <div class='trailer'>
