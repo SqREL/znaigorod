@@ -1,4 +1,10 @@
-<%= resource.respond_to?(:logotype_url) ? 'Выведи логотип' : image_tag('http://hudyakov.name/uploads/alkor-logo_300.png', :class => 'logo', :width => 137, :height => 100) %>
+<div class="logo">
+  <% if resource.logotype_url.present? %>
+    <%= image_tag_for resource.logotype_url, 137, 100 %>
+  <% else %>
+    <%= image_tag "stub.jpg", :width => '137', :height => '100', :alt => resource.title, :title => resource.title %>
+  <% end %>
+</div>
 
 <div class="column">
   <div>
@@ -113,6 +119,7 @@
 <div class='images'>
   <h3>
     Галерея изображений
+    <%= link_to "Добавить изображение", new_manage_organization_image_path(resource), :class => 'edit_link'  %>
   </h3>
   <% if resource.images.any? %>
     <span class="value">
@@ -120,6 +127,7 @@
         <% resource.images.each do |image| %>
           <li>
             <%= image_tag image.url, :alt => image.description, :title => image.description %>
+            <%= link_to "Удалить", manage_organization_image_path(resource, image), :method => :delete, :confirm => 'Вы уверены?' %>
           </li>
         <% end %>
       </ul>
@@ -130,12 +138,18 @@
 </div>
 
 <div class='attachments'>
-  <h3>Прикрепленные файлы</h3>
+  <h3>
+    Прикрепленные файлы
+    <%= link_to "Добавить файл", new_manage_organization_attachment_path(resource), :class => 'edit_link'  %>
+  </h3>
   <% if resource.attachments.any?  %>
     <span class="value">
       <ul>
         <% resource.attachments.each do |attachment| %>
-          <li><%= link_to attachment.description, attachment.url %></li>
+          <li>
+            <%= link_to attachment.description, attachment.url %>
+            <%= link_to "Удалить", manage_organization_attachment_path(resource, attachment), :method => :delete, :confirm => 'Вы уверены?' %>
+          </li>
         <% end %>
       </ul>
     </span>
@@ -150,7 +164,7 @@
     <span class="value">
       <ul>
         <% resource.showings.group_by(&:affiche).each do |affiche, showings| %>
-          <li>
+          <li <%= "class=gone" if DateTime.now >= showings.last.starts_at %>>
             <%= link_to affiche.title, [:manage, affiche] %> (<%= l showings.first.starts_at, :format => :long %> &mdash; <%= l showings.last.starts_at, :format => :long %>)
           </li>
         <% end %>
