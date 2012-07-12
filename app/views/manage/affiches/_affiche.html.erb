@@ -48,10 +48,14 @@
       <h4>Фотографии:</h4>
       <ul>
         <% resource.images.each do |image| %>
-          <li><%= image_tag_for image.url, 600, 400 %></li>
+          <li>
+            <%= image_tag_for image.url, 600, 400 %>
+            <%= link_to 'Удалить', manage_affiche_image_path(resource, image), :method => :delete, :confirm => 'Вы уверены?' %>
+          </li>
         <% end %>
       </ul>
     <% end %>
+    <%= link_to 'Добавить изображение', new_manage_affiche_image_path(resource) %>
 
     <% if resource.attachments.any? %>
       <h4>Прикрепленные файлы</h4>

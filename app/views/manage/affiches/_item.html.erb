@@ -1,5 +1,5 @@
 <li class="<%= cycle("even", "odd") %>">
-  <%= link_to item.title, [:manage, item], :class => 'title' %>
+  <%= link_to item.title, manage_affiche_path(item), :class => 'title' %>
   <span class="date"><%= l item.updated_at, :format => :short %></span>
   <span class="category"><%= item.class.model_name.human %></span>
 </li>

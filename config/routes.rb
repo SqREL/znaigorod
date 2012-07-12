@@ -2,23 +2,24 @@ Znaigorod::Application.routes.draw do
   namespace :manage do
     post 'red_cloth' => 'red_cloth#show'
 
-    #resources :affiches, :only => [:index, :new]
-    #resources :organizations, :only => [:index, :new]
-
-    #Organization.descendants.each do |type|
-      #resources type.name.underscore.pluralize, :except => :show
+    #Affiche.descendants.each do |type|
+      #resources type.name.underscore.pluralize
     #end
 
-    Affiche.descendants.each do |type|
-      resources type.name.underscore.pluralize
+    resources :search, :only => :index
+
+    resources :affiches do
+      resources :attachements, :only => [:new, :create, :destroy]
+      resources :images, :only => [:new, :create, :destroy]
     end
 
-    resources :search, :only => :index
-    resources :affiches
     resources :organizations do
-      resources :organizations
-      resource :meal
       resource :entertainment
+      resource :meal
+
+      resources :attachements, :only => [:new, :create, :destroy]
+      resources :images, :only => [:new, :create, :destroy]
+      resources :organizations, :only => [:new, :create, :destroy]
     end
 
     root :to => 'organizations#index'
