@@ -27,13 +27,13 @@
             <li><strong>Зал:</strong> <%= resource.affiche_schedule.hall %></li>
             <li>
               <strong>Время проведения:</strong>
-              <%= l resource.affiche_schedule.starts_on %>, <%= l resource.affiche_schedule.starts_at, :format => '%H:%M' %> 
+              <%= l resource.affiche_schedule.starts_on %>, <%= l resource.affiche_schedule.starts_at, :format => '%H:%M' %>
               &mdash;
               <%= l resource.affiche_schedule.ends_on %>, <%= l resource.affiche_schedule.ends_at, :format => '%H:%M' %>
             </li>
             <li><strong>Выходные:</strong> <%= resource.affiche_schedule.holidays %></li>
             <li>
-              <strong>Стоимость:</strong> 
+              <strong>Стоимость:</strong>
               <%= resource.affiche_schedule.price_min %> &mdash; <%= resource.affiche_schedule.price_max %>
             </li>
         </ul>
@@ -42,6 +42,24 @@
 
     <% else %>
       <%= resource.showings %>
+    <% end %>
+
+    <% if resource.images.any? %>
+      <h4>Фотографии:</h4>
+      <ul>
+        <% resource.images.each do |image| %>
+          <li><%= image_tag_for image.url, 600, 400 %></li>
+        <% end %>
+      </ul>
+    <% end %>
+
+    <% if resource.attachments.any? %>
+      <h4>Прикрепленные файлы</h4>
+      <ul>
+        <% resource.attachments.each do |attachment| %>
+          <li><%= link_to attachment.description, attachment.url %></li>
+        <% end %>
+      </ul>
     <% end %>
   </div>
 </div>
