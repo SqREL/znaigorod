@@ -1,25 +1,30 @@
-<div class="address">
-  <div class="street">
-    <%= f.input :street, :input_html => { :class => 'span12'} %>
-  </div>
-  <div class="house">
-    <%= f.input :house, :input_html => { :class => 'span12'} %>
-  </div>
-  <div class="latitude">
-    <%= f.input :latitude, :input_html => { :class => 'span12'}, :wrapper => false %>
-  </div>
-  <div class="longitude">
-    <%= f.input :longitude, :input_html => { :class => 'span12'}, :wrapper => false %>
-  </div>
-
-  <div class="get_coordinates">
-  <%= link_to "Получить координаты".html_safe, '#', :class => 'btn' %>
+<div class="map_wrapper">
+  <script type="text/javascript" src="http://maps.api.2gis.ru/1.0"></script>
+    <div id="map" style="width:770px;height:400px;" class='span10'></div>
 </div>
 
-</div>
+<div class="adress_wrapper">
+  <div class="control-group">
+    <label class="control-label">Улица</label>
+    <%= f.text_field :street %>
+  </div>
 
+  <div class="control-group">
+    <label class="control-label">Дом</label>
+    <%= f.text_field :house %>
+  </div>
 
+  <div class="control-group">
+    <label class="control-label">Широта</label>
+    <%= f.text_field :latitude, :wrapper => false %>
+  </div>
 
-<div class="map_wrapper" style="margin-top: 10px;">
-  <%= render :partial => 'commons/map' %>
+  <div class="control-group">
+    <label class="control-label">Долгота</label>
+    <%= f.text_field :longitude, :wrapper => false %>
+  </div>
+
+  <div class="control-group">
+    <%= link_to "Получить координаты".html_safe, '#', :class => 'btn' %>
+  </div>
 </div>

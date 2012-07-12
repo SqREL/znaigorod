@@ -1,12 +1,12 @@
-<div class='row-fluid'>
+<div class="halls_wrapper">
   <%= f.simple_fields_for :halls do %>
-    <div class='span4'>
-      <%= f.input :title, :input_html => { :class => 'span12' }  %>
+    <div class='control-group'>
+      <%= f.input :title %>
     </div>
-    <div class='span4'>
-      <%= f.input :seating_capacity, :input_html => { :class => 'span12' }  %>
+    <div class='control-group'>
+      <%= f.input :seating_capacity %>
     </div>
   <% end %>
 </div>
-<%= f.link_to_remove t('remove_this_hall') %>
 
+<%= f.link_to_remove t('remove_this_hall') %>
