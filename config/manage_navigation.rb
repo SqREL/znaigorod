@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
-# Configures your navigation
+
 SimpleNavigation::Configuration.run do |navigation|
   navigation.items do |primary|
-  	primary.item :manage, 'ЗнайГород'
-    primary.item :organisations, 'Список заведений', manage_organizations_path, :highlights_on => ->(){ controller_name == 'organizations' && action_name == 'index' }
-    primary.item :add_organization, 'Добавить заведение', new_manage_organization_path, :highlights_on => ->(){ controller_name == 'organizations' && %w(create new).include?(action_name) }
-    primary.item :affiches, 'Список мероприятий', manage_affiches_path, :highlights_on => ->(){ controller_name == 'affiches' && action_name == 'index' }
-    primary.item :add_affiches, 'Добавить мероприятие', new_manage_affiche_path, :highlights_on => ->(){ controller_name == 'affiches' && %w(create new).include?(action_name) }
-    primary.dom_class = 'nav'
+    primary.item :organisations, 'Заведения города', manage_organizations_path, :highlights_on => ->(){ controller_name == 'organizations' || resource_class.superclass == Organization }
+  	primary.item :main_page, 'ЗнайГород', root_url
+    primary.item :affiches, 'Мероприятия города', manage_affiches_path, :highlights_on => ->(){ controller_name == 'affiches' || resource_class.superclass == Affiche }
+    primary.dom_class = 'navigation'
   end
 end

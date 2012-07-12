@@ -1,0 +1,39 @@
+<div class="type">
+  <h3>
+    Развлекательное заведение
+    <%= link_to t('edit'), edit_manage_organization_entertainment_path(entertainment.organization), :class => 'edit_link' %>
+    <%= link_to t('delete'), manage_organization_entertainment_path(entertainment.organization), :method => :delete, :confirm => 'Вы уверены?', :class => 'delete_link' %>
+</h3>
+  <div>
+    <span class="label">Категория:</span>
+    <% if entertainment.category.present? %>
+      <span class="value"><%= entertainment.category %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Особенности:</span>
+    <% if entertainment.feature.present? %>
+      <span class="value"><%= entertainment.feature %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Предложение:</span>
+    <% if entertainment.offer.present? %>
+      <span class="value"><%= entertainment.offer %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Способ оплаты:</span>
+    <% if entertainment.payment.present? %>
+      <span class="value"><%= entertainment.payment %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+</div>

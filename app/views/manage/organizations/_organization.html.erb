@@ -1,0 +1,163 @@
+<%= resource.respond_to?(:logotype_url) ? 'Выведи логотип' : image_tag('http://hudyakov.name/uploads/alkor-logo_300.png', :class => 'logo', :width => 137, :height => 100) %>
+
+<div class="column">
+  <div>
+    <span class="label">Адрес заведения:</span>
+    <% if resource.address.present? %>
+      <span class="value"><%= resource.address %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+
+  <div>
+    <span class="label">Телефон:</span>
+    <% if resource.phone.present? %>
+      <span class="value"><%= resource.phone %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+
+  <div>
+    <span class="label">Электронная почта:</span>
+    <% if resource.email.present? %>
+      <span class="value"><%= mail_to resource.email %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+
+  <div>
+    <span class="label">Сайт:</span>
+    <% if resource.site.present? %>
+      <span class="value"><%= link_to resource.site, resource.site %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+
+  <div>
+    <span class="label">Залы заведения:</span>
+    <% if resource.halls.any? %>
+      <span class="value">
+        <ul>
+          <% resource.halls.each do |hall| %>
+            <li><%= hall %></li>
+          <% end %>
+        </ul>
+      </span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+</div>
+
+<div class="column">
+  <div>
+    <span class="label">Расписание работы:</span>
+    <% if true %>
+      <span class="value">
+        <ul>
+          <% resource.schedules.each do |schedule| %>
+            <li <%= "class=holiday" if schedule.holiday %>>
+              <span class='day'><%= schedule.short_human_day %></span>
+              <%= "#{l(schedule.from, :format => "%H:%M")} &mdash; #{l(schedule.to, :format => "%H:%M")}".html_safe unless schedule.holiday %>
+            </li>
+          <% end %>
+        </ul>
+      </span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+</div>
+
+<div class="column">
+  <div>
+    <span class="label">Родительская организация:</span>
+    <% if resource.organization.present? %>
+      <%= link_to resource.organization.title, manage_organization_path(resource.organization) %>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+
+  <div>
+    <span class="label">Вложенные организации:</span>
+    <% if resource.organizations.any? %>
+      <span class="value">
+        <% resource.organizations.each do |organization| %>
+          <li><%= link_to organization.title, manage_organization_path(organization) %></li>
+        <% end %>
+      </span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+</div>
+
+<div class="types">
+  <%= render resource.meal if resource.meal %>
+  <%= render resource.entertainment if resource.entertainment %>
+  <ul class="create_links">
+    <% unless resource.meal %>
+      <li><%= link_to "Добавить заведение питания", new_manage_organization_meal_path(resource), :class => 'create_link' %></li>
+    <% end %>
+    <% unless resource.entertainment %>
+      <li><%= link_to "Добавить развлекательное заведение", new_manage_organization_entertainment_path(resource), :class => 'create_link' %></li>
+    <% end %>
+  </ul>
+</div>
+
+<div class='images'>
+  <h3>
+    Галерея изображений
+  </h3>
+  <% if resource.images.any? %>
+    <span class="value">
+      <ul>
+        <% resource.images.each do |image| %>
+          <li>
+            <%= image_tag image.url, :alt => image.description, :title => image.description %>
+          </li>
+        <% end %>
+      </ul>
+    </span>
+  <% else %>
+    <span class="blank">Нет изображений</span>
+  <% end %>
+</div>
+
+<div class='attachments'>
+  <h3>Прикрепленные файлы</h3>
+  <% if resource.attachments.any?  %>
+    <span class="value">
+      <ul>
+        <% resource.attachments.each do |attachment| %>
+          <li><%= link_to attachment.description, attachment.url %></li>
+        <% end %>
+      </ul>
+    </span>
+  <% else %>
+    <span class="blank">Нет файлов</span>
+  <% end %>
+</div>
+
+<div>
+  <h3>Афиша мероприятий:</h3>
+  <% if resource.showings.any? %>
+    <span class="value">
+      <ul>
+        <% resource.showings.group_by(&:affiche).each do |affiche, showings| %>
+          <li>
+            <%= link_to affiche.title, [:manage, affiche] %> (<%= l showings.first.starts_at, :format => :long %> &mdash; <%= l showings.last.starts_at, :format => :long %>)
+          </li>
+        <% end %>
+      </ul>
+    </span>
+  <% else %>
+    <span class="blank">Нет мероприятий</span>
+  <% end %>
+</div>
+

@@ -1,7 +1,16 @@
+# encoding: utf-8
+
 class Hall < ActiveRecord::Base
   attr_accessible :title, :seating_capacity
 
   belongs_to :organization
+
+  def to_s
+    res = []
+    res << title
+    res << "#{seating_capacity} мест"
+    res.join(', ')
+  end
 end
 
 # == Schema Information

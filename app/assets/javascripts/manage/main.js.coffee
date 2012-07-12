@@ -22,6 +22,8 @@ handle_adding_poster = ->
   )
 
 $ ->
+  init_noisy()
+  init_new_affiche()
   handle_adding_poster()
   init_datetime_picker()
   init_red_cloth()

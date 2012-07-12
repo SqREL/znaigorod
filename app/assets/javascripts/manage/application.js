@@ -13,5 +13,7 @@
  * = require ./red_cloth
  * = require ./autosuggest_handler
  * = require ./choose_coordinate
+ * = require ./noisy
+ * = require ./new_affiche
  * = require ./main
  */

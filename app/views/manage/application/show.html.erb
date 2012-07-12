@@ -1,3 +1,11 @@
-<% if Affiche == resource.class.superclass %>
-  <%= render 'manage/affiches/affiche' %>
-<% end %>
+<div class="show">
+  <h1>
+    <%= resource.title %> <%= link_to t("edit_#{resource.class.model_name.underscore}"), [:edit, :manage, resource], :class => 'edit_link' %>
+  </h1>
+
+  <% if resource_class == Affiche || resource_class.superclass == Affiche %>
+    <%= render 'manage/affiches/affiche' %>
+  <% else %>
+    <%= render 'manage/organizations/organization' %>
+  <% end %>
+</div>

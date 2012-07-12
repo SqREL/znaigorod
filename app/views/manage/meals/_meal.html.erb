@@ -1,0 +1,47 @@
+<div class='type'>
+  <h3>
+    Заведение питания
+    <%= link_to t('edit'), edit_manage_organization_meal_path(meal.organization), :class => 'edit_link' %>
+    <%= link_to t('delete'), manage_organization_meal_path(meal.organization), :method => :delete, :confirm => 'Вы уверены?', :class => 'delete_link' %>
+  </h3>
+  <div>
+    <span class="label">Категория:</span>
+    <% if meal.category.present? %>
+      <span class="value"><%= meal.category %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Кухня:</span>
+    <% if meal.cuisine.present? %>
+      <span class="value"><%= meal.cuisine %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Особенности:</span>
+    <% if meal.feature.present? %>
+      <span class="value"><%= meal.feature %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Предложение:</span>
+    <% if meal.offer.present? %>
+      <span class="value"><%= meal.offer %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Способ оплаты:</span>
+    <% if meal.payment.present? %>
+      <span class="value"><%= meal.payment %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+</div>

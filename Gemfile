@@ -26,7 +26,6 @@ group :default do
   gem 'progress_bar'
   gem 'rails'
   gem 'russian'
-  gem 'show_for'
   gem 'simple_form'
   gem 'simple-navigation'
   gem 'sunspot_rails'

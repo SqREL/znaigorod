@@ -1,9 +1,9 @@
 ru:
   #add_event: Предложить событие
   #add_organization: Добавить заведение
+  add_attachment: Добавить файл
   add_event: "&plus;&nbsp;событие"
   add_hall: Добавить зал
-  add_attachment: Добавить файл
   add_image: Добавить изображение
   add_organization: "&plus;&nbsp;заведение"
   add_showing: Добавить сеанс
@@ -12,15 +12,34 @@ ru:
   eating: Заведения
   entertainment: Развлечения
   find: Найти
+  delete: Удалить
   funny: Заведения
   meal: Заведения питания
+  new_affiche: Добавить новое событие
+  new_organization: Добавить новое заведение
+  new_spectacle: Новый спектакль
+  new_concert: Новый концерт
+  new_other: Другое
+  new_sports_event: Новое спортивное мероприятие
+  new_movie: Новый фильм
+  new_exhibition: Новая выставка
+  new_party: Новая вечеринка
+  edit: Редактировать
+  edit_organization: Редактировать информацию о заведении
+  edit_spectacle: Редактировать информацию о спектакле
+  edit_concert: Редактировать информацию о концерте
+  edit_other: Редактировать информацию о событии
+  edit_sports_event: Редактировать информацию о спортивном событии
+  edit_movie: Редактировать информацию о фильме
+  edit_exhibition: Редактировать информацию о выставке
+  edit_party: Редактировать информацию о вечеринке
   organization: Заведения
   organizations: Заведения
   our_social_link: Контакты
   remove_affiche_schedule: Удалить расписание
+  remove_this_attachment: Удалить этот файл
   remove_this_hall: Удалить этот зал
   remove_this_image: Удалить это изображение
-  remove_this_attachment: Удалить этот файл
   remove_this_showing: Удалить этот сеанс
   sign_in: "Вход в&nbsp;кабинет"
   site_title: ЗнайГород
@@ -93,7 +112,8 @@ ru:
         description: Описание
         email: Электронная почта
         feature: Особенности
-        organization_id: Организация
+        organization_id: Родительская организация
+        organization: Родительская организация
         offer: Предложение
         payment: Способы оплаты
         phone: Телефоны
