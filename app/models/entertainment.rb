@@ -7,6 +7,8 @@ class Entertainment < ActiveRecord::Base
            :site?, :site, :email?, :email, :description, :description?, :affiches,
            :latitude, :longitude, :nearest_affiches, :to => :organization
 
+  validates_presence_of :category, :organization_id
+
   def self.or_facets
     %w[category]
   end

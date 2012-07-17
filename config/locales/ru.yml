@@ -8,35 +8,38 @@ ru:
   add_organization: "&plus;&nbsp;заведение"
   add_showing: Добавить сеанс
   affiche: Афиша
+  choose_file: Выбрать файл
   clear_filters: Очистить фильтры
+  delete: Удалить
   eating: Заведения
+  edit: Редактировать
+  edit_concert: Редактировать информацию о концерте
+  edit_exhibition: Редактировать информацию о выставке
+  edit_movie: Редактировать информацию о фильме
+  edit_organization: Редактировать информацию о заведении
+  edit_other: Редактировать информацию о событии
+  edit_party: Редактировать информацию о вечеринке
+  edit_spectacle: Редактировать информацию о спектакле
+  edit_sports_event: Редактировать информацию о спортивном событии
   entertainment: Развлечения
   find: Найти
-  delete: Удалить
   funny: Заведения
   meal: Заведения питания
   new_affiche: Добавить новое событие
-  new_organization: Добавить новое заведение
-  new_spectacle: Новый спектакль
   new_concert: Новый концерт
-  new_other: Другое
-  new_sports_event: Новое спортивное мероприятие
-  new_movie: Новый фильм
   new_exhibition: Новая выставка
+  new_movie: Новый фильм
+  new_organization: Добавить новое заведение
+  new_other: Другое
   new_party: Новая вечеринка
-  edit: Редактировать
-  edit_organization: Редактировать информацию о заведении
-  edit_spectacle: Редактировать информацию о спектакле
-  edit_concert: Редактировать информацию о концерте
-  edit_other: Редактировать информацию о событии
-  edit_sports_event: Редактировать информацию о спортивном событии
-  edit_movie: Редактировать информацию о фильме
-  edit_exhibition: Редактировать информацию о выставке
-  edit_party: Редактировать информацию о вечеринке
+  new_spectacle: Новый спектакль
+  new_sports_event: Новое спортивное мероприятие
   organization: Заведения
   organizations: Заведения
   our_social_link: Контакты
   remove_affiche_schedule: Удалить расписание
+  remove_link: Удалить файл
+  remove_showing: Удалить сеанс
   remove_this_attachment: Удалить этот файл
   remove_this_hall: Удалить этот зал
   remove_this_image: Удалить это изображение
@@ -70,7 +73,8 @@ ru:
       affiche:
         description: Описание
         original_title: Оригинальное название
-        poster_url: Ссылка на постер
+        poster_url: Постер для события
+        image_url: Изображение для главной страницы
         tag: Теги
         title: Название
         trailer_code: Код трейлера
@@ -112,6 +116,7 @@ ru:
         description: Описание
         email: Электронная почта
         feature: Особенности
+        logotype_url: Логотип организации
         organization_id: Родительская организация
         organization: Родительская организация
         offer: Предложение
@@ -141,10 +146,31 @@ ru:
         to: до
         holiday: Выходной
 
-  show_for:
-    blank: "Не указано"
-    "yes": "Да"
-    "no": "Нет"
+  manage:
+    add_affiche: Добавление события
+    add_attachment: Добавить файл
+    add_concert: Добавление концерта
+    add_entertainment: Добавление развлекательного заведения
+    add_exhibition: Добавление выставки
+    add_image: Добавить изображение в галерею
+    add_meal: Добавление заведения питания
+    add_movie: Добавление фильма
+    add_organization: Добавление заведения
+    add_other: Добавление события
+    add_party: Добавление вечеринки
+    add_spectacle: Добавление спектакля
+    add_sports_event: Добавление спортивного события
+    edit_affiche: Редактирование информации о событии
+    edit_concert: Редактирование информации о концерте
+    edit_entertainment: Редактирование информации о развлекательном заведении
+    edit_exhibition: Редактирование информации о выставке
+    edit_meal: Редактирование информации о заведении питания
+    edit_movie: Редактирование информации о фильме
+    edit_organization: Редактирование информации о заведении
+    edit_other: Редактирование информации о событии
+    edit_party: Редактирование информации о вечеринке
+    edit_spectacle: Редактирование информации о спектакле
+    edit_sports_event: Редактирование информации о спортивном событии
 
   simple_form:
     fieldset:

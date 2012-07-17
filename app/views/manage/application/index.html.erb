@@ -2,14 +2,15 @@
   <% if controller_name == 'affiches' %>
     <%= link_to t("new_#{resource_class.model_name.underscore}"), '#', :class => 'new_resource dropdown' %>
     <ul>
-      <% Affiche.descendants.each do |type| %>
+      <% Affiche.ordered_descendants.each do |type| %>
         <% type_name = type.to_s.underscore %>
-        <% vfs_path = "/znaigorod/affiches/#{type_name.pluralize}/#{Time.now.strftime('%Y/%m/%d/%H-%M')}-#{SecureRandom.hex(4)}"  %>
-        <li><%= link_to t("new_#{type.model_name.underscore}"), send("new_manage_#{type_name}_path", "#{type_name}[vfs_path]" => vfs_path), :class => 'btn' %></li>
+        <% vfs_path = "/znaigorod/affiches/#{type_name.pluralize}/#{Time.now.strftime('%Y/%m/%d/%H-%M')}-#{SecureRandom.hex(4)}" %>
+        <li><%= link_to t("new_#{type.model_name.underscore}"), send("new_manage_#{type_name}_path", "#{type_name}[vfs_path]" => vfs_path) %></li>
       <% end %>
     </ul>
   <% else %>
-    <%= link_to t("new_#{resource_class.model_name.underscore}"), new_resource_url, :class => 'new_resource' %>
+    <% vfs_path = "/znaigorod/affiches/organizations/#{Time.now.strftime('%Y/%m/%d/%H-%M')}-#{SecureRandom.hex(4)}" %>
+    <%= link_to t("new_#{resource_class.model_name.underscore}"), new_resource_url(:params => {'organization[vfs_path]' => "#{vfs_path}"}), :class => 'new_resource' %>
   <% end %>
 </div>
 

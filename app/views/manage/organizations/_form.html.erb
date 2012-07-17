@@ -1,0 +1,33 @@
+<div class="address_fields">
+  <%= f.simple_fields_for :address %>
+</div>
+
+<%= f.input :title %>
+<%= f.input :organization_id, :collection => Organization.grouped_collection_for_select, :include_blank => '--- нет родительской организации ---', :selected => f.object.organization_id || params[:organization_id] %>
+<%= f.input :description %>
+<%= f.input :phone %>
+<%= f.input :email %>
+<%= f.input :site %>
+
+<div class='logotype'>
+  <h3>Логотип заведения:</h3>
+  <%= f.input :logotype_url, :as => :hidden %>
+  <div class="choose_file_wrapper">
+    <div class="uploaded_file_wrapper image">
+      <%= image_tag f.object.logotype_url if f.object.logotype_url.present? %>
+    </div>
+    <%= link_to t('remove_link'), '#', :class => 'remove_link', :style => ("display: none;" unless f.object.logotype_url.present?) %>
+    <%= link_to t('choose_file'), '#', :class => 'organization_logotype_url choose_file', :params => "vfs_path=#{f.object.vfs_path}", :style => ('display: none;' if f.object.logotype_url.present?) %>
+  </div>
+</div>
+
+<div class="halls_fields">
+  <h3>Залы:</h3>
+  <%= f.simple_fields_for :halls %>
+  <%= f.link_to_add t('add_hall'), :halls %>
+</div>
+
+<div class="schedules_fields">
+  <h3>Расписание работы:</h3>
+  <%= f.simple_fields_for :schedules %>
+</div>

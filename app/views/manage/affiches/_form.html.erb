@@ -1,0 +1,78 @@
+<%= f.input :title %>
+<%= f.input :original_title if Movie === f.object %>
+<%= f.input :description %>
+<%= f.input :tag %>
+<%= f.input :trailer_code if Movie === f.object %>
+
+<div class='poster'>
+  <h3>Постер для события:</h3>
+  <%= f.input :poster_url, :as => :hidden, :input_html => { :class => 'affiche_poster_url' } %>
+  <div class="choose_file_wrapper">
+    <div class="uploaded_file_wrapper image">
+      <%= image_tag f.object.poster_url if f.object.poster_url.present? %>
+    </div>
+    <%= link_to t('remove_link'), '#', :class => 'remove_link', :style => ("display: none;" unless f.object.poster_url.present?) %>
+    <%= link_to t('choose_file'), '#', :class => 'affiche_poster_url choose_file', :params => "vfs_path=#{f.object.vfs_path}", :style => ('display: none;' if f.object.poster_url.present?) %>
+  </div>
+</div>
+
+<div class='image'>
+  <h3>Изображение для главной страницы:</h3>
+  <%= f.input :image_url, :as => :hidden, :input_html => { :class => 'affiche_image_url' } %>
+  <div class="choose_file_wrapper">
+    <div class="uploaded_file_wrapper image">
+      <%= image_tag f.object.image_url if f.object.image_url.present? %>
+    </div>
+    <%= link_to t('remove_link'), '#', :class => 'remove_link', :style => ("display: none;" unless f.object.image_url.present?) %>
+    <%= link_to t('choose_file'), '#', :class => 'affiche_image_url choose_file', :params => "vfs_path=#{f.object.vfs_path}", :style => ('display: none;' if f.object.image_url.present?) %>
+  </div>
+</div>
+
+<% unless f.object.affiche_schedule.try :persisted? %>
+  <div class="showings_fields">
+    <h3>Сеансы:</h3>
+    <%= f.simple_fields_for :showings do |showing| %>
+      <%= showing.input :starts_at, :as => :date_picker%>
+      <%= showing.input :ends_at, :as => :date_picker %>
+      <%= showing.input :price_min %>
+      <%= showing.input :price_max %>
+      <%= showing.input :organization_id, :as => :hidden, :input_html => { :class => 'autosuggest_target' } %>
+      <%= showing.input :latitude, :as => :hidden, :input_html => { :class => 'latitude', :value => showing.object.get_latitude } %>
+      <%= showing.input :longitude, :as => :hidden, :input_html => { :class => 'longitude', :value => showing.object.get_longitude } %>
+      <%= showing.input :place, :input_html => { :class => 'autosuggest' } %>
+      <% unless showing.object.organization %>
+        <a href='#' class='choose_coordinate <%= "with_coordinates" if showing.object.latitude.present? %>'>Показать координаты</a>
+      <% end %>
+      <%= showing.input :hall %>
+      <%= showing.link_to_remove t('remove_showing') %>
+      <%= %>
+    <% end %>
+    <%= f.link_to_add t('add_showing'), :showings %>
+  </div>
+<% end %>
+<% if f.object.new_record? || f.object.affiche_schedule || f.object.showings.empty? %>
+  <div class="schedule_fields">
+    <h3>Расписание:</h3>
+    <%= link_to 'Показать/Скрыть расписание', '#', :onClick => '$(this).next().slideToggle(); return false;' %>
+    <div style='display: none;'>
+      <%= f.simple_fields_for :affiche_schedule do |schedule| %>
+        <%= schedule.input :starts_on, :as => :date_picker %>
+        <%= schedule.input :ends_on, :as => :date_picker %>
+        <%= schedule.input :starts_at, :as => :string, :input_html => { :value => schedule.object.starts_at ? l(schedule.object.starts_at, :format => '%H:%M') : '' }, :wrapper_html => { :class => 'integer' } %>
+        <%= schedule.input :ends_at, :as => :string, :input_html => { :value => schedule.object.ends_at ? l(schedule.object.ends_at, :format => '%H:%M') : '' }, :wrapper_html => { :class => 'integer' } %>
+        <%= schedule.input :organization_id, :as => :hidden, :input_html => { :class => 'autosuggest_target' } %>
+        <%= schedule.input :latitude, :as => :hidden, :input_html => { :class => 'latitude', :value => schedule.object.get_latitude } %>
+        <%= schedule.input :longitude, :as => :hidden, :input_html => { :class => 'longitude', :value => schedule.object.get_longitude } %>
+        <%= schedule.input :place, :input_html => { :class => 'autosuggest' } %>
+        <% unless schedule.object.organization_id %>
+          <a href='#' class='choose_coordinate <%= "with_coordinates" if schedule.object.latitude.present? %>'>Показать координаты</a>
+        <% end %>
+        <%= schedule.input :hall %>
+        <%= schedule.input :price_min %>
+        <%= schedule.input :price_max %>
+        <%= schedule.input :holidays, :as => :check_boxes, :collection => Schedule.days_for_select %>
+        <%= schedule.link_to_remove t('remove_affiche_schedule') %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

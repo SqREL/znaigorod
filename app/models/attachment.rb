@@ -3,7 +3,7 @@ class Attachment < ActiveRecord::Base
 
   belongs_to :attachable, :polymorphic => true
 
-  validates_presence_of :description
+  validates_presence_of :description, :url
 end
 # == Schema Information
 #

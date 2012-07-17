@@ -117,6 +117,18 @@ module ApplicationHelper
     end
   end
 
+  def form_url_for_resource
+    if resource.class.superclass == Affiche ||resource_class == Organization
+      return [:manage, resource]
+    elsif resource_class == Meal || resource_class == Entertainment
+      return send("manage_organization_#{resource_class.model_name.underscore}_path", parent)
+    elsif parent.class.superclass == Affiche
+      return send("manage_#{parent.class.superclass.model_name.underscore}_#{resource_class.model_name.underscore.pluralize}_path", parent)
+    elsif parent.class == Organization
+      return send("manage_organization_#{resource_class.model_name.underscore.pluralize}_path", parent)
+    end
+  end
+
   private
     def resized_image_url(url, width, height, crop)
       image_url, image_id, image_width, image_height, image_crop, image_filename =

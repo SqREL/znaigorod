@@ -7,30 +7,28 @@
 <% end %>
 
 <% content_for :content do  %>
-  <body>
-    <div class="header">
-      <div class="search">
-        <% if resource_class == Organization %>
-          <%= form_tag manage_organizations_path, :method => :get do %>
-            <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск' %>
-          <% end %>
-        <% else %>
-          <%= form_tag manage_affiches_path, :method => :get do %>
-            <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск' %>
-            <div class="include_gone">
-              <%= label_tag 'include_gone', 'Включая прошедшие' %>
-              <%= check_box_tag 'include_gone', '1', params[:include_gone] %>
-            </div>
-          <% end %>
+  <div class="header">
+    <div class="search">
+      <% if resource_class == Organization %>
+        <%= form_tag manage_organizations_path, :method => :get do %>
+          <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск' %>
         <% end %>
-      </div>
-      <%= render_navigation :context => 'manage' %>
+      <% else %>
+        <%= form_tag manage_affiches_path, :method => :get do %>
+          <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск' %>
+          <div class="include_gone">
+            <%= label_tag 'include_gone', 'Включая прошедшие' %>
+            <%= check_box_tag 'include_gone', '1', params[:include_gone] %>
+          </div>
+        <% end %>
+      <% end %>
     </div>
+    <%= render_navigation :context => 'manage' %>
+  </div>
 
-    <div class="main_container">
-      <%= yield %>
-    </div>
-</body>
+  <div class="main_container">
+    <%= yield %>
+  </div>
 <% end %>
 
 <%= render :file => 'layouts/base' %>

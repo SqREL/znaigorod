@@ -100,7 +100,17 @@
     <% else %>
       <span class="blank">Не указано</span>
     <% end %>
+    <%= link_to 'Добавить вложенную организацию', new_manage_organization_organization_path(resource) if resource.organization_id.nil? %>
   </div>
+</div>
+
+<div class='types'>
+  <h3 class="label">Описание:</h3>
+  <% if resource.description.present? %>
+    <span class="value"><%= raw RedCloth.new(resource.description).to_html %></span>
+  <% else %>
+    <span class="blank">Не указано</span>
+  <% end %>
 </div>
 
 <div class="types">

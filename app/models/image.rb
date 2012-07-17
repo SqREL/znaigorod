@@ -1,9 +1,11 @@
 class Image < ActiveRecord::Base
   attr_accessible :description, :url
 
-  default_scope :order => :updated_at
-
   belongs_to :imageable, :polymorphic => true
+
+  default_scope :order => :id
+
+  validates_presence_of :description, :url
 end
 
 # == Schema Information

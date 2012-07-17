@@ -6,14 +6,14 @@
  * = require ./jquery-ui/jquery.ui.datepicker-ru.js
  * = require ./jquery-ui/jquery-ui-timepicker-addon.js
  * = require ./jquery-ui/jquery-ui-timepicker-ru.js
- * = require ./datetime_picker
- * = require ./jwysiwyg
- * = require ./geocoder
- * = require ./info_plugin
- * = require ./red_cloth
- * = require ./autosuggest_handler
- * = require ./choose_coordinate
  * = require ./noisy
+ * = require ./info_plugin
+ * = require ./choose_file
+ * = require ./datetime_picker
+ * = require ./autosuggest_handler
+ * = require ./geocoder
+ * = require ./choose_coordinate
+ * require ./red_cloth
  * = require ./new_affiche
  * = require ./main
  */

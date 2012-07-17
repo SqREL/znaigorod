@@ -1,0 +1,222 @@
+.form_view
+  +min-width(1222px)
+  form
+    +clearfix
+
+    .actions
+      font-size: 1.2em
+      margin: 20px 0
+
+      button
+        font-size: 0.9em
+        margin: 0 0 0 15px
+
+    .field_with_errors
+      input, textarea, select
+        border-color: #F37447 !important
+
+    .input
+      +clearfix
+      margin: 0 0 15px 0
+
+      .error
+        color: #F37447
+        display: block
+        font-size: 0.8em
+        margin: 0 0 0 185px
+
+      label
+        float: left
+        margin: 0 15px 0 0
+        text-align: right
+        width: 170px
+
+        abbr
+          display: none
+
+      textarea, input, select
+        +border-radius(3px)
+        background: none
+        border: 1px solid #a2a2a2
+        font-size: 16px
+        height: 20px
+        line-height: 20px
+        outline: none
+        padding: 2px 5px
+        margin: 0
+        width: 600px
+
+      select
+        height: 25px
+        width: 612px
+
+      #organization_description, #movie_description, #concert_description, #exhibition_description, #other_description, #party_description, #spectacle_description, #sports_event_description, #movie_trailer_code,
+      #entertainment_feature, #entertainment_offer, #meal_feature, #meal_offer, #image_description, #attachment_description
+        height: 210px
+
+    .address_fields
+      +clearfix
+      float: right
+      width: 400px
+
+      .input
+        float: left
+        width: 200px
+
+      label
+        display: block
+        float: none
+        width: 100%
+        text-align: left
+
+      input
+        width: 150px
+
+    .showings_fields, .schedule_fields
+      +clearfix
+
+      .error
+        margin: 0
+
+      .remove_nested_fields
+        left: 555px
+        position: absolute
+        top: 144px
+
+      .choose_coordinate
+        left: 500px
+        position: absolute
+        top: 82px
+
+      .fields
+        border-bottom: 1px solid #a2a2a2
+        margin: 0 0 10px
+        padding: 0 25px 15px
+        position: relative
+        width: 685px
+
+      div.string
+        clear: both
+
+        label
+          display: block
+          float: none
+          margin: 0
+          text-align: left
+
+        input
+          width: 450px
+
+      div.date_picker, div.integer
+        clear: none
+        float: left
+
+        label
+          display: block
+          float: none
+          margin: 0
+          text-align: left
+
+        input
+          width: 130px
+
+    .schedule_fields
+      .remove_nested_fields
+        left: 512px
+
+      div.check_boxes
+        +clearfix
+        clear: both
+
+        label
+          display: block
+          float: none
+          margin: 0
+          text-align: left
+
+        .checkbox
+          +clearfix
+          display: block
+
+        input
+          float: left
+          margin: 0 10px 0 0
+          width: auto
+
+    .schedules_fields
+      +clearfix
+
+      .fields
+        +clearfix
+        border-right: 1px solid #a2a2a2
+        float: left
+        padding: 0 20px 0 0
+        margin: 0 20px 0 0
+
+        .error
+          margin: 0 0 0 0
+
+        &:last-child
+          border: none
+          margin: 0
+          padding: 0
+
+        .day
+          font-size: 1.2em
+          margin: 0 0 15px 0
+
+        div.boolean
+          +clearfix
+          +inline-block
+          width: auto
+
+          .boolean
+            width: auto
+
+          label
+            margin: 0 5px 0 0
+            text-transform: lowercase
+            width: auto
+
+        label
+          width: 20px
+
+        input
+          width: 45px
+
+    .halls_fields
+      width: 940px
+
+      .fields
+        border-bottom: 1px solid #a2a2a2
+        margin: 15px 0
+        position: relative
+
+      .integer
+        input
+          width: 53px
+
+      .remove_nested_fields
+        left: 670px
+        position: absolute
+        top: 40px
+
+    &.new_image, &.new_attachment
+      label
+        display: block
+        float: none
+        margin: 25px 0 0 0
+        text-align: left
+
+
+  .choose_file
+    background: image_url('attach.png') no-repeat left center
+    padding: 2px 0 0 19px
+
+  .choose_coordinate
+    &.with_coordinates
+      background: image_url('compass.png') no-repeat left center
+      padding: 0 0 0 18px
+
+.ui-datepicker
+  font-size: 0.9em

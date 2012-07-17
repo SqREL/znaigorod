@@ -51,6 +51,7 @@ $.fn.add_click_handler = () ->
           coordinate = event.getGeoPoint()
           latitude.val coordinate.lat
           longitude.val coordinate.lon
+          $this.addClass('with_coordinates')
           map.markers.remove(marker) if marker != null
           marker = create_marker(coordinate)
           map.markers.add(marker)
