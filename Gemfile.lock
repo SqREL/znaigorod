@@ -71,6 +71,7 @@ GEM
       multi_json (~> 1.0)
     fabrication (2.0.1)
     fattr (2.2.1)
+    freeze_time (0.1)
     fssm (0.2.9)
     gilenson (1.2.2)
     has_scope (0.5.1)
@@ -215,6 +216,7 @@ DEPENDENCIES
   default_value_for
   el_vfs_client
   fabrication
+  freeze_time
   gilenson
   has_scope
   has_searcher

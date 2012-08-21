@@ -42,5 +42,6 @@ group :test do
   gem 'rspec-rails',                                  :require => false
   gem 'sqlite3',                                      :require => false
   gem 'sunspot_matchers',                             :require => false
+  gem 'freeze_time'
 end
 
