@@ -12,6 +12,7 @@ end
 group :default do
   gem 'RedCloth'
   gem 'attribute_normalizer'
+  gem 'active_attr'
   gem 'curb',                                         :require => false
   gem 'default_value_for'
   gem 'el_vfs_client'

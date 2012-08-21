@@ -21,4 +21,12 @@ class AfficheToday
     prng = Random.new(1234)
     settings_kinds[prng.rand(0..settings_kinds.size - 1)]
   end
+
+  def links
+    links = []
+    Affiche.ordered_descendants.each do |affiche_kind|
+      links << Link.new(:title => affiche_kind.model_name.human, :url => '#', :current => affiche_kind.to_s == self.kind)
+    end
+    links
+  end
 end
