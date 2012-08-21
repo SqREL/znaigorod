@@ -29,4 +29,12 @@ class AfficheToday
     end
     links
   end
+
+  def counters
+    counters = {}
+    Affiche.ordered_descendants.each do |affiche_kind|
+      counters[affiche_kind] = Counter.new(:kind => affiche_kind)
+    end
+    counters
+  end
 end

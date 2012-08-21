@@ -78,7 +78,7 @@ GEM
     fssm (0.2.9)
     gilenson (1.2.2)
     has_scope (0.5.1)
-    has_searcher (0.0.90)
+    has_searcher (0.0.91)
       rails
     highline (1.6.12)
     hike (1.2.1)

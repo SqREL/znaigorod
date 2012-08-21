@@ -19,6 +19,7 @@ class Showing < ActiveRecord::Base
   searchable do
     date :starts_on
     integer :affiche_id
+    string(:affiche_id_str) { affiche_id.to_s }
     integer :organization_id
     integer :price_max
     integer :price_min
