@@ -1,5 +1,10 @@
 app:
   secret:               secret
+  affiche_today:
+    monday:
+      '00-24': ['other']
+    sunday:
+      '11-14': ['exhibition']
 
 solr:
   url:                  http://localhost:8982/solr

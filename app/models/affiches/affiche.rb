@@ -58,12 +58,15 @@ class Affiche < ActiveRecord::Base
 
   def showings_grouped_by_organization_and_day(organization, search_params = nil)
     showing_ids = search_showing_ids(search_params)
-
     Hash[showings.where(:id => showing_ids, :organization_id => organization.id).group_by(&:starts_on).map.first(9)]
   end
 
   def tags
     tag.split(/,\s+/).map(&:squish)
+  end
+
+  def place
+    showings.map(&:place).uniq.join(", ")
   end
 
   def first_showing

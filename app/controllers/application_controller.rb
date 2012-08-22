@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
 
   layout 'public'
 
+  def main_page
+    @affiche_today = AfficheToday.new('movie')
+  end
+
   private
     def page
       params[:page].blank? ? 1 : params[:page].to_i

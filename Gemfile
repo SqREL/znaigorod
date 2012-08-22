@@ -21,8 +21,8 @@ group :default do
   gem 'has_searcher'
   gem 'inherited_resources'
   gem 'kaminari'
-  gem 'nested_form',              :git => 'git://github.com/ryanb/nested_form.git'
-  gem 'openteam-commons',         '>= 0.2.3'
+  gem 'nested_form'
+  gem 'openteam-commons'
   gem 'pg',                                           :require => false
   gem 'progress_bar'
   gem 'rails'
@@ -33,7 +33,7 @@ group :default do
 end
 
 group :development do
-  gem 'annotate',                 '>= 2.4.1.beta1',   :require => false
+  gem 'annotate',                                     :require => false
   gem 'hirb',                                         :require => false
   gem 'sunspot_solr'
 end

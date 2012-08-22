@@ -1,4 +1,5 @@
 class AfficheToday
+  include Rails.application.routes.url_helpers
   attr_accessor :kind
 
   def initialize(kind = nil)
@@ -19,22 +20,35 @@ class AfficheToday
       end
     end
     prng = Random.new(1234)
-    settings_kinds[prng.rand(0..settings_kinds.size - 1)]
+    settings_kinds[prng.rand(0..settings_kinds.size - 1)].downcase
   end
 
   def links
     links = []
     Affiche.ordered_descendants.each do |affiche_kind|
-      links << Link.new(:title => affiche_kind.model_name.human, :url => '#', :current => affiche_kind.to_s == self.kind)
+      kind = affiche_kind.model_name.downcase
+      links << Link.new(:title => affiche_kind.model_name.human, :current => kind  == self.kind, :kind => kind, :html_options => {}, :url => affiche_today_path(:today, kind))
     end
+    current_index = links.index { |link| link.current? }
+    links[current_index - 1].html_options[:class] = :before_current if current_index > 0
+    links[current_index + 1].html_options[:class] = :after_current if current_index < links.size - 1
+    links[current_index].html_options[:class] = :current
     links
+  end
+
+  def current_link
+    links.select{ |link| link.current? }.first
   end
 
   def counters
     counters = {}
     Affiche.ordered_descendants.each do |affiche_kind|
-      counters[affiche_kind] = Counter.new(:kind => affiche_kind)
+      counters[affiche_kind.model_name.downcase] = Counter.new(:kind => affiche_kind.model_name.downcase)
     end
     counters
+  end
+
+  def affiches
+    @affiches ||= HasSearcher.searcher(:affiche, :affiche_category => kind).limit(10_000_000).today.group(:affiche_id_str).groups.map(&:value).map { |id| Affiche.find(id) }
   end
 end

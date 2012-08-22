@@ -25,7 +25,7 @@ class Showing < ActiveRecord::Base
     integer :price_min
     integer(:ends_at_hour) { ends_at.try(:hour) }
     integer(:starts_at_hour) { starts_at.hour }
-    string(:affiche_category) { I18n.transliterate(affiche.class.model_name.human).downcase.gsub(/[^[:alnum:]]+/, '_') }
+    string(:affiche_category) { affiche.class.model_name.downcase }
     string(:tags, :multiple => true) { affiche_tags }
     text :organization_title
     text :place

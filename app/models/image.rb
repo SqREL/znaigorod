@@ -22,10 +22,10 @@ end
 #
 #  id             :integer         not null, primary key
 #  url            :text
+#  imageable_id   :integer
 #  created_at     :datetime        not null
 #  updated_at     :datetime        not null
 #  description    :text
 #  imageable_type :string(255)
-#  imageable_id   :integer
 #
 

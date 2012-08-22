@@ -1,57 +1,57 @@
 <% content_for :stylesheets do %>
-  <%= stylesheet_link_tag    "public/application", :media => "all" %>
+  <%= stylesheet_link_tag "public/application", :media => "all" %>
 <% end %>
 
 <% content_for :javascripts do %>
-  <script type="text/javascript" src="http://maps.api.2gis.ru/1.0"></script>
+  <%= javascript_include_tag "http://maps.api.2gis.ru/1.0" %>
   <%= javascript_include_tag "public/application" %>
 <% end %>
 
 <%= content_for :content do %>
-  <div class="header">
-    <div class="wrapper">
-      <div class="logo">
-        <a href="/"><img src='<%= image_path('logo.png') %>' alt='<%= t('site_title') %>' title='<%= t('site_title') %>'></a>
-      </div>
-      <div class="city">
-        <a href="/" class='dashed_light_blue'>Томск</a>
-      </div>
+
+  <div class="header_wrapper">
+    <div class="header">
       <div class="search_form">
         <%= form_tag search_path, :method => :get do %>
           <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск по городу', :class => 'search' %>
-          <%= submit_tag nil, :class => 'submit' %>
+          <%= image_submit_tag('public/search_submit.png', :class => 'submit') %>
         <% end %>
       </div>
-    </div>
-  </div>
-
-  <div class="main_wrapper">
-    <div class="wrapper">
-      <%= yield %>
-    </div>
-  </div>
-
-  <div class="footer">
-    <div class="wrapper">
-      <div class="bottom_navigation">
-        <div class="left">
-          <h5><%= t('organizations') %></h5>
-          <ul>
-            <li><%= link_to 'Еда', meals_path, :class => 'solid_dark_gray' %>
-            <li><%= link_to 'Развлечения', entertainments_path, :class => 'solid_dark_gray' %>
-          </ul>
-        </div>
-        <div class="right">
-          <h5><a href='#' class='dashed_light_blue'><%= t('affiche') %></a></h5>
-          <ul>
-            <% Affiche.ordered_descendants.map(&:model_name).map(&:human).each do |human_name| %>
-              <li>
-                <%= link_to human_name, "/affiches/##{transliterate(human_name)}", :class => 'solid_dark_gray' %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+      <div class="logo">
+        <a href="/"><%= t('site_title') %></a>
       </div>
+      <div class="tomsk">
+        <a href="#">Томск</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="main_menu_wrapper">
+    <ul class="main_menu">
+      <li class="has_submenu">
+        <a href="/affiches">Афиша</a>
+        <ul class="submenu">
+          <% Affiche.ordered_descendants.map(&:model_name).map(&:human).each do |human_name| %>
+            <li>
+              <%= link_to human_name, "/affiches/##{transliterate(human_name)}", :class => 'solid_light_blue' %>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+      <li class="has_submenu">
+        <a class="disabled" href="/organizations">Заведения</a>
+        <ul class="submenu">
+          <li><%= link_to "Еда", meals_path, :class => 'solid_light_blue'%></li>
+          <li><%= link_to "Развлечения", entertainments_path, :class => 'solid_light_blue'%></li>
+        </ul>
+      </li>
+    </div>
+  </div>
+
+  <%= yield %>
+
+  <div class="footer_wrapper">
+    <div class="footer">
       <div class="our_social_link">
         <h5><%= t('our_social_link') %></h5>
         <ul>
@@ -67,7 +67,7 @@
             new TWTR.Widget({
               version: 2,
               type: 'profile',
-              rpp: 4,
+              rpp: 3,
               interval: 30000,
               width: 'auto',
               height: 'auto',
@@ -92,6 +92,7 @@
       <% end %>
     </div>
   </div>
+
 <% end %>
 
 <%= render :file => 'layouts/base' %>

@@ -20,9 +20,8 @@ class Counter
     @all ||= searcher.actual.group(:affiche_id_str).total
   end
 
-  private
 
   def searcher
-    HasSearcher.searcher(:affiche, :affiche_category => kind.model_name.downcase)
+    HasSearcher.searcher(:affiche, :affiche_category => kind).limit(10_000_000)
   end
 end
