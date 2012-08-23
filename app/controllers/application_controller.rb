@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   def main_page
     @affiche_today = AfficheToday.new('movie')
+    @affiches = AfficheDecorator.decorate(@affiche_today.affiches)
   end
 
   private
@@ -47,4 +48,6 @@ class ApplicationController < ActionController::Base
     def banners
       Affiche.with_images.with_showings.latest(4)
     end
+
+
 end

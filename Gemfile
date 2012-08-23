@@ -15,6 +15,7 @@ group :default do
   gem 'active_attr'
   gem 'curb',                                         :require => false
   gem 'default_value_for'
+  gem 'draper'
   gem 'el_vfs_client'
   gem 'gilenson'
   gem 'has_scope'

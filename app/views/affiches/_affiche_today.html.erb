@@ -24,15 +24,15 @@
       <a href="#" class="next">next</a>
       <div class="affiche">
         <ul>
-          <% @affiche_today.affiches.each do |affiche| %>
+          <% @affiches.each do |affiche| %>
             <li>
               <div class="item">
                 <div class="description">
-                  <p class="title"><%= link_to affiche.title, affiche_path(affiche) %></p>
+                  <p class="title"><%= affiche.link %></p>
                   <p class="place"><%= affiche.place %></p>
                 </div>
                 <div class="image">
-                  <%= link_to image_tag_for(affiche.poster_url, 200, 268), affiche_path(affiche) %>
+                  <%#= link_to image_tag_for(affiche.poster_url, 200, 268), affiche_path(affiche) %>
                 </div>
               </div>
             </li>

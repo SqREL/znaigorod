@@ -13,6 +13,7 @@ class AffichesController < ApplicationController
     case params[:period]
     when 'today'
       @affiche_today = AfficheToday.new(params[:kind])
+      @affiches = AfficheDecorator.decorate(@affiche_today.affiches)
       render :partial => 'affiche_today', :layout => false and return
     end
     if request.xhr?
