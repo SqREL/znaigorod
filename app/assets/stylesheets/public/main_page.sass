@@ -61,43 +61,12 @@
   &.today_in_city_affiche
     background-color: #eaeaea
     padding: 25px 0
-    .prev,
-    .next
-      width: 17px
-      height: 27px
-      display: block
-      background: transparent image_url('public/affiche_nav.png') no-repeat
-      text-indent: -9999em
-      outline: none
-      margin-top: 175px
-    .prev
-      float: left
-      background-position: 0 0
-      &:hover
-        background-position: 0 -27px
-      &.disabled,
-      &.disabled:hover
-        cursor: default
-        background-position: 0 -54px
-    .next
-      float: right
-      background-position: -17px 0
-      &:hover
-        background-position: -17px -27px
-      &.disabled,
-      &.disabled:hover
-        cursor: default
-        background-position: -17px -54px
     .affiche
       width: 896px
-      height: 366px
-      position: relative
+      height: 395px
       +clearfix
       margin: 0 auto
     ul
-      position: absolute
-      top: 0
-      left: 0
       li
         float: left
         width: 200px
