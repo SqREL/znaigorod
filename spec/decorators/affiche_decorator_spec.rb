@@ -19,4 +19,19 @@ describe AfficheDecorator do
       it { should =~ /title=\"Санкт Петербург — путешествие во времени и пространстве\"/ }
     end
   end
+
+  describe "#place" do
+    subject { decorator.place }
+    let(:showing) { Showing.new }
+    before { affiche.stub(:showings).and_return([showing])  }
+    context 'when showing place is string' do
+      before { showing.stub(:place).and_return('Киномакс, кинотеатр') }
+      it { should == 'Киномакс' }
+    end
+    context 'when showing place long' do
+      before { showing.stub(:place).and_return('Информационный центр по сильно опто коммуникационным технологиям') }
+      it { should =~ /title=\"Информационный центр по сильно опто коммуникационным технологиям"/ }
+      it { should =~ /Информационный центр по сильно опто/ }
+    end
+  end
 end
