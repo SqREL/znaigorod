@@ -23,6 +23,11 @@ class AfficheDecorator < Draper::Base
     h.raw place_output
   end
 
+  def poster
+    p affiche.poster_url
+    h.link_to h.image_tag_for(affiche.poster_url, 200, 268), h.affiche_path(affiche)
+  end
+
   # Accessing Helpers
   #   You can access any helper via a proxy
   #

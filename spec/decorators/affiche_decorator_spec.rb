@@ -34,4 +34,11 @@ describe AfficheDecorator do
       it { should =~ /Информационный центр по сильно опто/ }
     end
   end
+
+  describe '#poster' do
+    subject { decorator.poster }
+    before { affiche.poster_url = 'http://storage.openteam.ru/files/3434/290-390/123.jpg'}
+    it { should =~ /href=\"\/affiches\/1\"/ }
+    it { should =~ /src=\"http:\/\/storage.openteam.ru\/files\/3434\/200-268!\/123.jpg\"/ }
+  end
 end
