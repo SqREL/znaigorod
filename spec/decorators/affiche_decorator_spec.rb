@@ -15,7 +15,7 @@ describe AfficheDecorator do
     end
     context 'long title' do
       before { affiche.title = 'Санкт Петербург — путешествие во времени и пространстве' }
-      it { should =~ /Санкт Петер\u00ADбург — путе\u00ADшест\u00ADвие во вре\u00ADмени и\.\.\./ }
+      it { should =~ /Санкт Петер\u00ADбург — путе\u00ADше\u00ADствие во вре\u00ADмени и\.\.\./ }
       it { should =~ /title=\"Санкт Петербург — путешествие во времени и пространстве\"/ }
     end
   end
