@@ -48,7 +48,7 @@ HasSearcher.create_searcher :photoreport do
 
   scope do
     with(:imageable_type, 'Affiche')
-    order_by :id
+    order_by :id, :desc
   end
 end
 

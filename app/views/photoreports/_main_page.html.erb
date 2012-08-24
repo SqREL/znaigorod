@@ -1,0 +1,24 @@
+<div class="main_page_block_wrapper was_in_city">
+  <div class="main_page_block">
+    <h1><strong>Было</strong> в городе</h1>
+  </div>
+</div>
+
+<ul>
+  <% @photoreports.each do |photoreport| %>
+    <%= photoreport.main_images %>
+    <%= photoreport.images_count %>
+    <%= photoreport.link %>
+    <%= photoreport.date %>
+  <% end %>
+</ul>
+
+<div class="main_page_block_wrapper more_in_city">
+  <div class="main_page_block">
+    <ul>
+      <li><%= link_to "#{t('photoreport_periods.weekly')} (#{@photoreport.weekly_reports_count})", "#" %></li>
+      <li><%= link_to "#{t('photoreport_periods.monthly')} (#{@photoreport.monthly_reports_count})", "#" %></li>
+      <li><%= link_to "#{t("photoreport_periods.total")} (#{@photoreport.total_reports_count})", "#" %></li>
+    </ul>
+  </div>
+</div>

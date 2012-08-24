@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   def main_page
     @affiche_today = AfficheToday.new('exhibition')
     @affiches = AfficheDecorator.decorate(@affiche_today.affiches)
+    @photoreport = Photoreport.new
+    @photoreports = PhotoreportDecorator.decorate(@photoreport.reports_for_main_page)
   end
 
   private

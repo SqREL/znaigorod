@@ -71,6 +71,11 @@ ru:
       sportsevent: Все спортивные мероприятия
       other: Все другие мероприятия
 
+  photoreport_periods:
+    weekly: Фотоотчеты этой недели
+    monthly: Фотоотчеты этого месяца
+    total: Все фотоотчеты
+
   activerecord:
     models:
       affiche: Афиша
