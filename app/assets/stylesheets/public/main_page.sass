@@ -18,7 +18,7 @@
     background: #787b85 image_url('public/today_in_city_menu_bg.png') repeat-x left bottom
     ul
       +clearfix
-      $width: 131px
+      $width: 130px
       $height: 50px
       margin-left: 40px
       li
@@ -35,6 +35,7 @@
           color: #fff
           text-decoration: none
           display: block
+          outline: none
           height: $height - $padding_top
           padding-top: $padding_top
           span
@@ -63,7 +64,7 @@
     padding: 25px 0
     .affiche
       width: 896px
-      height: 385px
+      height: 415px
       +clearfix
       margin: 0 auto
     ul
@@ -75,19 +76,23 @@
           +clearfix
           background-color: #fff
           +box-shadow(#777 0 0 3px)
-          .description
-            +min-height(55px)
+          .title
+            height: 35px
             line-height: 1.4
-            margin: 10px 10px 11px
-            .title
-              margin-bottom: 5px
-            .place
-              color: #626262
-              font-size: 11px
+            text-align: center
+            margin: 10px
           .image
             width: 200px
             height: 268px
             border-top: 1px dotted #d5d7d6
+            border-bottom: 1px dotted #d5d7d6
+          .place
+            height: 32px
+            color: #626262
+            font-size: 11px
+            line-height: 1.4
+            text-align: center
+            margin: 10px
     .empty_message
       color: #523972
       font-size: 25px

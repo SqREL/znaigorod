@@ -26,20 +26,16 @@
             <% @affiches.each do |affiche| %>
               <li>
                 <div class="item">
-                  <div class="description">
-                    <p class="title"><%= affiche.link %></p>
-                    <p class="place"><%= affiche.place %></p>
-                  </div>
-                  <div class="image">
-                    <%= affiche.poster %>
-                  </div>
+                  <div class="title"><%= affiche.link %></div>
+                  <div class="image"><%= affiche.poster %></div>
+                  <div class="place"><%= affiche.place %></div>
                 </div>
               </li>
             <% end %>
           </ul>
         <% else %>
           <p class="empty_message">
-            Похоже сегодня нет <%= t("affiche.empty.#{@affiche_today.current_link.kind}") %> ;(
+            Похоже сегодня в городе нет <%= t("affiche.empty.#{@affiche_today.current_link.kind}") %> ;(
           </p>
         <% end %>
       </div>
