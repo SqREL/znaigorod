@@ -26,12 +26,21 @@ describe AfficheDecorator do
     before { affiche.stub(:showings).and_return([showing])  }
     context 'when showing place is string' do
       before { showing.stub(:place).and_return('Киномакс, кинотеатр') }
-      it { should == 'Киномакс' }
+      it { should =~ /Кино\u00ADмакс/ }
+      it { should_not =~ /href/ }
     end
     context 'when showing place long' do
       before { showing.stub(:place).and_return('Информационный центр по сильно опто коммуникационным технологиям') }
       it { should =~ /title=\"Информационный центр по сильно опто коммуникационным технологиям"/ }
       it { should =~ /Информационный центр по сильно опто/ }
+    end
+    context 'when showing place is_a Organization' do
+      let(:organization) { Organization.new(:title => 'Киномакс, кинотеатр') }
+      before { organization.stub(:to_param).and_return(1) }
+      before { showing.stub(:place).and_return('Киномакс, кинотеатр') }
+      before { showing.stub(:organization).and_return(organization) }
+      it { should =~ /Кино\u00ADмакс/ }
+      it { should =~ /organizations\/1/ }
     end
   end
 

@@ -7,7 +7,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def place
-    places = affiche.showings.map(&:place).uniq
+    places = affiche.showings.map { |showing| showing.organization ? showing.organization : showing.place  }.uniq
     max_lenght = 45
     place_output = ""
     places.each_with_index do |place, index|
@@ -16,7 +16,11 @@ class AfficheDecorator < ApplicationDecorator
       place_link_title = place_title if place_title.size > max_lenght
       place_title = place_title.truncate(max_lenght, :separator => ' ')
       max_lenght -= place_title.size
-      place_output += place_link_title.blank? ? place_title : h.content_tag(:abbr, hyphenate(place_title), :title => place_link_title)
+      if place.is_a?(Organization)
+        place_output += h.link_to hyphenate(place_title), h.organization_path(place), :title => place_link_title
+      else
+        place_output += place_link_title.blank? ? hyphenate(place_title) : h.content_tag(:abbr, hyphenate(place_title), :title => place_link_title)
+      end
       break if max_lenght < 3
       place_output += ", " if index < places.size - 1
     end
