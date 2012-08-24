@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   layout 'public'
 
   def main_page
-    @affiche_today = AfficheToday.new('movie')
+    @affiche_today = AfficheToday.new('exhibition')
     @affiches = AfficheDecorator.decorate(@affiche_today.affiches)
   end
 

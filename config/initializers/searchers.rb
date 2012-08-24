@@ -33,6 +33,17 @@ HasSearcher.create_searcher :affiche do
   end
 end
 
+HasSearcher.create_searcher :photoreport do
+  models :image
+
+  group :imageable_id_str
+
+  scope do
+    with(:imageable_type, 'Affiche')
+    order_by :id
+  end
+end
+
 HasSearcher.create_searcher :total do
   models :affiche, :organization
   keywords :q

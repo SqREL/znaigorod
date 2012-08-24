@@ -10,6 +10,13 @@ class Image < ActiveRecord::Base
   after_create :index_imageable
   after_destroy :index_imageable
 
+  searchable do
+    text :description
+    integer :id
+    string(:imageable_id_str) { imageable_id.to_s }
+    string :imageable_type
+  end
+
   private
   def index_imageable
     imageable.index_additional_attributes if imageable.respond_to? :index_additional_attributes
