@@ -19,6 +19,22 @@
 <div class="main_page_block_wrapper organizations_in_city">
   <div class="main_page_block">
     <h1><strong>Заведения</strong> города</h1>
+    <div class="clearfix">
+      <% ["Завтраки", "Кофейни", "Доставка еды"].each do |fieldset| %>
+        <fieldset>
+          <legend><a href="#"><%= fieldset %></a></legend>
+          <ul>
+            <% (1..6).each do |item| %>
+              <li>
+                <div class="image">
+                  <a href="#"><%= image_tag "http://placekitten.com/g/100/75", :alt => "item_#{item}", :size => "100x75" %></a>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </fieldset>
+      <% end %>
+    </div>
   </div>
 </div>
 

@@ -108,10 +108,29 @@
     padding: 25px 0
 
   &.organizations_in_city
-    height: 450px
     background-color: #f0ebf2
     +background-image(linear-gradient(#fff, #f0ebf2 25%, #f0ebf2 75%, #fff))
     padding: 25px 0
+    .clearfix
+      margin: 30px 15px 5px
+      fieldset
+        float: left
+        width: 251px
+        border: 1px dotted #8f8e92
+        padding: 10px
+        margin: 0 25px
+        legend
+          font-size: 16px
+          padding: 0 10px
+        ul
+          +clearfix
+          li
+            float: left
+            .image
+              width: 100px
+              height: 75px
+              border: 1px solid #d5dcd4
+              margin: 11px
 
   &.more_in_city
     background-color: #648ec8
