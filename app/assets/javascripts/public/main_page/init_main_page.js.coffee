@@ -39,6 +39,8 @@ prepare_affiche_list = ->
     list_width += $(item).outerWidth(true, true)
   list.width(list_width)
 
-  $('.main_page_affiche .affiche').jScrollPane() if $('li', list).length
+  if $('li', list).length
+    $('.main_page_affiche .affiche').jScrollPane
+      showArrows: true
 
   true
