@@ -102,10 +102,37 @@
       margin-top: 160px
 
   &.was_in_city
-    height: 450px
     background-color: #e0e9ee
     +background-image(linear-gradient(#fff, #e0e9ee 25%, #e0e9ee 75%, #fff))
     padding: 25px 0
+    .clearfix
+      margin: 30px 15px 5px
+      li
+        float: left
+        width: 273px
+        margin: 0 25px
+        .relative
+          position: relative
+          width: 273px
+          height: 273px
+          .counter
+            top: 2px
+            right: 2px
+            width: 35px
+            height: 35px
+            position: absolute
+            text-align: center
+            line-height: 35px
+            +border-radius(20px)
+            color: #fff
+            background-color: #6b4381
+            +background-image(radial-gradient(#4f3260, #6b4381))
+            +box-shadow(#777 0 1px 2px)
+            z-index: 5
+          .images
+            img
+              position: absolute
+
 
   &.organizations_in_city
     background-color: #f0ebf2
