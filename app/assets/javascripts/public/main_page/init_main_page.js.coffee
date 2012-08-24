@@ -22,17 +22,15 @@
 
   prepare_affiche_list()
 
-  $('.main_page_affiche affiche a.disabled').live 'click', (event) ->
-    false
-
 prepare_affiche_list = ->
+
   list = $('.main_page_affiche .affiche ul')
 
-  #if $('li', list).length < 5
-    #list.closest('.affiche').width($('li', list).outerWidth(true, true) * $('li', list).length)
+  if $('li', list).length < 5
+    list.closest('.affiche').width($('li', list).outerWidth(true, true) * $('li', list).length)
+
   list_width = 0
   $('li', list).each (index, item) ->
-    console.log $(item).outerWidth(true,true)
     list_width += $(item).outerWidth(true, true)
   list.width(list_width)
 
