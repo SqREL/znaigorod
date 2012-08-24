@@ -94,7 +94,21 @@
       text-align: center
       margin-top: 160px
 
-  &.today_in_city_more
+  &.was_in_city
+    height: 450px
+    background-color: #e0e9ee
+    +background-image(linear-gradient(#fff, #e0e9ee 25%, #e0e9ee 75%, #fff))
+    padding: 25px 0
+
+  &.organizations_in_city
+    height: 450px
+    background-color: #f0ebf2
+    +background-image(linear-gradient(#fff, #f0ebf2 25%, #f0ebf2 75%, #fff))
+    padding: 25px 0
+
+  &.today_in_city_more,
+  &.was_in_city_more,
+  &.organizations_in_city_more
     background-color: #648ec8
     line-height: 1.4
     .main_page_block
@@ -104,15 +118,9 @@
       ul
         +clearfix
         float: right
-        margin: 10px 0
+        margin: 7px 40px 7px 0
         li
           float: left
           margin-left: 20px
           a
             color: #fff
-
-  &.was_in_city
-    background-color: #ebf3f5
-
-  &.organizations_in_city
-    background-color: #feedff

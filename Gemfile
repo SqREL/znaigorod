@@ -11,8 +11,8 @@ end
 
 group :default do
   gem 'RedCloth'
-  gem 'attribute_normalizer'
   gem 'active_attr'
+  gem 'attribute_normalizer'
   gem 'curb',                                         :require => false
   gem 'default_value_for'
   gem 'draper'
@@ -28,8 +28,8 @@ group :default do
   gem 'progress_bar'
   gem 'rails'
   gem 'russian'
-  gem 'simple_form'
   gem 'simple-navigation'
+  gem 'simple_form'
   gem 'sunspot_rails'
 end
 
