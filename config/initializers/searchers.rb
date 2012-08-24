@@ -38,6 +38,14 @@ HasSearcher.create_searcher :photoreport do
 
   group :imageable_id_str
 
+  scope :weekly do
+    with(:created_at).greater_than DateTime.now - 1.week
+  end
+
+  scope :monthly do
+    with(:created_at).greater_than DateTime.now - 1.month
+  end
+
   scope do
     with(:imageable_type, 'Affiche')
     order_by :id

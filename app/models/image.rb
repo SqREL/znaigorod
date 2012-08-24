@@ -15,6 +15,7 @@ class Image < ActiveRecord::Base
     integer :id
     string(:imageable_id_str) { imageable_id.to_s }
     string :imageable_type
+    time :created_at
   end
 
   private
