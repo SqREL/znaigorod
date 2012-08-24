@@ -49,6 +49,16 @@ ru:
   site_title: ЗнайГород
   twitter_timeline: Эфир
 
+  affiche:
+    empty:
+      movie: кино
+      concert: концертов
+      party: вечеринок
+      spectacle: спектаклей
+      exhibition: выставок
+      sportsevent: спортивных мероприятий
+      other: других мероприятий
+
   affiche_periods:
     weekly: На этой неделе
     weekend: На этих выходных
@@ -59,7 +69,7 @@ ru:
       spectacle: Все спектакли
       exhibition: Все выставки
       sportsevent: Все спортивные мероприятия
-      other: Всё другое
+      other: Все другие мероприятия
 
   activerecord:
     models:

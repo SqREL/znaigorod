@@ -27,17 +27,18 @@ prepare_affiche_list = ->
   list = $('.main_page_affiche .affiche ul')
 
   if $('li', list).length < 5
-    list.closest('.affiche').width($('li', list).outerWidth(true, true) * $('li', list).length)
+    list_height = 0
+    $('li', list).each (index, item) ->
+      list_height = $(this).outerHeight(true, true) if  list_height < $(this).outerHeight(true, true)
+    list.closest('.affiche')
+      .width($('li', list).outerWidth(true, true) * $('li', list).length)
+      .height(list_height)
 
   list_width = 0
   $('li', list).each (index, item) ->
     list_width += $(item).outerWidth(true, true)
   list.width(list_width)
 
-  $('.main_page_affiche .affiche')
-    .width($('li:first', list).outerWidth(true, true) * 4)
-    .jScrollPane
-      trackClickSpeed: 150
-      arrowScrollOnHover: true
+  $('.main_page_affiche .affiche').jScrollPane() if $('li', list).length
 
   true
