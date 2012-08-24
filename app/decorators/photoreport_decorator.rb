@@ -7,11 +7,14 @@ class PhotoreportDecorator < AfficheDecorator
     h.l affiche.images.first.created_at, :format => '%d %B'
   end
 
+  def link
+    trancated_link(77)
+  end
 
   def main_images
     result = ""
     affiche.images.limit(3).each do |image|
-      result += h.link_to h.image_tag_for(image.url, 200, 268, false), h.affiche_path(affiche)
+      result += h.link_to h.image_tag_for(image.url, 220, 220, false), h.affiche_path(affiche)
     end
     h.raw result
   end
@@ -19,4 +22,5 @@ class PhotoreportDecorator < AfficheDecorator
   def images_count
     affiche.images.count
   end
+
 end

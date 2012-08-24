@@ -2,12 +2,13 @@
 
 
 class ApplicationController < ActionController::Base
+
   helper_method :banners, :hot_offers, :page, :per_page
 
   layout 'public'
 
   def main_page
-    @affiche_today = AfficheToday.new('exhibition')
+    @affiche_today = AfficheToday.new('movie')
     @affiches = AfficheDecorator.decorate(@affiche_today.affiches)
     @photoreport = Photoreport.new
     @photoreports = PhotoreportDecorator.decorate(@photoreport.reports_for_main_page)
@@ -50,6 +51,5 @@ class ApplicationController < ActionController::Base
     def banners
       Affiche.with_images.with_showings.latest(4)
     end
-
 
 end
