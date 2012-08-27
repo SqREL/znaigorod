@@ -47,7 +47,7 @@ class ActualOrganizations
     end
 
     def organizations
-      searcher.limit(6).results
+      OrganizationDecorator.decorate(searcher.limit(6).results.map(&:organization))
     end
   end
 end

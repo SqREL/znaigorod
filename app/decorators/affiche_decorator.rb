@@ -28,7 +28,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def poster
-    h.link_to(h.image_tag(resized_image_url(affiche.poster_url, 200, 268), :title => affiche.title), h.affiche_path(affiche))
+    h.link_to image_tag(affiche.poster_url, 200, 268, affiche.title), h.affiche_path(affiche)
   end
 
   private

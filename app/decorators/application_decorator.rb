@@ -15,4 +15,8 @@ class ApplicationDecorator < Draper::Base
     "#{image_url}/files/#{image_id}/#{width}-#{height}#{image_crop}/#{image_filename}"
   end
 
+  def image_tag(url, width, height, title, crop = true)
+    h.image_tag(resized_image_url(url, width, height, crop), :title => title, :alt => title)
+  end
+
 end

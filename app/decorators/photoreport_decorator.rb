@@ -14,7 +14,7 @@ class PhotoreportDecorator < AfficheDecorator
   def main_images
     result = ""
     affiche.images.limit(4).each do |image|
-      result += h.link_to h.image_tag(resized_image_url(image.url, 220, 220, false), :title => image.description), h.affiche_path(affiche)
+      result += h.link_to image_tag(image.url, 220, 220, image.description, false), h.affiche_path(affiche)
     end
     h.raw result
   end
