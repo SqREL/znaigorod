@@ -15,5 +15,6 @@ describe ActualOrganizations do
     subject { actual_organizations.groups.first }
     its(:kind) { should == :breakfast }
     its(:title) { should == 'Завтраки' }
+    its(:options) { should == {:meal_offer => 'завтраки'} }
   end
 end

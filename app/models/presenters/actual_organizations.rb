@@ -17,7 +17,7 @@ class ActualOrganizations
     end
     organization_groups = []
     settings_kinds.each do |kind, options|
-      organization_groups << ActualOrganizationGroup.new(:kind => kind, :options => options)
+      organization_groups << ActualOrganizationGroup.new(:kind => kind, :options => options[:options])
     end
     organization_groups
   end
@@ -28,6 +28,18 @@ class ActualOrganizations
 
     def title
       I18n.t("actual_organizations.#{kind}")
+    end
+
+    def searcher
+      HasSearcher.searcher(:actual_organization, options)
+    end
+
+    def total_count
+      searcher.total
+    end
+
+    def organizations
+      searcher.limit(6).results
     end
   end
 end

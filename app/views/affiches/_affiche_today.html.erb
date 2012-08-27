@@ -19,9 +19,9 @@
 <div class="main_page_block_wrapper today_in_city_affiche">
   <div class="main_page_block">
     <div class="affiche">
-      <% if @affiches.any? %>
+      <% if @affiche_today.affiches.any? %>
         <ul>
-          <% @affiches.each do |affiche| %>
+          <% @affiche_today.affiches.each do |affiche| %>
             <li>
               <div class="item">
                 <div class="title"><%= affiche.link %></div>

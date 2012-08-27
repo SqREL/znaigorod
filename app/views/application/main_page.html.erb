@@ -10,9 +10,9 @@
   <div class="main_page_block">
     <h1><strong>Заведения</strong> города</h1>
     <div class="clearfix">
-      <% ["Завтраки", "Кофейни", "Доставка еды"].each do |fieldset| %>
+      <% @actual_organizations.groups.each do |fieldset| %>
         <fieldset>
-          <legend><a href="#"><%= fieldset %></a></legend>
+          <legend><a href="#"><%= fieldset.title %> (<%= fieldset.total_count %>)</a></legend>
           <ul>
             <% (1..6).each do |item| %>
               <li>
