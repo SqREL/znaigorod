@@ -9,11 +9,14 @@ app:
     monday:
       '00-24':
         breakfast:
-          options: {}
+          options:
+            meal_offer: завтраки
         coffe_house:
-          options: {}
+          options:
+            meal_category: Кофейни
         food_delivery:
-          options: {}
+          options:
+            meal_category: Доставка готовых блюд
 
 solr:
   url:                  http://localhost:8982/solr
