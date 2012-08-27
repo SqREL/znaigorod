@@ -2,7 +2,33 @@
 
   <%= render :partial => 'affiches/affiche_today' %>
 
-  <%= render :partial => 'photoreports/main_page' %>
+  <div class="main_page_block_wrapper was_in_city">
+    <div class="main_page_block">
+      <h1><strong>Было</strong> в городе</h1>
+      <ul class="clearfix">
+        <% @photoreport.reports_for_main_page.each do |photoreport| %>
+          <li>
+            <div class="relative">
+              <div class="counter"><%= photoreport.images_count %></div>
+              <div class="images"><%= photoreport.main_images %></div>
+            </div>
+            <div class="link"><%= photoreport.link %></div>
+            <div class="date"><%= photoreport.date %></div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+
+  <div class="main_page_block_wrapper more_in_city">
+    <div class="main_page_block">
+      <ul>
+        <li><%= link_to "#{t('photoreport_periods.weekly')} (#{@photoreport.weekly_reports_count})", "#" %></li>
+        <li><%= link_to "#{t('photoreport_periods.monthly')} (#{@photoreport.monthly_reports_count})", "#" %></li>
+        <li><%= link_to "#{t("photoreport_periods.total")} (#{@photoreport.total_reports_count})", "#" %></li>
+      </ul>
+    </div>
+  </div>
 
 </div>
 
@@ -31,7 +57,8 @@
 <div class="main_page_block_wrapper more_in_city">
   <div class="main_page_block">
     <ul>
-      <li><a href="#">Все заведения (131)</a></li>
+      <li><a href="#">Все вкусные заведения (<%= @actual_organizations.total_meals %>)</a><ili>
+      <li><a href="#">Все развлекательные заведения (<%= @actual_organizations.total_entertainments %>)</a><ili>
     </ul>
   </div>
 </div>

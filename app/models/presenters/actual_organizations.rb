@@ -22,6 +22,14 @@ class ActualOrganizations
     organization_groups
   end
 
+  def total_entertainments
+    HasSearcher.searcher(:entertainment).total
+  end
+
+  def total_meals
+    HasSearcher.searcher(:meal).total
+  end
+
   class ActualOrganizationGroup
     include ActiveAttr::MassAssignment
     attr_accessor :kind, :options

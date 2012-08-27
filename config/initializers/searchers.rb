@@ -64,7 +64,14 @@ HasSearcher.create_searcher :actual_organization do
   scope do
     adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_fs}*:*" }
   end
+end
 
+HasSearcher.create_searcher :meal do
+  models :meal
+end
+
+HasSearcher.create_searcher :entertainment do
+  models :entertainment
 end
 
 HasSearcher.create_searcher :total do

@@ -2,7 +2,7 @@
 
 class Photoreport
   def reports_for_main_page
-    searcher.group(:imageable_id_str).groups[0..2].map(&:value).map { |id| Affiche.find(id) }
+    PhotoreportDecorator.decorate searcher.group(:imageable_id_str).groups[0..2].map(&:value).map { |id| Affiche.find(id) }
   end
 
   def total_reports_count
