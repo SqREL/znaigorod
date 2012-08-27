@@ -5,6 +5,15 @@ app:
       '00-24': ['other']
     sunday:
       '11-14': ['exhibition']
+  actual_organizations:
+    monday:
+      '00-24':
+        breakfast:
+          options: {}
+        coffe_house:
+          options: {}
+        food_delivery:
+          options: {}
 
 solr:
   url:                  http://localhost:8982/solr

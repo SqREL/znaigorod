@@ -71,6 +71,9 @@ ru:
       sportsevent: Все спортивные мероприятия
       other: Все другие мероприятия
 
+  actual_organizations:
+    breakfast: Завтраки
+
   photoreport_periods:
     weekly: Фотоотчеты этой недели
     monthly: Фотоотчеты этого месяца
