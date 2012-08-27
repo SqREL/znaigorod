@@ -13,7 +13,7 @@ class PhotoreportDecorator < AfficheDecorator
 
   def main_images
     result = ""
-    affiche.images.limit(3).each do |image|
+    affiche.images.limit(4).each do |image|
       result += h.link_to h.image_tag_for(image.url, 220, 220, false), h.affiche_path(affiche)
     end
     h.raw result

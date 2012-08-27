@@ -8,10 +8,13 @@
     $.ajax
       url: url
       success: (data, textStatus, jqXHR) ->
+        $('<div class="ajax_response"/>').appendTo('body').hide().html(data)
         $('.main_page_affiche .affiche').animate
           opacity: 0
         , 100, ->
-          $('.main_page_affiche').replaceWith(data)
+          $('.main_page_affiche .today_in_city_menu').html($('.ajax_response .today_in_city_menu'))
+          $('.main_page_affiche .today_in_city_affiche').html($('.ajax_response .today_in_city_affiche'))
+          $('.ajax_response').remove()
           $('.main_page_affiche .affiche').css
             opacity: 0
           .animate
@@ -25,12 +28,56 @@
   $('.main_page_affiche .was_in_city li').each ->
     li_block = $(this)
     images_block = $('.relative', this)
-    $('img', li_block).each ->
-      offset_x = images_block.outerWidth(true,true) / 2 - $(this).outerWidth(true, true) / 2
-      offset_y = images_block.outerHeight(true,true) / 2 - $(this).outerHeight(true, true) / 2
+    $('img', li_block).each (index) ->
+      img_width = $(this).outerWidth(true, true)
+      img_height = $(this).outerHeight(true, true)
+      offset_x = images_block.outerWidth(true,true) / 2 - img_width / 2
+      offset_y = images_block.outerHeight(true,true) / 2 - img_height / 2
+      switch index
+        when 0
+          angle = "-12deg"
+          offset_x = offset_x - 5
+        when 1
+          angle = "-5deg"
+          offset_x = offset_x - 2
+        when 2
+          angle = "5deg"
+          offset_x = offset_x + 2
+        when 3
+          angle = "12deg"
+          offset_x = offset_x + 5
       $(this).css
-        left: randomize(offset_x)
-        top: randomize(offset_y)
+        "left": offset_x
+        "top": offset_y
+        "transform": "rotate(#{angle})"
+        "-moz-transform": "rotate(#{angle})"
+        "-webkit-transform": "rotate(#{angle})"
+        "-o-transform": "rotate(#{angle})"
+      $(this).load ->
+        img_width = $(this).width()
+        img_height = $(this).height()
+        offset_x = images_block.outerWidth(true,true) / 2 - img_width / 2
+        offset_y = images_block.outerHeight(true,true) / 2 - img_height / 2
+        switch index
+          when 0
+            angle = "-12deg"
+            offset_x = offset_x - 5
+          when 1
+            angle = "-5deg"
+            offset_x = offset_x - 2
+          when 2
+            angle = "5deg"
+            offset_x = offset_x + 2
+          when 3
+            angle = "12deg"
+            offset_x = offset_x + 5
+        $(this).css
+          "left": offset_x
+          "top": offset_y
+          "transform": "rotate(#{angle})"
+          "-moz-transform": "rotate(#{angle})"
+          "-webkit-transform": "rotate(#{angle})"
+          "-o-transform": "rotate(#{angle})"
 
   $('.main_page_affiche .was_in_city li img').hover ->
     $('img', $(this).closest('li')).css
@@ -58,8 +105,7 @@ prepare_affiche_list = ->
   list.width(list_width)
 
   if $('li', list).length
-    $('.main_page_affiche .affiche').jScrollPane
-      showArrows: true
+    $('.main_page_affiche .affiche').jScrollPane()
 
   true
 

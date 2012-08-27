@@ -1,11 +1,11 @@
 GIT
-  remote: git://github.com/netoneko/text-hyphen.git
-  revision: 12bf8466b82d3fbd0744132f7bd604e983d4d44c
+  remote: git://github.com/openteam/text-hyphen.git
+  revision: 840f974a08ffdd44dac2e594544ef0d7b79e73fd
   specs:
-    text-hyphen (1.3.1)
+    text-hyphen (1.4)
 
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     RedCloth (4.2.9)
     actionmailer (3.2.3)
