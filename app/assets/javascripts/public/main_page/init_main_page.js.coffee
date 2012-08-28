@@ -3,6 +3,7 @@
   prepare_affiche_list()
 
   $('.main_page_affiche .today_in_city_menu ul li a').live 'click', (event) ->
+    return false if $(this).closest('li').hasClass('current')
     link = $(this)
     url = link.attr('href')
     $.ajax
