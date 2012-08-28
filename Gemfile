@@ -31,7 +31,7 @@ group :default do
   gem 'simple-navigation'
   gem 'simple_form'
   gem 'sunspot_rails'
-  gem 'text-hyphen',                                  :git => 'git://github.com/openteam/text-hyphen.git'
+  gem 'text-hyphen'
 end
 
 group :development do
@@ -47,4 +47,3 @@ group :test do
   gem 'sunspot_matchers',                             :require => false
   gem 'freeze_time'
 end
-
