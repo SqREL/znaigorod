@@ -110,6 +110,8 @@ prepare_affiche_list = ->
     list_width += $(this).outerWidth(true, true)
   list.width(list_width)
 
+  $('.main_page_affiche .affiche').css('height', '383px') unless list.length
+
   if $('li', list).length
     $('.main_page_affiche .affiche').jScrollPane()
 
