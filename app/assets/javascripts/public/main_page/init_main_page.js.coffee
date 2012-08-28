@@ -8,6 +8,10 @@
     url = link.attr('href')
     $.ajax
       url: url
+      beforeSend: (jqXHR, settings) ->
+        create_ajax_indicator()
+      complete: (jqXHR, textStatus) ->
+        remove_ajax_indicator()
       success: (data, textStatus, jqXHR) ->
         $('<div class="ajax_response"/>').appendTo('body').hide().html(data)
         $('.main_page_affiche .affiche').animate
@@ -113,3 +117,16 @@ prepare_affiche_list = ->
 
 randomize = (number) ->
   Math.floor(Math.random() * Math.round(number) + 1)
+
+create_ajax_indicator = () ->
+  $('.ajax_indicator_wrapper').remove()
+  $('<div class="ajax_indicator_wrapper" />').appendTo('body').hide()
+  $('<div class="ajax_indicator" />').appendTo('.ajax_indicator_wrapper')
+  $('<img width="32" height="32" src="/assets/public/ajax_loader.gif" alt="" />').appendTo('.ajax_indicator')
+  $('.ajax_indicator_wrapper').css
+    top: $(window).height()/2 - $('.ajax_indicator_wrapper').height()/2 + $(document).scrollTop()
+    left: $(window).width()/2 - $('.ajax_indicator_wrapper').width()/2
+  .show()
+
+remove_ajax_indicator = () ->
+  $('.ajax_indicator_wrapper').remove()
