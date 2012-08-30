@@ -59,7 +59,23 @@ namespace :deploy do
   task :sunspot_reindex do
     run "cd #{deploy_to}/current && RAILS_ENV=production bin/rake sunspot:reindex"
   end
+end
 
+namespace :deploy do
+  namespace :web do
+    task :disable, :roles => :web, :except => { :no_release => true } do
+      require 'erb'
+      on_rollback { run "rm #{deploy_to}/shared/system/maintenance.html" }
+
+      reason = ENV['REASON']
+      deadline = ENV['UNTIL']
+
+      template = File.read("./app/views/layouts/maintenance.html.erb")
+      result = ERB.new(template).result(binding)
+
+      put result, "#{deploy_to}/shared/system/maintenance.html", :mode => 0644
+    end
+  end
 end
 
 before "deploy", "deploy:web:disable"
@@ -69,6 +85,5 @@ after "deploy", "deploy:migrate"
 after "deploy", "deploy:copy_unicorn_config"
 after "deploy", "deploy:compile_assets"
 after "deploy", "deploy:reload_servers"
-after "deploy:update", "deploy:cleanup"
 
-after "deploy:cleanup", "deploy:web:enable"
+after "deploy:reload_servers", "deploy:cleanup"

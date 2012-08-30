@@ -10,7 +10,7 @@
   <style type="text/css">
     body {
       background-color: #222;
-      color: #fff;
+      color: #666;
     }
 
     .outer {
@@ -40,13 +40,13 @@
   <div class="outer">
      <div class="box" style="text-align: center;">
        <div style="text-align: center; width: 200px; margin: 0 auto;">
-         <p style="color: red; font-size: 16px; line-height: 20px;">
-           К сожалению ЗнайГород не доступен в данный момент.
+         <p style="font-size: 16px; line-height: 20px;">
+           Мы сейчас обновляем ЗнайГород!
            <%#= reason ? reason : "maintenance" %>
            <%#= Time.now.strftime("%H:%M %Z") %>
          </p>
-         <p style="color: #666;">
-          <%= Time.now.strftime("%H:%M %Z") %>
+         <p>
+          <%= Time.now.strftime("%H:%M") %>
            <%#= deadline ? deadline : "shortly" %>
          </p>
        </div>
