@@ -5,6 +5,7 @@
 /.bundle
 /bin
 /config/database.yml
+/config/deploy.rb
 /config/settings.yml
 /config/sunspot.yml
 /db/*.sqlite3
