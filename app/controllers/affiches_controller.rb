@@ -10,17 +10,12 @@ class AffichesController < ApplicationController
   layout 'public'
 
   def index
-    case params[:period]
-    when 'today'
+    if request.xhr?
       @affiche_today = AfficheToday.new(params[:kind])
       render :partial => 'affiche_today', :layout => false and return
+    else
+      @affiche_presenter = AffichePresenter.new(params)
     end
-    if request.xhr?
-      render :text => '<div class="empty">Ничего не найдено ;(</div>', :layout => false and return if collection.empty?
-      render :partial => 'commons/list', :locals => { :collection => collection, :remote => true }, :layout => false and return
-    end
-
-    #index!
   end
 
   protected
