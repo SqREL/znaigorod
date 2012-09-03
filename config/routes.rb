@@ -43,15 +43,15 @@ Znaigorod::Application.routes.draw do
         }
   end
 
-  resources :affiches, :only => [:index, :show]
+  resources :affiches, :only => [:show]
+  match ':kind/:period/' => 'affiches#index',
+        :kind => /movies|concerts|parties|spectacles|exhibitions|sportsevents|others|affiches/,
+        :period => /today|weekly|weekend|all|daily/, :as => :affiches
+
 
   resources :entertainments
   resources :meals
   resources :organizations
-
-  match 'affiches/:period/:kind' => 'affiches#index',
-        :kind => /movie|concert|party|spectacle|exhibition|sportsevent|other/,
-        :period => /today|weekly|weekend|all/, :as => :affiche_today
 
   root :to => 'application#main_page'
 

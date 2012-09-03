@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   layout 'public'
 
   def main_page
-    @affiche_today = AfficheToday.new('movie')
+    @affiche_today = AfficheToday.new('movies')
     @photoreport = Photoreport.new
     @actual_organizations = ActualOrganizations.new
   end

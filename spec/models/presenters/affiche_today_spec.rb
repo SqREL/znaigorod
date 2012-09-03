@@ -9,7 +9,7 @@ describe AfficheToday do
   before { Time.stub!(:now).and_return(Time.local(2012, 8, 19, 11, 0)) }
   describe "#default_kind" do
     context "sunday 11:00" do
-      its(:kind) { should == 'exhibition'}
+      its(:kind) { should == 'exhibitions'}
     end
   end
 
@@ -20,7 +20,7 @@ describe AfficheToday do
       subject { affiche_today.links[4] }
       its(:title) { should == "Выставки" }
       its(:current?) { should == true }
-      its(:url) { should == "/affiches/today/exhibition" }
+      its(:url) { should == "/exhibitions/today" }
     end
   end
 
@@ -28,7 +28,7 @@ describe AfficheToday do
     subject { affiche_today.counters }
     its(:size) { should == 7 }
     describe "for Exhebition" do
-      subject { affiche_today.counters['exhibition'] }
+      subject { affiche_today.counters['exhibitions'] }
       before {
         searcher = HasSearcher.searcher(:affiche, :affiche_category => 'exhibition')
         searcher.stub_chain(:today, :group, :total).and_return(5)

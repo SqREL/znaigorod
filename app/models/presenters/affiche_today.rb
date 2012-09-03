@@ -26,8 +26,8 @@ class AfficheToday
   def links
     links = []
     Affiche.ordered_descendants.each do |affiche_kind|
-      kind = affiche_kind.model_name.downcase
-      links << Link.new(:title => affiche_kind.model_name.human, :current => kind  == self.kind, :kind => kind, :html_options => {}, :url => affiche_today_path(:today, kind))
+      kind = affiche_kind.model_name.downcase.pluralize
+      links << Link.new(:title => affiche_kind.model_name.human, :current => kind == self.kind, :kind => kind, :html_options => {}, :url => affiches_path(kind, :today ))
     end
     current_index = links.index { |link| link.current? }
     links[current_index - 1].html_options[:class] = :before_current if current_index > 0
@@ -43,12 +43,12 @@ class AfficheToday
   def counters
     counters = {}
     Affiche.ordered_descendants.each do |affiche_kind|
-      counters[affiche_kind.model_name.downcase] = Counter.new(:kind => affiche_kind.model_name.downcase)
+      counters[affiche_kind.model_name.downcase.pluralize] = Counter.new(:kind => affiche_kind.model_name.downcase)
     end
     counters
   end
 
   def affiches
-    @affiches ||= AfficheDecorator.decorate HasSearcher.searcher(:affiche, :affiche_category => kind).limit(10_000_000).today.group(:affiche_id_str).groups.map(&:value).map { |id| Affiche.find(id) }
+    @affiches ||= AfficheDecorator.decorate HasSearcher.searcher(:affiche, :affiche_category => kind.singularize).limit(10_000_000).today.group(:affiche_id_str).groups.map(&:value).map { |id| Affiche.find(id) }
   end
 end
