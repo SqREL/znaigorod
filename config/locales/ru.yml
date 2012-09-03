@@ -60,6 +60,7 @@ ru:
       others: других мероприятий
 
   affiche_periods:
+    today: Сегодня
     weekly: На этой неделе
     weekend: На этих выходных
     all:

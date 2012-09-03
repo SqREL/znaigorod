@@ -4,7 +4,7 @@ class PhotoreportDecorator < AfficheDecorator
   decorates :affiche
 
   def date
-    h.l affiche.images.first.created_at, :format => '%d %B'
+    h.l affiche.images.first.created_at, :format => '%e %B'
   end
 
   def link

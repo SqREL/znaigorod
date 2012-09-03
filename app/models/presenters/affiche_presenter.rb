@@ -5,6 +5,7 @@ class AffichePresenter
   include ActiveAttr::MassAssignment
   attr_accessor :kind, :period, :on
 
+
   def initialize(options)
     super(options)
     begin
@@ -25,5 +26,14 @@ class AffichePresenter
 
   def daily_period?
     period == 'daily'
+  end
+
+  def human_period
+    return "на #{I18n.l(on, :format => '%e %B')}" if daily_period?
+    I18n.t("affiche_periods.#{period}").mb_chars.downcase
+  end
+
+  def human_kind
+    I18n.t("activerecord.models.#{kind.singularize}")
   end
 end

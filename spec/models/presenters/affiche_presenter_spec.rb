@@ -27,4 +27,30 @@ describe AffichePresenter do
       its(:url) { should == "/movies/all" }
     end
   end
+
+  describe "#human_period" do
+    subject { affiche_presenter.human_period }
+    context 'today' do
+      before { affiche_presenter.period = 'today' }
+      it { should == 'сегодня' }
+    end
+    context 'weekend' do
+      before { affiche_presenter.period = 'weekend' }
+      it { should == 'на этих выходных' }
+    end
+    context 'weekly' do
+      before { affiche_presenter.period = 'weekly' }
+      it { should == 'на этой неделе' }
+    end
+    context 'daily' do
+      before { affiche_presenter.period = 'daily' }
+      before { affiche_presenter.on = Date.parse('2012-09-03') }
+      it { should == 'на  3 сентября' }
+    end
+  end
+
+  describe '#human_kind' do
+    subject { affiche_presenter.human_kind }
+    it { should == 'Кино' }
+  end
 end
