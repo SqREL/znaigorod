@@ -15,7 +15,7 @@ class AffichePresenter
     end if self.daily_period?
   end
 
-  def links
+  def kind_links
     links = []
     ([Affiche] + Affiche.ordered_descendants).each do |affiche_kind|
       kind = affiche_kind.model_name.downcase.pluralize
@@ -24,16 +24,30 @@ class AffichePresenter
     links
   end
 
+  def period_links
+    [].tap do |array|
+      %w(today weekly weekend daily all).each do |affiche_period|
+        array << Link.new(:title => human_period(affiche_period),
+                          :current => affiche_period == period,
+                          :html_options => {},
+                          :url => affiches_path(kind, affiche_period))
+      end
+    end
+  end
+
   def daily_period?
     period == 'daily'
   end
 
-  def human_period
-    return "на #{I18n.l(on, :format => '%e %B')}" if daily_period?
-    I18n.t("affiche_periods.#{period}").mb_chars.downcase
+  def human_period(affiche_period = nil)
+    affiche_period ||= period
+    return "На #{I18n.l(on, :format => '%e %B')}" if affiche_period == 'daily' && on
+    return I18n.t("affiche_periods.all.#{kind}") if affiche_period == 'all'
+    I18n.t("affiche_periods.#{affiche_period}")
   end
 
   def human_kind
     I18n.t("activerecord.models.#{kind.singularize}")
   end
+
 end

@@ -17,14 +17,23 @@ describe AffichePresenter do
     end
   end
 
-  describe "#links" do
-    subject { affiche_presenter.links }
+  describe "#kind_links" do
+    subject { affiche_presenter.kind_links }
     its(:size) { should == 8 }
     describe "for movies" do
-      subject { affiche_presenter.links[1] }
+      subject { affiche_presenter.kind_links[1] }
       its(:title) { should == "Кино" }
       its(:current?) { should == true }
       its(:url) { should == "/movies/all" }
+    end
+  end
+
+  describe "#period_links" do
+    subject { affiche_presenter.period_links }
+    its(:size) { should == 5 }
+    describe "for daily" do
+      subject { affiche_presenter.period_links[3] }
+      its(:title) { should == 'Выбрать дату' }
     end
   end
 
@@ -32,20 +41,24 @@ describe AffichePresenter do
     subject { affiche_presenter.human_period }
     context 'today' do
       before { affiche_presenter.period = 'today' }
-      it { should == 'сегодня' }
+      it { should == 'Сегодня' }
     end
     context 'weekend' do
       before { affiche_presenter.period = 'weekend' }
-      it { should == 'на этих выходных' }
+      it { should == 'На этих выходных' }
     end
     context 'weekly' do
       before { affiche_presenter.period = 'weekly' }
-      it { should == 'на этой неделе' }
+      it { should == 'На этой неделе' }
     end
     context 'daily' do
       before { affiche_presenter.period = 'daily' }
       before { affiche_presenter.on = Date.parse('2012-09-03') }
-      it { should == 'на  3 сентября' }
+      it { should == 'На  3 сентября' }
+    end
+    context 'all' do
+      before { affiche_presenter.period = 'all' }
+      it { should == 'Всё кино' }
     end
   end
 

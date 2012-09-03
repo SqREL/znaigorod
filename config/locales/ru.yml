@@ -63,7 +63,9 @@ ru:
     today: Сегодня
     weekly: На этой неделе
     weekend: На этих выходных
+    daily: Выбрать дату
     all:
+      affiches: Все мероприятия
       movies: Всё кино
       concerts: Все концерты
       parties: Все вечеринки
@@ -84,7 +86,7 @@ ru:
 
   activerecord:
     models:
-      affiche: Афиша
+      affiche: Все
       concert: Концерты
       meal: Заведение питания
       exhibition: Выставки
