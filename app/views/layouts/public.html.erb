@@ -29,11 +29,11 @@
   <div class="main_menu_wrapper">
     <ul class="main_menu">
       <li class="has_submenu">
-        <a href="/affiches">Афиша</a>
+        <a href="/affiches/all">Афиша</a>
         <ul class="submenu">
-          <% Affiche.ordered_descendants.map(&:model_name).map(&:human).each do |human_name| %>
+          <% Affiche.ordered_descendants.each do |name| %>
             <li>
-              <%= link_to human_name, "/affiches/##{transliterate(human_name)}", :class => 'solid_light_blue' %>
+              <%= link_to name.model_name.human, "/#{name.model_name.pluralize.underscore}/all" %>
             </li>
           <% end %>
         </ul>

@@ -28,7 +28,7 @@
           , 300
           prepare_affiche_list()
       error: (jqXHR, textStatus, errorThrown) ->
-        alert jqXHR
+        alert jqXHR.responseText
     false
 
   $('.main_page_affiche .was_in_city li').each ->
