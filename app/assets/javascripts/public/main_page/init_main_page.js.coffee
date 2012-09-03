@@ -55,10 +55,11 @@
       $(this).css
         "left": offset_x
         "top": offset_y
-        "transform": "rotate(#{angle})"
-        "-moz-transform": "rotate(#{angle})"
         "-webkit-transform": "rotate(#{angle})"
+        "-moz-transform": "rotate(#{angle})"
+        "-ms-transform": "rotate(#{angle})"
         "-o-transform": "rotate(#{angle})"
+        "transform": "rotate(#{angle})"
       $(this).load ->
         img_width = $(this).width()
         img_height = $(this).height()
@@ -80,10 +81,11 @@
         $(this).css
           "left": offset_x
           "top": offset_y
-          "transform": "rotate(#{angle})"
-          "-moz-transform": "rotate(#{angle})"
           "-webkit-transform": "rotate(#{angle})"
+          "-moz-transform": "rotate(#{angle})"
+          "-ms-transform": "rotate(#{angle})"
           "-o-transform": "rotate(#{angle})"
+          "transform": "rotate(#{angle})"
 
   $('.main_page_affiche .was_in_city li img').hover ->
     $('img', $(this).closest('li')).css
