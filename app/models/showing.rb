@@ -13,6 +13,10 @@ class Showing < ActiveRecord::Base
   after_create  :index_affiche
   after_destroy :index_affiche
 
+  default_scope order(:starts_at)
+
+  scope :actual, where('starts_at > ?', DateTime.now)
+
   default_value_for :price_max, 0
   default_value_for :price_min, 0
 

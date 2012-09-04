@@ -9,7 +9,6 @@ class ShowingDecorator < ApplicationDecorator
     date
   end
 
-  private
   def today?
     showing.starts_at >= DateTime.now.beginning_of_day && showing.starts_at <= DateTime.now.end_of_day
   end

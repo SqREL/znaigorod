@@ -93,9 +93,13 @@ class AffichePresenter
   private
 
   def searcher(searcher_params)
-    scope = period
-    scope = 'actual' if period == 'all'
-    HasSearcher.searcher(:affiche, searcher_params).send(scope)
+    scopes = [period]
+    scopes << 'actual' unless period == 'today' || on.eql?(Date.today)
+    HasSearcher.searcher(:affiche, searcher_params).tap do |searcher|
+      scopes.each do |scope|
+        searcher.send(scope)
+      end
+    end
   end
 
   def search_params

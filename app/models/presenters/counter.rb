@@ -9,11 +9,11 @@ class Counter
   end
 
   def weekend
-    @weekend ||= searcher.weekend.group(:affiche_id_str).total
+    @weekend ||= searcher.weekend.actual.group(:affiche_id_str).total
   end
 
   def weekly
-    @weekly ||= searcher.weekly.group(:affiche_id_str).total
+    @weekly ||= searcher.weekly.actual.group(:affiche_id_str).total
   end
 
   def all
