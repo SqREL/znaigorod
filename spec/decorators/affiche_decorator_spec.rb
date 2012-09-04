@@ -44,10 +44,17 @@ describe AfficheDecorator do
     end
   end
 
-  describe '#poster' do
-    subject { decorator.poster }
+  describe '#main_page_poster' do
+    subject { decorator.main_page_poster }
     before { affiche.poster_url = 'http://storage.openteam.ru/files/3434/290-390/123.jpg'}
     it { should =~ /href=\"\/affiches\/1\"/ }
     it { should =~ /src=\"http:\/\/storage.openteam.ru\/files\/3434\/200-268!\/123.jpg\"/ }
+  end
+
+  describe "#list_poster" do
+    subject { decorator.list_poster }
+    before { affiche.poster_url = 'http://storage.openteam.ru/files/3434/290-390/123.jpg'}
+    it { should =~ /href=\"\/affiches\/1\"/ }
+    it { should =~ /src=\"http:\/\/storage.openteam.ru\/files\/3434\/180-242!\/123.jpg\"/ }
   end
 end

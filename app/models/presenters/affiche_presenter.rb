@@ -87,7 +87,7 @@ class AffichePresenter
   end
 
   def paginated_affiches
-    searcher(search_params).paginate(:page => page, :per_page => 10).group(:affiche_id_str).groups
+    searcher(search_params).paginate(:page => page, :per_page => 5).group(:affiche_id_str).groups
   end
 
   private

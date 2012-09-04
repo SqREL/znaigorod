@@ -31,8 +31,12 @@ class AfficheDecorator < ApplicationDecorator
     h.raw place_output
   end
 
-  def poster
+  def main_page_poster
     h.link_to image_tag(affiche.poster_url, 200, 268, affiche.title), h.affiche_path(affiche)
+  end
+
+  def list_poster
+    h.link_to image_tag(affiche.poster_url, 180, 242, affiche.title), h.affiche_path(affiche)
   end
 
   private
