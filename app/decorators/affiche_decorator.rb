@@ -7,7 +7,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def link_with_full_title
-      h.link_to hyphenate(affiche.title), h.affiche_path(affiche), :title => affiche.title
+      h.link_to hyphenate(affiche.title.gilensize).html_safe, h.affiche_path(affiche)
   end
 
   def place
