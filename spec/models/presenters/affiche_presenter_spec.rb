@@ -45,7 +45,7 @@ describe AffichePresenter do
     end
     describe "for today" do
       subject { affiche_presenter.period_links[0] }
-      its(:title) { should == 'Сегодня (5)' }
+      its(:title) { should == 'Сегодня&nbsp;(5)' }
     end
   end
 
@@ -66,7 +66,7 @@ describe AffichePresenter do
     context 'd)ily' do
       before { affiche_presenter.period = 'daily' }
       before { affiche_presenter.on = Date.parse('2012-09-03') }
-      it { should == 'На  3 сентября' }
+      it { should == ' 3 сентября' }
     end
     context 'all' do
       before { affiche_presenter.period = 'all' }

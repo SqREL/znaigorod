@@ -23,20 +23,29 @@ class AffichePresenter
       kind = affiche_kind.model_name.downcase.pluralize
       links << Link.new(:title => affiche_kind.model_name.human, :current => kind  == self.kind, :kind => kind, :html_options => {}, :url => affiches_path(kind, period, on))
     end
+    current_index = links.index { |link| link.current? }
+    links[current_index - 1].html_options[:class] = :before_current if current_index > 0
+    links[current_index + 1].html_options[:class] = :after_current if current_index < links.size - 1
+    links[current_index].html_options[:class] = :current
     links
   end
 
   def period_links
-    [].tap do |array|
-      %w(today weekly weekend daily all).each do |affiche_period|
-        link_title = human_period(affiche_period)
-        link_title += " (#{counter.send(affiche_period)})" unless affiche_period == 'daily'
-        array << Link.new(:title => link_title,
-                          :current => affiche_period == period,
-                          :html_options => {},
-                          :url => affiches_path(kind, affiche_period))
-      end
+    links = []
+    %w(today weekly weekend daily all).each do |affiche_period|
+      link_title = human_period(affiche_period)
+      link_title += "&nbsp;(#{counter.send(affiche_period)})" unless affiche_period == 'daily'
+      html_options = affiche_period == 'daily' ? { :class => 'daily ' } : { :class => '' }
+      links << Link.new(:title => link_title.html_safe,
+                        :current => affiche_period == period,
+                        :html_options => html_options,
+                        :url => affiches_path(kind, affiche_period))
     end
+    current_index = links.index { |link| link.current? }
+    links[current_index - 1].html_options[:class] += 'before_current' if current_index > 0
+    links[current_index + 1].html_options[:class] += 'after_current' if current_index < links.size - 1
+    links[current_index].html_options[:class] += 'current'
+    links
   end
 
   def counter
@@ -52,7 +61,8 @@ class AffichePresenter
   def tag_links
     [].tap do |array|
       facets.each do |tag|
-        array << Link.new(:title => tag, :current => tags.include?(tag), :html_options => {}, :url => affiches_path(kind, period, on, tag_params(tag)))
+        html_options = tags.include?(tag) ? { :class => :selected } : {}
+        array << Link.new(:title => tag, :current => tags.include?(tag), :html_options => html_options, :url => affiches_path(kind, period, on, tag_params(tag)))
       end
     end
   end
@@ -63,7 +73,7 @@ class AffichePresenter
 
   def human_period(affiche_period = nil)
     affiche_period ||= period
-    return "На #{I18n.l(on, :format => '%e %B')}" if affiche_period == 'daily' && on
+    return I18n.l(on, :format => '%e %B') if affiche_period == 'daily' && on
     return I18n.t("affiche_periods.all.#{kind}") if affiche_period == 'all'
     I18n.t("affiche_periods.#{affiche_period}")
   end

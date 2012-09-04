@@ -9,27 +9,27 @@
         </li>
       <% end %>
     </ul>
-    <%= paginate @affiche_presenter.paginated_affiches %>
   </div>
 
   <div class="affiches_filter">
     <ul class="categories">
       <% @affiche_presenter.kind_links.each do |link| %>
-        <li<%= " class='current'" if link.current? %>>
+        <li class="<%= link.html_options[:class] %>">
           <% unless link.current? %>
             <%= link_to link.title, link.url %>
           <% else %>
             <div class="title"><%= link.title %></div>
             <ul class="periods">
               <% @affiche_presenter.period_links.each do |period_link| %>
-                <li>
-                  <%= link_to period_link.title, period_link.url %>
+                <li class="<%= period_link.html_options[:class] %>">
+                  <%= period_link.current? ? period_link.title : link_to(period_link.title, period_link.url) %>
                 </li>
               <% end %>
             </ul>
-            <ul>
+            <ul class="tags">
+              <li class="title">Теги</li>
               <% @affiche_presenter.tag_links.each do |tag_link| %>
-                <li>
+                <li class="<%= tag_link.html_options[:class] %>">
                   <%= link_to tag_link.title, tag_link.url %>
                 </li>
               <% end %>
@@ -39,4 +39,7 @@
       <% end %>
     </ul>
   </div>
+
+  <%= paginate @affiche_presenter.paginated_affiches %>
+
 </div>
