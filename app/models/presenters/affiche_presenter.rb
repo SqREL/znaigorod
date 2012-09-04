@@ -27,7 +27,9 @@ class AffichePresenter
   def period_links
     [].tap do |array|
       %w(today weekly weekend daily all).each do |affiche_period|
-        array << Link.new(:title => human_period(affiche_period),
+        link_title = human_period(affiche_period)
+        link_title += " (#{counter.send(affiche_period)})" unless affiche_period == 'daily'
+        array << Link.new(:title => link_title,
                           :current => affiche_period == period,
                           :html_options => {},
                           :url => affiches_path(kind, affiche_period))

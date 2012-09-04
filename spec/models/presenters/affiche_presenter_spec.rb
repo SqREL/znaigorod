@@ -29,11 +29,23 @@ describe AffichePresenter do
   end
 
   describe "#period_links" do
+    before {
+      searcher = HasSearcher.searcher(:affiche, :affiche_category => 'movies')
+      searcher.stub_chain(:today, :group, :total).and_return(5)
+      searcher.stub_chain(:weekend, :group, :total).and_return(7)
+      searcher.stub_chain(:weekly, :group, :total).and_return(9)
+      searcher.stub_chain(:actual, :group, :total).and_return(10)
+      Counter.any_instance.stub(:searcher).and_return(searcher)
+    }
     subject { affiche_presenter.period_links }
     its(:size) { should == 5 }
     describe "for daily" do
       subject { affiche_presenter.period_links[3] }
       its(:title) { should == 'Выбрать дату' }
+    end
+    describe "for today" do
+      subject { affiche_presenter.period_links[0] }
+      its(:title) { should == 'Сегодня (5)' }
     end
   end
 
