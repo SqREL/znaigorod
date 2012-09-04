@@ -9,7 +9,7 @@ describe AffichesController do
       response.response_code.should == 200
       assigns(:affiche_presenter).kind.should eq kind
       assigns(:affiche_presenter).period.should eq 'all'
-      response.should render_template('application/index')
+      response.should render_template('affiches/index')
     end
   end
 
@@ -26,6 +26,17 @@ describe AffichesController do
   it "#index should get :on for daily affiches" do
     get :index, :kind => 'movies', :period => 'daily', :on => Date.today
     assigns(:affiche_presenter).on.should eql Date.today
+  end
+
+  describe "with tags" do
+    it "for daily when set on" do
+      get :index, :kind => 'movies', :period => 'daily', :on => Date.today, :tags => "познавательно/для девушек"
+      assigns(:affiche_presenter).tags.should eql ['познавательно', 'для девушек']
+    end
+    it "for today" do
+      get :index, :kind => 'movies', :period => 'today', :tags => "познавательно/для девушек"
+      assigns(:affiche_presenter).tags.should eql ['познавательно', 'для девушек']
+    end
   end
 
 end

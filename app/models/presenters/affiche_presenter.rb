@@ -3,7 +3,7 @@
 class AffichePresenter
   include Rails.application.routes.url_helpers
   include ActiveAttr::MassAssignment
-  attr_accessor :kind, :period, :on
+  attr_accessor :kind, :period, :on, :tags
 
 
   def initialize(options)
@@ -13,6 +13,7 @@ class AffichePresenter
     rescue
       self.on = Date.today
     end if self.daily_period?
+    self.tags = self.tags.split("/") if self.tags
   end
 
   def kind_links
@@ -41,6 +42,22 @@ class AffichePresenter
     Counter.new(:kind => kind.singularize)
   end
 
+  def facets
+    searcher.faceted.facet(:tags).rows.map(&:value)
+  end
+
+  def tag_links
+    [].tap do |array|
+      facets.each do |tag|
+        array << Link.new(:title => tag, :current => tags.include?(tag), :html_options => {}, :url => affiches_path(kind, period, on, tag_params(tag)))
+      end
+    end
+  end
+
+  def tag_params(tag)
+    (tags << tag).join("/")
+  end
+
   def daily_period?
     period == 'daily'
   end
@@ -54,6 +71,12 @@ class AffichePresenter
 
   def human_kind
     I18n.t("activerecord.models.#{kind.singularize}")
+  end
+
+  private
+
+  def searcher
+    HasSearcher.searcher(:affiche, :affiche_category => kind.singularize).limit(10_000_000)
   end
 
 end

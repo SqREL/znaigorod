@@ -31,6 +31,10 @@ HasSearcher.create_searcher :affiche do
   scope do
     order_by :starts_at
   end
+
+  scope :faceted do
+    facet(:tags)
+  end
 end
 
 HasSearcher.create_searcher :photoreport do

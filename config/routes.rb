@@ -44,7 +44,7 @@ Znaigorod::Application.routes.draw do
   end
 
   resources :affiches, :only => [:show]
-  match ':kind/:period/(:on)' => 'affiches#index',
+  match ':kind/:period/(:on)/(tags/*tags)' => 'affiches#index',
         :kind => /movies|concerts|parties|spectacles|exhibitions|sportsevents|others|affiches/,
         :period => /today|weekly|weekend|all|daily/, :as => :affiches
 

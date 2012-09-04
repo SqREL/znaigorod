@@ -63,7 +63,7 @@ describe AffichePresenter do
       before { affiche_presenter.period = 'weekly' }
       it { should == 'На этой неделе' }
     end
-    context 'daily' do
+    context 'd)ily' do
       before { affiche_presenter.period = 'daily' }
       before { affiche_presenter.on = Date.parse('2012-09-03') }
       it { should == 'На  3 сентября' }
@@ -87,5 +87,26 @@ describe AffichePresenter do
       Counter.any_instance.stub(:searcher).and_return(searcher)
     }
     its(:today) { should == 5 }
+  end
+
+  describe "#tag_links" do
+    subject { affiche_presenter.tag_links }
+    before {
+      affiche_presenter.stub(:facets).and_return(%w[комедия боевик])
+      affiche_presenter.stub(:tags).and_return(%w[комедия])
+    }
+    its(:size) { should == 2 }
+    describe "selected tag" do
+      subject { affiche_presenter.tag_links[0] }
+      its(:title) { should == 'комедия' }
+      its(:current?) { should == true }
+      its(:url) { should == URI.encode('/movies/all/tags/комедия') }
+    end
+    describe "for non_selected tag" do
+      subject { affiche_presenter.tag_links[1] }
+      its(:title) { should == 'боевик' }
+      its(:current?) { should == false }
+      its(:url) { should == URI.encode('/movies/all/tags/комедия/боевик') }
+    end
   end
 end
