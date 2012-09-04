@@ -1,0 +1,25 @@
+<%= @affiche_presenter.human_kind %> <%= @affiche_presenter.human_period.mb_chars.downcase %>
+
+<ul>
+  <% @affiche_presenter.kind_links.each do |link| %>
+    <li>
+      <%= link_to link.title, link.url %>
+      <% if link.current? %>
+        <ul>
+          <% @affiche_presenter.period_links.each do |period_link| %>
+            <li>
+              <%= link_to period_link.title, period_link.url %>
+            </li>
+          <% end %>
+        </ul>
+        <ul>
+          <% @affiche_presenter.tag_links.each do |tag_link| %>
+            <li>
+              <%= link_to tag_link.title, tag_link.url %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
