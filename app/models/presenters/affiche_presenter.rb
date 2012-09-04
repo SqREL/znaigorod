@@ -14,6 +14,7 @@ class AffichePresenter
       self.on = Date.today
     end if self.daily_period?
     self.tags = self.tags.split("/") if self.tags
+    self.tags ||= []
   end
 
   def kind_links
@@ -54,10 +55,6 @@ class AffichePresenter
     end
   end
 
-  def tag_params(tag)
-    (tags << tag).join("/")
-  end
-
   def daily_period?
     period == 'daily'
   end
@@ -77,6 +74,16 @@ class AffichePresenter
 
   def searcher
     HasSearcher.searcher(:affiche, :affiche_category => kind.singularize).limit(10_000_000)
+  end
+
+  def tag_params(tag)
+    to_params_arr = tags.dup
+    if to_params_arr.include?(tag)
+      to_params_arr = to_params_arr - [tag]
+    else
+      to_params_arr << tag
+    end
+    to_params_arr.any? ? to_params_arr.join("/") : nil
   end
 
 end

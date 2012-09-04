@@ -1,4 +1,5 @@
 <%= @affiche_presenter.human_kind %> <%= @affiche_presenter.human_period.mb_chars.downcase %>
+<%= @affiche_presenter.tags.join("| ") %>
 
 <ul>
   <% @affiche_presenter.kind_links.each do |link| %>

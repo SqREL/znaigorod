@@ -92,18 +92,18 @@ describe AffichePresenter do
   describe "#tag_links" do
     subject { affiche_presenter.tag_links }
     before {
-      affiche_presenter.stub(:facets).and_return(%w[комедия боевик])
+      affiche_presenter.stub(:facets).and_return(%w[приключения комедия боевик])
       affiche_presenter.stub(:tags).and_return(%w[комедия])
     }
-    its(:size) { should == 2 }
+    its(:size) { should == 3 }
     describe "selected tag" do
-      subject { affiche_presenter.tag_links[0] }
+      subject { affiche_presenter.tag_links[1] }
       its(:title) { should == 'комедия' }
       its(:current?) { should == true }
-      its(:url) { should == URI.encode('/movies/all/tags/комедия') }
+      its(:url) { should == '/movies/all' }
     end
     describe "for non_selected tag" do
-      subject { affiche_presenter.tag_links[1] }
+      subject { affiche_presenter.tag_links[2] }
       its(:title) { should == 'боевик' }
       its(:current?) { should == false }
       its(:url) { should == URI.encode('/movies/all/tags/комедия/боевик') }
