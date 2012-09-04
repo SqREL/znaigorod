@@ -19,6 +19,6 @@ class Photoreport
 
   private
   def searcher
-    HasSearcher.searcher(:photoreport).limit(10_000_000)
+    HasSearcher.searcher(:photoreport)
   end
 end

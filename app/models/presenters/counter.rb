@@ -22,6 +22,6 @@ class Counter
 
 
   def searcher
-    HasSearcher.searcher(:affiche, :affiche_category => kind).limit(10_000_000)
+    HasSearcher.searcher(:affiche, :affiche_category => kind)
   end
 end

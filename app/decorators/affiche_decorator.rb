@@ -6,6 +6,10 @@ class AfficheDecorator < ApplicationDecorator
     trancated_link(45)
   end
 
+  def link_with_full_title
+      h.link_to hyphenate(affiche.title), h.affiche_path(affiche), :title => affiche.title
+  end
+
   def place
     places = affiche.showings.map { |showing| showing.organization ? showing.organization : showing.place  }.uniq
     max_lenght = 45

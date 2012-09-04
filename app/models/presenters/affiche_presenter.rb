@@ -3,7 +3,7 @@
 class AffichePresenter
   include Rails.application.routes.url_helpers
   include ActiveAttr::MassAssignment
-  attr_accessor :kind, :period, :on, :tags
+  attr_accessor :kind, :period, :on, :tags, :page
 
 
   def initialize(options)
@@ -44,7 +44,9 @@ class AffichePresenter
   end
 
   def facets
-    searcher.faceted.facet(:tags).rows.map(&:value)
+    searcher_params = search_params
+    searcher_params.delete(:tags)
+    searcher(searcher_params).faceted.facet(:tags).rows.map(&:value)
   end
 
   def tag_links
@@ -70,10 +72,27 @@ class AffichePresenter
     I18n.t("activerecord.models.#{kind.singularize}")
   end
 
+  def affiches
+    @affiches ||= AfficheDecorator.decorate paginated_affiches.map(&:value).map { |id| Affiche.find(id) }
+  end
+
+  def paginated_affiches
+    searcher(search_params).paginate(:page => page, :per_page => 10).group(:affiche_id_str).groups
+  end
+
   private
 
-  def searcher
-    HasSearcher.searcher(:affiche, :affiche_category => kind.singularize).limit(10_000_000)
+  def searcher(searcher_params)
+    scope = period
+    scope = 'actual' if period == 'all'
+    HasSearcher.searcher(:affiche, searcher_params).send(scope)
+  end
+
+  def search_params
+    search_params = {:affiche_category => kind.singularize}
+    search_params[:starts_on] = on if period == 'daily'
+    search_params[:tags] = tags if tags.any?
+    search_params
   end
 
   def tag_params(tag)

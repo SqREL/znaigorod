@@ -13,6 +13,7 @@
             </li>
           <% end %>
         </ul>
+        <%= @affiche_presenter.tag_links.size %>
         <ul>
           <% @affiche_presenter.tag_links.each do |tag_link| %>
             <li>
@@ -24,3 +25,12 @@
     </li>
   <% end %>
 </ul>
+<h1><%= @affiche_presenter.affiches.size %></h1>
+<ul>
+  <% @affiche_presenter.affiches.each do |affiche| %>
+    <li>
+      <%= affiche.link_with_full_title %>
+    </li>
+  <% end %>
+</ul>
+<%= paginate @affiche_presenter.paginated_affiches %>

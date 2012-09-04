@@ -2,6 +2,8 @@ HasSearcher.create_searcher :affiche do
   models :showing
 
   property :affiche_category
+  property :starts_on
+  property :tags
 
   scope :today do
     with(:starts_at).greater_than DateTime.now.beginning_of_day
@@ -16,6 +18,11 @@ HasSearcher.create_searcher :affiche do
   scope :weekly do
     with(:starts_at).greater_than DateTime.now.beginning_of_week
     with(:starts_at).less_than DateTime.now.end_of_week
+  end
+
+  scope :daily do |search|
+    search.with(:starts_at).greater_than search_object.starts_on.beginning_of_day
+    search.with(:starts_at).less_than search_object.starts_on.end_of_day
   end
 
   scope :actual do |search|
