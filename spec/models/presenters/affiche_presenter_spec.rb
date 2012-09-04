@@ -66,4 +66,14 @@ describe AffichePresenter do
     subject { affiche_presenter.human_kind }
     it { should == 'Кино' }
   end
+
+  describe "#counter" do
+    subject { affiche_presenter.counter }
+    before {
+      searcher = HasSearcher.searcher(:affiche, :affiche_category => 'movies')
+      searcher.stub_chain(:today, :group, :total).and_return(5)
+      Counter.any_instance.stub(:searcher).and_return(searcher)
+    }
+    its(:today) { should == 5 }
+  end
 end

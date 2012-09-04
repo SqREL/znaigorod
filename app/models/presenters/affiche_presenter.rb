@@ -35,6 +35,10 @@ class AffichePresenter
     end
   end
 
+  def counter
+    Counter.new(:kind => kind.singularize)
+  end
+
   def daily_period?
     period == 'daily'
   end
