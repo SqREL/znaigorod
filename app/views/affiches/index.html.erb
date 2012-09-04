@@ -26,14 +26,16 @@
                 </li>
               <% end %>
             </ul>
-            <ul class="tags">
-              <li class="title">Теги</li>
-              <% @affiche_presenter.tag_links.each do |tag_link| %>
-                <li class="<%= tag_link.html_options[:class] %>">
-                  <%= link_to tag_link.title, tag_link.url %>
-                </li>
-              <% end %>
-            </ul>
+            <% unless @affiche_presenter.tag_links.blank? %>
+              <ul class="tags">
+                <li class="title">Теги</li>
+                <% @affiche_presenter.tag_links.each do |tag_link| %>
+                  <li class="<%= tag_link.html_options[:class] %>">
+                    <%= link_to tag_link.title, tag_link.url %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
           <% end %>
         </li>
       <% end %>
