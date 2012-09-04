@@ -99,7 +99,8 @@ class AffichePresenter
   end
 
   def search_params
-    search_params = {:affiche_category => kind.singularize}
+    search_params = {}
+    search_params[:affiche_category] = kind.singularize unless kind == 'affiches'
     search_params[:starts_on] = on if period == 'daily'
     search_params[:tags] = tags if tags.any?
     search_params

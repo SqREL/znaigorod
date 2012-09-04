@@ -22,6 +22,8 @@ class Counter
 
 
   def searcher
-    HasSearcher.searcher(:affiche, :affiche_category => kind)
+    search_params = {}
+    search_params[:affiche_category] = kind.singularize unless kind == 'affiche'
+    HasSearcher.searcher(:affiche, search_params)
   end
 end
