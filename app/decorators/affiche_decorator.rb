@@ -39,6 +39,10 @@ class AfficheDecorator < ApplicationDecorator
     h.link_to image_tag(affiche.poster_url, 180, 242, affiche.title), h.affiche_path(affiche)
   end
 
+  def nearest_showing
+    ShowingDecorator.decorate affiche.showings.actual.first
+  end
+
   private
 
     def trancated_link(length)
