@@ -42,7 +42,7 @@ body
     .search_form
       float: right
       position: relative
-      margin: 20px 20px 0 0
+      margin: 20px 10px 0 0
       .search
         width: 161px
         border: 1px solid #8cacd7
@@ -59,7 +59,7 @@ body
         padding-left: 5px
     .logo
       float: left
-      margin: 10px 0 0 35px
+      margin: 10px 0 0 10px
       a
         +clearfix
         display: block
@@ -71,7 +71,7 @@ body
     .tomsk
       float: left
       clear: left
-      margin-left: 208px
+      margin-left: 184px
       a
         text-decoration: none
 
@@ -79,8 +79,8 @@ body
   background: #513871 image_url('public/main_menu_bg.png') repeat left top
   .main_menu
     $main_height: 27px
-    $menu_left_offset: 40px
-    width: 1000px - $menu_left_offset
+    $menu_left_offset: 10px
+    width: $common_width - $menu_left_offset
     margin: 0 auto
     overflow: visible
     +min-height($main_height)
@@ -139,16 +139,16 @@ body
         &:hover
           display: block
 
-.show
-  width: 960px
-  padding-left: 40px
-  margin: 0 auto
+.content_wrapper
+  width: $common_width
+  margin: 25px auto 0
+  background-color: green
 
 .footer_wrapper
   background: #523a71 image_url('public/footer_bg.png') top left
   .footer
     +clearfix
-    width: 1000px
+    width: $common_width
     margin: 0 auto
     color: #fff
 
@@ -162,7 +162,7 @@ body
   .our_social_link
     float: left
     width: 240px
-    padding: 20px 20px 15px 40px
+    margin: 20px 20px 15px 10px
 
     ul
       margin: 0
@@ -188,9 +188,9 @@ body
       background-image: image_url('public/our_social_link_phone.png')
 
   .twitter_timeline
-    float: left
+    float: right
     width: 680px
-    padding: 20px 20px 10px 0
+    margin: 20px 10px 10px 0
 
 .twtr-widget-profile
   .twtr-doc
