@@ -1,36 +1,42 @@
-<%= @affiche_presenter.human_kind %> <%= @affiche_presenter.human_period.mb_chars.downcase %>
-<%= @affiche_presenter.tags.join("| ") %>
+<div class="content_wrapper">
 
-<ul>
-  <% @affiche_presenter.kind_links.each do |link| %>
-    <li>
-      <%= link_to link.title, link.url %>
-      <% if link.current? %>
-        <ul>
-          <% @affiche_presenter.period_links.each do |period_link| %>
-            <li>
-              <%= link_to period_link.title, period_link.url %>
-            </li>
-          <% end %>
-        </ul>
-        <%= @affiche_presenter.tag_links.size %>
-        <ul>
-          <% @affiche_presenter.tag_links.each do |tag_link| %>
-            <li>
-              <%= link_to tag_link.title, tag_link.url %>
-            </li>
-          <% end %>
-        </ul>
+  <div class="affiches_list">
+    <h1><strong><%= @affiche_presenter.human_kind %></strong> <%= @affiche_presenter.human_period.mb_chars.downcase %></h1>
+    <ul>
+      <% @affiche_presenter.affiches.each do |affiche| %>
+        <li>
+          <%= affiche.link_with_full_title %>
+        </li>
       <% end %>
-    </li>
-  <% end %>
-</ul>
-<h1><%= @affiche_presenter.affiches.size %></h1>
-<ul>
-  <% @affiche_presenter.affiches.each do |affiche| %>
-    <li>
-      <%= affiche.link_with_full_title %>
-    </li>
-  <% end %>
-</ul>
-<%= paginate @affiche_presenter.paginated_affiches %>
+    </ul>
+    <%= paginate @affiche_presenter.paginated_affiches %>
+  </div>
+
+  <div class="affiches_filter">
+    <ul class="categories">
+      <% @affiche_presenter.kind_links.each do |link| %>
+        <li<%= " class='current'" if link.current? %>>
+          <% unless link.current? %>
+            <%= link_to link.title, link.url %>
+          <% else %>
+            <div class="title"><%= link.title %></div>
+            <ul class="periods">
+              <% @affiche_presenter.period_links.each do |period_link| %>
+                <li>
+                  <%= link_to period_link.title, period_link.url %>
+                </li>
+              <% end %>
+            </ul>
+            <ul>
+              <% @affiche_presenter.tag_links.each do |tag_link| %>
+                <li>
+                  <%= link_to tag_link.title, tag_link.url %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
