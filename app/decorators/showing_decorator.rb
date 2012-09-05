@@ -3,20 +3,27 @@
 class ShowingDecorator < ApplicationDecorator
   decorates :showing
 
+  delegate :starts_at, :ends_at, :ends_at?, :to => :showing
+
   def human_when
-    if showing.ends_at.nil?
-      date = today? ? "Сегодня" : I18n.l(showing.starts_at, :format => '%e %B').squish
-      date += " в #{I18n.l(showing.starts_at, :format => '%H:%M')}" if showing.starts_at.beginning_of_day != showing.starts_at
+    unless ends_at?
+      date = today? ? 'Сегодня' : e_B(starts_at)
+      date += " в #{H_M(starts_at)}" unless starts_at_only_date?
+
       return date
     else
-      from_time = showing.starts_at.beginning_of_day == showing.starts_at ? "" : I18n.l(showing.starts_at, :format => '%H:%M')
-      to_time = showing.ends_at.end_of_day == showing.ends_at ? "" : I18n.l(showing.ends_at, :format => '%H:%M')
-      if showing.starts_at.to_date == showing.ends_at.to_date
-        date = today? ? "Сегодня" : I18n.l(showing.starts_at, :format => '%e %B').squish
+      from_time = starts_at_only_date? ? '' : H_M(starts_at)
+      to_time = ends_at_only_date? ? '' : H_M(ends_at)
+
+      if in_one_day?
+        date = today? ? 'Сегодня' : e_B(starts_at)
         date += " с #{from_time} до #{to_time}"
+
         return date
       else
-        return "#{I18n.l(showing.starts_at, :format => '%e %B').squish} #{from_time} - #{I18n.l(showing.ends_at, :format => '%e %B').squish} #{to_time}"
+        return "#{starts_at.day} - #{e_B(ends_at)}" if in_one_month? && starts_at_only_date? && ends_at_only_date?
+        return "#{e_B(starts_at)} - #{e_B(ends_at)}" if starts_at_only_date? && ends_at_only_date?
+        return "#{e_B(starts_at)} #{from_time} - #{e_B(ends_at)} #{to_time}"
       end
     end
   end
@@ -30,6 +37,30 @@ class ShowingDecorator < ApplicationDecorator
   end
 
   def today?
-    showing.starts_at >= DateTime.now.beginning_of_day && showing.starts_at <= DateTime.now.end_of_day
+    starts_at >= Time.zone.now.beginning_of_day && starts_at <= Time.zone.now.end_of_day
+  end
+
+  def in_one_month?
+    starts_at.month == ends_at.month
+  end
+
+  def in_one_day?
+    starts_at.to_date == ends_at.to_date
+  end
+
+  def starts_at_only_date?
+    starts_at == starts_at.beginning_of_day
+  end
+
+  def ends_at_only_date?
+    ends_at == ends_at.end_of_day
+  end
+
+  def e_B(date)
+    I18n.l(date, :format => '%e %B').squish
+  end
+
+  def H_M(date)
+    I18n.l(date, :format => '%H:%M')
   end
 end
