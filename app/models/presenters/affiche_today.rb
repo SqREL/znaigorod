@@ -49,6 +49,6 @@ class AfficheToday
   end
 
   def affiches
-    @affiches ||= AfficheDecorator.decorate HasSearcher.searcher(:affiche, :affiche_category => kind.singularize).today.group(:affiche_id_str).groups.map(&:value).map { |id| Affiche.find(id) }
+    @affiches ||= AfficheDecorator.decorate HasSearcher.searcher(:affiche, :affiche_category => kind.singularize).today.affiches.group(:affiche_id_str).groups.map(&:value).map { |id| Affiche.find(id) }
   end
 end

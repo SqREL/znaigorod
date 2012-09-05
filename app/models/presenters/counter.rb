@@ -5,19 +5,19 @@ class Counter
   attr_accessor :kind
 
   def today
-    @today ||= searcher.today.group(:affiche_id_str).total
+    @today ||= searcher.today.affiches.group(:affiche_id_str).total
   end
 
   def weekend
-    @weekend ||= searcher.weekend.actual.group(:affiche_id_str).total
+    @weekend ||= searcher.weekend.actual.affiches.group(:affiche_id_str).total
   end
 
   def weekly
-    @weekly ||= searcher.weekly.actual.group(:affiche_id_str).total
+    @weekly ||= searcher.weekly.actual.affiches.group(:affiche_id_str).total
   end
 
   def all
-    @all ||= searcher.actual.group(:affiche_id_str).total
+    @all ||= searcher.actual.affiches.group(:affiche_id_str).total
   end
 
 

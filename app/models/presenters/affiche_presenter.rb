@@ -83,11 +83,15 @@ class AffichePresenter
   end
 
   def affiches
-    @affiches ||= AfficheDecorator.decorate paginated_affiches.map(&:value).map { |id| Affiche.find(id) }
+    {}.tap do |hash|
+      AfficheDecorator.decorate(paginated_affiches.map(&:value).map { |id| Affiche.find(id) }).each do |affiche|
+        hash[affiche] = ShowingDecorator.decorate(searcher(search_params(affiche.id)).results)
+      end
+    end
   end
 
   def paginated_affiches
-    searcher(search_params).paginate(:page => page, :per_page => 5).group(:affiche_id_str).groups
+    searcher(search_params).paginate(:page => page, :per_page => 5).affiches.group(:affiche_id_str).groups
   end
 
   def searcher_scopes
@@ -123,11 +127,12 @@ class AffichePresenter
     end
   end
 
-  def search_params
+  def search_params(affiche_id = nil)
     search_params = {}
     search_params[:affiche_category] = kind.singularize unless kind == 'affiches'
     search_params[:starts_on] = on if period == 'daily'
     search_params[:tags] = tags if tags.any?
+    search_params[:affiche_id] = affiche_id if affiche_id
     search_params
   end
 

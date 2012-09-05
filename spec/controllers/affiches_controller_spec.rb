@@ -3,6 +3,9 @@
 require 'spec_helper'
 
 describe AffichesController do
+    before {
+      AffichePresenter.any_instance.stub(:paginated_affiches).and_return([])
+    }
   %w( affiches movies concerts parties spectacles exhibitions sportsevents others ).each do |kind|
     it "#index should handle /#{kind}/all/" do
       get :index, :kind => kind, :period => :all

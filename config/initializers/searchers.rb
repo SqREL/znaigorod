@@ -32,7 +32,9 @@ HasSearcher.create_searcher :affiche do
     end
   end
 
-  group :affiche_id_str
+  scope :affiches do
+    group :affiche_id_str
+  end
 
   scope do
     with(:starts_at).greater_than DateTime.now.beginning_of_day

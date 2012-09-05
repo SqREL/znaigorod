@@ -31,10 +31,10 @@ describe AffichePresenter do
   describe "#period_links" do
     before {
       searcher = HasSearcher.searcher(:affiche, :affiche_category => 'movies')
-      searcher.stub_chain(:today, :group, :total).and_return(5)
-      searcher.stub_chain(:weekend, :actual, :group, :total).and_return(7)
-      searcher.stub_chain(:weekly, :actual, :group, :total).and_return(9)
-      searcher.stub_chain(:actual, :group, :total).and_return(10)
+      searcher.stub_chain(:today, :affiches, :group, :total).and_return(5)
+      searcher.stub_chain(:weekend, :actual, :affiches, :group, :total).and_return(7)
+      searcher.stub_chain(:weekly, :actual, :affiches, :group, :total).and_return(9)
+      searcher.stub_chain(:actual, :affiches, :group, :total).and_return(10)
       Counter.any_instance.stub(:searcher).and_return(searcher)
     }
     subject { affiche_presenter.period_links }
@@ -83,7 +83,7 @@ describe AffichePresenter do
     subject { affiche_presenter.counter }
     before {
       searcher = HasSearcher.searcher(:affiche, :affiche_category => 'movies')
-      searcher.stub_chain(:today, :group, :total).and_return(5)
+      searcher.stub_chain(:today, :affiches, :group, :total).and_return(5)
       Counter.any_instance.stub(:searcher).and_return(searcher)
     }
     its(:today) { should == 5 }

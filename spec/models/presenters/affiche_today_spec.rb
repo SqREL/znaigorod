@@ -31,7 +31,7 @@ describe AfficheToday do
       subject { affiche_today.counters['exhibitions'] }
       before {
         searcher = HasSearcher.searcher(:affiche, :affiche_category => 'exhibition')
-        searcher.stub_chain(:today, :group, :total).and_return(5)
+        searcher.stub_chain(:today, :affiches, :group, :total).and_return(5)
         Counter.any_instance.stub(:searcher).and_return(searcher)
       }
       its(:today) { should == 5 }
