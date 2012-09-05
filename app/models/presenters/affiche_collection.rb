@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-class AffichePresenter
+class AfficheCollection
   include Rails.application.routes.url_helpers
   include ActiveAttr::MassAssignment
   attr_accessor :kind, :period, :on, :tags, :page

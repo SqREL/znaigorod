@@ -14,7 +14,7 @@ class AffichesController < ApplicationController
       @affiche_today = AfficheToday.new(params[:kind])
       render :partial => 'affiche_today', :layout => false and return
     else
-      @affiche_presenter = AffichePresenter.new(params)
+      @affiche_collection = AfficheCollection.new(params)
     end
   end
 

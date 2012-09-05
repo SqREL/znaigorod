@@ -1,9 +1,9 @@
 <div class="content_wrapper">
 
   <div class="affiches_list">
-    <h1><strong><%= @affiche_presenter.human_kind %></strong> <%= @affiche_presenter.human_period.mb_chars.downcase %></h1>
+    <h1><strong><%= @affiche_collection.human_kind %></strong> <%= @affiche_collection.human_period.mb_chars.downcase %></h1>
     <ul>
-      <% @affiche_presenter.affiches.each do |affiche, showings| %>
+      <% @affiche_collection.affiches.each do |affiche, showings| %>
         <li>
           <div class="image">
             <%= affiche.list_poster %>
@@ -29,7 +29,7 @@
             <ul class="tags">
               <% affiche.tags.each do |tag| %>
                 <li>
-                  <%= link_to tag, @affiche_presenter.url_for_tag(tag) %>
+                  <%= link_to tag, @affiche_collection.url_for_tag(tag) %>
                 </li>
               <% end %>
             </ul>
@@ -41,23 +41,23 @@
 
   <div class="affiches_filter">
     <ul class="categories">
-      <% @affiche_presenter.kind_links.each do |link| %>
+      <% @affiche_collection.kind_links.each do |link| %>
         <li class="<%= link.html_options[:class] %>">
           <% unless link.current? %>
             <%= link_to link.title, link.url %>
           <% else %>
             <div class="title"><%= link.title %></div>
             <ul class="periods">
-              <% @affiche_presenter.period_links.each do |period_link| %>
+              <% @affiche_collection.period_links.each do |period_link| %>
                 <li class="<%= period_link.html_options[:class] %>">
                   <%= period_link.current? ? content_tag(:span, period_link.title) : link_to(period_link.title, period_link.url) %>
                 </li>
               <% end %>
             </ul>
-            <% unless @affiche_presenter.tag_links.blank? %>
+            <% unless @affiche_collection.tag_links.blank? %>
               <ul class="tags">
                 <li class="title">Теги</li>
-                <% @affiche_presenter.tag_links.each do |tag_link| %>
+                <% @affiche_collection.tag_links.each do |tag_link| %>
                   <li class="<%= tag_link.html_options[:class] %>">
                     <%= link_to tag_link.title, tag_link.url %>
                   </li>
@@ -72,4 +72,4 @@
 
 </div>
 
-<%= paginate @affiche_presenter.paginated_affiches %>
+<%= paginate @affiche_collection.paginated_affiches %>
