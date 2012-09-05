@@ -1,8 +1,9 @@
 # encoding: utf-8
 
 class AfficheDecorator < ApplicationDecorator
-
   decorates :affiche
+
+  delegate :distribution_starts_on, :distribution_ends_on, :distribution_starts_on?, :distribution_ends_on?, :to => :affiche
 
   def link
     truncated_link(45)
@@ -53,9 +54,21 @@ class AfficheDecorator < ApplicationDecorator
     h.link_to image_tag(affiche.poster_url, 180, 242, affiche.title), h.affiche_path(affiche)
   end
 
+  def human_distribution
+    return nil unless distribution_starts_on?
+
+    return "С #{distribution_starts_on.day} до #{I18n.l(distribution_ends_on, :format => '%e %B')}".squish if distribution_starts_on? && distribution_ends_on?
+
+    return "С #{I18n.l(distribution_starts_on, :format => '%e %B')}".squish
+  end
+
   private
   def truncated_link(length)
     link_title = affiche.title if affiche.title.size > length
     h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')), h.affiche_path(affiche), :title => affiche.title
+  end
+
+  def in_one_day?
+    distribution_starts_on == distribution_ends_on
   end
 end

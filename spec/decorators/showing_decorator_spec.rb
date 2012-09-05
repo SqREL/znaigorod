@@ -52,20 +52,6 @@ describe ShowingDecorator do
 
       it { should == "9 сентября - 10 октября" }
     end
-
-    context 'when affche has distribution_starts_on' do
-      let(:affiche) { Affiche.new :distribution_starts_on => Time.zone.parse('2012-09-10') }
-      before { showing.affiche = affiche }
-
-      pending { should == 'с 10 сентября' }
-    end
-
-    context 'when affiche has distribution_starts_on and distribution_ends_on' do
-      let(:affiche) { Affiche.new :distribution_starts_on => Time.zone.parse('2012-09-10'), :distribution_ends_on => Time.zone.parse('2012-09-20') }
-      before { showing.affiche = affiche }
-
-      pending { should == 'с 10 до' }
-    end
   end
 
   describe "#human_price" do

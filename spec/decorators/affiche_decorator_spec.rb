@@ -63,4 +63,22 @@ describe AfficheDecorator do
     it { should =~ /affiches\/1/ }
     it { should =~ /Подробнее/ }
   end
+
+  describe "#human_distribution" do
+    subject { decorator.human_distribution }
+    context "when unset" do
+      it { should == nil }
+    end
+
+    context "when set distribution_starts_on" do
+      before { affiche.distribution_starts_on = Time.zone.parse('2012-09-05') }
+      it { should == "С 5 сентября" }
+    end
+
+    context "when set distribution_starts_on and distribution_ends_on" do
+      before { affiche.distribution_starts_on = Time.zone.parse('2012-09-05') }
+      before { affiche.distribution_ends_on = Time.zone.parse('2012-09-15') }
+      it { should == "С 5 до 15 сентября" }
+    end
+  end
 end
