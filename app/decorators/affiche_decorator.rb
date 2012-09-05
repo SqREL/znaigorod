@@ -39,15 +39,9 @@ class AfficheDecorator < ApplicationDecorator
     h.link_to image_tag(affiche.poster_url, 180, 242, affiche.title), h.affiche_path(affiche)
   end
 
-  def nearest_showing
-    ShowingDecorator.decorate(affiche.showings.actual.first || affiche.showing.last)
-  end
-
   private
-
-    def trancated_link(length)
-      link_title = affiche.title if affiche.title.size > length
-      h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')), h.affiche_path(affiche), :title => link_title
-    end
-
+  def trancated_link(length)
+    link_title = affiche.title if affiche.title.size > length
+    h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')), h.affiche_path(affiche), :title => link_title
+  end
 end
