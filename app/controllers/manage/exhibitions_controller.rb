@@ -4,7 +4,9 @@ class Manage::ExhibitionsController < Manage::ApplicationController
   has_scope :page, :default => 1
 
   def create
-    create!{ resource_path }
+    create! do |success, failure|
+      failure.html { render :edit }
+    end
   end
 
   def update
