@@ -3,6 +3,8 @@
 <%= f.input :description %>
 <%= f.input :tag %>
 <%= f.input :trailer_code if Movie === f.object %>
+<%= f.input :distribution_starts_on, :as => :date_picker %>
+<%= f.input :distribution_ends_on, :as => :date_picker %>
 
 <div class='poster'>
   <h3>Постер для события:</h3>

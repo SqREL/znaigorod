@@ -1,7 +1,8 @@
 class Affiche < ActiveRecord::Base
   attr_accessible :description, :poster_url, :image_url, :showings_attributes,
                   :tag, :title, :vfs_path, :affiche_schedule_attributes,
-                  :images_attributes, :attachments_attributes
+                  :images_attributes, :attachments_attributes,
+                  :distribution_starts_on, :distribution_ends_on
 
 
   has_many :images,      :as => :imageable, :dependent => :destroy

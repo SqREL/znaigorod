@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712043042) do
+ActiveRecord::Schema.define(:version => 20120905014343) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(:version => 20120712043042) do
 
   create_table "affiches", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
     t.text     "description"
     t.string   "original_title"
     t.string   "poster_url"
@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(:version => 20120712043042) do
     t.text     "tag"
     t.string   "vfs_path"
     t.string   "image_url"
+    t.datetime "distribution_starts_on"
+    t.datetime "distribution_ends_on"
   end
 
   create_table "attachments", :force => true do |t|

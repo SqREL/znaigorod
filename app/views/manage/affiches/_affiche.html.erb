@@ -42,6 +42,24 @@
       <span class="blank">Не указано</span>
     <% end %>
   </div>
+
+  <div>
+    <span class="label">Начало проката:</span>
+    <% if resource.distribution_starts_on? %>
+      <span class="value"><%= l(resource.distribution_starts_on, :format => '%e %B') %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+
+  <div>
+    <span class="label">Окончание проката:</span>
+    <% if resource.distribution_starts_on? %>
+      <span class="value"><%= l(resource.distribution_ends_on, :format => '%e %B') %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
 </div>
 
 <div style='clear:both;'>
