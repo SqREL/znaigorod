@@ -28,9 +28,7 @@
             </div>
             <ul class="tags">
               <% affiche.tags.each do |tag| %>
-                <li>
-                  <%= link_to tag, @affiche_collection.url_for_tag(tag) %>
-                </li>
+                <li><%= link_to tag, @affiche_collection.url_for_tag(tag) %></li>
               <% end %>
             </ul>
           </div>
