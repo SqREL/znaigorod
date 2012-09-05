@@ -22,10 +22,12 @@
                 <span class="address"><a href="#">пр. Кирова, 3г</a></span>
               </p>
             </div>
-            <div class="description">
-              <p class="text"><%= affiche.trancated_description %></p>
-              <p class="more"><%= affiche.more_link %></p>
-            </div>
+            <% unless affiche.truncated_description.blank? %>
+              <div class="description">
+                <p class="text"><%= affiche.truncated_description %></p>
+                <p class="more"><%= affiche.more_link %></p>
+              </div>
+            <% end %>
             <ul class="tags">
               <% affiche.tags.each do |tag| %>
                 <li><%= link_to tag, @affiche_collection.url_for_tag(tag) %></li>

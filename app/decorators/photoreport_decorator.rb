@@ -8,7 +8,7 @@ class PhotoreportDecorator < AfficheDecorator
   end
 
   def link
-    trancated_link(77)
+    truncated_link(77)
   end
 
   def main_images

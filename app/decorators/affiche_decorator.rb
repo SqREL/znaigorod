@@ -5,7 +5,7 @@ class AfficheDecorator < ApplicationDecorator
   decorates :affiche
 
   def link
-    trancated_link(45)
+    truncated_link(45)
   end
 
   def link_with_full_title
@@ -37,8 +37,8 @@ class AfficheDecorator < ApplicationDecorator
     h.raw place_output
   end
 
-  def trancated_description
-    html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(230, :separator => ' ').html_safe
+  def truncated_description
+    hyphenate(html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(230, :separator => ' ').gilensize).html_safe
   end
 
   def html_description
@@ -54,7 +54,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   private
-  def trancated_link(length)
+  def truncated_link(length)
     link_title = affiche.title if affiche.title.size > length
     h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')), h.affiche_path(affiche), :title => affiche.title
   end
