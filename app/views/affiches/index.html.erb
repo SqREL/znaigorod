@@ -18,11 +18,11 @@
               <p class="more"><a href="#">Подробнее...</a></p>
             </div>
             <ul class="tags">
-              <li><a href="#">музыка</a></li>
-              <li><a href="#">ужасы</a></li>
-              <li><a href="#">для девушек</a></li>
-              <li><a href="#">живая музыка</a></li>
-              <li><a href="#">от 18</a></li>
+              <% affiche.tags.each do |tag| %>
+                <li>
+                  <%= link_to tag, @affiche_presenter.url_for_tag(tag) %>
+                </li>
+              <% end %>
             </ul>
           </div>
         </li>

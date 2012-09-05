@@ -62,9 +62,13 @@ class AffichePresenter
     [].tap do |array|
       facets.each do |tag|
         html_options = tags.include?(tag) ? { :class => :selected } : {}
-        array << Link.new(:title => tag, :current => tags.include?(tag), :html_options => html_options, :url => affiches_path(kind, period, on, tag_params(tag)))
+        array << Link.new(:title => tag, :current => tags.include?(tag), :html_options => html_options, :url => url_for_tag(tag))
       end
     end
+  end
+
+  def url_for_tag(tag)
+    affiches_path(kind, period, on, tag_params(tag))
   end
 
   def daily_period?
