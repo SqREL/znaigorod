@@ -57,4 +57,10 @@ describe AfficheDecorator do
     it { should =~ /href=\"\/affiches\/1\"/ }
     it { should =~ /src=\"http:\/\/storage.openteam.ru\/files\/3434\/180-242!\/123.jpg\"/ }
   end
+
+  describe "#more_link" do
+    subject { decorator.more_link }
+    it { should =~ /affiches\/1/ }
+    it { should =~ /Подробнее/ }
+  end
 end

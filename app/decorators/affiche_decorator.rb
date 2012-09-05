@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class AfficheDecorator < ApplicationDecorator
 
   decorates :affiche
@@ -7,7 +9,11 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def link_with_full_title
-      h.link_to hyphenate(affiche.title.gilensize).html_safe, h.affiche_path(affiche)
+    h.link_to affiche.title.gilensize.html_safe, h.affiche_path(affiche)
+  end
+
+  def more_link
+    h.link_to "Подробнее...", h.affiche_path(affiche), :title => affiche.title
   end
 
   def place
@@ -42,6 +48,6 @@ class AfficheDecorator < ApplicationDecorator
   private
   def trancated_link(length)
     link_title = affiche.title if affiche.title.size > length
-    h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')), h.affiche_path(affiche), :title => link_title
+    h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')), h.affiche_path(affiche), :title => affiche.title
   end
 end
