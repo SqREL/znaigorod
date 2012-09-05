@@ -68,7 +68,7 @@ class Organization < ActiveRecord::Base
   end
 
   def nearest_affiches
-    Affiche.where :id => Showing.where('starts_at > :now AND organization_id = :organization_id',
+    Affiche.where :id => Showing.unscoped.where('starts_at > :now AND organization_id = :organization_id',
                   { :now => DateTime.now.utc, :organization_id => id }).group(:affiche_id).pluck(:affiche_id)
   end
 
