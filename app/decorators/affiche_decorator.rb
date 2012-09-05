@@ -37,6 +37,14 @@ class AfficheDecorator < ApplicationDecorator
     h.raw place_output
   end
 
+  def trancated_description
+    html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(230, :separator => ' ').html_safe
+  end
+
+  def html_description
+    RedCloth.new(affiche.description).to_html.gsub(/&#8220;|&#8221;/, '"').gilensize.html_safe
+  end
+
   def main_page_poster
     h.link_to image_tag(affiche.poster_url, 200, 268, affiche.title), h.affiche_path(affiche)
   end

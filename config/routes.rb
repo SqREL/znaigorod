@@ -28,24 +28,8 @@ Znaigorod::Application.routes.draw do
   get 'search' => 'search#index'
   get 'geocoder' => 'geocoder#get_coordinates'
 
-  { 'kino' => 'movies', 'vecherinki' => 'parties' }.each do |category, kind|
-    get "/affiches/#{kind}" => 'affiches#index',
-        :defaults => {
-          :search => {
-            :starts_on_gt       => Date.today.to_s,
-            :starts_on_lt       => Date.today.to_s,
-            :starts_at_hour_gt  => '0',
-            :starts_at_hour_lt  => '23',
-            :affiche_category   => ["#{category}"],
-            :price_gt           => '0',
-            :price_lt           => '>1500'
-          }
-        }
-  end
-
-  resources :affiches, :only => [:show]
-  #match 'affiches/:id' => 'affiches#show', :constraints => { :id => /\d+/ }, :as => :affiche
-  match ':kind/:period/(:on)/(tags/*tags)' => 'affiches#index',
+  get 'affiche_item/:id' => 'affiches#show', :as => :affiche
+  get ':kind/:period/(:on)/(tags/*tags)' => 'affiches#index',
         :kind => /movies|concerts|parties|spectacles|exhibitions|sportsevents|others|affiches/,
         :period => /today|weekly|weekend|all|daily/, :as => :affiches
 
