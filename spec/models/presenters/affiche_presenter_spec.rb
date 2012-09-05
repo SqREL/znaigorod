@@ -63,7 +63,7 @@ describe AffichePresenter do
       before { affiche_presenter.period = 'weekly' }
       it { should == 'На этой неделе' }
     end
-    context 'd)ily' do
+    context 'daily' do
       before { affiche_presenter.period = 'daily' }
       before { affiche_presenter.on = Date.parse('2012-09-03') }
       it { should == ' 3 сентября' }

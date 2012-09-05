@@ -119,9 +119,6 @@ prepare_affiche_list = ->
 
   true
 
-randomize = (number) ->
-  Math.floor(Math.random() * Math.round(number) + 1)
-
 create_ajax_indicator = () ->
   $('.ajax_indicator_wrapper').remove()
   $('<div class="ajax_indicator_wrapper" />').appendTo('body').hide()
