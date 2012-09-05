@@ -21,9 +21,9 @@ class ShowingDecorator < ApplicationDecorator
 
         return date
       else
-        return "#{starts_at.day} - #{e_B(ends_at)}" if in_one_month? && starts_at_only_date? && ends_at_only_date?
-        return "#{e_B(starts_at)} - #{e_B(ends_at)}" if starts_at_only_date? && ends_at_only_date?
-        return "#{e_B(starts_at)} #{from_time} - #{e_B(ends_at)} #{to_time}"
+        return "#{starts_at.day} &ndash; #{e_B(ends_at)}".html_safe if in_one_month? && starts_at_only_date? && ends_at_only_date?
+        return "#{e_B(starts_at)} &ndash; #{e_B(ends_at)}".html_safe if starts_at_only_date? && ends_at_only_date?
+        return "#{e_B(starts_at)} #{from_time} &ndash; #{e_B(ends_at)} #{to_time}".html_safe
       end
     end
   end
@@ -32,8 +32,8 @@ class ShowingDecorator < ApplicationDecorator
     return "стоимость не указана" if showing.price_min.nil? && showing.price_max.nil?
     return "бесплатно" if showing.price_min == 0 && (showing.price_max.nil? || showing.price_max == 0)
     return "#{showing.price_min} руб." if showing.price_min > 0 && (showing.price_max.nil? || showing.price_max == 0)
-    return "#{showing.price_min} - #{showing.price_max} руб." if showing.price_min > 0 && showing.price_max > 0
-    return "бесплатно - #{showing.price_max} руб." if showing.price_min == 0 && showing.price_max > 0
+    return "#{showing.price_min} &ndash; #{showing.price_max} руб.".html_safe if showing.price_min > 0 && showing.price_max > 0
+    return "бесплатно &ndash; #{showing.price_max} руб.".html_safe if showing.price_min == 0 && showing.price_max > 0
   end
 
   def today?
