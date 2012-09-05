@@ -40,7 +40,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def nearest_showing
-    ShowingDecorator.decorate affiche.showings.actual.first
+    ShowingDecorator.decorate(affiche.showings.actual.first || affiche.showing.last)
   end
 
   private

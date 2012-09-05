@@ -6,7 +6,6 @@ HasSearcher.create_searcher :affiche do
   property :tags
 
   scope :today do
-    with(:starts_at).greater_than DateTime.now.beginning_of_day
     with(:starts_at).less_than DateTime.now.end_of_day
   end
 
@@ -26,9 +25,9 @@ HasSearcher.create_searcher :affiche do
   end
 
   scope :actual do |search|
-    search.with(:starts_at).greater_than DateTime.now.change(:sec => 0)
+    search.with(:starts_at).greater_than DateTime.now.beginning_of_day
     search.any_of do
-      with(:ends_at).greater_than(DateTime.now.change(:sec => 0))
+      with(:ends_at).greater_than(DateTime.now.beginning_of_day)
       with(:ends_at, nil)
     end
   end
@@ -36,6 +35,7 @@ HasSearcher.create_searcher :affiche do
   group :affiche_id_str
 
   scope do
+    with(:starts_at).greater_than DateTime.now.beginning_of_day
     order_by :starts_at
   end
 

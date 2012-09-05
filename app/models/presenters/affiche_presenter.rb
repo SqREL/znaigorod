@@ -90,13 +90,34 @@ class AffichePresenter
     searcher(search_params).paginate(:page => page, :per_page => 5).group(:affiche_id_str).groups
   end
 
+  def searcher_scopes
+    [].tap do |scopes|
+      case period
+      when 'today'
+        scopes << 'today'
+      when 'daily'
+        if on == Date.today
+          scopes << 'today'
+        else
+          scopes << 'actual'
+        end
+      when 'weekend'
+        scopes << 'weekend'
+        scopes << 'actual'
+      when 'weekly'
+        scopes << 'weekly'
+        scopes << 'actual'
+      when 'all'
+        scopes << 'actual'
+      end
+    end
+  end
+
   private
 
   def searcher(searcher_params)
-    scopes = [period]
-    scopes << 'actual' unless period == 'today' || on.eql?(Date.today)
     HasSearcher.searcher(:affiche, searcher_params).tap do |searcher|
-      scopes.each do |scope|
+      searcher_scopes.each do |scope|
         searcher.send(scope)
       end
     end

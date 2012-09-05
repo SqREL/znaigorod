@@ -4,7 +4,7 @@ class Showing < ActiveRecord::Base
   belongs_to :affiche
   belongs_to :organization
 
-  validates_presence_of :place, :price_max, :price_min, :starts_at
+  validates_presence_of :place, :starts_at
 
   delegate :tags, :title, :to => :affiche, :prefix => true
   delegate :address, :to => :organization, :prefix => true, :allow_nil => true
@@ -15,7 +15,7 @@ class Showing < ActiveRecord::Base
 
   default_scope order(:starts_at)
 
-  scope :actual, where('starts_at > ?', DateTime.now)
+  scope :actual, where('starts_at >= ?', DateTime.now.beginning_of_day)
 
   default_value_for :price_max, 0
   default_value_for :price_min, 0

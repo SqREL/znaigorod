@@ -32,8 +32,8 @@ describe AffichePresenter do
     before {
       searcher = HasSearcher.searcher(:affiche, :affiche_category => 'movies')
       searcher.stub_chain(:today, :group, :total).and_return(5)
-      searcher.stub_chain(:weekend, :group, :total).and_return(7)
-      searcher.stub_chain(:weekly, :group, :total).and_return(9)
+      searcher.stub_chain(:weekend, :actual, :group, :total).and_return(7)
+      searcher.stub_chain(:weekly, :actual, :group, :total).and_return(9)
       searcher.stub_chain(:actual, :group, :total).and_return(10)
       Counter.any_instance.stub(:searcher).and_return(searcher)
     }
@@ -107,6 +107,36 @@ describe AffichePresenter do
       its(:title) { should == 'боевик' }
       its(:current?) { should == false }
       its(:url) { should == URI.encode('/movies/all/tags/комедия/боевик') }
+    end
+  end
+
+  describe "#searcher_scopes" do
+    subject { affiche_presenter.searcher_scopes }
+    context "when today" do
+      before { affiche_presenter.period = 'today' }
+      it { should == ['today'] }
+    end
+    context "when daily and date = today" do
+      before { affiche_presenter.period = 'daily' }
+      before { affiche_presenter.on = Date.today }
+      it { should == ['today'] }
+    end
+    context "when daily and date != today" do
+      before { affiche_presenter.period = 'daily' }
+      before { affiche_presenter.on = Date.today + 3.days }
+      it { should == ['actual'] }
+    end
+    context "when weekly" do
+      before { affiche_presenter.period = 'weekly' }
+      it { should == ['weekly', 'actual'] }
+    end
+    context "when weekend" do
+      before { affiche_presenter.period = 'weekend' }
+      it { should == ['weekend', 'actual'] }
+    end
+    context "when all" do
+      before { affiche_presenter.period = 'all' }
+      it { should == ['actual'] }
     end
   end
 end
