@@ -1,0 +1,84 @@
+app:
+  affiche_today:
+    monday:
+      '00-24': ['other']
+    sunday:
+      '11-14': ['exhibition']
+  actual_organizations:
+    monday:
+      '00-24':
+        breakfast:
+          options:
+            meal_offer: завтраки
+        coffe_house:
+          options:
+            meal_category: Кофейни
+        food_delivery:
+          options:
+            meal_category: Доставка готовых блюд
+    tuesday:
+      '00-24':
+        food_delivery:
+          options:
+            meal_category: Доставка готовых блюд
+        breakfast:
+          options:
+            meal_offer: завтраки
+        coffe_house:
+          options:
+            meal_category: Кофейни
+    wednesday:
+      '00-24':
+        food_delivery:
+          options:
+            meal_category: Доставка готовых блюд
+        breakfast:
+          options:
+            meal_offer: завтраки
+        coffe_house:
+          options:
+            meal_category: Кофейни
+    thursday:
+      '00-24':
+        food_delivery:
+          options:
+            meal_category: Доставка готовых блюд
+        breakfast:
+          options:
+            meal_offer: завтраки
+        coffe_house:
+          options:
+            meal_category: Кофейни
+    friday:
+      '00-24':
+        food_delivery:
+          options:
+            meal_category: Доставка готовых блюд
+        breakfast:
+          options:
+            meal_offer: завтраки
+        coffe_house:
+          options:
+            meal_category: Кофейни
+    saturday:
+      '00-24':
+        food_delivery:
+          options:
+            meal_category: Доставка готовых блюд
+        breakfast:
+          options:
+            meal_offer: завтраки
+        coffe_house:
+          options:
+            meal_category: Кофейни
+    sunday:
+      '00-24':
+        food_delivery:
+          options:
+            meal_category: Доставка готовых блюд
+        breakfast:
+          options:
+            meal_offer: завтраки
+        coffe_house:
+          options:
+            meal_category: Кофейни
