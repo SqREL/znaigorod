@@ -4,7 +4,7 @@ require 'spec_helper'
 describe AfficheDecorator do
   let(:affiche) { Affiche.new(:title => 'title') }
   before { affiche.stub(:to_param).and_return(1) }
-  let(:decorator) { AfficheDecorator.decorate(affiche) }
+  let(:decorator) { AfficheDecorator.new(affiche) }
   subject { decorator }
   describe "#main_page_link" do
     subject { decorator.main_page_link }
@@ -127,4 +127,5 @@ describe AfficheDecorator do
       it { should == true }
     end
   end
+
 end

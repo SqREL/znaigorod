@@ -8,8 +8,7 @@ class AfficheDecorator < ApplicationDecorator
 
   def initialize(affiche, showings = nil)
     super
-    @showings ||= affiche.showings.actual
-    @showings = ShowingDecorator.decorate(@showings)
+    @showings = showings ? ShowingDecorator.decorate(showings) : ShowingDecorator.decorate(affiche.showings.actual)
   end
 
   def main_page_link
@@ -83,7 +82,7 @@ class AfficheDecorator < ApplicationDecorator
 
   def when_with_price
     h.content_tag :p, h.content_tag(:span, human_when, :class => :when ) + ", " + h.content_tag(:span, human_price, :class => :cost)
-  end
+    end
 
   def human_distribution
     return nil unless distribution_starts_on?
@@ -91,6 +90,32 @@ class AfficheDecorator < ApplicationDecorator
     return "С #{distribution_starts_on.day} до #{I18n.l(distribution_ends_on, :format => '%e %B')}".squish if distribution_starts_on? && distribution_ends_on?
 
     return "С #{I18n.l(distribution_starts_on, :format => '%e %B')}".squish
+  end
+
+  def other_showings
+    return [] if affiche.is_a?(Movie)
+    if affiche_distribution?
+      return affiche.showings.where("starts_at >= ?", showings.first.starts_at)
+    else
+      return affiche.showings.where("starts_at > ?", showings.first.starts_at)
+    end
+  end
+
+  def first_other_showing_today?
+    ShowingDecorator.decorate(other_showings.first).today?
+  end
+
+  def other_showings_size
+    other_showings.count - 2
+  end
+
+  def html_many_other_showings
+    return "" unless other_showings_size > 0
+    ("&nbsp;" + h.link_to("и еще #{other_showings_size}", h.affiche_path(affiche, :anchor => "showings"))).gilensize.html_safe
+  end
+
+  def html_other_showings
+    ((ShowingDecorator.decorate(other_showings[0..1]).map(&:html_other_showing)).compact.join(", <br />") + html_many_other_showings).html_safe
   end
 
   private

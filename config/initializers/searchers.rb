@@ -4,6 +4,7 @@ HasSearcher.create_searcher :affiche do
   property :affiche_category
   property :starts_on
   property :tags
+  property :affiche_id
 
   scope :today do
     with(:starts_at).less_than DateTime.now.end_of_day

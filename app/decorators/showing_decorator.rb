@@ -32,6 +32,10 @@ class ShowingDecorator < ApplicationDecorator
     humanize_price(showing.price_min, showing.price_max)
   end
 
+  def html_other_showing
+    h.content_tag(:strong, human_when) + " (#{human_price})".html_safe
+  end
+
   def today?
     starts_at >= Time.zone.now.beginning_of_day && starts_at <= Time.zone.now.end_of_day
   end

@@ -13,11 +13,12 @@
             <div class="closest">
               <%= affiche.when_with_price %>
             </div>
-            <% if affiche.model.class.name.downcase == 'exhibition' %>
+            <% if affiche.other_showings.any? %>
               <div class="will_be">
-                <strong>Ещё будет:</strong>
-                <strong>16 сентября</strong> в 09:00 (200 руб.),
-                <strong>21 сентября</strong> в 10:00 (200 руб.)
+                <% unless affiche.first_other_showing_today? %>
+                  Ещё будет:
+                <% end %>
+                <%= affiche.html_other_showings %>
               </div>
             <% end %>
             <% if affiche.model.class.name.downcase == 'movie' %>
