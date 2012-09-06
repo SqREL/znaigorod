@@ -1,6 +1,6 @@
 @init_affiches_map = () ->
   container = $('<div class="map_container" />').appendTo('body').hide()
-  $('.affiches_list .info .place .address a').live 'click', ->
+  $('.show_map_link').live 'click', ->
     link = $(this)
     longitude = link.attr('longitude')
     latitude = link.attr('latitude')

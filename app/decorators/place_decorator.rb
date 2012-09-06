@@ -21,8 +21,14 @@ class PlaceDecorator
   end
 
   def address_link
-    return link_to(organization.address, '#', :title => 'Показать на карте', :latitude => organization.latitude, :longitude => organization.longitude) if organization?
-    link_to("показать на карте", '#', :title => "Показать на карте", :latitude => latitude, :longitude => longitude)
+    return link_to(organization.address, '#', :title => 'Показать на карте',
+                   :latitude => organization.latitude,
+                   :longitude => organization.longitude,
+                   :class => 'show_map_link') if organization?
+    return link_to('показать на карте', '#', :title => "Показать на карте",
+                   :latitude => latitude,
+                   :longitude => longitude,
+                   :class => 'show_map_link')
   end
 
   def link_to_organization(gsub = nil)
