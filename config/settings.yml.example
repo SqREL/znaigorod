@@ -1,22 +1,5 @@
 app:
   secret:               secret
-  affiche_today:
-    monday:
-      '00-24': ['others']
-    sunday:
-      '11-14': ['exhibitions']
-  actual_organizations:
-    monday:
-      '00-24':
-        breakfast:
-          options:
-            meal_offer: завтраки
-        coffe_house:
-          options:
-            meal_category: Кофейни
-        food_delivery:
-          options:
-            meal_category: Доставка готовых блюд
 
 solr:
   url:                  http://localhost:8982/solr
