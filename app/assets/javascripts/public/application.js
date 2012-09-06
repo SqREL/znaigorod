@@ -6,5 +6,6 @@
  * = require public/jscrollpane
  * = require public/main_page
  * = require public/affiches_filter
+ * = require public/affiches_map
  * = require public/main
  */
