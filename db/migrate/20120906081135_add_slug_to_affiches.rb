@@ -3,7 +3,11 @@ class AddSlugToAffiches < ActiveRecord::Migration
     add_column :affiches, :slug, :string
     add_index :affiches, :slug, unique: true
 
-    Affiche.find_each(&:save)
+    bar = ProgressBar.new(Affiche.count)
+    Affiche.all.each do |affiche|
+      affiche.save
+      bar.increment!
+    end
   end
 
   def down
