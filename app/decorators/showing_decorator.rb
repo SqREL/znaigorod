@@ -29,11 +29,7 @@ class ShowingDecorator < ApplicationDecorator
   end
 
   def human_price
-    return "стоимость не указана" if showing.price_min.nil? && showing.price_max.nil?
-    return "бесплатно" if showing.price_min == 0 && (showing.price_max.nil? || showing.price_max == 0)
-    return "#{showing.price_min} руб." if showing.price_min > 0 && (showing.price_max.nil? || showing.price_max == 0)
-    return "#{showing.price_min} &ndash; #{showing.price_max} руб.".html_safe if showing.price_min > 0 && showing.price_max > 0
-    return "бесплатно &ndash; #{showing.price_max} руб.".html_safe if showing.price_min == 0 && showing.price_max > 0
+    humanize_price(showing.price_min, showing.price_max)
   end
 
   def today?

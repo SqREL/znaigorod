@@ -11,14 +11,7 @@
           <div class="info">
             <h2><%= affiche.link %></h2>
             <div class="closest">
-              <p>
-                <% if affiche.affiche_distribution? %>
-                  <span class="when"><%= affiche.human_when %></span>
-                <% else %>
-                  <span class="when"><%= affiche.human_when %></span>,
-                  <span class="cost"><%= affiche.showings.first.human_price %></span>
-                <% end %>
-              </p>
+              <%= affiche.when_with_price %>
             </div>
             <% if affiche.model.class.name.downcase == 'exhibition' %>
               <div class="will_be">

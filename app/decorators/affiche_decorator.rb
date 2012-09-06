@@ -77,6 +77,14 @@ class AfficheDecorator < ApplicationDecorator
     return showings.first.human_when
   end
 
+  def human_price
+    humanize_price(showings.map(&:price_min).uniq.compact.min, showings.map(&:price_max).uniq.compact.max)
+  end
+
+  def when_with_price
+    h.content_tag :p, h.content_tag(:span, human_when, :class => :when ) + ", " + h.content_tag(:span, human_price, :class => :cost)
+  end
+
   def human_distribution
     return nil unless distribution_starts_on?
 

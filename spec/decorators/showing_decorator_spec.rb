@@ -85,5 +85,11 @@ describe ShowingDecorator do
       before { showing.price_max = 150 }
       it { should == "бесплатно &ndash; 150 руб." }
     end
+
+    context "when price_min = price_max" do
+      before { showing.price_min = 150 }
+      before { showing.price_max = 150 }
+      it { should == "150 руб." }
+    end
   end
 end
