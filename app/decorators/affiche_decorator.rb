@@ -61,11 +61,11 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def main_page_poster
-    h.link_to image_tag(affiche.poster_url, 200, 268, affiche.title.gilensize.html_safe), h.affiche_path(affiche)
+    poster affiche, 200, 268
   end
 
   def list_poster
-    h.link_to image_tag(affiche.poster_url, 180, 242, affiche.title.gilensize.html_safe), h.affiche_path(affiche)
+    poster affiche, 180, 242
   end
 
   def affiche_distribution?
@@ -101,6 +101,10 @@ class AfficheDecorator < ApplicationDecorator
 
   def in_one_day?
     distribution_starts_on == distribution_ends_on
+  end
+
+  def poster(affiche, width, height)
+    h.link_to image_tag(affiche.poster_url, width, height, affiche.title.gilensize.gsub(/<\/?\w+.*?>/m, '').html_safe), h.affiche_path(affiche)
   end
 
 end
