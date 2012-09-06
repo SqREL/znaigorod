@@ -3,7 +3,7 @@
   <div class="affiches_list">
     <h1><strong><%= @affiche_collection.human_kind %></strong> <%= @affiche_collection.human_period.mb_chars.downcase %></h1>
     <ul>
-      <% @affiche_collection.affiches.each do |affiche, showings| %>
+      <% @affiche_collection.affiches.each do |affiche| %>
         <li>
           <div class="image">
             <%= affiche.list_poster %>
@@ -13,10 +13,10 @@
             <div class="closest">
               <p>
                 <% if affiche.affiche_distribution? %>
-                  <span class="when"><%= affiche.human_when(showings) %></span>
+                  <span class="when"><%= affiche.human_when %></span>
                 <% else %>
-                  <span class="when"><%= affiche.human_when(showings) %></span>,
-                  <span class="cost"><%= showings.first.human_price %></span>
+                  <span class="when"><%= affiche.human_when %></span>,
+                  <span class="cost"><%= affiche.showings.first.human_price %></span>
                 <% end %>
               </p>
             </div>
@@ -79,10 +79,9 @@
             <% end %>
             <% if affiche.model.class.name.downcase != 'exhibition' && affiche.model.class.name.downcase != 'movie' %>
               <div class="place">
-                <p>
-                  <span class="name"><a href="#">DJ BAR MEXICO, диджей-бар</a></span>,
-                  <span class="address"><a href="#">пр. Кирова, 3г</a></span>
-                </p>
+                <% affiche.places.each do |place| %>
+                  <%= place.place %>
+                <% end %>
               </div>
             <% end %>
             <% unless affiche.truncated_description.blank? %>

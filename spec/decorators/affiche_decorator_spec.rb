@@ -29,7 +29,7 @@ describe AfficheDecorator do
   describe "#main_page_place" do
     subject { decorator.main_page_place }
     let(:showing) { Showing.new }
-    before { affiche.stub(:showings).and_return([showing])  }
+    before { affiche.stub_chain(:showings, :actual).and_return([showing])  }
     context 'when showing place is string' do
       before { showing.stub(:place).and_return('Киномакс, кинотеатр') }
       it { should =~ /Кино\u00ADмакс/ }
@@ -47,6 +47,20 @@ describe AfficheDecorator do
       before { showing.stub(:organization).and_return(organization) }
       it { should =~ /Кино\u00ADмакс/ }
       it { should =~ /organizations\/1/ }
+    end
+  end
+
+  describe "#places" do
+    subject { decorator.places }
+    let(:showing) { Showing.new }
+    before { affiche.stub_chain(:showings, :actual).and_return([showing])  }
+    let(:organization) { Organization.new(:title => 'Киномакс, кинотеатр') }
+    before { organization.stub(:to_param).and_return(1) }
+    before { showing.stub(:place).and_return('Киномакс, кинотеатр') }
+    before { showing.stub(:organization).and_return(organization) }
+    its(:size) { should == 1 }
+    it "array element should be PlaceDecorator" do
+      subject.first.should be_a PlaceDecorator
     end
   end
 
@@ -90,7 +104,8 @@ describe AfficheDecorator do
 
   describe "#human_when" do
     let(:showing) { Showing.new(:starts_at => Time.zone.parse('2012-09-04 12:00')) }
-    subject { decorator.human_when([ShowingDecorator.decorate(showing)]) }
+    before { affiche.stub_chain(:showings, :actual).and_return([showing]) }
+    subject { decorator.human_when }
     context "when distribution date set in affiche" do
       before { affiche.distribution_starts_on = Time.zone.parse('2012-09-05') }
       it { should == "С 5 сентября" }

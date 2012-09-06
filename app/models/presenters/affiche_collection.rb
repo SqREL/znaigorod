@@ -87,9 +87,9 @@ class AfficheCollection
   end
 
   def affiches
-    {}.tap do |hash|
-      AfficheDecorator.decorate(paginated_affiches.map(&:value).map { |id| Affiche.find(id) }).each do |affiche|
-        hash[affiche] = ShowingDecorator.decorate(searcher(search_params(affiche.id)).results)
+    [].tap do |array|
+      paginated_affiches.map(&:value).map { |id| Affiche.find(id) }.each do |affiche|
+        array << AfficheDecorator.new(affiche, ShowingDecorator.decorate(searcher(search_params(affiche.id)).results))
       end
     end
   end

@@ -4,6 +4,13 @@ class AfficheDecorator < ApplicationDecorator
   decorates :affiche
 
   delegate :distribution_starts_on, :distribution_ends_on, :distribution_starts_on?, :distribution_ends_on?, :to => :affiche
+  attr_accessor :showings
+
+  def initialize(affiche, showings = nil)
+    super
+    @showings ||= affiche.showings.actual
+    @showings = ShowingDecorator.decorate(@showings)
+  end
 
   def main_page_link
     truncated_link(45)
@@ -18,17 +25,16 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def main_page_place
-    places = affiche.showings.map { |showing| showing.organization ? showing.organization : showing.place  }.uniq
     max_lenght = 45
     place_output = ""
     places.each_with_index do |place, index|
-      place_title = place.is_a?(Organization) ? place.title : place
-      place_title.gsub!(/,.*/, '')
-      place_link_title = place_title if place_title.size > max_lenght
+      place_title = place.organization ? place.organization.title : place.title
+      place_link_title = place_title.dup
+      place_title = place_title.gsub(/,.*/, '')
       place_title = place_title.truncate(max_lenght, :separator => ' ')
       max_lenght -= place_title.size
-      if place.is_a?(Organization)
-        place_output += h.link_to hyphenate(place_title), h.organization_path(place), :title => place_link_title
+      if place.organization
+        place_output += h.link_to hyphenate(place_title), h.organization_path(place.organization), :title => place_link_title
       else
         place_output += place_link_title.blank? ? hyphenate(place_title) : h.content_tag(:abbr, hyphenate(place_title), :title => place_link_title)
       end
@@ -36,6 +42,14 @@ class AfficheDecorator < ApplicationDecorator
       place_output += ", " if index < places.size - 1
     end
     h.raw place_output
+  end
+
+  def places
+    [].tap do |array|
+      showings.map { |showing| showing.organization ? showing.organization : [showing.place, showing.latitude, showing.longitude] }.uniq.each do |place|
+        array << (place.is_a?(Organization) ? PlaceDecorator.new(:organization => place) : PlaceDecorator.new(:title => place[0], :latitude => place[1], :longitude => place[2]))
+      end
+    end
   end
 
   def truncated_description
@@ -58,7 +72,7 @@ class AfficheDecorator < ApplicationDecorator
     affiche.distribution_starts_on?
   end
 
-  def human_when(showings = [])
+  def human_when
     return human_distribution if affiche.distribution_starts_on?
     return showings.first.human_when
   end
