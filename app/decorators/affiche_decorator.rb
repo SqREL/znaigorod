@@ -15,16 +15,24 @@ class AfficheDecorator < ApplicationDecorator
     truncated_link(45)
   end
 
-  def link
-    h.link_to affiche.title.gilensize.html_safe, h.affiche_path(affiche)
+  def kind
+    affiche.class.name.downcase
   end
 
-  def friendly_link
-    h.link_to affiche.title.gilensize.html_safe, h.send("#{affiche.class.name.downcase}_path", affiche)
+  def pluralized_kind
+    kind.pluralize
+  end
+
+  def kind_affiche_path
+    h.send("#{kind}_path", affiche)
+  end
+
+  def link
+    h.link_to affiche.title.gilensize.html_safe, kind_affiche_path
   end
 
   def more_link
-    h.link_to "Подробнее...", h.affiche_path(affiche), :title => affiche.title
+    h.link_to "Подробнее...", kind_affiche_path, :title => affiche.title
   end
 
   def main_page_place
@@ -69,6 +77,10 @@ class AfficheDecorator < ApplicationDecorator
 
   def list_poster
     poster affiche, 180, 242
+  end
+
+  def item_poster
+    h.image_tag_for affiche.poster_url, 400, 400
   end
 
   def affiche_distribution?

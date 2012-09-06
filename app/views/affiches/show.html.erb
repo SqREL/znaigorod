@@ -1,1 +1,15 @@
 <%= @affiche.title %>
+
+<%= @affiche.item_poster %>
+
+<%= @affiche.when_with_price  %>
+
+<% @affiche.places.each do |place| %>
+  <%= place.place %>
+<% end %>
+
+<%= @affiche.html_description %>
+
+<% @affiche.tags.each do |tag| %>
+  <%= link_to(tag, affiches_path(kind: @affiche.pluralized_kind, period: :all, tags: tag)) %>
+<%end%>
