@@ -20,12 +20,71 @@
                 <% end %>
               </p>
             </div>
-            <div class="place">
-              <p>
-                <span class="name"><%= affiche.place %></span>,
-                <span class="address"><a href="#">пр. Кирова, 3г</a></span>
-              </p>
-            </div>
+            <% if affiche.model.class.name.downcase == 'exhibition' %>
+              <div class="will_be">
+                <strong>Ещё будет:</strong>
+                <strong>16 сентября</strong> в 09:00 (200 руб.),
+                <strong>21 сентября</strong> в 10:00 (200 руб.)
+              </div>
+            <% end %>
+            <% if affiche.model.class.name.downcase == 'movie' %>
+              <div class="seances">
+                <ul class="title">
+                  <li class="text">Ближайшие сеансы</li>
+                  <li class="link_all"><a href="#">Все сеансы</a></li>
+                </ul>
+                <ul class="theaters">
+                  <li class="theater">
+                    <p class="name"><a href="#">Киномир</a></p>
+                    <p class="address"><a href="#">пр. Ленина, 101</a></p>
+                  </li>
+                  <li class="seance">
+                    <p class="time">16:30</p>
+                    <p class="cost">120 руб.</p>
+                  </li>
+                  <li class="seance">
+                    <p class="time">18:20</p>
+                    <p class="cost">150 руб.</p>
+                  </li>
+                  <li class="seance">
+                    <p class="time">20:00</p>
+                    <p class="cost">180 руб.</p>
+                  </li>
+                  <li class="seance">
+                    <p class="time">21:30</p>
+                    <p class="cost">180 руб.</p>
+                  </li>
+                  <li class="seance last">
+                    <p class="time">23:00</p>
+                    <p class="cost">180 руб.</p>
+                  </li>
+                  <li class="theater">
+                    <p class="name"><a href="#">Киномакс</a></p>
+                    <p class="address"><a href="#">ул. Розы Люксембург, 73</a></p>
+                  </li>
+                  <li class="seance">
+                    <p class="time">15:10</p>
+                    <p class="cost">110 руб.</p>
+                  </li>
+                  <li class="seance">
+                    <p class="time">18:30</p>
+                    <p class="cost">130 руб.</p>
+                  </li>
+                  <li class="seance last">
+                    <p class="time">20:50</p>
+                    <p class="cost">150 руб.</p>
+                  </li>
+                </ul>
+              </div>
+            <% end %>
+            <% if affiche.model.class.name.downcase != 'exhibition' && affiche.model.class.name.downcase != 'movie' %>
+              <div class="place">
+                <p>
+                  <span class="name"><a href="#">DJ BAR MEXICO, диджей-бар</a></span>,
+                  <span class="address"><a href="#">пр. Кирова, 3г</a></span>
+                </p>
+              </div>
+            <% end %>
             <% unless affiche.truncated_description.blank? %>
               <div class="description">
                 <p class="text"><%= affiche.truncated_description %></p>
