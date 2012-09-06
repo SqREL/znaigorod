@@ -49,6 +49,23 @@ class AfficheToday
   end
 
   def affiches
-    @affiches ||= AfficheDecorator.decorate HasSearcher.searcher(:affiche, :affiche_category => kind.singularize).today.affiches.group(:affiche_id_str).groups.map(&:value).map { |id| Affiche.find(id) }
+    [].tap do |array|
+      searcher(search_params).affiches.group(:affiche_id_str).groups.map(&:value).map { |id| Affiche.find(id) }.each do |affiche|
+        array << AfficheDecorator.new(affiche, ShowingDecorator.decorate(searcher(search_params(affiche.id)).results))
+      end
+    end
+  end
+
+  private
+
+  def searcher(searcher_params)
+    HasSearcher.searcher(:affiche, searcher_params).today
+  end
+
+  def search_params(affiche_id = nil)
+    search_params = {}
+    search_params[:affiche_category] = kind.singularize
+    search_params[:affiche_id] = affiche_id if affiche_id
+    search_params
   end
 end
