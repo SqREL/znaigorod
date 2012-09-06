@@ -5,11 +5,11 @@ class AfficheDecorator < ApplicationDecorator
 
   delegate :distribution_starts_on, :distribution_ends_on, :distribution_starts_on?, :distribution_ends_on?, :to => :affiche
 
-  def link
+  def main_page_link
     truncated_link(45)
   end
 
-  def link_with_full_title
+  def link
     h.link_to affiche.title.gilensize.html_safe, h.affiche_path(affiche)
   end
 
@@ -17,7 +17,7 @@ class AfficheDecorator < ApplicationDecorator
     h.link_to "Подробнее...", h.affiche_path(affiche), :title => affiche.title
   end
 
-  def place
+  def main_page_place
     places = affiche.showings.map { |showing| showing.organization ? showing.organization : showing.place  }.uniq
     max_lenght = 45
     place_output = ""
@@ -73,8 +73,7 @@ class AfficheDecorator < ApplicationDecorator
 
   private
   def truncated_link(length)
-    link_title = affiche.title if affiche.title.size > length
-    h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')), h.affiche_path(affiche), :title => affiche.title
+    h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')).gilensize.html_safe, h.affiche_path(affiche), :title => affiche.title
   end
 
   def in_one_day?

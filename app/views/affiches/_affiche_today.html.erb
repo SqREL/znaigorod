@@ -24,9 +24,9 @@
           <% @affiche_today.affiches.each do |affiche| %>
             <li>
               <div class="item">
-                <div class="title"><%= affiche.link %></div>
+                <div class="title"><%= affiche.main_page_link %></div>
                 <div class="image"><%= affiche.main_page_poster %></div>
-                <div class="place"><%= affiche.place %></div>
+                <div class="place"><%= affiche.main_page_place %></div>
               </div>
             </li>
           <% end %>

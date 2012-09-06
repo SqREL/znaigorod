@@ -6,8 +6,8 @@ describe AfficheDecorator do
   before { affiche.stub(:to_param).and_return(1) }
   let(:decorator) { AfficheDecorator.decorate(affiche) }
   subject { decorator }
-  describe "#link" do
-    subject { decorator.link }
+  describe "#main_page_link" do
+    subject { decorator.main_page_link }
     it { should =~ /affiche_item\/1/ }
     context "short title" do
       before { affiche.title = 'short title' }
@@ -15,13 +15,19 @@ describe AfficheDecorator do
     end
     context 'long title' do
       before { affiche.title = 'Санкт Петербург — путешествие во времени и пространстве' }
-      it { should =~ /Санкт Петер\u00ADбург — путе\u00ADше\u00ADствие во вре\u00ADмени и\.\.\./ }
+      it { should =~ /Санкт Петер\u00ADбург — путе\u00ADше\u00ADствие во&#160;вре\u00ADмени&#160;и&#8230;/ }
       it { should =~ /title=\"Санкт Петербург — путешествие во времени и пространстве\"/ }
     end
   end
 
-  describe "#place" do
-    subject { decorator.place }
+  describe "#link" do
+    subject { decorator.link }
+    before { affiche.title = 'Санкт Петербург — путешествие во времени и пространстве' }
+    it { should =~ /Санкт Петербург — путешествие во&#160;времени и&#160;пространстве/ }
+  end
+
+  describe "#main_page_place" do
+    subject { decorator.main_page_place }
     let(:showing) { Showing.new }
     before { affiche.stub(:showings).and_return([showing])  }
     context 'when showing place is string' do

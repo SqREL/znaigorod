@@ -9,7 +9,7 @@
             <%= affiche.list_poster %>
           </div>
           <div class="info">
-            <h2><%= affiche.link_with_full_title %></h2>
+            <h2><%= affiche.link %></h2>
             <div class="closest">
               <p>
                 <% if affiche.affiche_distribution? %>
@@ -22,7 +22,7 @@
             </div>
             <div class="place">
               <p>
-                <span class="name"><a href="#">DJ BAR MEXICO, диджей-бар</a></span>,
+                <span class="name"><%= affiche.place %></span>,
                 <span class="address"><a href="#">пр. Кирова, 3г</a></span>
               </p>
             </div>
