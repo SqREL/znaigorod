@@ -81,4 +81,29 @@ describe AfficheDecorator do
       it { should == "С 5 до 15 сентября" }
     end
   end
+
+  describe "#human_when" do
+    let(:showing) { Showing.new(:starts_at => Time.zone.parse('2012-09-04 12:00')) }
+    subject { decorator.human_when([ShowingDecorator.decorate(showing)]) }
+    context "when distribution date set in affiche" do
+      before { affiche.distribution_starts_on = Time.zone.parse('2012-09-05') }
+      it { should == "С 5 сентября" }
+    end
+
+    context "when distribution date unset in affiche" do
+      it { should == "4 сентября в 12:00" }
+    end
+  end
+
+  describe "#affiche_distribution?" do
+    subject { decorator.affiche_distribution? }
+    context "when unset" do
+      it { should == false }
+    end
+
+    context "when set distribution_starts_on" do
+      before { affiche.distribution_starts_on = Time.zone.parse('2012-09-05') }
+      it { should == true }
+    end
+  end
 end

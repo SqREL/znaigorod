@@ -54,6 +54,15 @@ class AfficheDecorator < ApplicationDecorator
     h.link_to image_tag(affiche.poster_url, 180, 242, affiche.title), h.affiche_path(affiche)
   end
 
+  def affiche_distribution?
+    affiche.distribution_starts_on?
+  end
+
+  def human_when(showings = [])
+    return human_distribution if affiche.distribution_starts_on?
+    return showings.first.human_when
+  end
+
   def human_distribution
     return nil unless distribution_starts_on?
 
