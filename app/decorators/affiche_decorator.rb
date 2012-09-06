@@ -47,11 +47,11 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def main_page_poster
-    h.link_to image_tag(affiche.poster_url, 200, 268, affiche.title), h.affiche_path(affiche)
+    h.link_to image_tag(affiche.poster_url, 200, 268, affiche.title.gilensize.html_safe), h.affiche_path(affiche)
   end
 
   def list_poster
-    h.link_to image_tag(affiche.poster_url, 180, 242, affiche.title), h.affiche_path(affiche)
+    h.link_to image_tag(affiche.poster_url, 180, 242, affiche.title.gilensize.html_safe), h.affiche_path(affiche)
   end
 
   def affiche_distribution?
@@ -72,6 +72,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   private
+
   def truncated_link(length)
     h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')).gilensize.html_safe, h.affiche_path(affiche), :title => affiche.title
   end
@@ -79,4 +80,5 @@ class AfficheDecorator < ApplicationDecorator
   def in_one_day?
     distribution_starts_on == distribution_ends_on
   end
+
 end
