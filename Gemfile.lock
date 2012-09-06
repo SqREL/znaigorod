@@ -79,6 +79,7 @@ GEM
     fabrication (2.0.1)
     fattr (2.2.1)
     freeze_time (0.1)
+    friendly_id (4.0.8)
     fssm (0.2.9)
     gilenson (1.2.2)
     has_scope (0.5.1)
@@ -238,6 +239,7 @@ DEPENDENCIES
   el_vfs_client
   fabrication
   freeze_time
+  friendly_id
   gilenson
   has_scope
   has_searcher

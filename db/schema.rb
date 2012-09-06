@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120905014343) do
+ActiveRecord::Schema.define(:version => 20120906081135) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -56,7 +56,10 @@ ActiveRecord::Schema.define(:version => 20120905014343) do
     t.string   "image_url"
     t.datetime "distribution_starts_on"
     t.datetime "distribution_ends_on"
+    t.string   "slug"
   end
+
+  add_index "affiches", ["slug"], :name => "index_affiches_on_slug", :unique => true
 
   create_table "attachments", :force => true do |t|
     t.integer  "attachable_id"

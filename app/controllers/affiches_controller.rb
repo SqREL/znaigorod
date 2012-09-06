@@ -13,7 +13,6 @@ class AffichesController < ApplicationController
   end
 
   def show
-    render :text => "asdfsdf"
+    @affiche = AfficheDecorator.find(params[:id])
   end
-
 end

@@ -19,6 +19,10 @@ class AfficheDecorator < ApplicationDecorator
     h.link_to affiche.title.gilensize.html_safe, h.affiche_path(affiche)
   end
 
+  def friendly_link
+    h.link_to affiche.title.gilensize.html_safe, h.send("#{affiche.class.name.downcase}_path", affiche)
+  end
+
   def more_link
     h.link_to "Подробнее...", h.affiche_path(affiche), :title => affiche.title
   end

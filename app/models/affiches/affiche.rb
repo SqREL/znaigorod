@@ -1,4 +1,6 @@
 class Affiche < ActiveRecord::Base
+  extend FriendlyId
+
   attr_accessible :description, :poster_url, :image_url, :showings_attributes,
                   :tag, :title, :vfs_path, :affiche_schedule_attributes,
                   :images_attributes, :attachments_attributes,
@@ -25,6 +27,8 @@ class Affiche < ActiveRecord::Base
   scope :with_showings, -> { includes(:showings).where('showings.starts_at > :date OR showings.ends_at > :date', { :date => Date.today }) }
 
   alias_attribute :to_s, :title
+
+  friendly_id :title, use: :slugged
 
   normalize_attribute :image_url
 
