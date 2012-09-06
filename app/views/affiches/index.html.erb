@@ -13,63 +13,36 @@
             <div class="closest">
               <%= affiche.when_with_price %>
             </div>
-            <% if affiche.other_showings.any? %>
-              <div class="will_be">
-                <% unless affiche.first_other_showing_today? %>
-                  Ещё будет:
-                <% end %>
-                <%= affiche.html_other_showings %>
-              </div>
-            <% end %>
-            <% if affiche.model.class.name.downcase == 'movie' %>
+            <% if affiche.distribution_movie? %>
               <div class="seances">
                 <ul class="title">
-                  <li class="text">Ближайшие сеансы</li>
-                  <li class="link_all"><a href="#">Все сеансы</a></li>
+                  <li class="text"><%= affiche.distribution_movie_schedule_date %></li>
+                  <li class="link_all"><%= link_to "Все сеансы", affiche_path(affiche, :anchor => 'showings') %></li>
                 </ul>
                 <ul class="theaters">
-                  <li class="theater">
-                    <p class="name"><a href="#">Киномир</a></p>
-                    <p class="address"><a href="#">пр. Ленина, 101</a></p>
-                  </li>
-                  <li class="seance">
-                    <p class="time">16:30</p>
-                    <p class="cost">120 руб.</p>
-                  </li>
-                  <li class="seance">
-                    <p class="time">18:20</p>
-                    <p class="cost">150 руб.</p>
-                  </li>
-                  <li class="seance">
-                    <p class="time">20:00</p>
-                    <p class="cost">180 руб.</p>
-                  </li>
-                  <li class="seance">
-                    <p class="time">21:30</p>
-                    <p class="cost">180 руб.</p>
-                  </li>
-                  <li class="seance last">
-                    <p class="time">23:00</p>
-                    <p class="cost">180 руб.</p>
-                  </li>
-                  <li class="theater">
-                    <p class="name"><a href="#">Киномакс</a></p>
-                    <p class="address"><a href="#">ул. Розы Люксембург, 73</a></p>
-                  </li>
-                  <li class="seance">
-                    <p class="time">15:10</p>
-                    <p class="cost">110 руб.</p>
-                  </li>
-                  <li class="seance">
-                    <p class="time">18:30</p>
-                    <p class="cost">130 руб.</p>
-                  </li>
-                  <li class="seance last">
-                    <p class="time">20:50</p>
-                    <p class="cost">150 руб.</p>
-                  </li>
+                  <% affiche.distribution_movie_nearlest_grouped_showings.each do |place, showings| %>
+                    <li class="theater">
+                      <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
+                      <p class="address"><%= showings.first.place_decorator.address_link %></p>
+                    </li>
+                    <% showings[0..4].each do |showing| %>
+                      <li class="seance">
+                        <p class="time"><%= showing.human_time_starts_at %></p>
+                        <p class="cost"><%= showing.human_price %></p>
+                      </li>
+                    <% end %>
+                  <% end %>
                 </ul>
               </div>
+            <% else %>
+              <% if affiche.other_showings.any? %>
+                <div class="will_be">
+                  <% unless affiche.first_other_showing_today? %>
+                    Ещё будет:
+                  <% end %>
+                  <%= affiche.html_other_showings %>
+                </div>
+              <% end %>
             <% end %>
             <% if affiche.model.class.name.downcase != 'movie' %>
               <div class="place">

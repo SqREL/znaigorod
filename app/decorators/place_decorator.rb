@@ -12,8 +12,12 @@ class PlaceDecorator
     content_tag(:p, content_tag(:span, link_title, :class => :name) + ", " + content_tag(:span, address_link, :class => :address))
   end
 
-  def link_title
-    organization? ? link_to_organization : title
+  def link_title(gsub = nil)
+    organization? ? link_to_organization(gsub) : title
+  end
+
+  def link_short_title
+    link_title('with_gsub')
   end
 
   def address_link
@@ -21,8 +25,9 @@ class PlaceDecorator
     link_to("показать на карте", '#', :title => "Показать на карте", :latitude => latitude, :longitude => longitude)
   end
 
-  def link_to_organization
+  def link_to_organization(gsub = nil)
     place_title = organization.title
+    place_title = place_title.gsub(/,.*/, '') if gsub
     link_title = link_to place_title, organization_path(organization), :title => organization.title
   end
 

@@ -5,9 +5,13 @@ class ShowingDecorator < ApplicationDecorator
 
   delegate :starts_at, :ends_at, :ends_at?, :to => :showing
 
+  def human_date
+    today? ? 'Сегодня' : e_B(starts_at)
+  end
+
   def human_when
     unless ends_at?
-      date = today? ? 'Сегодня' : e_B(starts_at)
+      date = human_date
       date += " в #{H_M(starts_at)}" unless starts_at_only_date?
 
       return date
@@ -28,6 +32,15 @@ class ShowingDecorator < ApplicationDecorator
     end
   end
 
+  def human_time_starts_at
+    H_M(showing.starts_at)
+  end
+
+  def place_decorator
+    return PlaceDecorator.new(:organization => showing.organization) if showing.organization
+    PlaceDecorator.new(:title => showing.place, :latitude => showing.latitude, :longitude => showing.longitude)
+  end
+
   def human_price
     humanize_price(showing.price_min, showing.price_max)
   end
@@ -38,6 +51,10 @@ class ShowingDecorator < ApplicationDecorator
 
   def today?
     starts_at >= Time.zone.now.beginning_of_day && starts_at <= Time.zone.now.end_of_day
+  end
+
+  def actual?
+    starts_at >= Time.zone.now
   end
 
   def in_one_month?
@@ -63,4 +80,5 @@ class ShowingDecorator < ApplicationDecorator
   def H_M(date)
     I18n.l(date, :format => '%H:%M')
   end
+
 end
