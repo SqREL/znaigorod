@@ -36,21 +36,21 @@ describe ShowingDecorator do
       before { showing.starts_at = Time.zone.parse('2012-09-09 16:30') }
       before { showing.ends_at = Time.zone.parse('2012-09-10 19:30') }
 
-      it { should == "9 сентября 16:30 - 10 сентября 19:30" }
+      it { should == "9 сентября 16:30 &ndash; 10 сентября 19:30" }
     end
 
     context "when starts_at end ends_at different dates in one month and time not set" do
       before { showing.starts_at = Time.zone.parse('2012-09-09').beginning_of_day }
       before { showing.ends_at = Time.zone.parse('2012-09-10').end_of_day }
 
-      it { should == "9 - 10 сентября" }
+      it { should == "9 &ndash; 10 сентября" }
     end
 
     context "when starts_at end ends_at different dates in different months and time not set" do
       before { showing.starts_at = Time.zone.parse('2012-09-09').beginning_of_day }
       before { showing.ends_at = Time.zone.parse('2012-10-10').end_of_day }
 
-      it { should == "9 сентября - 10 октября" }
+      it { should == "9 сентября &ndash; 10 октября" }
     end
   end
 
@@ -77,13 +77,13 @@ describe ShowingDecorator do
     context "when set price_min and price_max" do
       before { showing.price_min = 150 }
       before { showing.price_max = 250 }
-      it { should == "150 - 250 руб." }
+      it { should == "150 &ndash; 250 руб." }
     end
 
     context "when min_price = 0 and max_price > 0" do
       before { showing.price_min = 0 }
       before { showing.price_max = 150 }
-      it { should == "бесплатно - 150 руб." }
+      it { should == "бесплатно &ndash; 150 руб." }
     end
   end
 end

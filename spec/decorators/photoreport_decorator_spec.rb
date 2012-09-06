@@ -23,7 +23,7 @@ describe PhotoreportDecorator do
   describe "#main_images" do
     subject { decorator.main_images }
     before { affiche.stub_chain(:images, :limit).and_return([image]) }
-    it { should =~ /href=\"\/affiches\/1\"/ }
+    it { should =~ /href=\"\/affiche_item\/1\"/ }
     it { should =~ /src=\"http:\/\/storage.openteam.ru\/files\/3434\/220-220\/123.jpg\"/ }
   end
 

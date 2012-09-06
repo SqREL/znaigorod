@@ -8,7 +8,7 @@ describe AfficheDecorator do
   subject { decorator }
   describe "#link" do
     subject { decorator.link }
-    it { should =~ /affiches\/1/ }
+    it { should =~ /affiche_item\/1/ }
     context "short title" do
       before { affiche.title = 'short title' }
       it { should =~ /short title/ }
@@ -47,20 +47,20 @@ describe AfficheDecorator do
   describe '#main_page_poster' do
     subject { decorator.main_page_poster }
     before { affiche.poster_url = 'http://storage.openteam.ru/files/3434/290-390/123.jpg'}
-    it { should =~ /href=\"\/affiches\/1\"/ }
+    it { should =~ /href=\"\/affiche_item\/1\"/ }
     it { should =~ /src=\"http:\/\/storage.openteam.ru\/files\/3434\/200-268!\/123.jpg\"/ }
   end
 
   describe "#list_poster" do
     subject { decorator.list_poster }
     before { affiche.poster_url = 'http://storage.openteam.ru/files/3434/290-390/123.jpg'}
-    it { should =~ /href=\"\/affiches\/1\"/ }
+    it { should =~ /href=\"\/affiche_item\/1\"/ }
     it { should =~ /src=\"http:\/\/storage.openteam.ru\/files\/3434\/180-242!\/123.jpg\"/ }
   end
 
   describe "#more_link" do
     subject { decorator.more_link }
-    it { should =~ /affiches\/1/ }
+    it { should =~ /affiche_item\/1/ }
     it { should =~ /Подробнее/ }
   end
 
