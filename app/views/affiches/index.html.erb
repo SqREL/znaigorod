@@ -9,6 +9,7 @@
             <%= affiche.list_poster %>
           </div>
           <div class="info">
+            <%= content_tag(:div, link_to(affiche.human_kind, affiches_path(affiche.pluralized_kind, @affiche_collection.period, @affiche_collection.on)), :class => 'kind') if @affiche_collection.all_kinds? %>
             <h2><%= affiche.link %></h2>
             <div class="closest">
               <%= affiche.when_with_price %>

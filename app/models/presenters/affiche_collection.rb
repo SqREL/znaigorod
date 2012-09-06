@@ -75,6 +75,10 @@ class AfficheCollection
     period == 'daily'
   end
 
+  def all_kinds?
+    kind == 'affiches'
+  end
+
   def human_period(affiche_period = nil)
     affiche_period ||= period
     return I18n.l(on, :format => '%e %B') if affiche_period == 'daily' && on

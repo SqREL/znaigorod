@@ -108,6 +108,18 @@ class AfficheDecorator < ApplicationDecorator
     return "С #{I18n.l(distribution_starts_on, :format => '%e %B')}".squish
   end
 
+  def kind
+    affiche.class.name.downcase
+  end
+
+  def pluralized_kind
+    kind.pluralize
+  end
+
+  def human_kind
+    I18n.t("activerecord.models.#{kind}")
+  end
+
   def other_showings
     return [] if affiche.is_a?(Movie)
     if affiche_distribution?
