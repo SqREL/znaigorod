@@ -4,6 +4,9 @@
     link = $(this)
     longitude = link.attr('longitude')
     latitude = link.attr('latitude')
+    if longitude == '' || latitude == ''
+      alert 'Не получится показать расположение объекта на карте\nКоординаты объекта не указаны или указаны не верно'
+      return false
     map = container.dialog(
       modal: true
       height: 480
@@ -16,7 +19,7 @@
         map = null
     ).draw_map(longitude, latitude)
 
-    false
+    return false
 
 $.fn.draw_map = (longitude, latitude, scale = 16) ->
   container = this[0]

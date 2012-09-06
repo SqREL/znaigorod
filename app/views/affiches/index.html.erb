@@ -71,7 +71,7 @@
                 </ul>
               </div>
             <% end %>
-            <% if affiche.model.class.name.downcase != 'exhibition' && affiche.model.class.name.downcase != 'movie' %>
+            <% if affiche.model.class.name.downcase != 'movie' %>
               <div class="place">
                 <% affiche.places.each do |place| %>
                   <%= place.place %>
