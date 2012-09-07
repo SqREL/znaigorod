@@ -44,8 +44,6 @@
                   <%= affiche.html_other_showings %>
                 </div>
               <% end %>
-            <% end %>
-            <% if affiche.model.class.name.downcase != 'movie' %>
               <div class="place">
                 <% affiche.places.each do |place| %>
                   <%= place.place %>
