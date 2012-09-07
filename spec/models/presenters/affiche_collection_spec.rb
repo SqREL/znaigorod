@@ -70,13 +70,13 @@ describe AfficheCollection do
     end
     context 'all' do
       before { affiche_collection.period = 'all' }
-      it { should == 'Всё кино' }
+      it { should == '' }
     end
   end
 
   describe '#human_kind' do
     subject { affiche_collection.human_kind }
-    it { should == 'Кино' }
+    it { should == 'Всё кино' }
   end
 
   describe "#counter" do

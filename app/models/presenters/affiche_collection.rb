@@ -80,6 +80,7 @@ class AfficheCollection
   end
 
   def human_period(affiche_period = nil)
+    return "" if affiche_period.nil? && period == 'all'
     affiche_period ||= period
     return I18n.l(on, :format => '%e %B') if affiche_period == 'daily' && on
     return I18n.t("affiche_periods.all.#{kind}") if affiche_period == 'all'
@@ -87,6 +88,7 @@ class AfficheCollection
   end
 
   def human_kind
+    return I18n.t("affiche_periods.all.#{kind}") if period == 'all'
     I18n.t("activerecord.models.#{kind.singularize}")
   end
 

@@ -86,7 +86,7 @@ ru:
 
   activerecord:
     models:
-      affiche: Все
+      affiche: Все мероприятия
       concert: Концерты
       meal: Заведение питания
       exhibition: Выставки
