@@ -1,9 +1,9 @@
 app:
   affiche_today:
     monday:
-      '00-24': ['other']
+      '00-24': ['others']
     sunday:
-      '11-14': ['exhibition']
+      '11-14': ['exhibitions']
   actual_organizations:
     monday: &day
       '00-24':
