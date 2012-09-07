@@ -1,8 +1,11 @@
+<div class="content_wrapper">
 <%= @affiche.title %>
 
 <%= @affiche.item_poster %>
 
-<%= @affiche.when_with_price  %>
+<%#= TODO need fix "undefined method `human_when' for nil:NilClass"  %>
+<%#= @affiche.when_with_price %>
+<%#/ TODO %>
 
 <% @affiche.places.each do |place| %>
   <%= place.place %>
@@ -13,3 +16,4 @@
 <% @affiche.tags.each do |tag| %>
   <%= link_to(tag, affiches_path(kind: @affiche.pluralized_kind, period: :all, tags: tag)) %>
 <%end%>
+</div>

@@ -23,8 +23,8 @@ class AfficheDecorator < ApplicationDecorator
     kind.pluralize
   end
 
-  def kind_affiche_path
-    h.send("#{kind}_path", affiche)
+  def kind_affiche_path(options = {})
+    h.send("#{kind}_path", affiche, options)
   end
 
   def link
@@ -139,7 +139,7 @@ class AfficheDecorator < ApplicationDecorator
 
   def html_many_other_showings
     return "" unless other_showings_size > 0
-    ("&nbsp;" + h.link_to("и еще #{other_showings_size}", h.affiche_path(affiche, :anchor => "showings"))).gilensize.html_safe
+    ("&nbsp;" + h.link_to("и еще #{other_showings_size}", kind_affiche_path(:anchor => "showings"))).gilensize.html_safe
   end
 
   def html_other_showings
@@ -161,7 +161,7 @@ class AfficheDecorator < ApplicationDecorator
   private
 
   def truncated_link(length)
-    h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')).gilensize.html_safe, h.affiche_path(affiche), :title => affiche.title
+    h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')).gilensize.html_safe, kind_affiche_path, :title => affiche.title
   end
 
   def in_one_day?
@@ -169,7 +169,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def poster(affiche, width, height)
-    h.link_to image_tag(affiche.poster_url, width, height, affiche.title.gilensize.gsub(/<\/?\w+.*?>/m, '').html_safe), h.affiche_path(affiche)
+    h.link_to image_tag(affiche.poster_url, width, height, affiche.title.gilensize.gsub(/<\/?\w+.*?>/m, '').html_safe), kind_affiche_path
   end
 
 end
