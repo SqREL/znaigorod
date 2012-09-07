@@ -154,6 +154,14 @@ class AfficheDecorator < ApplicationDecorator
     showings.group_by(&:starts_on).first.second.select(&:actual?).group_by(&:place)
   end
 
+  def distribution_movie_grouped_showings
+    {}.tap do |hash|
+      showings.group_by(&:starts_on).each do |date, showings|
+        hash[date] = showings.select(&:actual?).group_by(&:place)
+      end
+    end
+  end
+
   def distribution_movie_schedule_date
     "Ближайшие сеансы #{showings.first.human_date.mb_chars.downcase}"
   end

@@ -18,9 +18,7 @@
 
   <%= @affiche.item_poster %>
 
-  <%#= TODO fix error "undefined method `human_when' for nil:NilClass"  %>
-  <%#= @affiche.when_with_price %>
-  <%#/ TODO %>
+  <%= @affiche.when_with_price %>
 
   <% @affiche.places.each do |place| %>
     <%= place.place %>
@@ -32,3 +30,28 @@
     <%= link_to(tag, affiches_path(kind: @affiche.pluralized_kind, period: :all, tags: tag)) %>
   <%end%>
 </div>
+<% if @affiche.distribution_movie? %>
+  <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
+    <div class="seances">
+      <ul class="title">
+        <li class="text"><%= showings_with_place.values.first.first.human_date %></li>
+      </ul>
+      <ul class="theaters">
+        <% showings_with_place.each do |place, showings| %>
+          <li class="theater">
+            <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
+            <p class="address"><%= showings.first.place_decorator.address_link %></p>
+          </li>
+          <% showings.each do |showing| %>
+            <li class="seance">
+              <p class="time"><%= showing.human_time_starts_at %></p>
+              <p class="cost"><%= showing.human_price %></p>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% else %>
+  <p>Тут будем показывать раписание других сеансов</p>
+<% end %>

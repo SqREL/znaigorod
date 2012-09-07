@@ -13,6 +13,6 @@ class AffichesController < ApplicationController
   end
 
   def show
-    @affiche = AfficheDecorator.find(params[:id])
+    @affiche = AfficheDecorator.new Affiche.find(params[:id])
   end
 end
