@@ -166,6 +166,14 @@ class AfficheDecorator < ApplicationDecorator
     "Ближайшие сеансы #{showings.first.human_date.mb_chars.downcase}"
   end
 
+  def similar_affiches
+    AfficheDecorator.decorate searcher.more_like_this(affiche).limit(2).results
+  end
+
+  def similar_affiches_with_images
+    AfficheDecorator.decorate searcher.more_like_this(affiche).with_images.limit(2).results
+  end
+
   private
 
   def truncated_link(length)
@@ -178,6 +186,10 @@ class AfficheDecorator < ApplicationDecorator
 
   def poster(affiche, width, height)
     h.link_to image_tag(affiche.poster_url, width, height, affiche.title.gilensize.gsub(/<\/?\w+.*?>/m, '').html_safe), kind_affiche_path
+  end
+
+  def searcher
+    HasSearcher.searcher(:similar_affiches)
   end
 
 end

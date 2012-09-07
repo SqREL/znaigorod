@@ -53,6 +53,10 @@ HasSearcher.create_searcher :similar_affiches do
   scope do
     with(:last_showing_time).greater_than 1.minute.since.change(:min => 0)
   end
+
+  scope :with_images do
+    with(:has_images, true)
+  end
 end
 
 HasSearcher.create_searcher :photoreport do

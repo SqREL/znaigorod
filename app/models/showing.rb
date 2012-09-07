@@ -7,8 +7,7 @@ class Showing < ActiveRecord::Base
   validates_presence_of :place, :starts_at
 
   delegate :tags, :title, :to => :affiche, :prefix => true
-  delegate :address, :to => :organization, :prefix => true, :allow_nil => true
-  delegate :title, :to => :organization, :prefix => true, :allow_nil => true
+  delegate :address, :title, :to => :organization, :prefix => true, :allow_nil => true
 
   after_create  :index_affiche
   after_destroy :index_affiche

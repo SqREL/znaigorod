@@ -33,6 +33,7 @@ class Affiche < ActiveRecord::Base
   normalize_attribute :image_url
 
   searchable do
+    boolean :has_images, :using => :has_images?
     integer :showing_ids, :multiple => true
     string(:kind) { 'affiche' }
     text :description, :boost => 0.5,     :more_like_this => true
@@ -96,6 +97,10 @@ class Affiche < ActiveRecord::Base
 
   def destroy_showings
     showings.destroy_all
+  end
+
+  def has_images?
+    images.any?
   end
 
   private
