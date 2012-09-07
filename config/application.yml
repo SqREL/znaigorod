@@ -5,7 +5,7 @@ app:
     sunday:
       '11-14': ['exhibition']
   actual_organizations:
-    monday:
+    monday: &day
       '00-24':
         breakfast:
           options:
@@ -17,68 +17,14 @@ app:
           options:
             meal_category: Доставка готовых блюд
     tuesday:
-      '00-24':
-        food_delivery:
-          options:
-            meal_category: Доставка готовых блюд
-        breakfast:
-          options:
-            meal_offer: завтраки
-        coffe_house:
-          options:
-            meal_category: Кофейни
+      <<: *day
     wednesday:
-      '00-24':
-        food_delivery:
-          options:
-            meal_category: Доставка готовых блюд
-        breakfast:
-          options:
-            meal_offer: завтраки
-        coffe_house:
-          options:
-            meal_category: Кофейни
+      <<: *day
     thursday:
-      '00-24':
-        food_delivery:
-          options:
-            meal_category: Доставка готовых блюд
-        breakfast:
-          options:
-            meal_offer: завтраки
-        coffe_house:
-          options:
-            meal_category: Кофейни
+      <<: *day
     friday:
-      '00-24':
-        food_delivery:
-          options:
-            meal_category: Доставка готовых блюд
-        breakfast:
-          options:
-            meal_offer: завтраки
-        coffe_house:
-          options:
-            meal_category: Кофейни
+      <<: *day
     saturday:
-      '00-24':
-        food_delivery:
-          options:
-            meal_category: Доставка готовых блюд
-        breakfast:
-          options:
-            meal_offer: завтраки
-        coffe_house:
-          options:
-            meal_category: Кофейни
+      <<: *day
     sunday:
-      '00-24':
-        food_delivery:
-          options:
-            meal_category: Доставка готовых блюд
-        breakfast:
-          options:
-            meal_offer: завтраки
-        coffe_house:
-          options:
-            meal_category: Кофейни
+      <<: *day
