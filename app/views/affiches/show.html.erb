@@ -14,34 +14,75 @@
 
 <div class="content_wrapper">
 
-  <h1><%= @affiche.title %></h1>
+  <div class="content">
+    <div class="tabs">
+      <ul class="nav">
+        <li><a href="#tab-1">Описание</a></li>
+        <li><a href="#tab-2">Трейлер</a></li>
+        <li class="disabled"><a href="#tab-3">Disabled</a></li>
+      </ul>
+      <div id="tab-1">
+        <div class="head">
+          <h1><%= @affiche.title %></h1>
+          <h2><%= @affiche.original_title %></h2>
+        </div>
+        <div class="info">
+          <div class="image">
+            <%= @affiche.item_poster %>
+          </div>
+          <div class="description">
+            <%= @affiche.when_with_price %>
+            <% @affiche.places.each do |place| %>
+              <%= place.place %>
+            <% end %>
+            <%= @affiche.html_description %>
+            <% @affiche.tags.each do |tag| %>
+              <%= link_to(tag, affiches_path(kind: @affiche.pluralized_kind, period: :all, tags: tag)) %>
+            <%end%>
+          </div>
+        </div>
+      </div>
+      <div id="tab-2">
+        <div class="head">
+          <h1><%= @affiche.title %></h1>
+          <h2><%= @affiche.original_title %></h2>
+        </div>
+        <p><img src="http://placekitten.com/g/733/412" alt="dummy" /></p>
+      </div>
+    </div>
+  </div>
 
-  <%= @affiche.item_poster %>
-
-  <%= @affiche.when_with_price %>
-
-  <% @affiche.places.each do |place| %>
-    <%= place.place %>
-  <% end %>
-
-  <%= @affiche.html_description %>
-
-  <% @affiche.tags.each do |tag| %>
-    <%= link_to(tag, affiches_path(kind: @affiche.pluralized_kind, period: :all, tags: tag)) %>
-  <%end%>
-
-  <ul>
-    <% @affiche.similar_affiches.each do |affiche| %>
-      <li><%= affiche.title %></li>
-    <% end %>
-  </ul>
-
-  <ul>
-    <% @affiche.similar_affiches_with_images.each do |affiche| %>
-      <li><%= affiche.title %></li>
-    <% end %>
-  </ul>
+  <div class="more_like_this">
+    <h2>Ещё в кино сегодня</h2>
+    <ul>
+      <li>
+        <div class="title"><a href="#">Холостячки</a></div>
+        <div class="image"><a href="#"><img width="150" height="202" src="http://placekitten.com/g/150/202" alt="dummy" /></a></div>
+        <div class="place"><a href="#">Киномакс</a>, <a href="#">Киномир</a></div>
+      </li>
+      <li>
+        <div class="title"><a href="#">Паранорман, или Как приручить зомби</a></div>
+        <div class="image"><a href="#"><img width="150" height="202" src="http://placekitten.com/g/150/201" alt="dummy" /></a></div>
+        <div class="place"><a href="#">Киномакс</a></div>
+      </li>
+      <li>
+        <div class="title"><a href="#">Третий лишний</a></div>
+        <div class="image"><a href="#"><img width="150" height="202" src="http://placekitten.com/g/150/200" alt="dummy" /></a></div>
+        <div class="place"><a href="#">Факел</a></div>
+        <% @affiche.similar_affiches.each do |affiche| %>
+          <li><%= affiche.title %></li>
+        <% end %>
+        <% @affiche.similar_affiches_with_images.each do |affiche| %>
+          <li><%= affiche.title %></li>
+        <% end %>
+      </li>
+    </ul>
+    <div class="all_today">
+      <a href="#">Все кино сегодня (14)</a>
+    </div>
+  </div>
 </div>
+
 <% if @affiche.distribution_movie? %>
   <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
     <div class="seances">
