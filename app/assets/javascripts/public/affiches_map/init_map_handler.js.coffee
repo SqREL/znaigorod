@@ -8,10 +8,9 @@
       alert 'Не получится показать расположение объекта на карте\nКоординаты объекта не указаны или указаны не верно'
       return false
     map = container.dialog(
-      modal: true
       height: 480
       resizable: false
-      title: link.prev('.address').html()
+      title: $('.name', link.closest('p')).html()
       width: 640
       zIndex: 700
       close: ->
