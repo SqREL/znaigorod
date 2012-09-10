@@ -320,7 +320,7 @@
               padding-bottom: 9px
       .ui-tabs-panel
         +border-radius(0)
-        padding: 10px
+        padding: 10px 10px 0
         .info
           +clearfix
           .image
@@ -330,8 +330,20 @@
             margin-right: 20px
           .description
             line-height: 1.3
+            p, table
+              margin-bottom: 10px
+            table
+              tr:nth-child(2n) td
+                background-color: #e8e0eb
+              tr td:first-child
+                white-space: nowrap
+                font-weight: bold
+                &:first-letter
+                  text-transform: uppercase
+              td
+                padding: 2px 4px
             .closest
-              margin-bottom: 15px
+              margin-bottom: 10px
               p
                 +inline-block
                 color: #fff
@@ -375,5 +387,6 @@
   .more_like_this
     float: left
     width: 200px
+    text-align: center
     background-color: #e9e9e9
     margin: 5px 10px 20px 30px

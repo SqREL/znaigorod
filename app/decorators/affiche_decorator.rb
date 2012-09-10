@@ -83,6 +83,10 @@ class AfficheDecorator < ApplicationDecorator
     h.link_to poster(affiche, 180, 242), affiche.poster_url
   end
 
+  def more_like_this_poster
+    poster_with_link affiche, 150, 202
+  end
+
   def affiche_distribution?
     affiche.distribution_starts_on?
   end
@@ -165,7 +169,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def similar_affiches
-    AfficheDecorator.decorate searcher.more_like_this(affiche).limit(2).results
+    AfficheDecorator.decorate searcher.more_like_this(affiche).limit(3).results
   end
 
   def similar_affiches_with_images
