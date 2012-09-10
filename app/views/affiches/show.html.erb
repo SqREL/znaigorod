@@ -112,20 +112,41 @@
 
     </div>
 
-    <div class="more_like_this">
-      <h2>Ещё в кино сегодня</h2>
-      <ul>
-        <% @affiche.similar_affiches.each do |affiche| %>
-          <li>
-            <div class="title"><%= link_to affiche.title, affiche.kind_affiche_path %></div>
-            <div class="image"><%= link_to affiche.more_like_this_poster, affiche.kind_affiche_path %></div>
-            <%= affiche.main_page_place %>
-          </li>
-        <% end %>
-      </ul>
-      <div class="all_today">
-        <%= @affiche.all_today_affiches_link %>
-      </div>
+    <div class="right_side">
+
+      <% unless @affiche.similar_affiches.blank? %>
+        <div class="more_like_this">
+          <h2>Похожие мероприятия</h2>
+          <ul>
+            <% @affiche.similar_affiches.each do |affiche| %>
+              <li>
+                <div class="title"><%= link_to affiche.title, affiche.kind_affiche_path %></div>
+                <div class="image"><%= link_to affiche.more_like_this_poster, affiche.kind_affiche_path %></div>
+                <div class="places"><%= affiche.main_page_place %></div>
+              </li>
+            <% end %>
+          </ul>
+          <div class="all_today">
+            <%= @affiche.all_today_affiches_link %>
+          </div>
+        </div>
+      <% end %>
+
+      <% unless @affiche.similar_affiches_with_images.blank? %>
+        <div class="more_like_this">
+          <h2>Похожие фотогалереи</h2>
+          <ul>
+            <% @affiche.similar_affiches_with_images.each do |affiche| %>
+              <li>
+                <div class="title"><%= link_to affiche.title, affiche.kind_affiche_path %></div>
+                <div class="image"><%= link_to affiche.more_like_this_poster, affiche.kind_affiche_path %></div>
+                <div class="places"><%= affiche.main_page_place %></div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
     </div>
 
   </div>
