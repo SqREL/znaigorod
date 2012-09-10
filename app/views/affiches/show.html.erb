@@ -104,4 +104,61 @@
 
   </div>
 
+  <div class="seances_on_show">
+    <% if @affiche.distribution_movie? %>
+      <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
+        <ul class="title">
+          <li class="text"><%= showings_with_place.values.first.first.human_date %></li>
+        </ul>
+        <ul class="theaters">
+          <% showings_with_place.each do |place, showings| %>
+            <li class="theater">
+              <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
+              <p class="address"><%= showings.first.place_decorator.address_link %></p>
+            </li>
+            <% showings.each do |showing| %>
+              <li class="seance">
+                <p class="time"><%= showing.human_time_starts_at %></p>
+                <p class="cost"><%= showing.human_price %></p>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      <% end %>
+    <% else %>
+      <p>Дата и место проведения</p>
+      <p> <%= @affiche.place %></p>
+      <p><%= @affiche.showings.first.place_decorator.address_link %></p>
+
+      <% if @affiche.has_schedule? %>
+        С
+        <%= l(@affiche.affiche_schedule.starts_on, :format => "%e %B").split.each_with_index.map{|d, i| content_tag(:span, d, :class => "date_#{i}")}.join.html_safe %>
+        по
+        <%= l(@affiche.affiche_schedule.ends_on, :format => "%e %B").split.each_with_index.map{|d, i| content_tag(:span, d, :class => "date_#{i}")}.join.html_safe %>
+        <div>
+          <span class="label">Время работы:</span>
+          <span class="value"><%= [@affiche.affiche_schedule.starts_at, @affiche.affiche_schedule.ends_at].map{|t| l(t, :format => "%H:%M")}.join(' &mdash; ').html_safe %></span>
+        </div>
+        <div>
+          <span class="label">Выходные дни:</span>
+          <% if @affiche.affiche_schedule.holidays.any? %>
+            <span class="value">
+              <%= @affiche.affiche_schedule.holidays.map{|h| t('date.standalone_day_names')[h]}.join(', ') %>
+            </span>
+          <% else %>
+            <span class="blank">Не указано</span>
+          <% end %>
+        </div>
+      <% else %>
+        <ul>
+        <% @affiche.showings.each do |showing| %>
+          <li>
+            <%= showing.human_time_starts_at %>
+            <%= showing.human_price %>
+          </li>
+        <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </div>
 </div>
