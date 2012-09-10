@@ -10,7 +10,7 @@
     map = container.dialog(
       height: 480
       resizable: false
-      title: $('.name', link.closest('p')).html()
+      title: $('.name a', link.closest('p')).html()
       width: 640
       zIndex: 700
       close: ->
