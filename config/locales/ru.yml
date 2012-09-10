@@ -84,6 +84,15 @@ ru:
     monthly: Фотоотчеты этого месяца
     total: Все фотоотчеты
 
+  more_like_this:
+    movie: Похожее кино
+    party: Похожие вечеринки
+    concert: Похожие концерты
+    spectacle: Похожие спектакли
+    exhibition: Похожие выставки
+    sportsevent: Похожие спортивные мероприятия
+    other: Похожее
+
   activerecord:
     models:
       affiche: Все мероприятия

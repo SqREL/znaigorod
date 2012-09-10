@@ -27,9 +27,9 @@ class AfficheDecorator < ApplicationDecorator
     h.send "#{kind}_path", affiche, options
   end
 
-  def all_today_affiches_link
-    h.link_to "Все #{affiche.class.model_name.human.mb_chars.downcase} сегодня (#{counter.today})",
-              h.affiches_path(kind: kind.pluralize, period: :today)
+  def all_affiches_link
+    h.link_to "Все #{human_kind.mb_chars.downcase} (#{counter.all})",
+              h.affiches_path(kind: kind.pluralize, period: :all)
   end
 
   def link
@@ -50,9 +50,9 @@ class AfficheDecorator < ApplicationDecorator
       place_title = place_title.truncate(max_lenght, :separator => ' ')
       max_lenght -= place_title.size
       if place.organization
-        place_output += h.link_to hyphenate(place_title), h.organization_path(place.organization), :title => place_link_title
+        place_output += h.link_to hyphenate(place_title).gilensize.html_safe, h.organization_path(place.organization), :title => place_link_title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').html_safe
       else
-        place_output += place_link_title.blank? ? hyphenate(place_title) : h.content_tag(:abbr, hyphenate(place_title), :title => place_link_title)
+        place_output += place_link_title.blank? ? hyphenate(place_title).gilensize.html_safe : h.content_tag(:abbr, hyphenate(place_title).gilensize.html_safe, :title => place_link_title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').html_safe)
       end
       break if max_lenght < 3
       place_output += ", " if index < places.size - 1
@@ -174,7 +174,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def similar_affiches
-    searcher.more_like_this(affiche).limit(3).results.map { |a| AfficheDecorator.new a }
+    searcher.more_like_this(affiche).limit(2).results.map { |a| AfficheDecorator.new a }
   end
 
   def similar_affiches_with_images
