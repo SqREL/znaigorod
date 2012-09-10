@@ -61,7 +61,7 @@
     <!-- *** This fieldType is used by Sunspot! *** -->
     <fieldType name='text' class='solr.TextField' omitNorms='false'>
       <analyzer>
-        <tokenizer class='solr.WhitespaceTokenizerFactory'/>
+        <tokenizer class='solr.StandardTokenizerFactory'/>
         <filter class='solr.WordDelimiterFilterFactory'
           splitOnCaseChange='1'
           splitOnNumerics='1'

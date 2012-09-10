@@ -36,10 +36,10 @@ class Affiche < ActiveRecord::Base
     boolean :has_images, :using => :has_images?
     integer :showing_ids, :multiple => true
     string(:kind) { 'affiche' }
-    text :description, :boost => 0.5,     :more_like_this => true
-    text :original_title, :boost => 2,    :more_like_this => true
-    text :tag,                            :more_like_this => true
-    text :title, :boost => 2
+    text :title,            :boost => 2,    :more_like_this => true
+    text :original_title,   :boost => 1.5,  :more_like_this => true
+    text :tag,              :boost => 1,    :more_like_this => true
+    text :description,      :boost => 0.5
     text(:kind) { self.class.model_name.human }
     time :first_showing_time, :trie => true
     time :last_showing_time
