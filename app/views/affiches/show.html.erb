@@ -20,9 +20,13 @@
               <%= @affiche.item_poster %>
             </div>
             <div class="description">
-              <%= @affiche.when_with_price %>
+              <div class="closest">
+                <%= @affiche.when_with_price %>
+              </div>
               <% @affiche.places.each do |place| %>
-                <%= place.place %>
+                <div class="place">
+                  <%= place.place %>
+                </div>
               <% end %>
               <%= @affiche.html_description %>
             </div>
