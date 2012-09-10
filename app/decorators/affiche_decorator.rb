@@ -24,7 +24,12 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def kind_affiche_path(options = {})
-    h.send("#{kind}_path", affiche, options)
+    h.send "#{kind}_path", affiche, options
+  end
+
+  def all_today_affiches_link
+    h.link_to "Все #{affiche.class.model_name.human.mb_chars.downcase} сегодня (#{counter.today})",
+              h.affiches_path(kind: kind.pluralize, period: :today)
   end
 
   def link
@@ -207,4 +212,7 @@ class AfficheDecorator < ApplicationDecorator
     HasSearcher.searcher(:similar_affiches)
   end
 
+  def counter
+    Counter.new(:kind => kind)
+  end
 end
