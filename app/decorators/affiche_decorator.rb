@@ -169,11 +169,11 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def similar_affiches
-    AfficheDecorator.decorate searcher.more_like_this(affiche).limit(3).results
+    searcher.more_like_this(affiche).limit(3).results.map { |a| AfficheDecorator.new a }
   end
 
   def similar_affiches_with_images
-    AfficheDecorator.decorate searcher.more_like_this(affiche).with_images.limit(2).results
+    searcher.more_like_this(affiche).with_images.limit(2).results.map { |a| AfficheDecorator.new a }
   end
 
   def trailer

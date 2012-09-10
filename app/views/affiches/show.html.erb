@@ -119,7 +119,7 @@
           <li>
             <div class="title"><%= link_to affiche.title, affiche.kind_affiche_path %></div>
             <div class="image"><%= link_to affiche.more_like_this_poster, affiche.kind_affiche_path %></div>
-            <div class="place"><a href="#">Киномакс</a>, <a href="#">Киномир</a></div>
+            <%= affiche.main_page_place %>
           </li>
         <% end %>
       </ul>
