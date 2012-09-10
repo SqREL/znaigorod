@@ -146,9 +146,16 @@
           </ul>
         </div>
       <% end %>
-
     </div>
-
   </div>
 
+  <% if @affiche.has_images? %>
+    <div>
+      <ul>
+        <% @affiche.images.each do |image| %>
+          <%= @affiche.image_tag image.url, 300, 300, image.description %>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 </div>
