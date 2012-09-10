@@ -11,11 +11,10 @@
 
       <div class="tabs">
         <ul class="nav">
-          <li><a href="#tab-1">Описание</a></li>
-          <li><a href="#tab-2">Трейлер</a></li>
-          <li class="disabled"><a href="#tab-3">Disabled</a></li>
+          <li><a href="#info">Описание</a></li>
+          <li<%= " class='disabled'" if @affiche.trailer.blank? %>><a href="#trailer">Трейлер</a></li>
         </ul>
-        <div id="tab-1">
+        <div id="info">
           <div class="info">
             <div class="image">
               <%= @affiche.item_poster %>
@@ -29,8 +28,10 @@
             </div>
           </div>
         </div>
-        <div id="tab-2">
-          <p><img src="http://placekitten.com/g/733/412" alt="dummy" /></p>
+        <div id="trailer">
+          <% unless @affiche.trailer.blank? %>
+            <%= @affiche.trailer %>
+          <% end %>
         </div>
       </div>
 
@@ -44,6 +45,32 @@
           <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
           <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="button" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,lj,gplus"></div>
         </div>
+      </div>
+
+      <div class="seances_on_show">
+        <% if @affiche.distribution_movie? %>
+          <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
+            <ul class="title">
+              <li class="text"><%= showings_with_place.values.first.first.human_date %></li>
+            </ul>
+            <ul class="theaters">
+              <% showings_with_place.each do |place, showings| %>
+                <li class="theater">
+                  <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
+                  <p class="address"><%= showings.first.place_decorator.address_link %></p>
+                </li>
+                <% showings.each do |showing| %>
+                  <li class="seance">
+                    <p class="time"><%= showing.human_time_starts_at %></p>
+                    <p class="cost"><%= showing.human_price %></p>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        <% else %>
+          <p>Тут будем показывать раписание других сеансов</p>
+        <% end %>
       </div>
 
     </div>
@@ -75,32 +102,6 @@
       </div>
     </div>
 
-  </div>
-
-  <div class="seances_on_show">
-    <% if @affiche.distribution_movie? %>
-      <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
-        <ul class="title">
-          <li class="text"><%= showings_with_place.values.first.first.human_date %></li>
-        </ul>
-        <ul class="theaters">
-          <% showings_with_place.each do |place, showings| %>
-            <li class="theater">
-              <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
-              <p class="address"><%= showings.first.place_decorator.address_link %></p>
-            </li>
-            <% showings.each do |showing| %>
-              <li class="seance">
-                <p class="time"><%= showing.human_time_starts_at %></p>
-                <p class="cost"><%= showing.human_price %></p>
-              </li>
-            <% end %>
-          <% end %>
-        </ul>
-      <% end %>
-    <% else %>
-      <p>Тут будем показывать раписание других сеансов</p>
-    <% end %>
   </div>
 
 </div>

@@ -98,13 +98,11 @@ class AfficheDecorator < ApplicationDecorator
 
   def when_with_price
     h.content_tag :p, h.content_tag(:span, human_when, :class => :when ) + ", " + h.content_tag(:span, human_price, :class => :cost)
-    end
+  end
 
   def human_distribution
     return nil unless distribution_starts_on?
-
     return "С #{distribution_starts_on.day} до #{I18n.l(distribution_ends_on, :format => '%e %B')}".squish if distribution_starts_on? && distribution_ends_on?
-
     return "С #{I18n.l(distribution_starts_on, :format => '%e %B')}".squish
   end
 
@@ -172,6 +170,11 @@ class AfficheDecorator < ApplicationDecorator
 
   def similar_affiches_with_images
     AfficheDecorator.decorate searcher.more_like_this(affiche).with_images.limit(2).results
+  end
+
+  def trailer
+    return "" if trailer_code.blank?
+    trailer_code.html_safe
   end
 
   private

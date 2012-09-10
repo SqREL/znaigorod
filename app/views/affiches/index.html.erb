@@ -26,8 +26,8 @@
                       <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
                       <p class="address"><%= showings.first.place_decorator.address_link %></p>
                     </li>
-                    <% showings[0..4].each do |showing| %>
-                      <li class="seance">
+                    <% showings[0..4].each_with_index do |showing, index| %>
+                      <li class="seance<%= " last" if index == 4 %>">
                         <p class="time"><%= showing.human_time_starts_at %></p>
                         <p class="cost"><%= showing.human_price %></p>
                       </li>
