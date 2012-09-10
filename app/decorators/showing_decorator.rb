@@ -81,4 +81,16 @@ class ShowingDecorator < ApplicationDecorator
     I18n.l(date, :format => '%H:%M')
   end
 
+  def day_name(date)
+    I18n.l(date, :format => '%A').mb_chars.downcase
+  end
+
+  def for_schedule
+    ''.tap do |html|
+      html << h.content_tag(:span, e_B(starts_at), :class => 'date')
+      html << h.content_tag(:span, day_name(starts_at), :class => 'day')
+      html << h.content_tag(:span, H_M(starts_at))
+      html << h.content_tag(:span, human_price, :class => 'price')
+    end.html_safe
+  end
 end

@@ -97,14 +97,15 @@
               <% end %>
             </div>
           <% else %>
-            <ul>
-              <% @affiche.showings.each do |showing| %>
-                <li>
-                  <%= showing.human_time_starts_at %>
-                  <%= showing.human_price %>
-                </li>
-              <% end %>
-            </ul>
+            <% if @affiche.showings.many? %>
+              <ul>
+                <% @affiche.showings.each do |showing| %>
+                  <li>
+                    <%= showing.for_schedule %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
           <% end %>
         <% end %>
       </div>
