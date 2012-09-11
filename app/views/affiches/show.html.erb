@@ -12,7 +12,7 @@
       <div class="tabs">
         <ul class="nav">
           <li><a href="#info">Описание</a></li>
-          <li<%= " class='disabled'" if @affiche.trailer.blank? %>><a href="#trailer">Трейлер</a></li>
+          <li<%= " class='disabled'" if @affiche.trailer.blank? %>><a href="#trailer">Видео</a></li>
         </ul>
         <div id="info">
           <div class="info">
@@ -23,10 +23,12 @@
               <div class="closest">
                 <%= @affiche.when_with_price %>
               </div>
-              <% @affiche.places.each do |place| %>
-                <div class="place">
-                  <%= place.place %>
-                </div>
+              <% unless @affiche.distribution_movie? && @affiche.showings.many? %>
+                <% @affiche.places.each do |place| %>
+                  <div class="place">
+                    <%= place.place %>
+                  </div>
+                <% end %>
               <% end %>
               <%= @affiche.html_description %>
             </div>
@@ -53,18 +55,24 @@
 
       <div class="seances_on_show">
         <% if @affiche.distribution_movie? || @affiche.showings.many? %>
-            <p>Дата и место проведения</p>
-            <p> <%= @affiche.place %></p>
-            <p><%= @affiche.showings.first.place_decorator.address_link %></p>
+          <h3>Дата и место проведения</h3>
+          <% @affiche.places.each do |place| %>
+            <div class="place">
+              <%= place.place %>
+            </div>
+          <% end %>
         <% end %>
 
         <% if @affiche.distribution_movie? %>
-          Сеансы
-          <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
-            <ul class="title">
-              <li class="text"><%= showings_with_place.values.first.first.human_date %></li>
-            </ul>
-          <% end %>
+          <div class="seances">
+            <div class="head">
+              Сеансы
+              <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
+                <ul class="title">
+                  <li class="text"><%= showings_with_place.values.first.first.human_date %></li>
+                </ul>
+              <% end %>
+            </div>
           <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
             <ul class="theaters">
               <% showings_with_place.each do |place, showings| %>
@@ -81,6 +89,7 @@
               <% end %>
             </ul>
           <% end %>
+          </div>
         <% else %>
           <% if @affiche.has_schedule? %>
             С
