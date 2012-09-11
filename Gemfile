@@ -13,6 +13,7 @@ group :default do
   gem 'RedCloth'
   gem 'active_attr'
   gem 'attribute_normalizer'
+  gem 'auto_html'
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'curb',                                         :require => false

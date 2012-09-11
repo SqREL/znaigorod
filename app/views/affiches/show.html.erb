@@ -33,8 +33,8 @@
           </div>
         </div>
         <div id="trailer">
-          <% unless @affiche.trailer.blank? %>
-            <%= @affiche.trailer %>
+          <% if @affiche.trailer_code? %>
+            <%= @affiche.trailer_code_html %>
           <% end %>
         </div>
       </div>
