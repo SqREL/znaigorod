@@ -125,6 +125,7 @@ ru:
         trailer_code: Код трейлера
         distribution_starts_on: Начало проката
         distribution_ends_on: Окончание проката
+        constant: Постоянная экспозиция
 
       affiche_schedule:
         starts_on: Дата начала

@@ -98,6 +98,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def human_when
+    return "Постоянная экспозиция" if affiche.constant?
     return human_distribution if affiche.distribution_starts_on?
     return showings.first.human_when
   end

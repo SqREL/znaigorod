@@ -1,5 +1,5 @@
 class Movie < Affiche
-  attr_accessible :original_title, :trailer_code
+  attr_accessible
 
   before_save :set_wmode_for_trailer
 

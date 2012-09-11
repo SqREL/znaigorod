@@ -1,4 +1,5 @@
 class Exhibition < Affiche
+  attr_accessible :constant
 end
 
 # == Schema Information

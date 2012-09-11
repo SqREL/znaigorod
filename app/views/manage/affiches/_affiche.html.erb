@@ -60,6 +60,15 @@
       <span class="blank">Не указано</span>
     <% end %>
   </div>
+
+  <div>
+    <span class="label">Постоянная экспозиция:</span>
+    <% if resource.constant? %>
+      <span class="value">Да</span>
+    <% else %>
+      <span class="blank">Нет</span>
+    <% end %>
+  </div>
 </div>
 
 <div style='clear:both;'>
