@@ -53,16 +53,7 @@
         </div>
       </div>
 
-      <div class="seances_on_show">
-        <% if @affiche.distribution_movie? || @affiche.showings.many? %>
-          <h3>Дата и место проведения</h3>
-          <% @affiche.places.each do |place| %>
-            <div class="place">
-              <%= place.place %>
-            </div>
-          <% end %>
-        <% end %>
-
+      <% if @affiche.showings.many? %>
         <% if @affiche.distribution_movie? %>
           <div class="seances">
             <div class="head">
@@ -73,57 +64,43 @@
                 </ul>
               <% end %>
             </div>
-          <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
-            <ul class="theaters">
-              <% showings_with_place.each do |place, showings| %>
-                <li class="theater">
-                  <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
-                  <p class="address"><%= showings.first.place_decorator.address_link %></p>
-                </li>
-                <% showings.each do |showing| %>
-                  <li class="seance">
-                    <p class="time"><%= showing.human_time_starts_at %></p>
-                    <p class="cost"><%= showing.human_price %></p>
+            <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
+              <ul class="theaters">
+                <% showings_with_place.each do |place, showings| %>
+                  <li class="theater">
+                    <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
+                    <p class="address"><%= showings.first.place_decorator.address_link %></p>
                   </li>
-                <% end %>
-              <% end %>
-            </ul>
-          <% end %>
-          </div>
-        <% else %>
-          <% if @affiche.has_schedule? %>
-            С
-            <%= l(@affiche.affiche_schedule.starts_on, :format => "%e %B").split.each_with_index.map{|d, i| content_tag(:span, d, :class => "date_#{i}")}.join.html_safe %>
-            по
-            <%= l(@affiche.affiche_schedule.ends_on, :format => "%e %B").split.each_with_index.map{|d, i| content_tag(:span, d, :class => "date_#{i}")}.join.html_safe %>
-            <div>
-              <span class="label">Время работы:</span>
-              <span class="value"><%= [@affiche.affiche_schedule.starts_at, @affiche.affiche_schedule.ends_at].map{|t| l(t, :format => "%H:%M")}.join(' &mdash; ').html_safe %></span>
-            </div>
-            <div>
-              <span class="label">Выходные дни:</span>
-              <% if @affiche.affiche_schedule.holidays.any? %>
-                <span class="value">
-                  <%= @affiche.affiche_schedule.holidays.map{|h| t('date.standalone_day_names')[h]}.join(', ') %>
-                </span>
-              <% else %>
-                <span class="blank">Не указано</span>
-              <% end %>
-            </div>
-          <% else %>
-            <% if @affiche.showings.many? %>
-              <ul>
-                <% @affiche.showings.each do |showing| %>
-                  <li>
-                    <%= showing.for_schedule %>
-                  </li>
+                  <% showings.each do |showing| %>
+                    <li class="seance">
+                      <p class="time"><%= showing.human_time_starts_at %></p>
+                      <p class="cost"><%= showing.human_price %></p>
+                    </li>
+                  <% end %>
                 <% end %>
               </ul>
             <% end %>
+          </div>
+        <% end %>
+        <% if @affiche.scheduled_showings? %>
+           Будем показывать расписание
+        <% end %>
+        <% if !@affiche.scheduled_showings? && !@affiche.distribution_movie? && @affiche.showings.many? %>
+            <h3>Дата и место проведения</h3>
+            <% @affiche.places.each do |place| %>
+              <div class="place">
+                <%= place.place %>
+              </div>
+            <% end %>
+            <ul>
+              <% @affiche.showings.each do |showing| %>
+                <li>
+                  <%= showing.for_schedule %>
+                </li>
+              <% end %>
+            </ul>
           <% end %>
         <% end %>
-      </div>
-
     </div>
 
     <div class="right_side">

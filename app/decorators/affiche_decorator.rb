@@ -188,8 +188,8 @@ class AfficheDecorator < ApplicationDecorator
     trailer_code.html_safe
   end
 
-  def has_schedule?
-    !affiche.affiche_schedule.nil?
+  def scheduled_showings?
+    !affiche.affiche_schedule.nil? && affiche.is_a?(Exhibition)
   end
 
   private
