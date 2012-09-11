@@ -71,6 +71,16 @@ ActiveRecord::Schema.define(:version => 20120911034315) do
     t.datetime "updated_at",      :null => false
   end
 
+  create_table "cultures", :force => true do |t|
+    t.text     "category"
+    t.text     "feature"
+    t.text     "offer"
+    t.string   "payment"
+    t.integer  "organization_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "entertainments", :force => true do |t|
     t.text     "category"
     t.text     "feature"
