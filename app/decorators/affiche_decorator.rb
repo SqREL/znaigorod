@@ -98,9 +98,25 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def human_when
-    return "Постоянная экспозиция" if affiche.constant?
-    return human_distribution if affiche.distribution_starts_on?
-    return showings.first.human_when
+    if showings.any?
+      return "Постоянная экспозиция" if affiche.constant?
+      return human_distribution if affiche.distribution_starts_on?
+      return showings.first.human_when
+    else
+      last_showing = ShowingDecorator.new(affiche.showings.last)
+      case affiche.class.name
+      when 'Movie'
+        if affiche_distribution?
+          return "Было в прокате до #{last_showing.e_B(last_showing.starts_at)}"
+        else
+          return "Последний показ был #{last_showing.e_B(last_showing.starts_at)}"
+        end
+      when 'Exhibition'
+        return "Выставка закончилась #{last_showing.e_B(last_showing.starts_at)}"
+      else
+        return "Было #{last_showing.e_B(last_showing.starts_at)}"
+      end
+    end
   end
 
   def human_price
@@ -108,12 +124,19 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def when_with_price
-    h.content_tag :p, h.content_tag(:span, human_when, :class => :when ) + ", " + h.content_tag(:span, human_price, :class => :cost)
+    if showings.any?
+      h.content_tag :p, h.content_tag(:span, human_when, :class => :when ) + ", " + h.content_tag(:span, human_price, :class => :cost).html_safe
+    else
+      h.content_tag :p, h.content_tag(:span, human_when, :class => :when )
+    end
   end
 
   def human_distribution
     return nil unless distribution_starts_on?
-    return "С #{distribution_starts_on.day} до #{I18n.l(distribution_ends_on, :format => '%e %B')}".squish if distribution_starts_on? && distribution_ends_on?
+    if distribution_starts_on? && distribution_ends_on?
+      return "С #{distribution_starts_on.day} до #{I18n.l(distribution_ends_on, :format => '%e %B')}".squish if  distribution_starts_on.month == distribution_ends_on.month
+      return "С #{I18n.l(distribution_starts_on, :format => '%e %B')} до #{I18n.l(distribution_ends_on, :format => '%e %B')}".squish
+    end
     return "С #{I18n.l(distribution_starts_on, :format => '%e %B')}".squish
   end
 
