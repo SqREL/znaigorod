@@ -14,6 +14,7 @@ Znaigorod::Application.routes.draw do
     end
 
     resources :organizations do
+      resource :culture
       resource :entertainment
       resource :meal
 

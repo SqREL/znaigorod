@@ -121,7 +121,7 @@ module ApplicationHelper
   def form_url_for_resource
     if resource.class.superclass == Affiche ||resource_class == Organization
       return [:manage, resource]
-    elsif resource_class == Meal || resource_class == Entertainment
+    elsif resource_class == Meal || resource_class == Entertainment || resource_class == Culture
       return send("manage_organization_#{resource_class.model_name.underscore}_path", parent)
     elsif parent.class.superclass == Affiche
       return send("manage_#{parent.class.superclass.model_name.underscore}_#{resource_class.model_name.underscore.pluralize}_path", parent)

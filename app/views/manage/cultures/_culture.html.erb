@@ -1,0 +1,39 @@
+<div class="type">
+  <h3>
+    Культурное заведение
+    <%= link_to t('edit'), edit_manage_organization_culture_path(culture.organization), :class => 'edit_link' %>
+    <%= link_to t('delete'), manage_organization_culture_path(culture.organization), :method => :delete, :confirm => 'Вы уверены?', :class => 'delete_link' %>
+</h3>
+  <div>
+    <span class="label">Категория:</span>
+    <% if culture.category.present? %>
+      <span class="value"><%= culture.category %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Особенности:</span>
+    <% if culture.feature.present? %>
+      <span class="value"><%= culture.feature %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Предложение:</span>
+    <% if culture.offer.present? %>
+      <span class="value"><%= culture.offer %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Способ оплаты:</span>
+    <% if culture.payment.present? %>
+      <span class="value"><%= culture.payment %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+</div>

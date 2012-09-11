@@ -13,9 +13,10 @@ class Organization < ActiveRecord::Base
   has_many :schedules,      :dependent => :destroy
   has_many :showings,       :dependent => :destroy
 
+  has_one :address,         :dependent => :destroy
+  has_one :culture,         :dependent => :destroy
   has_one :entertainment,   :dependent => :destroy
   has_one :meal,            :dependent => :destroy
-  has_one :address,         :dependent => :destroy
 
   validates_presence_of :title
 
