@@ -59,10 +59,13 @@
         <% end %>
 
         <% if @affiche.distribution_movie? %>
+          Сеансы
           <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
             <ul class="title">
               <li class="text"><%= showings_with_place.values.first.first.human_date %></li>
             </ul>
+          <% end %>
+          <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
             <ul class="theaters">
               <% showings_with_place.each do |place, showings| %>
                 <li class="theater">
