@@ -55,32 +55,39 @@
 
       <% if @affiche.showings.many? %>
         <% if @affiche.distribution_movie? %>
-          <div class="seances">
-            <div class="head">
-              Сеансы
+          <div class="distribution">
+            <ul class="dates">
+              <li class="first">
+                <h3>Сеансы</h3>
+              </li>
               <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
-                <ul class="title">
-                  <li class="text"><%= showings_with_place.values.first.first.human_date %></li>
-                </ul>
+                <li class="text">
+                  <p class="date" data-id="date-<%= date %>"><%= showings_with_place.values.first.first.human_date %></p>
+                  <p class="day_of_week"><%= l date, format: '%A' %></p>
+                </li>
               <% end %>
-            </div>
+            </ul>
+
             <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
-              <ul class="theaters">
+              <div class="theaters" data-id="date-<%= date %>">
                 <% showings_with_place.each do |place, showings| %>
-                  <li class="theater">
-                    <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
-                    <p class="address"><%= showings.first.place_decorator.address_link %></p>
-                  </li>
-                  <% showings.each do |showing| %>
-                    <li class="seance">
-                      <p class="time"><%= showing.human_time_starts_at %></p>
-                      <p class="cost"><%= showing.human_price %></p>
+                  <ul>
+                    <li class="theater">
+                      <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
+                      <p class="address"><%= showings.first.place_decorator.address_link %></p>
                     </li>
-                  <% end %>
+                    <% showings.each do |showing| %>
+                      <li class="seance">
+                        <p class="time"><%= showing.human_time_starts_at %></p>
+                        <p class="cost"><%= showing.human_price %></p>
+                      </li>
+                    <% end %>
+                  </ul>
                 <% end %>
-              </ul>
+              </div>
             <% end %>
           </div>
+
         <% end %>
         <% if @affiche.scheduled_showings? %>
           Стоимость: <%= @affiche.schedule.human_price %>
