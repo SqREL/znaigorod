@@ -41,6 +41,10 @@ class AfficheDecorator < ApplicationDecorator
     h.link_to "Подробнее...", kind_affiche_path, :title => affiche.title
   end
 
+  def schedule
+    AfficheScheduleDecorator.decorate affiche.affiche_schedule
+  end
+
   def main_page_place
     max_lenght = 45
     place_output = ""

@@ -83,7 +83,11 @@
           </div>
         <% end %>
         <% if @affiche.scheduled_showings? %>
-           Будем показывать расписание
+          Стоимость: <%= @affiche.schedule.human_price %>
+          <% @affiche.schedule.days.each do |date, worktime| %>
+            <%= date %>
+            <%= worktime %>
+          <% end %>
         <% end %>
         <% if !@affiche.scheduled_showings? && !@affiche.distribution_movie? && @affiche.showings.many? %>
             <h3>Дата и место проведения</h3>
