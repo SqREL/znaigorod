@@ -13,8 +13,6 @@
       prepare_borders(ui)
     select: (event, ui) ->
       prepare_borders(ui)
-    cookie:
-      expires: 30
 
 prepare_borders = (ui) ->
   $(ui.tab).closest("li").prev("li").css
