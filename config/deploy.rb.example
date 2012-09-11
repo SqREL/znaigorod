@@ -121,13 +121,19 @@ namespace :db do
   end
 end
 
+# deploy
 before "deploy", "deploy:web:disable"
-
 after "deploy", "deploy:config_app"
 after "deploy", "deploy:migrate"
 after "deploy", "deploy:copy_unicorn_config"
 after "deploy", "deploy:compile_assets"
 after "deploy", "deploy:reload_servers"
-
 after "deploy:reload_servers", "deploy:cleanup"
 after "deploy", "deploy:airbrake"
+after "deploy", "deploy:web:enable"
+
+
+# deploy:rollback
+before "deploy:rollback", "deploy:web:disable"
+after "deploy:rollback", "deploy:reload_servers"
+after "deploy:rollback", "deploy:web:enable"
