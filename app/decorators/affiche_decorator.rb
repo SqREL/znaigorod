@@ -129,7 +129,7 @@ class AfficheDecorator < ApplicationDecorator
 
   def when_with_price
     if showings.any?
-      h.content_tag :p, h.content_tag(:span, human_when, :class => :when ) + ", " + h.content_tag(:span, human_price, :class => :cost).html_safe
+      h.content_tag :p, h.content_tag(:span, human_when, :class => :when ) + ", " + h.content_tag(:span, human_price, :class => :price).html_safe
     else
       h.content_tag :p, h.content_tag(:span, human_when, :class => :when )
     end

@@ -4,7 +4,7 @@
 
   <div class="main_page_block_wrapper was_in_city">
     <div class="main_page_block">
-      <h1><strong>Было</strong> в городе</h1>
+      <h1><span class="strong">Было</span> в городе</h1>
       <ul class="clearfix">
         <% @photoreport.reports_for_main_page.each do |photoreport| %>
           <li>
@@ -34,7 +34,7 @@
 
 <div class="main_page_block_wrapper organizations_in_city">
   <div class="main_page_block">
-    <h1><strong>Заведения</strong> города</h1>
+    <h1><span class="strong">Заведения</span> города</h1>
     <div class="clearfix">
       <% @actual_organizations.groups.each do |fieldset| %>
         <fieldset>

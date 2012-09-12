@@ -8,7 +8,7 @@
     h1
       font-size: 24px
       margin: 0 0 20px 10px
-      strong
+      .strong
         font-size: 26px
 
     ul
@@ -51,14 +51,12 @@
               background-color: #6b4381
               +border-radius(3px)
               padding: 2px 4px 4px
-              .cost
+              .price
                 font-size: 14px
 
           .will_be
             margin-bottom: 15px
             line-height: 1.4
-            strong
-              font-weight: bold
 
           .seances
             margin-bottom: 5px
@@ -102,7 +100,7 @@
                   margin-right: 0
                 .time
                   font-size: 14px
-                .cost
+                .price
                   font-size: 11px
 
           .place
@@ -334,10 +332,6 @@
             p, table, ol, ul
               margin-bottom: 10px
               line-height: 1.5
-            b, strong
-              font-weight: bold
-            i, em
-              font-style: italic
             table
               tr:nth-child(odd) td
                 background-color: #e8e0eb
@@ -366,7 +360,7 @@
                 background-color: #6b4381
                 +border-radius(3px)
                 padding: 2px 4px 4px
-                .cost
+                .price
                   font-size: 14px
     .place
       font-weight: bold
@@ -490,34 +484,37 @@
             .time
               font-size: 16px
               font-weight: bold
-            .cost
+            .price
               font-size: 11px
+
+    =head_style
+      +clearfix
+      margin-bottom: 1px
+      background-color: #87bfd8
+      h3
+        float: left
+        color: #fff
+        font-size: 22px
+        height: 29px
+        background: #784391 image_url('public/many_show_nav_arrow.png') no-repeat right center
+        padding: 2px 26px 7px 10px
+      .places
+        float: left
+        color: #fff
+        margin: 10px 0 0 15px
+        a
+          color: #fff
+        .name
+          font-weight: bold
+        .address
+          font-size: 11px
+          background: transparent image_url("public/address.png") no-repeat -3px 0
+          padding-left: 13px
 
     .many_showings
       margin: 20px 0
       .head
-        +clearfix
-        margin-bottom: 1px
-        background-color: #87bfd8
-        h3
-          float: left
-          color: #fff
-          font-size: 22px
-          height: 29px
-          background: #784391 image_url('public/many_show_nav_arrow.png') no-repeat right center
-          padding: 2px 26px 7px 10px
-        .places
-          float: left
-          color: #fff
-          margin: 10px 0 0 15px
-          a
-            color: #fff
-          .name
-            font-weight: bold
-          .address
-            font-size: 11px
-            background: transparent image_url("public/address.png") no-repeat -3px 0
-            padding-left: 13px
+        +head_style
       ul
         li
           +clearfix
@@ -555,6 +552,52 @@
             &.price
               font-size: 16px
               margin-top: 7px
+
+    .sheduled
+      margin: 20px 0
+      .head
+        +head_style
+      .shedule
+        background-color: #e8e0eb
+        padding: 10px
+        .price
+          font-size: 16px
+          margin-bottom: 10px
+        ul
+          +clearfix
+          li
+            float: left
+            width: 88px
+            text-align: center
+            margin: 0 10px
+            &:first-child
+              margin-left: 0
+            &:last-child
+              margin-right: 0
+            span
+              display: block
+            .date_wrapper
+              background-color: #ded1e3
+              +border-radius(3px)
+              padding: 0 0 3px
+              .day_of_week
+                font-size: 18px
+                text-transform: uppercase
+              .date
+                font-size: 11px
+            .work_time_wrapper
+              +clearfix
+              font-size: 18px
+              padding: 1px 0 4px
+              .weekend
+                font-size: 15px
+                margin: 13px 0 14px
+            &.current
+              color: #fff
+              background-color: #784391
+              +border-radius(3px)
+              .date_wrapper
+                background: none
 
   .right_side
     float: left

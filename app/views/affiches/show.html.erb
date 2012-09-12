@@ -79,7 +79,7 @@
                     <% showings.each do |showing| %>
                       <li class="seance">
                         <p class="time"><%= showing.human_time_starts_at %></p>
-                        <p class="cost"><%= showing.human_price %></p>
+                        <p class="price"><%= showing.human_price %></p>
                       </li>
                     <% end %>
                   </ul>
@@ -90,11 +90,24 @@
 
         <% end %>
         <% if @affiche.scheduled_showings? %>
-          Стоимость: <%= @affiche.schedule.human_price %>
-          <% @affiche.schedule.days.each do |date, worktime| %>
-            <%= date %>
-            <%= worktime %>
-          <% end %>
+          <div class="sheduled">
+            <div class="head">
+              <h3>Расписание</h3>
+              <div class="places">
+                <% @affiche.places.each do |place| %>
+                  <%= place.place %>
+                <% end %>
+              </div>
+            </div>
+            <div class="shedule">
+              <div class="price"><strong>Стоимость:</strong> <%= @affiche.schedule.human_price %></div>
+              <ul>
+                <% @affiche.schedule.days.each do |li| %>
+                  <%= li %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
         <% end %>
         <% if !@affiche.scheduled_showings? && !@affiche.distribution_movie? && @affiche.showings.many? %>
           <div class="many_showings">

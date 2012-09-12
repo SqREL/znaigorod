@@ -1,7 +1,7 @@
 <div class="content_wrapper">
 
   <div class="affiches_list">
-    <h1><strong><%= @affiche_collection.human_kind %></strong> <%= @affiche_collection.human_period.mb_chars.downcase %></h1>
+    <h1><span class="strong"><%= @affiche_collection.human_kind %></span> <%= @affiche_collection.human_period.mb_chars.downcase %></h1>
     <ul>
       <% @affiche_collection.affiches.each do |affiche| %>
         <li>
@@ -29,7 +29,7 @@
                     <% showings[0..4].each_with_index do |showing, index| %>
                       <li class="seance<%= " last" if index == 4 %>">
                         <p class="time"><%= showing.human_time_starts_at %></p>
-                        <p class="cost"><%= showing.human_price %></p>
+                        <p class="price"><%= showing.human_price %></p>
                       </li>
                     <% end %>
                   <% end %>
