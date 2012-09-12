@@ -14,8 +14,8 @@ class OrganizationsCollection
     end
 
     define_method "#{klass}_categories" do
-      self.send("#{klass}_searcher").categories.facet("#{klass}_category").rows.map(&:value).map do |category|
-        Link.new(title: category, url: send("#{klass.pluralize}_path", kind: I18n.transliterate(category)).downcase)
+      self.send("#{klass}_searcher").categories.facet("#{klass}_category").rows.map do |row|
+        Link.new(title: "#{row.value} (#{row.count})", url: send("#{klass.pluralize}_path", kind: I18n.transliterate(row.value)).downcase)
       end
     end
   end
@@ -27,4 +27,5 @@ class OrganizationsCollection
       end
     end
   end
+
 end
