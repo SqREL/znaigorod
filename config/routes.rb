@@ -37,8 +37,8 @@ Znaigorod::Application.routes.draw do
     get "#{type.name.downcase}/:id" => 'affiches#show', :as => "#{type.name.downcase}"
   end
 
-  resources :entertainments
-  resources :meals
+  get ':kind/*query' => 'meals#index', :as => :meals
+
   resources :organizations
 
   root :to => 'application#main_page'
