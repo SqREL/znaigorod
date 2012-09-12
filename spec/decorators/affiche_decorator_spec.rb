@@ -37,8 +37,8 @@ describe AfficheDecorator do
     end
     context 'when showing place long' do
       before { showing.stub(:place).and_return('Информационный центр по сильно опто коммуникационным технологиям') }
-      it { should =~ /title=\"Информационный центр по сильно опто коммуникационным технологиям"/ }
-      it { should =~ /Информационный центр по сильно опто/ }
+      it { should =~ /title=\"Информационный центр по&#160;сильно опто коммуникационным технологиям"/ }
+      it { should =~ /Информационный центр по&#160;сильно опто/ }
     end
     context 'when showing place is_a Organization' do
       let(:organization) { Organization.new(:title => 'Киномакс, кинотеатр') }

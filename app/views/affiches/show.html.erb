@@ -97,21 +97,25 @@
           <% end %>
         <% end %>
         <% if !@affiche.scheduled_showings? && !@affiche.distribution_movie? && @affiche.showings.many? %>
-            <h3>Дата и место проведения</h3>
-            <% @affiche.places.each do |place| %>
-              <div class="place">
-                <%= place.place %>
+          <div class="many_showings">
+            <div class="head">
+              <h3>Дата и место проведения</h3>
+              <div class="places">
+                <% @affiche.places.each do |place| %>
+                  <%= place.place %>
+                <% end %>
               </div>
-            <% end %>
+            </div>
             <ul>
               <% @affiche.showings.each do |showing| %>
-                <li>
+                <li class="<%= cycle('odd', 'even') %>">
                   <%= showing.for_schedule %>
                 </li>
               <% end %>
             </ul>
-          <% end %>
+          </div>
         <% end %>
+      <% end %>
     </div>
 
     <div class="right_side">

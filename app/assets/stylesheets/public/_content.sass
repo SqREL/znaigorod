@@ -430,7 +430,7 @@
           h3
             height: 29px
             background: #784391 image_url('public/distribution_nav_arrow.png') no-repeat right center
-            padding: 3px 20px 6px 10px
+            padding: 2px 20px 7px 10px
             margin: 1px 10px 1px 0
         .text
           cursor: pointer
@@ -492,6 +492,69 @@
               font-weight: bold
             .cost
               font-size: 11px
+
+    .many_showings
+      margin: 20px 0
+      .head
+        +clearfix
+        margin-bottom: 1px
+        background-color: #87bfd8
+        h3
+          float: left
+          color: #fff
+          font-size: 22px
+          height: 29px
+          background: #784391 image_url('public/many_show_nav_arrow.png') no-repeat right center
+          padding: 2px 26px 7px 10px
+        .places
+          float: left
+          color: #fff
+          margin: 10px 0 0 15px
+          a
+            color: #fff
+          .name
+            font-weight: bold
+          .address
+            font-size: 11px
+            background: transparent image_url("public/address.png") no-repeat -3px 0
+            padding-left: 13px
+      ul
+        li
+          +clearfix
+          padding: 10px
+          &.odd
+            background-color: #e8e0eb
+          &.even
+            background-color: #eaeaea
+          p
+            float: left
+            &.date
+              margin-right: 55px
+              background-color: #ded1e3
+              +border-radius(3px)
+              padding: 0 5px 3px 3px
+              span
+                display: block
+              .day
+                float: left
+                font-size: 28px
+                width: 36px
+                text-align: right
+              .month
+                font-size: 13px
+                font-weight: bold
+                margin-left: 40px
+                margin-top: 2px
+              .day_of_week
+                font-size: 11px
+                margin-left: 40px
+            &.time
+              font-size: 20px
+              margin-right: 40px
+              margin-top: 5px
+            &.price
+              font-size: 16px
+              margin-top: 7px
 
   .right_side
     float: left

@@ -73,6 +73,14 @@ class ShowingDecorator < ApplicationDecorator
     ends_at == ends_at.end_of_day
   end
 
+  def e(date)
+    I18n.l(date, :format => '%e').squish
+  end
+
+  def B(date)
+    I18n.l(date, :format => '%B')
+  end
+
   def e_B(date)
     I18n.l(date, :format => '%e %B').squish
   end
@@ -87,10 +95,17 @@ class ShowingDecorator < ApplicationDecorator
 
   def for_schedule
     ''.tap do |html|
-      html << h.content_tag(:span, e_B(starts_at), :class => 'date')
-      html << h.content_tag(:span, day_name(starts_at), :class => 'day')
-      html << h.content_tag(:span, H_M(starts_at))
-      html << h.content_tag(:span, human_price, :class => 'price')
+      date = h.content_tag :p, class: 'date' do
+        day, month = e_B(starts_at).split(" ")
+        date = ''
+        date << h.content_tag(:span, day, :class => 'day')
+        date << h.content_tag(:span, month, :class => 'month')
+        date << h.content_tag(:span, day_name(starts_at), :class => 'day_of_week')
+        date.html_safe
+      end
+      html << date
+      html << h.content_tag(:p, H_M(starts_at), class: 'time')
+      html << h.content_tag(:p, human_price, :class => 'price')
     end.html_safe
   end
 end
