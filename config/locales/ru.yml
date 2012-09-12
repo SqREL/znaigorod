@@ -93,6 +93,12 @@ ru:
     sportsevent: Похожие спортивные мероприятия
     other: Похожее
 
+  organization:
+    kind:
+      meal: Еда
+      entertainment: Развлечения
+      culture: Культура
+
   activerecord:
     models:
       affiche: Все мероприятия

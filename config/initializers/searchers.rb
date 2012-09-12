@@ -94,10 +94,26 @@ end
 
 HasSearcher.create_searcher :meal do
   models :meal
+
+  scope :categories do
+    facet(:meal_category)
+  end
 end
 
 HasSearcher.create_searcher :entertainment do
   models :entertainment
+
+  scope :categories do
+    facet(:entertainment_category)
+  end
+end
+
+HasSearcher.create_searcher :culture do
+  models :culture
+
+  scope :categories do
+    facet(:culture_category)
+  end
 end
 
 HasSearcher.create_searcher :total do

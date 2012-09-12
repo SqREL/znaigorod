@@ -1,19 +1,12 @@
-<div class="index">
-  <div class="breadcrumbs">
-    <ul>
-      <li>
-        <a href="/" class='solid_light_blue'>Главная</a><span class='arrow'>&rarr;</span>
-      </li>
-    </ul>
-  </div>
-
-  <h1><%= t controller_name.singularize %></h1>
-
-  <div class="list">
-    <ul>
-        <li><%= link_to t('meal'), meals_path, :class => 'solid_light_blue' %></li>
-        <li><%= link_to t('entertainment'), entertainments_path, :class => 'solid_light_blue' %></li>
-    </ul>
-  </div>
-
-</div>
+<ul>
+  <% @organizations_collection.kind_links.each do |link, categories| %>
+    <li>
+      <%= link %>
+      <ul>
+        <% categories.each do |category_link| %>
+          <%= category_link %>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>
