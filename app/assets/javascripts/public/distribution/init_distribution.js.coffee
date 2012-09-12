@@ -9,10 +9,10 @@
     link = $(this)
     return false if link.hasClass("selected")
     distribution_id = $("li.selected p.date", dates).attr("data-id")
-    $(".theaters[data-id=#{distribution_id}]", container).hide()
+    $(".theaters[data-id=#{distribution_id}]", container).slideUp("fast")
     $("li", dates).removeClass("selected").removeClass("before_selected")
     link.addClass("selected")
     link.prev("li").addClass("before_selected")
     distribution_id = $("li.selected p.date", dates).attr("data-id")
-    $(".theaters[data-id=#{distribution_id}]", container).show()
+    $(".theaters[data-id=#{distribution_id}]", container).slideDown("fast")
     false
