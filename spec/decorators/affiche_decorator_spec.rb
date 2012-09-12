@@ -30,6 +30,7 @@ describe AfficheDecorator do
     subject { decorator.main_page_place }
     let(:showing) { Showing.new }
     before { affiche.stub_chain(:showings, :actual).and_return([showing])  }
+    before { affiche.stub_chain(:showings, :where, :first).and_return(showing) }
     context 'when showing place is string' do
       before { showing.stub(:place).and_return('Киномакс, кинотеатр') }
       it { should =~ /Кино\u00ADмакс/ }

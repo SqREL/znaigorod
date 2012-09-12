@@ -12,6 +12,7 @@
       <div class="tabs">
         <ul class="nav">
           <li><a href="#info">Описание</a></li>
+          <li<%= " class='disabled'" unless @affiche.has_images? %>><a href="#photogallery">Фотогалерея</a></li>
           <li<%= " class='disabled'" if @affiche.trailer.blank? %>><a href="#trailer">Видео</a></li>
         </ul>
         <div id="info">
@@ -34,11 +35,20 @@
             </div>
           </div>
         </div>
-        <div id="trailer">
-          <% if @affiche.trailer_code? %>
+        <% if @affiche.trailer_code? %>
+          <div id="trailer">
             <%= @affiche.trailer_code_html %>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
+        <% if @affiche.has_images? %>
+          <div id="photogallery">
+            <ul>
+              <% @affiche.images.each do |image| %>
+                <li><%= @affiche.image_tag image.url, 300, 300, image.description %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
       </div>
 
       <div class="tags_and_share">
@@ -151,30 +161,7 @@
         </div>
       <% end %>
 
-      <% unless @affiche.similar_affiches_with_images.blank? %>
-        <div class="more_like_this">
-          <h2>Похожие фотогалереи</h2>
-          <ul>
-            <% @affiche.similar_affiches_with_images.each do |affiche| %>
-              <li>
-                <div class="title"><%= link_to affiche.title.gilensize.html_safe, affiche.kind_affiche_path %></div>
-                <div class="image"><%= affiche.more_like_this_poster %></div>
-                <%= content_tag :div, affiche.main_page_place, :class => "places" unless affiche.main_page_place.blank? %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
     </div>
   </div>
 
-  <% if @affiche.has_images? %>
-    <div>
-      <ul>
-        <% @affiche.images.each do |image| %>
-          <%= @affiche.image_tag image.url, 300, 300, image.description %>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
 </div>

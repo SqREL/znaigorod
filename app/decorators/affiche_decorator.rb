@@ -67,8 +67,10 @@ class AfficheDecorator < ApplicationDecorator
 
   def places
     [].tap do |array|
-      showings.map { |showing| showing.organization ? showing.organization : [showing.place, showing.latitude, showing.longitude] }.uniq.each do |place|
-        array << (place.is_a?(Organization) ? PlaceDecorator.new(:organization => place) : PlaceDecorator.new(:title => place[0], :latitude => place[1], :longitude => place[2]))
+      showings.map { |showing| showing.organization ? showing.organization : showing.place }.uniq.each do |place|
+        array << (place.is_a?(Organization) ? PlaceDecorator.new(:organization => place) : PlaceDecorator.new(:title => place,
+                                                                                                              :latitude => affiche.showings.where(:place => place).first.latitude,
+                                                                                                              :longitude => affiche.showings.where(:place => place).first.longitude))
       end
     end
   end
