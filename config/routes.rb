@@ -29,7 +29,6 @@ Znaigorod::Application.routes.draw do
   get 'search' => 'search#index'
   get 'geocoder' => 'geocoder#get_coordinates'
 
-  get 'affiche_item/:id' => 'affiches#show', :as => :affiche
   get ':kind/:period/(:on)/(tags/*tags)' => 'affiches#index',
         :kind => /movies|concerts|parties|spectacles|exhibitions|sportsevents|others|affiches/,
         :period => /today|weekly|weekend|all|daily/, :as => :affiches

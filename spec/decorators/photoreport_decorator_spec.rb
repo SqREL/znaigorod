@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe PhotoreportDecorator do
-  let(:affiche) { Affiche.new(:title => 'title') }
+  let(:affiche) { Movie.new(:title => 'title') }
   let(:image) { Image.new(:url => 'http://storage.openteam.ru/files/3434/290-390/123.jpg') }
   before { affiche.stub(:to_param).and_return(1) }
   before { affiche.stub(:images).and_return([image]) }
@@ -23,7 +23,7 @@ describe PhotoreportDecorator do
   describe "#main_images" do
     subject { decorator.main_images }
     before { affiche.stub_chain(:images, :limit).and_return([image]) }
-    it { should =~ /href=\"\/affiche_item\/1\"/ }
+    it { should =~ /href=\"\/movie\/1\"/ }
     it { should =~ /src=\"http:\/\/storage.openteam.ru\/files\/3434\/220-220\/123.jpg\"/ }
   end
 

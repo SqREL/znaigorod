@@ -18,7 +18,7 @@
               <div class="seances">
                 <ul class="title">
                   <li class="text"><%= affiche.distribution_movie_schedule_date %></li>
-                  <li class="link_all"><%= link_to "Все сеансы", affiche_path(affiche, :anchor => 'showings') %></li>
+                  <li class="link_all"><%= link_to "Все сеансы", affiche.kind_affiche_path(:anchor => 'showings') %></li>
                 </ul>
                 <ul class="theaters">
                   <% affiche.distribution_movie_nearlest_grouped_showings.each do |place, showings| %>
