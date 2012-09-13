@@ -1,5 +1,5 @@
 /*
- * = require ./galleria-1.2.7.min
- * = require ./galleria.classic.min
+ * = require ./galleria-1.2.8
+ * = require ./galleria.classic
  * = require ./init_galleria
  */
