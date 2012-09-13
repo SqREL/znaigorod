@@ -30,7 +30,7 @@ describe OrganizationsCollection do
     let(:params) {{}}
     let(:meal_searcher)  { HasSearcher.searcher(:meal) }
     let(:kafe_facet) { Object.new }
-    before { kafe_facet.stub(:value).and_return('Кафе') }
+    before { kafe_facet.stub(:value).and_return('кафе') }
     before { kafe_facet.stub(:count).and_return(10) }
     before { meal_searcher.stub_chain(:categories, :facet, :rows).and_return([kafe_facet]) }
     before { presenter.stub(:meal_searcher).and_return(meal_searcher) }
@@ -86,6 +86,6 @@ describe OrganizationsCollection do
       let(:params) {{ organization_class: 'organizations' }}
       it { should == 'Заведения города' }
     end
-
   end
+
 end

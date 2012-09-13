@@ -107,6 +107,11 @@ ru:
       meal: Заведения общественного питания
       entertainment: Развлекательные заведения
       culture: Культурные заведения
+    filters:
+      category: Категории
+      cuisine: Кухня
+      offer: Предложения
+      feature: Особенности
 
   activerecord:
     models:

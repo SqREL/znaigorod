@@ -28,7 +28,7 @@ class Entertainment < ActiveRecord::Base
   searchable do
     facets.each do |facet|
       text facet
-      string(facet_field(facet), :multiple => true) { self.send(facet).to_s.split(',').map(&:squish) }
+      string(facet_field(facet), :multiple => true) { self.send(facet).to_s.split(',').map(&:squish).map(&:mb_chars).map(&:downcase) }
       latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
     end
 

@@ -17,13 +17,13 @@ class OrganizationsCollection
   end
 
   self.kinds.map(&:name).map(&:downcase).each do |klass|
-    define_method "#{klass}_searcher" do
-      HasSearcher.searcher(klass.to_sym)
+    define_method "#{klass}_searcher" do |params = {}|
+      HasSearcher.searcher(klass.to_sym, params)
     end
 
     define_method "#{klass}_categories_links" do
       self.send("#{klass}_categories").map do |row|
-        Link.new(title: "#{row.value} (#{row.count})", url: organizations_path(organization_class: klass.pluralize, category: row.value.mb_chars.downcase))
+        Link.new(title: "#{row.value.mb_chars.capitalize} (#{row.count})", url: organizations_path(organization_class: klass.pluralize, category: row.value.mb_chars.downcase))
       end
     end
 
@@ -44,7 +44,7 @@ class OrganizationsCollection
     [Link.new(title: I18n.t("organization.all.#{organization_class}"), url: organizations_path(organization_class: organization_class.pluralize), current: category == 'all')].tap do |links|
       self.send("#{organization_class}_categories").each do |row|
         link_kind = row.value.mb_chars.downcase
-        links << Link.new(title: "#{row.value} (#{row.count})", url: organizations_path(organization_class: organization_class.pluralize, category: link_kind), current: category == link_kind)
+        links << Link.new(title: "#{row.value.mb_chars.capitalize} (#{row.count})", url: organizations_path(organization_class: organization_class.pluralize, category: link_kind), current: category == link_kind)
       end
       current_index = links.index { |link| link.current? }
       links[current_index - 1].html_options[:class] = :before_current if current_index > 0
@@ -60,6 +60,43 @@ class OrganizationsCollection
   def subtitle
     return "" if category == 'all'
     category
+  end
+
+  def filter_groups
+    groups = []
+    groups << 'category' if category == 'all'
+    groups << 'cuisine' if organization_class == 'meal'
+    groups += ['offer', 'feature']
+    {}.tap do |hash|
+      groups.each do |group|
+        hash[group] = self.send("#{group}_filters")
+      end
+    end
+  end
+
+  def category_search_params
+    return nil if category == 'all'
+    { "#{organization_class}_category" => [category] }
+  end
+
+  def category_filters
+    self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_category").rows.map(&:value).
+      map { |value| Link.new title: value, url: "#" }
+  end
+
+  def cuisine_filters
+    self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_cuisine").rows.map(&:value).
+      map { |value| Link.new title: value, url: "#" }
+  end
+
+  def offer_filters
+    self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_offer").rows.map(&:value).
+      map { |value| Link.new title: value, url: "#" }
+  end
+
+  def feature_filters
+    self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_feature").rows.map(&:value).
+      map { |value| Link.new title: value, url: "#" }
   end
 
   def view

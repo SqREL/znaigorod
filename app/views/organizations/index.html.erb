@@ -10,6 +10,15 @@
             <%= link_to link.title, link.url %>
           <% else %>
             <div class="title"><%= link.title %></div>
+            <% @organizations_collection.filter_groups.each do |filter, filter_links| %>
+              <% next if filter_links.empty? %>
+              <ul class="tags">
+                <li class="title"><%= t("organization.filters.#{filter}") %></li>
+                <% filter_links.each do |filter_link| %>
+                  <li><%= filter_link %></li>
+                <% end %>
+              </ul>
+            <% end %>
           <% end %>
         </li>
       <% end %>
