@@ -12,10 +12,10 @@ app:
             meal_offer: завтраки
         coffe_house:
           options:
-            meal_category: Кофейни
+            meal_category: кофейни
         food_delivery:
           options:
-            meal_category: Доставка готовых блюд
+            meal_category: доставка готовых блюд
     tuesday:
       <<: *day
     wednesday:

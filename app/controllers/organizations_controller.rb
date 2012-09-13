@@ -7,8 +7,6 @@ class OrganizationsController < ApplicationController
 
   def index
     @organizations_collection = OrganizationsCollection.new params
-    p "=============================="
-    p @organizations_collection.list_search_params
     render @organizations_collection.view and return
   end
 
