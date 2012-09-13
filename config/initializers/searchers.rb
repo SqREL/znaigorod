@@ -95,6 +95,18 @@ end
 HasSearcher.create_searcher :meal do
   models :meal
 
+  property :meal_category
+  property :meal_feature
+  property :meal_offer
+  property :meal_payment
+
+  scope do
+    facet(:meal_category)
+    facet(:meal_feature)
+    facet(:meal_offer)
+    facet(:meal_payment)
+  end
+
   scope :categories do
     facet(:meal_category)
   end
@@ -103,6 +115,18 @@ end
 HasSearcher.create_searcher :entertainment do
   models :entertainment
 
+  property :entertainment_category
+  property :entertainment_feature
+  property :entertainment_offer
+  property :entertainment_payment
+
+  scope do
+    facet(:entertainment_category)
+    facet(:entertainment_feature)
+    facet(:entertainment_offer)
+    facet(:entertainment_payment)
+  end
+
   scope :categories do
     facet(:entertainment_category)
   end
@@ -110,6 +134,18 @@ end
 
 HasSearcher.create_searcher :culture do
   models :culture
+
+  property :culture_category
+  property :culture_feature
+  property :culture_offer
+  property :culture_payment
+
+  scope do
+    facet(:culture_category)
+    facet(:culture_feature)
+    facet(:culture_offer)
+    facet(:culture_payment)
+  end
 
   scope :categories do
     facet(:culture_category)
