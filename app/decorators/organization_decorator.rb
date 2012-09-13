@@ -8,19 +8,19 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def title_link
-    h.link_to organization.title, '#'
+    h.link_to organization.title, h.organization_path(organization)
   end
 
   def address_link
     h.link_to organization.address,
-      '#',
+      h.organization_path(organization),
       :class => 'show_map_link',
       :latitude => organization.address.latitude,
       :longitude => organization.address.longitude
   end
 
   def logo_link
-    h.link_to image_tag(parent_organization.logotype_url, 300, 300, organization.title), '#'
+    h.link_to image_tag(parent_organization.logotype_url, 300, 300, organization.title), h.organization_path(organization)
   end
 
   def category_links
