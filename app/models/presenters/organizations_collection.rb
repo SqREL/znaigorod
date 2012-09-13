@@ -2,7 +2,7 @@ class OrganizationsCollection
   include ActiveAttr::MassAssignment
   include Rails.application.routes.url_helpers
 
-  attr_accessor :organization_class, :category, :query
+  attr_accessor :organization_class, :category, :query, :page
 
   def initialize(params)
     super(params)
@@ -109,8 +109,12 @@ class OrganizationsCollection
   end
 
   def category_search_params
-    return nil if category == 'all'
+    return {} if category == 'all'
     { "#{organization_class}_category" => [category] }
+  end
+
+  def list_search_params
+    category_search_params.merge(Hash[parameters.map do |key, value| ["#{organization_class}_#{key.singularize}", value] end ])
   end
 
   def filter_link_url(params)
@@ -151,6 +155,10 @@ class OrganizationsCollection
   def feature_filters
     self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_feature").rows.map(&:value).
       map { |value| Link.new title: value, url: filter_link_url(feature: value), html_options: { :class => (features.include?(value) ? 'selected' : nil) } }
+  end
+
+  def organizations
+    self.send("#{organization_class}_searcher", list_search_params).paginate(:page => page, :per_page => 10).results
   end
 
   def view

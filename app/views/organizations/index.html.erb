@@ -1,6 +1,13 @@
 <div class="content_wrapper">
   <div class="affiches_list">
     <h1><span class="strong"><%= @organizations_collection.title %></span> <%= @organizations_collection.subtitle %></h1>
+    <ul>
+      <% @organizations_collection.organizations.each do |organization| %>
+        <li>
+          <%= organization.title %>
+        </li>
+      <% end %>
+    </ul>
   </div>
   <div class="affiches_filter">
     <ul class="categories">
@@ -27,3 +34,4 @@
     </ul>
   </div>
 </div>
+<%= paginate @organizations_collection.organizations %>
