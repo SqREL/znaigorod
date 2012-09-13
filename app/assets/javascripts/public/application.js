@@ -10,5 +10,6 @@
  * = require public/tabs
  * = require public/poster
  * = require public/distribution
+ * = require public/galleria
  * = require public/main
  */

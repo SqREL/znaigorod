@@ -5,8 +5,8 @@
     <div class="content">
 
       <div class="head">
-        <h1><%= @affiche.title %></h1>
-        <h2><%= @affiche.original_title %></h2>
+        <%= content_tag :h1, @affiche.title.gilensize.html_safe %>
+        <%= content_tag :h2, @affiche.original_title.gilensize.html_safe unless @affiche.original_title.blank? %>
       </div>
 
       <div class="tabs">
@@ -42,11 +42,11 @@
         <% end %>
         <% if @affiche.has_images? %>
           <div id="photogallery">
-            <ul>
+            <div class="gallery_container">
               <% @affiche.images.each do |image| %>
-                <li><%= @affiche.image_tag image.url, 300, 300, image.description %></li>
+                <%= link_to @affiche.image_tag(image.url, 124, 93, image.description), image.url %>
               <% end %>
-            </ul>
+            </div>
           </div>
         <% end %>
       </div>

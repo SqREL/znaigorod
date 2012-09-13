@@ -10,9 +10,9 @@
           <li>
             <div class="relative">
               <div class="counter"><%= photoreport.images_count %></div>
-              <div class="images"><%= photoreport.main_images %></div>
+              <div class="images"><%= photoreport.main_images "photogallery" %></div>
             </div>
-            <div class="link"><%= photoreport.link %></div>
+            <div class="link"><%= photoreport.link "photogallery" %></div>
             <div class="date"><%= photoreport.date %></div>
           </li>
         <% end %>

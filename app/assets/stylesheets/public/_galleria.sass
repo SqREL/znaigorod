@@ -1,0 +1,76 @@
+.gallery_container
+  +clearfix
+  width: 740px
+
+  .galleria-container
+    +clearfix
+    height: auto !important
+
+    .galleria-stage
+      height: 480px
+      .galleria-images
+        height: 500px !important
+        margin-bottom: 20px
+        .galleria-image
+          height: 500px !important
+          img
+            border: 4px solid #fff
+            +border-radius(3px)
+            +box-shadow(#777 0 0 2px)
+            margin: 3px 0
+
+      .galleria-loader
+
+      .galleria-counter
+        .galleria-current
+        .galleria-total
+
+      .galleria-image-nav
+        .galleria-image-nav-right
+        .galleria-image-nav-left
+
+    .galleria-thumbnails-container
+      margin-top: 100px
+      .galleria-thumb-nav-left
+        &.disabled
+      .galleria-thumb-nav-right
+        &.disabled
+      .galleria-thumbnails-list
+        .galleria-thumbnails
+          .galleria-image
+            &.active
+
+    .galleria-info
+      .galleria-info-text
+        .galleria-info-title
+        .galleria-info-description
+          display: none !important
+      .galleria-info-link
+        display: none !important
+      .galleria-info-close
+        display: none !important
+
+    .galleria-tooltip
+      display: none !important
+  .galleria-errors
+    display: none !important
+
+.galleria-lightbox-box
+  .galleria-lightbox-shadow
+    display: none
+  .galleria-lightbox-content
+    +border-radius(7px)
+    +box-shadow(0 0 10px #777)
+    .galleria-lightbox-info
+      .galleria-lightbox-title
+      .galleria-lightbox-counter
+    .galleria-lightbox-image
+      .galleria-image
+        img
+  .galleria-lightbox-close
+    bottom: 15px
+    right: 15px
+  .galleria-lightbox-prevholder
+    .galleria-lightbox-prev
+  .galleria-lightbox-nextholder
+    .galleria-lightbox-next

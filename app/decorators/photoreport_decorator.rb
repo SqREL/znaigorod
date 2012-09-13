@@ -7,14 +7,14 @@ class PhotoreportDecorator < AfficheDecorator
     h.l affiche.images.first.created_at, :format => '%e %B'
   end
 
-  def link
-    truncated_link(77)
+  def link(anchor = nil)
+    truncated_link(77, anchor)
   end
 
-  def main_images
+  def main_images(anchor = nil)
     result = ""
     affiche.images.limit(4).reverse.each do |image|
-      result += h.link_to image_tag(image.url, 220, 220, image.description, false), kind_affiche_path
+      result += h.link_to image_tag(image.url, 220, 220, image.description, false), kind_affiche_path(anchor: anchor)
     end
     h.raw result
   end

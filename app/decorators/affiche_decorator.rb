@@ -223,8 +223,8 @@ class AfficheDecorator < ApplicationDecorator
 
   private
 
-  def truncated_link(length)
-    h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')).gilensize.html_safe, kind_affiche_path, :title => affiche.title
+  def truncated_link(length, anchor = nil)
+    h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')).gilensize.html_safe, kind_affiche_path(anchor: anchor), :title => affiche.title
   end
 
   def in_one_day?

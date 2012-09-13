@@ -1,5 +1,7 @@
 @init_tabs = () ->
 
+  window.scrollTo(0, 0) if window.location.hash
+
   container = $(".content .tabs")
 
   $('.info .description table tr', container).each (index, item) ->
