@@ -51,24 +51,5 @@ describe MealsCollection do
     end
   end
 
-  describe "#link_categories" do
-    let(:params) { { kind: 'all'}  }
-    let(:meal_searcher)  { HasSearcher.searcher(:meal) }
-    let(:kafe_facet) { Object.new }
-    before { kafe_facet.stub(:value).and_return('Кафе') }
-    before { kafe_facet.stub(:count).and_return(175) }
-    before { meal_searcher.stub_chain(:categories, :facet, :rows).and_return([kafe_facet]) }
-    before { presenter.stub(:meal_searcher).and_return(meal_searcher) }
-
-    subject { presenter.link_categories }
-
-    its(:size) { should == 2 }
-
-    context "when kind all" do
-      subject { presenter.link_categories.first }
-      its(:title) { should == 'Все заведения питания'}
-      its(:current) { should == true }
-    end
-  end
 
 end

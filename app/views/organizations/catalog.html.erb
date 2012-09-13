@@ -1,0 +1,12 @@
+<ul>
+  <% @organizations_collection.kind_links.each do |link, categories| %>
+    <li>
+      <%= link %>
+      <ul>
+        <% categories.each do |category_link| %>
+          <%= category_link %>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+</ul>

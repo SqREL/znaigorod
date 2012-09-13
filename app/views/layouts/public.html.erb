@@ -39,11 +39,11 @@
         </ul>
       </li>
       <li class="has_submenu">
-        <a href="<%= organizations_path %>">Заведения</a>
+        <a href="<%= organizations_path(:organization_class => 'organizations') %>">Заведения</a>
         <ul class="submenu">
-          <li><%= link_to "Еда", meals_path(kind: :all), :class => 'solid_light_blue'%></li>
-          <li><%= link_to "Развлечения", entertainments_path(kind: :all), :class => 'solid_light_blue'%></li>
-          <li><%= link_to "Культура", cultures_path(kind: :all), :class => 'solid_light_blue'%></li>
+          <li><%= link_to "Еда", organizations_path(:organization_class => 'meals'), :class => 'solid_light_blue'%></li>
+          <li><%= link_to "Развлечения", organizations_path(:organization_class => 'entertainments'), :class => 'solid_light_blue'%></li>
+          <li><%= link_to "Культура", organizations_path(:organization_class => 'cultures'), :class => 'solid_light_blue'%></li>
         </ul>
       </li>
       <li>

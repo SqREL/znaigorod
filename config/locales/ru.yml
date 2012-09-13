@@ -98,6 +98,10 @@ ru:
       meal: Еда
       entertainment: Развлечения
       culture: Культура
+    all:
+      meal: Все заведения питания
+      entertainment: Все развлекательные заведения
+      culture: Все культурные заведения
 
   activerecord:
     models:

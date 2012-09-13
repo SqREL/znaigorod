@@ -6,7 +6,8 @@ class OrganizationsController < ApplicationController
   has_scope :page, :default => 1
 
   def index
-    @organizations_collection = OrganizationsCollection.new
+    @organizations_collection = OrganizationsCollection.new params
+    render @organizations_collection.view and return
   end
 
   protected
