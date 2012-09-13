@@ -4,18 +4,24 @@
 
     <div class="content">
 
-      <div class="head">
-        <%= content_tag :h1, @affiche.title.gilensize.html_safe %>
-        <%= content_tag :h2, @affiche.original_title.gilensize.html_safe unless @affiche.original_title.blank? %>
-      </div>
-
       <div class="tabs">
         <ul class="nav">
           <li><a href="#info">Описание</a></li>
-          <li<%= " class='disabled'" unless @affiche.has_images? %>><a href="#photogallery">Фотогалерея</a></li>
-          <li<%= " class='disabled'" if @affiche.trailer.blank? %>><a href="#trailer">Видео</a></li>
+          <li<%= " class='disabled'" unless @affiche.has_images? %>>
+            <%= link_to "Фотогалерея", @affiche.kind_affiche_photogallery_path %></a>
+          </li>
+          <li<%= " class='disabled'" if @affiche.trailer.blank? %>>
+            <%= link_to "Видео", @affiche.kind_affiche_trailer_path %></a>
+          </li>
         </ul>
+
         <div id="info">
+
+          <div class="head">
+            <%= content_tag :h1, @affiche.title.gilensize.html_safe %>
+            <%= content_tag :h2, @affiche.original_title.gilensize.html_safe unless @affiche.original_title.blank? %>
+          </div>
+
           <div class="info">
             <div class="image">
               <%= @affiche.item_poster %>
@@ -35,20 +41,7 @@
             </div>
           </div>
         </div>
-        <% if @affiche.trailer_code? %>
-          <div id="trailer">
-            <%= @affiche.trailer_code_html %>
-          </div>
-        <% end %>
-        <% if @affiche.has_images? %>
-          <div id="photogallery">
-            <div class="gallery_container">
-              <% @affiche.images.each do |image| %>
-                <%= link_to @affiche.image_tag(image.url, 124, 93, image.description), image.url %>
-              <% end %>
-            </div>
-          </div>
-        <% end %>
+
       </div>
 
       <div class="tags_and_share">

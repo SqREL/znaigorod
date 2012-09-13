@@ -35,6 +35,8 @@ Znaigorod::Application.routes.draw do
 
   Affiche.descendants.each do |type|
     get "#{type.name.downcase}/:id" => 'affiches#show', :as => "#{type.name.downcase}"
+    get "#{type.name.downcase}/:id/photogallery" => 'affiches#photogallery', :as => "#{type.name.downcase}_photogallery"
+    get "#{type.name.downcase}/:id/trailer" => 'affiches#trailer', :as => "#{type.name.downcase}_trailer"
   end
 
   resources :organizations, :only => [:show]

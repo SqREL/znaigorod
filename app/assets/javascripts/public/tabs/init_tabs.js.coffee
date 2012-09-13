@@ -10,7 +10,11 @@
     true
 
   container.tabs
+    cache: true
     disabled: get_disabled()
+    ajaxOptions:
+      success: (xhr, status, index, anchor) ->
+        init_galleria() if xhr.match /gallery_container/g
     show: (event, ui) ->
       prepare_borders(ui)
     select: (event, ui) ->

@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 class AffichesController < ApplicationController
+
   layout 'public'
 
   def index
@@ -15,4 +16,15 @@ class AffichesController < ApplicationController
   def show
     @affiche = AfficheDecorator.new Affiche.find(params[:id])
   end
+
+  def photogallery
+    @affiche = AfficheDecorator.new Affiche.find(params[:id])
+    render :layout => false
+  end
+
+  def trailer
+    @affiche = AfficheDecorator.new Affiche.find(params[:id])
+    render :layout => false
+  end
+
 end

@@ -28,6 +28,14 @@ class AfficheDecorator < ApplicationDecorator
     h.send "#{kind}_path", affiche, options
   end
 
+  def kind_affiche_photogallery_path(options = {})
+    h.send "#{kind}_photogallery_path", affiche, options
+  end
+
+  def kind_affiche_trailer_path(options = {})
+    h.send "#{kind}_trailer_path", affiche, options
+  end
+
   def all_affiches_link
     h.link_to "Все #{human_kind.mb_chars.downcase} (#{counter.all})",
               h.affiches_path(kind: kind.pluralize, period: :all)

@@ -1,0 +1,14 @@
+<div class="head">
+  <%= content_tag :h1, @affiche.title.gilensize.html_safe %>
+  <%= content_tag :h2, @affiche.original_title.gilensize.html_safe unless @affiche.original_title.blank? %>
+</div>
+<div class="info">
+  <div class="description">
+    <div class="closest">
+      <%= @affiche.when_with_price %>
+    </div>
+  </div>
+</div>
+<div class="trailer">
+  <%= @affiche.trailer_code_html %>
+</div>
