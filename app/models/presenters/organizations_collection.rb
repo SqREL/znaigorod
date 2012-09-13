@@ -53,6 +53,37 @@ class OrganizationsCollection
     end
   end
 
+  def categories
+    parameters['categories'] || []
+  end
+
+  def features
+    parameters['features'] || []
+  end
+
+  def offers
+    parameters['offers'] || []
+  end
+
+  def cuisines
+    parameters['cuisines'] || []
+  end
+
+  def parameters
+    return {} if query.blank?
+    {}.tap do |parameters|
+      filter = ""
+      query.split("/").each do |param|
+        if filter_groups.include?(param.singularize)
+          filter = param
+          parameters[filter] = []
+          next
+        end
+        parameters[filter] << param if parameters[filter]
+      end
+    end
+  end
+
   def title
     I18n.t("organization.list_title.#{organization_class}")
   end
@@ -67,8 +98,11 @@ class OrganizationsCollection
     groups << 'category' if category == 'all'
     groups << 'cuisine' if organization_class == 'meal'
     groups += ['offer', 'feature']
+  end
+
+  def filters
     {}.tap do |hash|
-      groups.each do |group|
+      filter_groups.each do |group|
         hash[group] = self.send("#{group}_filters")
       end
     end
@@ -79,24 +113,44 @@ class OrganizationsCollection
     { "#{organization_class}_category" => [category] }
   end
 
+  def filter_link_url(params)
+    filter_params = {}
+    filter_groups.each do |filter|
+      existed_filter_params = self.send(filter.pluralize) || []
+      tag = params[filter.to_sym]
+      if existed_filter_params.include?(tag)
+        existed_filter_params = existed_filter_params - [tag]
+      else
+        existed_filter_params << tag
+      end
+      filter_params[filter] = existed_filter_params
+    end
+    query = []
+    filter_params.each do |key, values|
+      next if values == [nil]
+      query += [key.pluralize] + values
+    end
+    organizations_path(organization_class: organization_class.pluralize, category: category, query: query.join("/"))
+  end
+
   def category_filters
     self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_category").rows.map(&:value).
-      map { |value| Link.new title: value, url: "#" }
+      map { |value| Link.new title: value, url: filter_link_url(category: value), html_options: { :class => (categories.include?(value) ? 'selected' : nil) } }
   end
 
   def cuisine_filters
     self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_cuisine").rows.map(&:value).
-      map { |value| Link.new title: value, url: "#" }
+      map { |value| Link.new title: value, url: filter_link_url(cuisine: value), html_options: { :class => (cuisines.include?(value) ? 'selected' : nil) } }
   end
 
   def offer_filters
     self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_offer").rows.map(&:value).
-      map { |value| Link.new title: value, url: "#" }
+      map { |value| Link.new title: value, url: filter_link_url(offer: value), html_options: { :class => (offers.include?(value) ? 'selected' : nil) } }
   end
 
   def feature_filters
     self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_feature").rows.map(&:value).
-      map { |value| Link.new title: value, url: "#" }
+      map { |value| Link.new title: value, url: filter_link_url(feature: value), html_options: { :class => (features.include?(value) ? 'selected' : nil) } }
   end
 
   def view

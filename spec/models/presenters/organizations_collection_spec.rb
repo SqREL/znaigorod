@@ -88,4 +88,46 @@ describe OrganizationsCollection do
     end
   end
 
+  describe 'initialize with params' do
+    subject { presenter }
+
+    context '/all/categories/foo/bar' do
+      let(:params) { { category: 'all', query: 'categories/кафе/бары' } }
+
+      its(:categories) { should == ['кафе', 'бары'] }
+    end
+
+    context '/all/categories/foo/bar/features/ololo/pysh' do
+      let(:params) { { category: 'all', query: 'categories/кафе/бары/features/vip-зал/парковка' } }
+
+      its(:categories) { should == ['кафе', 'бары'] }
+      its(:features) { should == ['vip-зал', 'парковка'] }
+    end
+
+    context '/all/categories/foo/bar/features/ololo/pysh/offers/111/222/' do
+      let(:params) { { category: 'all', query: 'categories/foo/bar/features/ololo/pysh/offers/обеды/завтраки/' } }
+
+      its(:categories) { should == ['foo', 'bar'] }
+      its(:features) { should == ['ololo', 'pysh'] }
+      its(:offers) { should == ['обеды', 'завтраки'] }
+    end
+
+    context '/all/categories/foo/bar/cuisines/russian/asian/features/ololo/pysh/offers/111/222' do
+      let(:params) { { organization_class: 'meals', category: 'all', query: 'categories/foo/bar/cuisines/русская/узбекская/features/ololo/pysh/offers/111/222' } }
+
+      its(:categories) { should == ['foo', 'bar'] }
+      its(:features) { should == ['ololo', 'pysh'] }
+      its(:offers) { should == ['111', '222'] }
+      its(:cuisines) { should == ['русская', 'узбекская'] }
+    end
+
+    context '/kafe/cuisines/russian/asian/features/ololo/pysh/offers/111/222' do
+      let(:params) { { organization_class: 'meals', category: 'кафе', query: 'cuisines/русская/европейская/китайская/features/vip-зал/offers/обеды' } }
+
+      its(:categories) { should == []}
+      its(:features) { should == ['vip-зал'] }
+      its(:offers) { should == ['обеды'] }
+      its(:cuisines) { should == ['русская', 'европейская', 'китайская'] }
+    end
+  end
 end
