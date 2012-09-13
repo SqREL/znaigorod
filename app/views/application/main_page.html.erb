@@ -38,7 +38,7 @@
     <div class="clearfix">
       <% @actual_organizations.groups.each do |fieldset| %>
         <fieldset>
-          <legend><a href="#"><%= fieldset.title %> (<%= fieldset.total_count %>)</a></legend>
+          <legend><a href="<%= fieldset.url %>"><%= fieldset.title %> (<%= fieldset.total_count %>)</a></legend>
           <ul>
             <% fieldset.organizations.each do |organization| %>
               <li>
@@ -57,8 +57,9 @@
 <div class="main_page_block_wrapper more_in_city">
   <div class="main_page_block">
     <ul>
-      <li><a href="#">Все заведения питания (<%= @actual_organizations.total_meals %>)</a><ili>
-      <li><a href="#">Все развлекательные заведения (<%= @actual_organizations.total_entertainments %>)</a><ili>
+      <li><a href="<%= organizations_path(organization_class: 'meals') %>">Все заведения питания (<%= @actual_organizations.total_meals %>)</a></li>
+      <li><a href="<%= organizations_path(organization_class: 'entertainments') %>">Все развлекательные заведения (<%= @actual_organizations.total_entertainments %>)</a><ili>
+      <li><a href="<%= organizations_path(organization_class: 'cultures') %>">Все заведения культуры (<%= @actual_organizations.total_cultures %>)</a><ili>
     </ul>
   </div>
 </div>

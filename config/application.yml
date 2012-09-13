@@ -8,14 +8,17 @@ app:
     monday: &day
       '00-24':
         breakfast:
+          category: meal
           options:
-            meal_offer: завтраки
+            offer: завтраки
         coffe_house:
+          category: meal
           options:
-            meal_category: кофейни
+            category: кофейни
         food_delivery:
+          category: meal
           options:
-            meal_category: доставка готовых блюд
+            category: доставка готовых блюд
     tuesday:
       <<: *day
     wednesday:

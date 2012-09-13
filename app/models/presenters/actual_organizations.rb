@@ -17,7 +17,7 @@ class ActualOrganizations
     end
     organization_groups = []
     settings_kinds.each do |kind, options|
-      organization_groups << ActualOrganizationGroup.new(:kind => kind, :options => options[:options])
+      organization_groups << ActualOrganizationGroup.new(:kind => kind, :options => options[:options], :category => options[:category])
     end
     organization_groups
   end
@@ -30,16 +30,28 @@ class ActualOrganizations
     HasSearcher.searcher(:meal).total
   end
 
+  def total_cultures
+    HasSearcher.searcher(:culture).total
+  end
+
   class ActualOrganizationGroup
+    include Rails.application.routes.url_helpers
     include ActiveAttr::MassAssignment
-    attr_accessor :kind, :options
+    attr_accessor :kind, :options, :category
 
     def title
       I18n.t("actual_organizations.#{kind}")
     end
 
+    def url
+      url_params = options.dup
+      url_category = 'all'
+      url_category = url_params.delete(:category) if url_params[:category]
+      organizations_path(organization_class: category.pluralize, category: url_category, query: url_params.any? ? Hash[options.map do |key, value| ["#{key.to_s.pluralize}", value] end ].to_a.flatten.join("/") : nil)
+    end
+
     def searcher
-      HasSearcher.searcher(:actual_organization, options)
+      HasSearcher.searcher(:actual_organization, Hash[options.map do |key, value| ["#{options[:category]}_#{key}", value] end ])
     end
 
     def total_count
