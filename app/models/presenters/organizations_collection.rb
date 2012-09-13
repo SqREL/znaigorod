@@ -158,12 +158,15 @@ class OrganizationsCollection
   end
 
   def organizations
-    self.send("#{organization_class}_searcher", list_search_params).paginate(:page => page, :per_page => 10).results
+    OrganizationDecorator.decorate paginated_organizations
+  end
+
+  def paginated_organizations
+     self.send("#{organization_class}_searcher", list_search_params).paginate(:page => page, :per_page => 10).results
   end
 
   def view
-    return 'catalog' if organization_class == 'organization'
-    'index'
+    organization_class == 'organization' ? 'catalog' : 'index'
   end
 
 end

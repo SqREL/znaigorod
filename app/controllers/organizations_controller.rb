@@ -7,7 +7,8 @@ class OrganizationsController < ApplicationController
 
   def index
     @organizations_collection = OrganizationsCollection.new params
-    render @organizations_collection.view and return
+
+    render @organizations_collection.view
   end
 
   protected
