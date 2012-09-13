@@ -1,5 +1,18 @@
-<ul>
-  <% @organizations_collection.class_categories_links.each do |link| %>
-    <li><%= link %></li>
-  <% end %>
-</ul>
+<div class="content_wrapper">
+  <div class="affiches_list">
+    <h1><span class="strong"><%= @organizations_collection.title %></span> <%= @organizations_collection.subtitle %></h1>
+  </div>
+  <div class="affiches_filter">
+    <ul class="categories">
+      <% @organizations_collection.class_categories_links.each do |link| %>
+        <li class="<%= link.html_options[:class] %>">
+          <% unless link.current? %>
+            <%= link_to link.title, link.url %>
+          <% else %>
+            <div class="title"><%= link.title %></div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

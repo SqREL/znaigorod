@@ -42,7 +42,7 @@ describe OrganizationsCollection do
       subject { presenter.meal_categories_links.first }
 
       its(:title) { should == 'Кафе (10)' }
-      its(:url) { should == '/meals/kafe' }
+      its(:url) { should == URI.encode('/meals/кафе') }
     end
   end
 
@@ -78,5 +78,14 @@ describe OrganizationsCollection do
       its(:url) { should == '/meals' }
       its(:current) { should == true }
     end
+  end
+
+  describe "#title" do
+    subject { presenter.title }
+    context 'organizations' do
+      let(:params) {{ organization_class: 'organizations' }}
+      it { should == 'Заведения города' }
+    end
+
   end
 end

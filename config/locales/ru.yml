@@ -102,6 +102,11 @@ ru:
       meal: Все заведения питания
       entertainment: Все развлекательные заведения
       culture: Все культурные заведения
+    list_title:
+      organization: Заведения города
+      meal: Заведения общественного питания
+      entertainment: Развлекательные заведения
+      culture: Культурные заведения
 
   activerecord:
     models:
