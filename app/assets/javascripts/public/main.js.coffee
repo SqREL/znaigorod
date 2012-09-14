@@ -7,4 +7,5 @@ $ ->
   init_poster() if $('.content .tabs .image img').length
   init_distribution() if $('.content .distribution').length
   init_galleria() if $('.content .gallery_container').length
+  init_filters_toggler() if $('.need_toggler li').length
   true

@@ -11,5 +11,6 @@
  * = require public/poster
  * = require public/distribution
  * = require public/galleria
+ * = require public/filters_toggler
  * = require public/main
  */

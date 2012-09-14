@@ -247,6 +247,12 @@
                 a
                   color: #fff
                   text-decoration: none
+                &.disabled
+                  background: none
+              &.disabled a
+                cursor: default
+                color: lighten(#353535, 30%)
+                text-decoration: none
 
   .content
     float: left
