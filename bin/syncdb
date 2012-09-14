@@ -1,0 +1,43 @@
+#!/bin/bash
+
+COLOR="\033[0;32m"
+ENDCOLOR="\033[0m"
+
+function hms() {
+  local S="$SECONDS"
+  ((m=S%3600/60))
+  ((s=S%60))
+  echo -e "$COLOR"
+  printf "Running time: %dm:%ds\n" "$m" "$s"
+  echo -e $ENDCOLOR"[done]"
+}
+
+echo -e $COLOR"Recreate database"$ENDCOLOR
+bin/rake db:drop db:create
+echo "[done]"
+
+echo -e $COLOR"Sunspot stop"$ENDCOLOR
+bin/rake sunspot:solr:stop
+
+echo -e $COLOR"Sunspot start"$ENDCOLOR
+bin/rake sunspot:solr:start
+
+echo -e $COLOR"Sync database data"$ENDCOLOR
+ssh znaigorod pg_dump -U znaigorod -h postgres znaigorod | psql znaigorod
+echo "[done]"
+
+echo -e $COLOR"Migrate database"$ENDCOLOR
+bin/rake db:migrate
+bin/rake db:migrate RAILS_ENV=test
+echo "[done]"
+
+echo -e $COLOR"Sunspot reindex"$ENDCOLOR
+bin/rake sunspot:reindex
+
+echo -e $COLOR"Update :distribution_starts_on for movies"$ENDCOLOR
+bin/rails r "bar = ProgressBar.new(Movie.count); Movie.all.each { |movie| movie.update_attribute(:distribution_starts_on, movie.showings.first.starts_at) if movie.showings.many?; bar.increment! }"
+
+echo -e $COLOR"Update trailers"$ENDCOLOR
+bin/rails r "bar = ProgressBar.new(Movie.count); Movie.all.each { |movie| unless movie.trailer_code.blank?; code = movie.trailer_code.match(/youtube\.com\/v\/(.{11})/); movie.update_attribute(:trailer_code, \"http://www.youtube.com/watch?v=#{code[1]}\") if code; end; bar.increment! }"
+
+hms
