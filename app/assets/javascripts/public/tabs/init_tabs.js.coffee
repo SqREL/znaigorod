@@ -21,6 +21,9 @@
       prepare_borders(ui)
 
 prepare_borders = (ui) ->
+  $("li", $(ui.tab).closest("ul")).each (index, item) ->
+    $(this).css
+      "border-right": "1px solid #d2cfd8"
   $(ui.tab).closest("li").prev("li").css
     "border-right": "none"
   $(ui.tab).closest("li").css

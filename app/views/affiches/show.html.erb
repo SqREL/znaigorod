@@ -7,12 +7,8 @@
       <div class="tabs">
         <ul class="nav">
           <li><a href="#info">Описание</a></li>
-          <li<%= " class='disabled'" unless @affiche.has_images? %>>
-            <%= link_to "Фотогалерея", @affiche.kind_affiche_photogallery_path %></a>
-          </li>
-          <li<%= " class='disabled'" if @affiche.trailer.blank? %>>
-            <%= link_to "Видео", @affiche.kind_affiche_trailer_path %></a>
-          </li>
+          <%= content_tag :li, link_to("Фотогалерея", @affiche.kind_affiche_photogallery_path), :class => @affiche.has_images? ? nil : 'disabled' %>
+          <%= content_tag :li, link_to("Видео", @affiche.kind_affiche_trailer_path), :class => @affiche.trailer.blank? ? 'disabled' : nil %>
         </ul>
 
         <div id="info">
