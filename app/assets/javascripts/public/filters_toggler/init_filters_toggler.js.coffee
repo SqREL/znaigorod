@@ -23,10 +23,11 @@ $.fn.need_toggler = () ->
     list.wrap("<div class='toggable' />")
     toggable = list.closest(".toggable")
     list_title = $("li:first", list).text().toLowerCase()
-    $("<div class='toggler'><a href='#'><span>Все #{list_title}</span></a></div>").appendTo(toggable)
+    $("<div class='toggler'><a href='#'><span>Все #{list_title}</span></a></div>").appendTo(toggable).hide()
     toggle_link = $(".toggler a", toggable)
 
     if parseInt($("li:last", list).attr('data-line').replace('line-', '')) > VISIBLE_LINES_COUNT
+      toggle_link.closest(".toggler").show()
 
       last_visible_element = $("li[data-line=line-#{VISIBLE_LINES_COUNT}]:first", list)
       if $("li.selected", list).length && parseInt($("li.selected:last", list).attr('data-line').replace('line-', '')) > VISIBLE_LINES_COUNT
@@ -39,8 +40,6 @@ $.fn.need_toggler = () ->
       toggle_link.addClass("close")
 
       toggle_link.removeClass("close") if parseInt(last_visible_element.attr('data-line').replace('line-', '')) == iterator
-    else
-      list.height(OPENED_HEIGHT)
 
     toggle_link.click (event) ->
       return false unless $(this).hasClass("open") || $(this).hasClass("close")
