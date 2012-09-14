@@ -1,0 +1,82 @@
+<% if @organization.logotype_url? %>
+  <p>
+    <%= image_tag_for @organization.logotype_url, 200, 200 %>
+  </p>
+<% end %>
+
+<% if @organization.categories.any? %>
+  <ul>
+    <% @organization.categories.each do |category| %>
+      <li>
+        <%= link_to category, organizations_path(organization_class: @organization.organization_class, category: category) %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<p>
+  <%= @organization.title %>
+</p>
+
+<% if @organization.phone.present? %>
+  <p>
+    Телефон: <%= @organization.phone %>
+  </p>
+<% end %>
+
+<% if @organization.site.present? %>
+  <p>
+    Сайт: <%= @organization.site_link %>
+  </p>
+<% end %>
+
+<% if @organization.email.present? %>
+  <p>
+    E-mail: <%= @organization.email_link %>
+</p>
+<% end %>
+
+<% if @organization.description? %>
+  <p>
+    <%= @organization.description %>
+  </p>
+<% end %>
+
+<% if @organization.suborganization.is_a?(Meal) && @organization.cuisines.any? %>
+  <div>
+    Кухня:
+    <ul>
+      <% @organization.cuisines.each do |cuisine| %>
+        <li>
+          <%= link_to cuisine, organizations_path(organization_class: @organization.organization_class, category: 'all', query: "cuisines/#{cuisine.mb_chars.downcase}") %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if @organization.features.any? %>
+  <div>
+    Особенности:
+    <ul>
+      <% @organization.features.each do |feature| %>
+        <li>
+          <%= link_to feature, organizations_path(organization_class: @organization.organization_class, category: 'all', query: "features/#{feature.mb_chars.downcase}") %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if @organization.offers.any? %>
+  <div>
+    Предложения:
+    <ul>
+      <% @organization.offers.each do |offer| %>
+        <li>
+          <%= link_to offer, organizations_path(organization_class: @organization.organization_class, category: 'all', query: "offers/#{offer.mb_chars.downcase}") %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

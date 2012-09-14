@@ -39,7 +39,7 @@ Znaigorod::Application.routes.draw do
     get "#{type.name.downcase}/:id/trailer" => 'affiches#trailer', :as => "#{type.name.downcase}_trailer"
   end
 
-  resources :organizations, :only => [:show]
+  resources :organizations, :only => :show
 
   get ':organization_class/(:category)/(*query)' => 'organizations#index',
             :organization_class => /organizations|meals|entertainments|cultures/, :as => :organizations

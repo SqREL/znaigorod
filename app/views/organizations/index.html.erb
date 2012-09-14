@@ -5,6 +5,9 @@
       <% @organizations_collection.organizations.each do |organization| %>
         <li>
           <%= organization.logo_link %>
+          <%= organization.title_link %>
+          <%= organization.address_link %>
+
           <ul>
             <% organization.categories.each do |category| %>
               <li>
@@ -13,13 +16,26 @@
             <% end %>
           </ul>
 
-          <%= organization.title_link %>
-          <%= organization.address_link %>
-          <%= organization.phone %>
-          <%= organization.site_link %>
-          <%= organization.email_link %>
+          <% if organization.phone.present? %>
+            <p>
+              Телефон: <%= organization.phone %>
+            </p>
+          <% end %>
+
+          <% if organization.site.present? %>
+            <p>
+            Сайт: <%= organization.site_link %>
+            </p>
+          <% end %>
+
+          <% if organization.email.present? %>
+            <p>
+              E-mail: <%= organization.email_link %>
+            </p>
+          <% end %>
 
           <% if organization.features.any? %>
+            Особенности:
             <ul>
               <% organization.features.each do |feature| %>
                 <li>
@@ -30,6 +46,7 @@
           <% end %>
 
           <% if organization.offers.any? %>
+            Предложения:
             <ul>
               <% organization.offers.each do |offer| %>
                 <li>
@@ -38,6 +55,18 @@
               <% end %>
             </ul>
           <% end %>
+
+          <% if organization.cuisines.any? %>
+            Кухня:
+            <ul>
+              <% organization.cuisines.each do |cuisine| %>
+                <li>
+                  <%= link_to cuisine, @organizations_collection.filter_link_url(cuisine: cuisine) %>
+              </li>
+              <% end %>
+            </ul>
+          <% end %>
+
         </li>
       <% end %>
     </ul>

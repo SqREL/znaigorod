@@ -24,6 +24,18 @@ class Entertainment < ActiveRecord::Base
     "#{model_name.underscore}_#{facet}"
   end
 
+  def categories
+    category.split(',').map(&:squish)
+  end
+
+  def features
+    feature.split(',').map(&:squish)
+  end
+
+  def offers
+    offer.split(',').map(&:squish)
+  end
+
   delegate :rating, :to => :organization, :prefix => true
   searchable do
     facets.each do |facet|

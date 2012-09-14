@@ -11,6 +11,10 @@ class OrganizationsController < ApplicationController
     render @organizations_collection.view
   end
 
+  def show
+    @organization = OrganizationDecorator.find(params[:id])
+  end
+
   protected
   def collection
     @search ||= resource_class.search do
