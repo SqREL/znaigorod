@@ -10,15 +10,20 @@
     true
 
   container.tabs
-    cache: true
     disabled: get_disabled()
-    ajaxOptions:
-      success: (xhr, status, index, anchor) ->
-        init_galleria() if xhr.match /gallery_container/g
     show: (event, ui) ->
       prepare_borders(ui)
-    select: (event, ui) ->
-      prepare_borders(ui)
+      link = $(ui.tab).attr('data-link')
+      if link && !$(ui.panel).html().trim()
+        $.ajax
+          url: link
+          beforeSend: (jqXHR, settings) ->
+            $(ui.panel).html("<p class='ajax_loading'></p>")
+          success: (data, textStatus, jqXHR) ->
+            $(ui.panel).html(data)
+            init_galleria() if data.match /gallery_container/g
+          error: (jqXHR, textStatus, errorThrown) ->
+            $(ui.panel).html("<p class='error'>Ошибка!</p>")
 
 prepare_borders = (ui) ->
   $("li", $(ui.tab).closest("ul")).each (index, item) ->
