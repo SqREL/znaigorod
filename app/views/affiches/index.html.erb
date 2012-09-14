@@ -87,12 +87,22 @@
                 </li>
               <% end %>
             </ul>
+            <% if @affiche_collection.all_kinds? %>
+              <ul class="tags">
+                <li class="title">Мероприятия</li>
+                <% @affiche_collection.categories_links.each do |category_link| %>
+                  <li class="<%= category_link.html_options[:class] %>">
+                    <%= category_link %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
             <% unless @affiche_collection.tag_links.blank? %>
               <ul class="tags">
                 <li class="title">Теги</li>
                 <% @affiche_collection.tag_links.each do |tag_link| %>
                   <li class="<%= tag_link.html_options[:class] %>">
-                    <%= link_to tag_link.title, tag_link.url %>
+                    <%= tag_link %>
                   </li>
                 <% end %>
               </ul>

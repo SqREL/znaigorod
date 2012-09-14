@@ -3,7 +3,7 @@
 class AfficheCollection
   include Rails.application.routes.url_helpers
   include ActiveAttr::MassAssignment
-  attr_accessor :kind, :period, :on, :tags, :page
+  attr_accessor :kind, :period, :on, :tags, :page, :categories
 
 
   def initialize(options)
@@ -13,8 +13,13 @@ class AfficheCollection
     rescue
       self.on = Date.today
     end if self.daily_period?
-    self.tags = self.tags.split("/") if self.tags
-    self.tags ||= []
+    self.categories ||= ""
+    query = "categories/#{self.categories}/tags/#{self.tags}"
+    query = "categories/#{self.categories}" if self.categories.include?('tags')
+    parameters = {}
+    query.split(/(categories|tags)/).tap(&:shift).each_slice(2) do |key, values| parameters[key] = values.split('/').keep_if(&:present?) end
+    self.tags = parameters['tags'] || []
+    self.categories = parameters['categories'] || []
   end
 
   def kind_links
@@ -52,23 +57,43 @@ class AfficheCollection
     Counter.new(:kind => kind.singularize)
   end
 
-  def facets
+  def all_tags
+    searcher_params = search_params
+    searcher_params.delete(:tags)
+    searcher_params.delete(:affiche_category) if categories.any?
+    searcher(searcher_params).faceted.facet(:tags).rows.map(&:value)
+  end
+
+  def presented_tags
     searcher_params = search_params
     searcher_params.delete(:tags)
     searcher(searcher_params).faceted.facet(:tags).rows.map(&:value)
   end
 
-  def tag_links
+  def categories_links
     [].tap do |array|
-      facets.each do |tag|
-        html_options = tags.include?(tag) ? { :class => :selected } : {}
-        array << Link.new(:title => tag, :current => tags.include?(tag), :html_options => html_options, :url => url_for_tag(tag))
+      Affiche.ordered_descendants.each do |category|
+        array << Link.new(title: category.model_name.human.mb_chars.downcase,
+                          url: affiches_path(kind, period, categories: tag_params('categories', category.model_name.downcase.pluralize), tags: tags.any? ? tags : nil),
+                          current: categories.include?(category.model_name.downcase.pluralize),
+                          html_options: categories.include?(category.model_name.downcase.pluralize) ? { class: :selected } : {}
+                         )
+      end
+    end
+  end
+
+  def tag_links
+    linked_tags = presented_tags
+    [].tap do |array|
+      all_tags.each do |tag|
+        html_options = tags.include?(tag) ? { :class => 'selected' } : {}
+        array << Link.new(:title => tag, :current => tags.include?(tag), :html_options => html_options, :url => url_for_tag(tag), :disabled => !linked_tags.include?(tag))
       end
     end
   end
 
   def url_for_tag(tag)
-    affiches_path(kind, period, on, tag_params(tag))
+    affiches_path(kind, period, on, tags: tag_params('tags',tag), categories: categories.any? ? categories : nil)
   end
 
   def daily_period?
@@ -139,15 +164,15 @@ class AfficheCollection
 
   def search_params(affiche_id = nil)
     search_params = {}
-    search_params[:affiche_category] = kind.singularize unless kind == 'affiches'
+    search_params[:affiche_category] = (kind == 'affiches' ? categories.map(&:singularize) : kind.singularize)
     search_params[:starts_on] = on if period == 'daily'
     search_params[:tags] = tags if tags.any?
     search_params[:affiche_id] = affiche_id if affiche_id
     search_params
   end
 
-  def tag_params(tag)
-    to_params_arr = tags.dup
+  def tag_params(filter, tag)
+    to_params_arr = self.send(filter).dup
     if to_params_arr.include?(tag)
       to_params_arr = to_params_arr - [tag]
     else

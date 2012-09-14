@@ -4,12 +4,15 @@ class Link
   include ActiveAttr::QueryAttributes
   include ActiveAttr::MassAssignment
   include ActionView::Helpers::UrlHelper
-  attr_accessor :title, :kind, :selected, :html_options, :url
+  attr_accessor :title, :kind, :selected, :html_options, :url, :disabled
   attribute :current
 
   def initialize(options)
     super(options)
     self.html_options ||= {}
+    if disabled
+      html_options[:class].blank? ?  html_options[:class] = "disabled" : html_options[:class] += " disabled"
+    end
   end
 
   def to_s

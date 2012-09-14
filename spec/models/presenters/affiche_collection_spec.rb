@@ -92,7 +92,7 @@ describe AfficheCollection do
   describe "#tag_links" do
     subject { affiche_collection.tag_links }
     before {
-      affiche_collection.stub(:facets).and_return(%w[приключения комедия боевик])
+      affiche_collection.stub(:all_tags).and_return(%w[приключения комедия боевик])
       affiche_collection.stub(:tags).and_return(%w[комедия])
     }
     its(:size) { should == 3 }
