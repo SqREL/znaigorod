@@ -64,10 +64,12 @@
                 <h3>Сеансы</h3>
               </li>
               <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
-                <li class="text">
-                  <p class="date" data-id="date-<%= date %>"><%= showings_with_place.values.first.first.human_date %></p>
-                  <p class="day_of_week"><%= l date, format: '%A' %></p>
-                </li>
+                <% unless showings_with_place.values.blank? %>
+                  <li class="text">
+                    <p class="date" data-id="date-<%= date %>"><%= showings_with_place.values.first.first.human_date %></p>
+                    <p class="day_of_week"><%= l date, format: '%A' %></p>
+                  </li>
+                <% end %>
               <% end %>
             </ul>
 
