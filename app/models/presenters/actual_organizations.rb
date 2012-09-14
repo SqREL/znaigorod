@@ -51,7 +51,7 @@ class ActualOrganizations
     end
 
     def searcher
-      HasSearcher.searcher(:actual_organization, Hash[options.map do |key, value| ["#{options[:category]}_#{key}", value] end ])
+      HasSearcher.searcher(:actual_organization, Hash[options.dup.map do |key, value| ["#{category}_#{key}", value] end ])
     end
 
     def total_count
