@@ -53,6 +53,14 @@ class AfficheDecorator < ApplicationDecorator
     AfficheScheduleDecorator.decorate affiche.affiche_schedule
   end
 
+  def tabs
+    [].tap do |links|
+      links << h.content_tag(:li, h.link_to("Описание", "#info"))
+      links << h.content_tag(:li, h.link_to(affiche.is_a?(Movie) ? "Кадры" : "Фотографии", "#photogallery", "data-link" => kind_affiche_photogallery_path), :class => affiche.has_images? ? nil : 'disabled')
+      links << h.content_tag(:li, h.link_to(affiche.is_a?(Movie) ? "Трейлер" : "Видео", "#trailer", "data-link" => kind_affiche_trailer_path), :class => affiche.trailer_code? ? nil : 'disabled')
+    end
+  end
+
   def main_page_place
     max_lenght = 45
     place_output = ""

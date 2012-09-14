@@ -6,11 +6,9 @@
 
       <div class="tabs">
         <ul class="nav">
-          <li><a href="#info">Описание</a></li>
-          <%= content_tag :li, link_to("Фотогалерея", "#photogallery", "data-link" => @affiche.kind_affiche_photogallery_path),
-                          :class => @affiche.has_images? ? nil : 'disabled' %>
-          <%= content_tag :li, link_to("Видео", "#trailer", "data-link" => @affiche.kind_affiche_trailer_path),
-                          :class => @affiche.trailer.blank? ? 'disabled' : nil %>
+          <% @affiche.tabs.each do |link| %>
+            <%= link %>
+          <% end %>
         </ul>
 
         <div id="info">
@@ -85,8 +83,8 @@
                       <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
                       <p class="address"><%= showings.first.place_decorator.address_link %></p>
                     </li>
-                    <% showings.each do |showing| %>
-                      <li class="seance">
+                    <% showings.each_with_index do |showing, index| %>
+                      <li class="seance<%= ' break' if index > 0 && index % 7 == 0 %>">
                         <p class="time"><%= showing.human_time_starts_at %></p>
                         <p class="price"><%= showing.human_price %></p>
                       </li>
