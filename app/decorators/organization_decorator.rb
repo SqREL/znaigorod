@@ -23,18 +23,6 @@ class OrganizationDecorator < ApplicationDecorator
     h.link_to image_tag(parent_organization.logotype_url, 300, 300, organization.title), h.organization_path(organization)
   end
 
-  def category_links
-    organization.categories.map { |category| Link.new title: category, url: '#' }
-  end
-
-  def feature_links
-    organization.features.map { |feature| Link.new title: feature, url: '#' }
-  end
-
-  def offer_links
-    organization.offers.map { |offer| Link.new title: offer, url: '#' }
-  end
-
   def site_link
     h.link_to site, site
   end

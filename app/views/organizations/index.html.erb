@@ -6,8 +6,10 @@
         <li>
           <%= organization.logo_link %>
           <ul>
-            <% organization.category_links.each do |link| %>
-              <li><%= link %></li>
+            <% organization.categories.each do |category| %>
+              <li>
+                <%= link_to category, organizations_path(organization_class: @organizations_collection.organization_class.pluralize, category: category.mb_chars.downcase) %>
+              </li>
             <% end %>
           </ul>
 
@@ -17,18 +19,22 @@
           <%= organization.site_link %>
           <%= organization.email_link %>
 
-          <% if organization.feature_links.any? %>
+          <% if organization.features.any? %>
             <ul>
-              <% organization.feature_links.each do |link| %>
-                <li><%= link %></li>
+              <% organization.features.each do |feature| %>
+                <li>
+                  <%= link_to feature, @organizations_collection.filter_link_url(feature: feature) %>
+                </li>
               <% end %>
             </ul>
           <% end %>
 
-          <% if organization.offer_links.any? %>
+          <% if organization.offers.any? %>
             <ul>
-              <% organization.offer_links.each do |link| %>
-                <li><%= link %></li>
+              <% organization.offers.each do |offer| %>
+                <li>
+                  <%= link_to offer, @organizations_collection.filter_link_url(offer: offer) %>
+              </li>
               <% end %>
             </ul>
           <% end %>
