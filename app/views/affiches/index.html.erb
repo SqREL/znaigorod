@@ -1,3 +1,8 @@
+<% content_for :subtitle do %>
+  <%= @affiche_collection.human_kind %>
+  <%= @affiche_collection.human_period.mb_chars.downcase %>
+<% end %>
+
 <div class="content_wrapper">
 
   <div class="affiches_list">

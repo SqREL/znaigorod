@@ -1,3 +1,7 @@
+<% content_for :subtitle do %>
+  <%= @affiche.title.squish.gilensize.html_safe %>, <%= @affiche.human_kind.mb_chars.downcase %>
+<% end %>
+
 <div class="content_wrapper">
 
   <div class="clearfix">
@@ -12,7 +16,7 @@
         </ul>
 
         <div id="info">
-
+          <%= content_tag(:div, link_to(@affiche.human_kind, affiches_path(@affiche.pluralized_kind, 'all')), :class => 'kind') %>
           <div class="head">
             <%= content_tag :h1, @affiche.title.gilensize.html_safe %>
             <%= content_tag :h2, @affiche.original_title.gilensize.html_safe unless @affiche.original_title.blank? %>
