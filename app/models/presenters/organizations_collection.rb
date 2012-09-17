@@ -134,7 +134,7 @@ class OrganizationsCollection
       next if values == [nil]
       query += [key.pluralize] + values
     end
-    organizations_path(organization_class: organization_class.pluralize, category: category, query: query.join("/"))
+    organizations_path(organization_class: organization_class.pluralize, category: category, query: query.compact.join("/"))
   end
 
   def category_filters
@@ -143,18 +143,31 @@ class OrganizationsCollection
   end
 
   def cuisine_filters
-    self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_cuisine").rows.map(&:value).
-      map { |value| Link.new title: value, url: filter_link_url(cuisine: value), html_options: { :class => (cuisines.include?(value) ? 'selected' : nil) } }
+    existed_cuisines = self.send("#{organization_class}_searcher", list_search_params).facet("#{organization_class}_cuisine").rows.map(&:value)
+    self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_cuisine").rows.map(&:value).map { |value|
+      Link.new title: value,
+        url: filter_link_url(cuisine: value),
+        html_options: { :class => (cuisines.include?(value) ? 'selected' : nil)},
+        disabled:  !existed_cuisines.include?(value)
+    }
   end
 
   def offer_filters
+    existed_offers = self.send("#{organization_class}_searcher", list_search_params).facet("#{organization_class}_offer").rows.map(&:value)
     self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_offer").rows.map(&:value).
-      map { |value| Link.new title: value, url: filter_link_url(offer: value), html_options: { :class => (offers.include?(value) ? 'selected' : nil) } }
+      map { |value| Link.new title: value,
+            url: filter_link_url(offer: value),
+            html_options: { :class => (offers.include?(value) ? 'selected' : nil) } ,
+            disabled: !existed_offers.include?(value) }
   end
 
   def feature_filters
+    existed_features = self.send("#{organization_class}_searcher", list_search_params).facet("#{organization_class}_feature").rows.map(&:value)
     self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_feature").rows.map(&:value).
-      map { |value| Link.new title: value, url: filter_link_url(feature: value), html_options: { :class => (features.include?(value) ? 'selected' : nil) } }
+      map { |value| Link.new title: value,
+            url: filter_link_url(feature: value),
+            html_options: { :class => (features.include?(value) ? 'selected' : nil) },
+            disabled: !existed_features.include?(value)}
   end
 
   def organizations
