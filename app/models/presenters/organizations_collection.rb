@@ -32,6 +32,10 @@ class OrganizationsCollection
     end
   end
 
+  def category_all?
+    category == 'all'
+  end
+
   def kind_links
     {}.tap do |links|
       self.class.kinds.map(&:name).map(&:downcase).each do |klass|

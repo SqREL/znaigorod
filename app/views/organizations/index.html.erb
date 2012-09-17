@@ -12,13 +12,15 @@
           <%= content_tag :div, organization.logo_link, :class => "image" unless organization.logo_link.blank? %>
           <div class="info">
 
-            <ul class="categories">
-              <% organization.categories.each do |category| %>
-                <li>
-                  <%= link_to category, organizations_path(organization_class: @organizations_collection.organization_class.pluralize, category: category.mb_chars.downcase) %>
-                </li>
-              <% end %>
-            </ul>
+            <% if @organizations_collection.category_all? %>
+              <ul class="categories">
+                <% organization.categories.each do |category| %>
+                  <li>
+                    <%= link_to category, organizations_path(organization_class: @organizations_collection.organization_class.pluralize, category: category.mb_chars.downcase) %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
 
             <h2><%= organization.title_link %></h2>
 
