@@ -4,7 +4,9 @@ class Address < ActiveRecord::Base
   belongs_to :organization
 
   def to_s
-    "#{street}, #{house}" if street && house
+    return "" if street.blank? && house.blank?
+    return "#{street}" if house.blank?
+    return "#{street}, #{house}"
   end
 end
 

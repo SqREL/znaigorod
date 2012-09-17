@@ -1,72 +1,90 @@
+<% content_for :subtitle do %>
+  <%= @organizations_collection.title %><%= ", " unless @organizations_collection.subtitle.blank? %>
+  <%= @organizations_collection.subtitle %>
+<% end %>
+
 <div class="content_wrapper">
   <div class="organizations_list">
     <h1><span class="strong"><%= @organizations_collection.title %></span> <%= @organizations_collection.subtitle %></h1>
     <ul>
       <% @organizations_collection.organizations.each do |organization| %>
         <li>
-          <%= organization.logo_link %>
-          <%= organization.title_link %>
-          <%= organization.address_link %>
+          <%= content_tag :div, organization.logo_link, :class => "image" unless organization.logo_link.blank? %>
+          <div class="info">
 
-          <ul>
-            <% organization.categories.each do |category| %>
-              <li>
-                <%= link_to category, organizations_path(organization_class: @organizations_collection.organization_class.pluralize, category: category.mb_chars.downcase) %>
-              </li>
-            <% end %>
-          </ul>
-
-          <% if organization.phone.present? %>
-            <p>
-              Телефон: <%= organization.phone %>
-            </p>
-          <% end %>
-
-          <% if organization.site.present? %>
-            <p>
-            Сайт: <%= organization.site_link %>
-            </p>
-          <% end %>
-
-          <% if organization.email.present? %>
-            <p>
-              E-mail: <%= organization.email_link %>
-            </p>
-          <% end %>
-
-          <% if organization.features.any? %>
-            Особенности:
-            <ul>
-              <% organization.features.each do |feature| %>
+            <ul class="categories">
+              <% organization.categories.each do |category| %>
                 <li>
-                  <%= link_to feature, @organizations_collection.filter_link_url(feature: feature.mb_chars.downcase) %>
+                  <%= link_to category, organizations_path(organization_class: @organizations_collection.organization_class.pluralize, category: category.mb_chars.downcase) %>
                 </li>
               <% end %>
             </ul>
-          <% end %>
 
-          <% if organization.offers.any? %>
-            Предложения:
-            <ul>
-              <% organization.offers.each do |offer| %>
-                <li>
-                  <%= link_to offer, @organizations_collection.filter_link_url(offer: offer.mb_chars.downcase) %>
-              </li>
-              <% end %>
-            </ul>
-          <% end %>
+            <h2><%= organization.title_link %></h2>
 
-          <% if organization.cuisines.any? %>
-            Кухня:
-            <ul>
-              <% organization.cuisines.each do |cuisine| %>
-                <li>
-                  <%= link_to cuisine, @organizations_collection.filter_link_url(cuisine: cuisine.mb_chars.downcase) %>
-              </li>
-              <% end %>
-            </ul>
-          <% end %>
+            <%= content_tag :div, organization.address_link, :class => "place" unless organization.address_link.blank? %>
 
+            <div class="contacts">
+              <table<%= " class='full'" if organization.logo_link.blank? %>>
+                <% if organization.phone.present? %>
+                  <tr>
+                    <td>Телефон:</td>
+                    <td><%= organization.phone %></td>
+                  </tr>
+                <% end %>
+                <% if organization.site.present? %>
+                  <tr>
+                    <td>Сайт:</td>
+                    <td><%= organization.site_link %></td>
+                  </tr>
+                <% end %>
+                <% if organization.email.present? %>
+                  <tr>
+                    <td>E-mail:</td>
+                    <td><%= organization.email_link %></td>
+                  </tr>
+                <% end %>
+              </table>
+              <%= content_tag :hr if organization.features.any? || organization.offers.any? || organization.cuisines.any? %>
+            </div>
+
+            <% if organization.features.any? || organization.offers.any? || organization.cuisines.any? %>
+              <div class="characteristics">
+                <% if organization.features.any? %>
+                  <ul>
+                    <li class="title">Особенности:</li>
+                    <% organization.features.each do |feature| %>
+                      <li>
+                        <%= link_to feature, @organizations_collection.filter_link_url(feature: feature.mb_chars.downcase) %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+
+                <% if organization.offers.any? %>
+                  <ul>
+                    <li class="title">Предложения:</li>
+                    <% organization.offers.each do |offer| %>
+                      <li>
+                        <%= link_to offer, @organizations_collection.filter_link_url(offer: offer.mb_chars.downcase) %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+
+                <% if organization.cuisines.any? %>
+                  <ul>
+                    <li class="title">Кухня:</li>
+                    <% organization.cuisines.each do |cuisine| %>
+                      <li>
+                        <%= link_to cuisine, @organizations_collection.filter_link_url(cuisine: cuisine.mb_chars.downcase) %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         </li>
       <% end %>
     </ul>

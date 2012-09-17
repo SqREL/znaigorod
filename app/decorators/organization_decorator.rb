@@ -12,6 +12,7 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def address_link
+    return "" if organization.address.to_s.blank?
     h.link_to organization.address,
       h.organization_path(parent_organization),
       :class => 'show_map_link',
@@ -21,12 +22,12 @@ class OrganizationDecorator < ApplicationDecorator
 
   def logo_link
     if parent_organization && parent_organization.logotype_url?
-      h.link_to image_tag(parent_organization.logotype_url, 300, 300, organization.title), h.organization_path(parent_organization)
+      h.link_to image_tag(parent_organization.logotype_url, 180, 180, organization.title), h.organization_path(parent_organization)
     end
   end
 
   def site_link
-    h.link_to site, site
+    h.link_to site, site, rel: "nofollow", target: "_blank"
   end
 
   def email_link
