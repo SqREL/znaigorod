@@ -51,7 +51,12 @@
 
             <%= content_tag :hr unless organization.truncated_description.blank? %>
 
-            <%= content_tag :div, organization.truncated_description, :class => 'description' unless organization.truncated_description.blank? %>
+            <% unless organization.truncated_description.blank? %>
+              <div class="description">
+                <%= organization.truncated_description %>
+                <p class="more"><%= link_to "Подробнее&hellip;".html_safe, organization_path(organization.parent_organization) %></p>
+              </div>
+            <% end %>
 
             <%= content_tag :hr if organization.features.any? || organization.offers.any? || organization.cuisines.any? %>
 
