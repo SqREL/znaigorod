@@ -142,6 +142,10 @@ HasSearcher.create_searcher :culture do
   end
 end
 
+HasSearcher.create_searcher :organizations do
+  models :organization
+end
+
 HasSearcher.create_searcher :total do
   models :affiche, :organization
   keywords :q

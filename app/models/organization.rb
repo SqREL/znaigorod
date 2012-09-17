@@ -52,12 +52,12 @@ class Organization < ActiveRecord::Base
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
     string(:kind) { 'organization' }
     text :address
-    text :category
-    text :cuisine
+    text :category,                   :more_like_this => true
+    text :cuisine,                    :more_like_this => true
     text :description, :boost => 0.5
     text :email, :boost => 0.5
-    text :feature
-    text :offer
+    text :feature,                    :more_like_this => true
+    text :offer,                      :more_like_this => true
     text :payment
     text :site, :boost => 0.5
     text :term

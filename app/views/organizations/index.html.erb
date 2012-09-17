@@ -50,6 +50,8 @@
               <%= content_tag :hr if organization.features.any? || organization.offers.any? || organization.cuisines.any? %>
             </div>
 
+            <%= organization.truncated_description %>
+
             <% if organization.features.any? || organization.offers.any? || organization.cuisines.any? %>
               <div class="characteristics">
                 <% if organization.features.any? %>

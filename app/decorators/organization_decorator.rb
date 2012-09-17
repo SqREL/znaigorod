@@ -83,4 +83,16 @@ class OrganizationDecorator < ApplicationDecorator
   def affiches
     organization.nearest_affiches.map { |a| AfficheDecorator.new a }
   end
+
+  def html_description
+    RedCloth.new(organization.description).to_html.gsub(/&#8220;|&#8221;/, '"').gilensize.html_safe
+  end
+
+  def truncated_description
+    hyphenate(html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(230, :separator => ' ').gilensize).html_safe
+  end
+
+  def similar_organizations
+    OrganizationDecorator.decorate HasSearcher.searcher(:organizations).more_like_this(organization).limit(5).results
+  end
 end
