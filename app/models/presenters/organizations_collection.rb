@@ -28,7 +28,7 @@ class OrganizationsCollection
     end
 
     define_method "#{klass}_categories" do
-      self.send("#{klass}_searcher").categories.facet("#{klass}_category").rows
+      self.send("#{klass}_searcher").facet("#{klass}_category").rows
     end
   end
 

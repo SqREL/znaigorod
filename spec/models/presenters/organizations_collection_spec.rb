@@ -32,7 +32,7 @@ describe OrganizationsCollection do
     let(:kafe_facet) { Object.new }
     before { kafe_facet.stub(:value).and_return('кафе') }
     before { kafe_facet.stub(:count).and_return(10) }
-    before { meal_searcher.stub_chain(:categories, :facet, :rows).and_return([kafe_facet]) }
+    before { meal_searcher.stub_chain(:facet, :rows).and_return([kafe_facet]) }
     before { presenter.stub(:meal_searcher).and_return(meal_searcher) }
     subject { presenter.meal_categories_links }
 
@@ -65,7 +65,7 @@ describe OrganizationsCollection do
     let(:kafe_facet) { Object.new }
     before { kafe_facet.stub(:value).and_return('Кафе') }
     before { kafe_facet.stub(:count).and_return(175) }
-    before { meal_searcher.stub_chain(:categories, :facet, :rows).and_return([kafe_facet]) }
+    before { meal_searcher.stub_chain(:facet, :rows).and_return([kafe_facet]) }
     before { presenter.stub(:meal_searcher).and_return(meal_searcher) }
 
     subject { presenter.class_categories_links }

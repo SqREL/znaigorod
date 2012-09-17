@@ -8,7 +8,7 @@
   <ul>
     <% @organization.categories.each do |category| %>
       <li>
-        <%= link_to category, organizations_path(organization_class: @organization.organization_class, category: category) %>
+        <%= link_to category, organizations_path(organization_class: @organization.organization_class, category: category.mb_chars.downcase) %>
       </li>
     <% end %>
   </ul>

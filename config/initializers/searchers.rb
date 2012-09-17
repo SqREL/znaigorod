@@ -101,14 +101,12 @@ HasSearcher.create_searcher :meal do
   property :meal_cuisine
 
   scope do
+    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_fs}*:*" }
+
     facet(:meal_category)
     facet(:meal_feature)
     facet(:meal_offer)
     facet(:meal_cuisine)
-  end
-
-  scope :categories do
-    facet(:meal_category)
   end
 end
 
@@ -120,13 +118,11 @@ HasSearcher.create_searcher :entertainment do
   property :entertainment_offer
 
   scope do
+    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_fs}*:*" }
+
     facet(:entertainment_category)
     facet(:entertainment_feature)
     facet(:entertainment_offer)
-  end
-
-  scope :categories do
-    facet(:entertainment_category)
   end
 end
 
@@ -138,13 +134,11 @@ HasSearcher.create_searcher :culture do
   property :culture_offer
 
   scope do
+    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_fs}*:*" }
+
     facet(:culture_category)
     facet(:culture_feature)
     facet(:culture_offer)
-  end
-
-  scope :categories do
-    facet(:culture_category)
   end
 end
 
