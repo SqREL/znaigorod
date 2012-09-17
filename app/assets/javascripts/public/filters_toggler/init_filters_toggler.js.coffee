@@ -8,7 +8,7 @@ $.fn.need_toggler = () ->
 
     list = $(item)
 
-    VISIBLE_LINES_COUNT = 5
+    VISIBLE_LINES_COUNT = 3
 
     OPENED_HEIGHT = list.height() - parseInt(list.css("padding-bottom"))
     iterator = -1

@@ -88,7 +88,7 @@
               <% end %>
             </ul>
             <% if @affiche_collection.all_kinds? %>
-              <ul class="tags need_toggler">
+              <ul class="tags">
                 <li class="title">Мероприятия</li>
                 <% @affiche_collection.categories_links.each do |category_link| %>
                   <li class="<%= category_link.html_options[:class] %>">
