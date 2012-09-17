@@ -47,10 +47,13 @@
                   </tr>
                 <% end %>
               </table>
-              <%= content_tag :hr if organization.features.any? || organization.offers.any? || organization.cuisines.any? %>
             </div>
 
-            <%= organization.truncated_description %>
+            <%= content_tag :hr unless organization.truncated_description.blank? %>
+
+            <%= content_tag :div, organization.truncated_description, :class => 'description' unless organization.truncated_description.blank? %>
+
+            <%= content_tag :hr if organization.features.any? || organization.offers.any? || organization.cuisines.any? %>
 
             <% if organization.features.any? || organization.offers.any? || organization.cuisines.any? %>
               <div class="characteristics">
