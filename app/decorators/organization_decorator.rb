@@ -78,4 +78,8 @@ class OrganizationDecorator < ApplicationDecorator
   def organization_class
     suborganization.try(:class).try(:name).try(:downcase).try(:pluralize)
   end
+
+  def affiches
+    organization.nearest_affiches.map { |a| AfficheDecorator.new a }
+  end
 end
