@@ -4,8 +4,13 @@
   .organizations_catalog
     fieldset
       border: 1px dotted #ababab
+      +border-radius(3px)
       margin: 0 10px 20px
       padding: 15px 10px 10px
+      &.odd
+        +background-image(linear-gradient(#fff, #ede7f1 25%, #ede7f1 75%, #fff))
+      &.even
+        +background-image(linear-gradient(#fff, #eaf3f8 25%, #eaf3f8 75%, #fff))
       legend
         font-size: 22px
         padding: 0 10px
