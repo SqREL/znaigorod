@@ -11,7 +11,7 @@ class AddSlugToAffiches < ActiveRecord::Migration
   end
 
   def down
-    remove_column :affiches, :slug
     remove_index :affiches, :slug
+    remove_column :affiches, :slug
   end
 end

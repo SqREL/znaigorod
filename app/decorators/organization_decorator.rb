@@ -8,7 +8,7 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def title_link
-    h.link_to organization.title, h.organization_path(parent_organization)
+    h.link_to organization.title.gilensize.html_safe, h.organization_path(parent_organization)
   end
 
   def address_link
@@ -22,7 +22,7 @@ class OrganizationDecorator < ApplicationDecorator
 
   def logo_link
     if parent_organization && parent_organization.logotype_url?
-      h.link_to image_tag(parent_organization.logotype_url, 180, 180, organization.title), h.organization_path(parent_organization)
+      h.link_to image_tag(parent_organization.logotype_url, 180, 180, organization.title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').squish.html_safe), h.organization_path(parent_organization)
     end
   end
 

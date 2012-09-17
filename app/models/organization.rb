@@ -1,4 +1,6 @@
 class Organization < ActiveRecord::Base
+  extend FriendlyId
+
   attr_accessible :address_attributes, :description, :email, :halls_attributes,
                   :images_attributes, :organization_id, :phone, :schedules_attributes,
                   :site, :title, :vfs_path, :attachments_attributes, :logotype_url
@@ -40,6 +42,8 @@ class Organization < ActiveRecord::Base
   after_save :index_additional_attributes
 
   alias_attribute :to_s, :title
+
+  friendly_id :title, use: :slugged
 
   paginates_per Settings['pagination.per_page'] || 10
 
