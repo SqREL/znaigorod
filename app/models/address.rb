@@ -5,9 +5,10 @@ class Address < ActiveRecord::Base
 
   def to_s
     return "" if street.blank? && house.blank?
-    return "#{street}" if house.blank?
-    return "#{street}, #{house}"
+    return "#{street.squish}" if house.blank?
+    return "#{street.squish}, #{house.squish}"
   end
+
 end
 
 # == Schema Information
