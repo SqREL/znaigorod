@@ -8,4 +8,5 @@ $ ->
   init_distribution() if $('.content .distribution').length
   init_galleria() if $('.content .gallery_container').length
   init_filters_toggler() if $('.need_toggler li').length
+  init_prepare_organizations() if $('.organizations_list .info .characteristics').length
   true

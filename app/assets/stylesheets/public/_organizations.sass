@@ -93,8 +93,6 @@
               margin: 10px 0 0 0
           .characteristics
             +clearfix
-            margin-top: 10px
-            margin-bottom: -10px
             padding-left: 4px
             li
               float: left
@@ -103,16 +101,17 @@
               background-color: #87bfd8
               +border-radius(3px)
               padding: 2px 3px 4px
-              margin: 0 10px 10px 0
+              margin: 10px 10px 0 0
               a
                 color: #fff
+              &.offset_left
+                margin-left: 109px
             .title
               clear: left
-              width: 100px
+              width: 99px
               font-size: 12px
               background: none
               padding: 0
-              margin-bottom: 15px
 
   .organizations_filter
     float: left
