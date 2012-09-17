@@ -39,7 +39,7 @@
             <ul>
               <% organization.features.each do |feature| %>
                 <li>
-                  <%= link_to feature, @organizations_collection.filter_link_url(feature: feature) %>
+                  <%= link_to feature, @organizations_collection.filter_link_url(feature: feature.mb_chars.downcase) %>
                 </li>
               <% end %>
             </ul>
@@ -50,7 +50,7 @@
             <ul>
               <% organization.offers.each do |offer| %>
                 <li>
-                  <%= link_to offer, @organizations_collection.filter_link_url(offer: offer) %>
+                  <%= link_to offer, @organizations_collection.filter_link_url(offer: offer.mb_chars.downcase) %>
               </li>
               <% end %>
             </ul>
@@ -61,7 +61,7 @@
             <ul>
               <% organization.cuisines.each do |cuisine| %>
                 <li>
-                  <%= link_to cuisine, @organizations_collection.filter_link_url(cuisine: cuisine) %>
+                  <%= link_to cuisine, @organizations_collection.filter_link_url(cuisine: cuisine.mb_chars.downcase) %>
               </li>
               <% end %>
             </ul>
