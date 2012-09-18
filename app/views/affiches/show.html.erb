@@ -1,5 +1,5 @@
 <% content_for :subtitle do %>
-  <%= @affiche.title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').squish.html_safe %>, <%= @affiche.human_kind.mb_chars.downcase %>
+  <%= @affiche.title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').gsub(' ,', ',').squish.html_safe %>, <%= @affiche.human_kind.mb_chars.downcase %>
 <% end %>
 
 <div class="content_wrapper">

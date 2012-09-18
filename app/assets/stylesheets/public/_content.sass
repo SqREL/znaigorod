@@ -258,7 +258,6 @@
     float: left
     width: 760px
     line-height: 1.4
-
     .kind
       float: right
       font-size: 11px
@@ -271,6 +270,7 @@
       margin-bottom: 15px
     h1
       font-size: 26px
+      margin: 0
     h2
       font-style: italic
 
@@ -349,7 +349,6 @@
           +clearfix
           .image
             width: 180px
-            height: 242px
             float: left
             margin-right: 10px
             margin-bottom: 10px
@@ -363,9 +362,13 @@
             h3
               font-size: 16px
             table
+              width: 550px
+              &.full
+                width: 100%
               tr:nth-child(odd) td
                 background-color: #e8e0eb
               tr td:first-child
+                width: 5%
                 white-space: nowrap
                 font-weight: bold
                 &:first-letter
@@ -408,6 +411,10 @@
           height: 16px
           padding-left: 13px
           background: transparent image_url('public/address.png') no-repeat -3px 0
+      p.address
+        font-size: 14px
+        a
+          background-position: -3px 3px
 
     .tags_and_share
       +clearfix
@@ -640,7 +647,7 @@
   .right_side
     float: left
     width: 200px
-    margin: 5px 10px 0 30px
+    margin: 0 10px 0 30px
 
   .more_like_this
     text-align: center

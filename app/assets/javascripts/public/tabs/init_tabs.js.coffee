@@ -6,7 +6,7 @@
 
   $('.info .description table tr', container).each (index, item) ->
     td = $('td:first', this)
-    td.text(td.text() + ':')
+    td.text(td.text() + ':') unless td.text().match(/:$/)
     true
 
   container.tabs

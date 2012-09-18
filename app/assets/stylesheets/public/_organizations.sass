@@ -1,3 +1,24 @@
+=characteristics_style
+  ul
+    position: relative
+    +clearfix
+  li
+    float: left
+    font-size: 11px
+    line-height: 1.4
+    background-color: #87bfd8
+    +border-radius(3px)
+    padding: 2px 3px 4px
+    margin: 10px 10px 0 0
+    a
+      color: #fff
+    &.offset_left
+      margin-left: 109px
+  .title
+    font-size: 12px
+    background: none
+    padding: 0
+
 .content_wrapper
   +clearfix
 
@@ -30,7 +51,6 @@
   .organizations_list
     float: left
     width: 675px
-
     ul
       li
         background-color: #efeaf1
@@ -103,25 +123,7 @@
               font-size: 11px
               text-align: right
           .characteristics
-            ul
-              position: relative
-              +clearfix
-            li
-              float: left
-              font-size: 11px
-              line-height: 1.4
-              background-color: #87bfd8
-              +border-radius(3px)
-              padding: 2px 3px 4px
-              margin: 10px 10px 0 0
-              a
-                color: #fff
-              &.offset_left
-                margin-left: 109px
-            .title
-              font-size: 12px
-              background: none
-              padding: 0
+            +characteristics_style
 
   .organizations_filter
     float: left
@@ -195,3 +197,31 @@
                 cursor: default
                 color: lighten(#353535, 30%)
                 text-decoration: none
+  .content
+    &.organization
+      margin-bottom: 20px
+      .categories
+        +clearfix
+        float: right
+        font-size: 11px
+        li
+          float: left
+          background-color: #70398a
+          +border-radius(3px)
+          padding: 2px 3px 4px
+          margin: 0 0 0 10px
+          a
+            color: #fff !important
+      .share_organization
+        +clearfix
+        border-top: 1px dotted #948f95
+        padding-top: 7px
+        .yashare-auto-init
+          float: right
+          .b-share
+            padding-right: 0 !important
+            .b-share__handle:last-child
+              padding-right: 0 !important
+      .characteristics
+        +characteristics_style
+        padding-bottom: 10px
