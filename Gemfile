@@ -14,8 +14,6 @@ group :default do
   gem 'active_attr'
   gem 'attribute_normalizer'
   gem 'auto_html'
-  gem 'capistrano'
-  gem 'rvm-capistrano'
   gem 'curb',                                         :require => false
   gem 'default_value_for'
   gem 'draper'
@@ -40,6 +38,8 @@ end
 
 group :development do
   gem 'annotate',                                     :require => false
+  gem 'capistrano'
+  gem 'rvm-capistrano'
   gem 'hirb',                                         :require => false
   gem 'sunspot_solr'
 end

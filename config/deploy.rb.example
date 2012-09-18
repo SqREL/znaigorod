@@ -26,16 +26,10 @@ role :app, domain
 role :db,  domain, :primary => true
 
 namespace :deploy do
-
-  desc "Install gems"
-  task :run_bundle, :roles => :app do
-    run "cd #{deploy_to}/current/ && bundle --binstubs --path .bundle --quiet"
-  end
-
   desc "Copy config files"
   task :config_app, :roles => :app do
-    run "ln -s #{deploy_to}/shared/config/settings.yml #{deploy_to}/current/config/settings.yml"
-    run "ln -s #{deploy_to}/shared/config/database.yml #{deploy_to}/current/config/database.yml"
+    run "ln -s #{deploy_to}/shared/config/settings.yml #{release_path}/config/settings.yml"
+    run "ln -s #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
   end
 
   desc "Precompile assets"
@@ -49,15 +43,9 @@ namespace :deploy do
     run "ln -s #{deploy_to}/shared/config/unicorn.rb #{deploy_to}/current/config/unicorn.rb"
   end
 
-  desc "Reload Nginx & Unicorn"
+  desc "Reload Unicorn"
   task :reload_servers do
-    sudo "/etc/init.d/nginx restart"
-    sudo "/etc/init.d/#{unicorn_instance_name} restart"
-  end
-
-  desc "Verify your gem installation by sending a test exception to the airbrake service"
-  task :airbrake_test do
-    run "cd #{deploy_to}/current && RAILS_ENV=production bin/rake airbrake:test TO=production"
+    sudo "/etc/init.d/#{unicorn_instance_name} reload"
   end
 
   desc "Airbrake notify"
@@ -69,28 +57,11 @@ namespace :deploy do
   task :sunspot_reindex do
     run "cd #{deploy_to}/current && RAILS_ENV=production bin/rake sunspot:reindex"
   end
-end
 
-namespace :deploy do
-  namespace :web do
-    task :disable, :roles => :web, :except => { :no_release => true } do
-      require 'erb'
-      on_rollback { run "rm #{deploy_to}/shared/system/maintenance.html" }
-
-      reason = ENV['REASON']
-      deadline = ENV['UNTIL']
-
-      template = File.read("./app/views/layouts/maintenance.html.erb")
-      result = ERB.new(template).result(binding)
-
-      put result, "#{deploy_to}/shared/system/maintenance.html", :mode => 0644
-    end
-  end
 end
 
 # remote database.yml
 database_yml_path = "config/database.yml"
-#config = YAML::load(capture("cat #{current_path}/#{database_yml_path}"))
 config = YAML::load(capture("cat #{deploy_to}/shared/#{database_yml_path}"))
 adapter = config[rails_env]["adapter"]
 database = config[rails_env]["database"]
@@ -122,18 +93,12 @@ namespace :db do
 end
 
 # deploy
-before "deploy", "deploy:web:disable"
-after "deploy", "deploy:config_app"
+after "deploy:finalize_update", "deploy:config_app"
 after "deploy", "deploy:migrate"
 after "deploy", "deploy:copy_unicorn_config"
-after "deploy", "deploy:compile_assets"
 after "deploy", "deploy:reload_servers"
 after "deploy:reload_servers", "deploy:cleanup"
 after "deploy", "deploy:airbrake"
-after "deploy", "deploy:web:enable"
-
 
 # deploy:rollback
-before "deploy:rollback", "deploy:web:disable"
 after "deploy:rollback", "deploy:reload_servers"
-after "deploy:rollback", "deploy:web:enable"
