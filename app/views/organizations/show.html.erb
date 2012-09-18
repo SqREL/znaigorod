@@ -11,8 +11,8 @@
       <div class="tabs">
         <ul class="nav">
           <li><a href="#info">Описание</a></li>
-          <li><a href="#photogallery" data-link="#">Фотографии</a></li>
-          <li class="disabled"><a href="#affiche" data-link="#">Афиша</a></li>
+          <li<%= " class='disabled'" if @organization.images.blank? %>><a href="#photogallery" data-link="#">Фотографии</a></li>
+          <li<%= " class='disabled'" if @organization.affiches.blank? %>><a href="#affiche" data-link="#">Афиша</a></li>
         </ul>
 
         <div id="info">
