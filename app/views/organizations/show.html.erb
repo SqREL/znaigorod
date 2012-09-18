@@ -61,6 +61,36 @@
                     <td><%= @organization.email_link %></td>
                   </tr>
                 <% end %>
+                <tr>
+                  <td>Режим работы:</td>
+                  <td>
+                    <ul class='schedule'>
+                      <% @organization.schedules.each do |schedule| %>
+                        <li>
+                          <div class="dow <%= 'today' if l(Date.today, :format => '%a') == schedule.short_human_day %>">
+                            <%= schedule.short_human_day %>
+                          </div>
+                          <div class="time">
+                            <% if schedule.holiday? %>
+                              Выходной
+                            <% else %>
+                              <% if schedule.from == schedule.to %>
+                                Круглосуточно
+                              <% else %>
+                                <div class="from">
+                                  <%= l schedule.from, :format => '%H:%M' %>
+                                </div>
+                                <div class="to">
+                                  <%= l schedule.to, :format => '%H:%M' %>
+                                </div>
+                              <% end %>
+                            <% end %>
+                          </div>
+                        </li>
+                      <% end %>
+                    </ul>
+                  </td>
+                </tr>
               </table>
               <%= @organization.html_description.gilensize.html_safe if @organization.description? %>
             </div>
