@@ -208,20 +208,24 @@
     </div>
 
     <div class="right_side">
-      <ul>
-        <% @organization.similar_organizations.each do |similar_organization| %>
-          <li>
-            <% if similar_organization.logotype_url? %>
-              <p>
-                <%= link_to image_tag_for(similar_organization.logotype_url, 55, 55), organization_path(similar_organization) %>
-              </p>
+      <% unless @organization.similar_organizations.blank? %>
+        <div class="more_like_this">
+          <h2>Похожие заведения поблизости</h2>
+          <ul class="similar_organizations">
+            <% @organization.similar_organizations.each do |similar_organization| %>
+              <li>
+                <% if similar_organization.logotype_url? %>
+                  <div class="image">
+                    <%= link_to image_tag_for(similar_organization.logotype_url, 55, 55), organization_path(similar_organization) %>
+                  </div>
+                <% end %>
+                <div class="title"><%= similar_organization.title_link(similar_organization) %></div>
+                <div class="address"><%= similar_organization.address_link(similar_organization) %></div>
+              </li>
             <% end %>
-
-            <%= similar_organization.title_link(similar_organization) %>
-            <%= similar_organization.address_link(similar_organization) %>
-          </li>
-        <% end %>
-      </ul>
+          </ul>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
