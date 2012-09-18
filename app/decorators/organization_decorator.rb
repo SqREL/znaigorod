@@ -89,7 +89,7 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def truncated_description
-    hyphenate(html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(230, :separator => ' ').gilensize).html_safe
+    h.hyphenate(html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(230, :separator => ' ').gilensize).html_safe
   end
 
   # NOTE: может быть как-то можно использовать config/initializers/searchers.rb:146

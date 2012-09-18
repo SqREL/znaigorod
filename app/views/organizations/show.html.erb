@@ -64,24 +64,24 @@
                 <tr>
                   <td>Режим работы:</td>
                   <td>
-                    <ul class='schedule'>
+                    <ul class="schedule">
                       <% @organization.schedules.each do |schedule| %>
-                        <li>
-                          <div class="dow <%= 'today' if l(Date.today, :format => '%a') == schedule.short_human_day %>">
+                        <li<%= " class='today'" if l(Date.today, :format => '%a') == schedule.short_human_day %>>
+                          <div class="dow">
                             <%= schedule.short_human_day %>
                           </div>
                           <div class="time">
                             <% if schedule.holiday? %>
-                              Выходной
+                              <div class="string"><%= hyphenate("Выходной") %></div>
                             <% else %>
                               <% if schedule.from == schedule.to %>
-                                Круглосуточно
+                                <div class="string"><%= hyphenate("Круглосуточно") %></div>
                               <% else %>
                                 <div class="from">
-                                  <%= l schedule.from, :format => '%H:%M' %>
+                                  <%= l schedule.from, :format => "%H:%M" %>
                                 </div>
                                 <div class="to">
-                                  <%= l schedule.to, :format => '%H:%M' %>
+                                  <%= l schedule.to, :format => "%H:%M" %>
                                 </div>
                               <% end %>
                             <% end %>
@@ -92,7 +92,7 @@
                   </td>
                 </tr>
               </table>
-              <%= @organization.html_description.gilensize.html_safe if @organization.description? %>
+              <%= hyphenate(@organization.html_description).gilensize.html_safe if @organization.description? %>
             </div>
           </div>
 
@@ -211,7 +211,6 @@
       <ul>
         <% @organization.similar_organizations.each do |similar_organization| %>
           <li>
-            <%= p similar_organization %>
             <% if similar_organization.logotype_url? %>
               <p>
                 <%= link_to image_tag_for(similar_organization.logotype_url, 55, 55), organization_path(similar_organization) %>

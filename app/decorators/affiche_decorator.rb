@@ -71,9 +71,9 @@ class AfficheDecorator < ApplicationDecorator
       place_title = place_title.truncate(max_lenght, :separator => ' ')
       max_lenght -= place_title.size
       if place.organization
-        place_output += h.link_to hyphenate(place_title).gilensize.html_safe, h.organization_path(place.organization), :title => place_link_title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').html_safe
+        place_output += h.link_to h.hyphenate(place_title).gilensize.html_safe, h.organization_path(place.organization), :title => place_link_title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').html_safe
       else
-        place_output += place_link_title.blank? ? hyphenate(place_title).gilensize.html_safe : h.content_tag(:abbr, hyphenate(place_title).gilensize.html_safe, :title => place_link_title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').html_safe)
+        place_output += place_link_title.blank? ? h.hyphenate(place_title).gilensize.html_safe : h.content_tag(:abbr, h.hyphenate(place_title).gilensize.html_safe, :title => place_link_title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').html_safe)
       end
       break if max_lenght < 3
       place_output += ", " if index < places.size - 1
@@ -92,7 +92,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def truncated_description
-    hyphenate(html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(230, :separator => ' ').gilensize).html_safe
+    h.hyphenate(html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(230, :separator => ' ').gilensize).html_safe
   end
 
   def html_description
@@ -240,7 +240,7 @@ class AfficheDecorator < ApplicationDecorator
   private
 
   def truncated_link(length, anchor = nil)
-    h.link_to hyphenate(affiche.title.truncate(length, :separator => ' ')).gilensize.html_safe, kind_affiche_path(anchor: anchor), :title => affiche.title
+    h.link_to h.hyphenate(affiche.title.truncate(length, :separator => ' ')).gilensize.html_safe, kind_affiche_path(anchor: anchor), :title => affiche.title
   end
 
   def in_one_day?

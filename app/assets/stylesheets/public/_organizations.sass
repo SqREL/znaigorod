@@ -212,11 +212,42 @@
           margin: 0 0 0 10px
           a
             color: #fff !important
+      .ui-tabs .ui-tabs-panel .info .description table td
+        .schedule li
+          +reset-quotation
+        .schedule
+          +clearfix
+          margin-bottom: 0
+          li
+            float: left
+            text-align: center
+            margin-right: 15px
+            &:last-child
+              margin-right: 0
+            .dow
+              width: 45px
+              font-size: 14px
+              font-weight: bold
+              background-color: #ded1e3
+              +border-radius(3px)
+              padding-bottom: 2px
+              margin-bottom: 2px
+            .string
+              width: 45px
+              font-size: 10px
+              text-transform: lowercase
+              margin-top: 4px
+            &.today
+              color: #fff
+              background-color: #784391
+              +border-radius(3px)
+              .dow
+                background: none
       .share_organization
         +clearfix
         font-size: 13px
         border-top: 1px dotted #948f95
-        padding-top: 7px
+        padding: 7px 0 8px
         .yashare-auto-init
           float: right
           .b-share
