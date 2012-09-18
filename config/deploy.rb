@@ -3,9 +3,13 @@ require "rvm/capistrano"
 
 settings_yml_path = "config/settings.yml"
 config = YAML::load(File.open(settings_yml_path))
+raise "not found deploy key in settings.yml. see settings.yml.example" unless config['deploy']
 application = config['deploy']["application"]
+raise "not found deploy.application key in settings.yml. see settings.yml.example" unless application
 domain = config['deploy']["domain"]
+raise "not found deploy.domain key in settings.yml. see settings.yml.example" unless application
 port = config['deploy']["port"]
+raise "not found deploy.port key in settings.yml. see settings.yml.example" unless application
 
 set :application, application
 set :domain, domain
