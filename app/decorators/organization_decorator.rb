@@ -8,12 +8,12 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def title_link(org = parent_organization)
-    h.link_to organization.title.gilensize.html_safe, h.organization_path(org)
+    h.link_to h.hyphenate(organization.title).gilensize.html_safe, h.organization_path(org)
   end
 
   def address_link(org = parent_organization)
     return "" if organization.address.to_s.blank?
-    h.link_to organization.address,
+    h.link_to h.hyphenate(organization.address.to_s),
       h.organization_path(org),
       :class => 'show_map_link',
       :latitude => organization.address.latitude,

@@ -220,7 +220,7 @@
                   </div>
                 <% end %>
                 <div class="title"><%= similar_organization.title_link(similar_organization) %></div>
-                <div class="address"><%= similar_organization.address_link(similar_organization) %></div>
+                <div class="address<%= " offset" if similar_organization.logotype_url? %>"><%= similar_organization.address_link(similar_organization) %></div>
               </li>
             <% end %>
           </ul>
