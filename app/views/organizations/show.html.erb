@@ -97,8 +97,7 @@
           </div>
 
           <div class="share_organization">
-            <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-            <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="button" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,lj,gplus"></div>
+            <%= render :partial => "commons/share_this" %>
           </div>
 
           <% if @organization.features.any? || @organization.offers.any? || @organization.cuisines.any? %>
@@ -212,9 +211,10 @@
       <ul>
         <% @organization.similar_organizations.each do |similar_organization| %>
           <li>
+            <%= p similar_organization %>
             <% if similar_organization.logotype_url? %>
               <p>
-                <%= image_tag_for similar_organization.logotype_url, 100, 100 %>
+                <%= link_to image_tag_for(similar_organization.logotype_url, 55, 55), organization_path(similar_organization) %>
               </p>
             <% end %>
 
