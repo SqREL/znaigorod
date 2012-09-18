@@ -7,9 +7,12 @@ solr:
 2gis:
   api_key:              api_key
 
-hoptoad:
-  api_key:              api_key
+errors:
+  key:                  api_key
   host:                 host
+
+storage:
+  url:                  http://storage.host
 
 deploy:
   application:          appname.ru
