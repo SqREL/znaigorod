@@ -95,19 +95,26 @@ class OrganizationDecorator < ApplicationDecorator
   # NOTE: может быть как-то можно использовать config/initializers/searchers.rb:146
   # но пока фиг знает как ;(
   def raw_similar_organizations
-    #HasSearcher.searcher(:organizations, :latitude => organization.latitude, :longitude => organization.longitude).
-      #more_like_this(organization).nearest.limit(5).results
     lat, lon = organization.latitude, organization.longitude
-    radius = 1
+    radius = 3
 
-    search = Organization.search do
+    search = suborganization.class.search do
       with(:location).in_radius(lat, lon, radius)
-      without(organization)
-      #order_by_geodist(:location, lat, lon)
+
+      any_of do
+        with("#{suborganization.class.name.downcase}_category", categories.map(&:mb_chars).map(&:downcase))
+        with("#{suborganization.class.name.downcase}_feature", features.map(&:mb_chars).map(&:downcase)) if features.any?
+        with("#{suborganization.class.name.downcase}_offer", offers.map(&:mb_chars).map(&:downcase)) if offers.any?
+        with("#{suborganization.class.name.downcase}_cuisine", cuisines.map(&:mb_chars).map(&:downcase)) if suborganization.is_a?(Meal) && cuisines.any?
+      end
+
+      without(suborganization)
+
+      order_by_geodist(:location, lat, lon)
       paginate(page: 1, per_page: 5)
     end
 
-    search.results
+    search.results.map(&:organization)
   end
 
   def similar_organizations
