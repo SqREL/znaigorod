@@ -11,3 +11,7 @@ hoptoad:
   api_key:              api_key
   host:                 host
 
+deploy:
+  application:          appname.ru
+  domain:               user@host
+  port:                 port

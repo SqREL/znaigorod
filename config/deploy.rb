@@ -1,17 +1,24 @@
 require "bundler/capistrano"
 require "rvm/capistrano"
 
-set :application, "appname.ru"
+settings_yml_path = "config/settings.yml"
+config = YAML::load(File.open(settings_yml_path))
+application = config['deploy']["application"]
+domain = config['deploy']["domain"]
+port = config['deploy']["port"]
+
+set :application, application
+set :domain, domain
+set :port, port
+
 set :rails_env, "production"
-set :domain, "user@host"
-set :port, "22"
 set :deploy_to, "/srv/#{application}"
 set :use_sudo, false
-set :unicorn_instance_name, "appname"
+set :unicorn_instance_name, "unicorn"
 
 set :scm, :git
 set :repository, "https://github.com/openteam-com/znaigorod.git"
-set :branch, "master"
+set :branch, "v2"
 set :deploy_via, :remote_cache
 
 set :keep_releases, 7
@@ -45,6 +52,7 @@ namespace :deploy do
 
   desc "Reload Unicorn"
   task :reload_servers do
+    sudo "/etc/init.d/nginx reload"
     sudo "/etc/init.d/#{unicorn_instance_name} reload"
   end
 
