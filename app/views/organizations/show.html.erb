@@ -1,142 +1,158 @@
 <div class="content_wrapper">
-<% if @organization.logotype_url? %>
-  <p>
-    <%= image_tag_for @organization.logotype_url, 200, 200 %>
-  </p>
-<% end %>
+  <% if @organization.logotype_url? %>
+    <p>
+      <%= image_tag_for @organization.logotype_url, 200, 200 %>
+    </p>
+  <% end %>
 
-<% if @organization.categories.any? %>
+  <% if @organization.categories.any? %>
+    <ul>
+      <% @organization.categories.each do |category| %>
+        <li>
+          <%= link_to category, organizations_path(organization_class: @organization.organization_class, category: category.mb_chars.downcase) %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <p>
+    <%= @organization.title %>
+  </p>
+
+  <% if @organization.phone.present? %>
+    <p>
+      Телефон: <%= @organization.phone %>
+    </p>
+  <% end %>
+
+  <% if @organization.site.present? %>
+    <p>
+      Сайт: <%= @organization.site_link %>
+    </p>
+  <% end %>
+
+  <% if @organization.email.present? %>
+    <p>
+      E-mail: <%= @organization.email_link %>
+    </p>
+  <% end %>
+
+  <% if @organization.description? %>
+    <p>
+      <%= @organization.description %>
+    </p>
+  <% end %>
+
+  <% if @organization.suborganization.is_a?(Meal) && @organization.cuisines.any? %>
+    <div>
+      Кухня:
+      <ul>
+        <% @organization.cuisines.each do |cuisine| %>
+          <li>
+            <%= link_to cuisine, organizations_path(organization_class: @organization.organization_class, category: 'all', query: "cuisines/#{cuisine.mb_chars.downcase}") %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @organization.features.any? %>
+    <div>
+      Особенности:
+      <ul>
+        <% @organization.features.each do |feature| %>
+          <li>
+            <%= link_to feature, organizations_path(organization_class: @organization.organization_class, category: 'all', query: "features/#{feature.mb_chars.downcase}") %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% if @organization.offers.any? %>
+    <div>
+      Предложения:
+      <ul>
+        <% @organization.offers.each do |offer| %>
+          <li>
+            <%= link_to offer, organizations_path(organization_class: @organization.organization_class, category: 'all', query: "offers/#{offer.mb_chars.downcase}") %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <ul>
-    <% @organization.categories.each do |category| %>
+    <% @organization.affiches.each do |affiche| %>
       <li>
-        <%= link_to category, organizations_path(organization_class: @organization.organization_class, category: category.mb_chars.downcase) %>
+        <div class="image">
+          <%= affiche.list_poster %>
+        </div>
+        <div class="info">
+          <h2><%= affiche.link %></h2>
+          <div class="closest">
+            <%= affiche.when_with_price %>
+          </div>
+          <% if affiche.distribution_movie? %>
+            <div class="seances">
+              <ul class="title">
+                <li class="text"><%= affiche.distribution_movie_schedule_date %></li>
+                <li class="link_all"><%= link_to "Все сеансы", affiche.kind_affiche_path(:anchor => 'showings') %></li>
+              </ul>
+              <ul class="theaters">
+                <% affiche.distribution_movie_nearlest_grouped_showings.each do |place, showings| %>
+                  <li class="theater">
+                    <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
+                    <p class="address"><%= showings.first.place_decorator.address_link %></p>
+                  </li>
+                  <% showings[0..4].each_with_index do |showing, index| %>
+                    <li class="seance<%= " last" if index == 4 %>">
+                      <p class="time"><%= showing.human_time_starts_at %></p>
+                      <p class="price"><%= showing.human_price %></p>
+                    </li>
+                  <% end %>
+                <% end %>
+              </ul>
+            </div>
+          <% else %>
+            <% if affiche.other_showings.any? %>
+              <div class="will_be">
+                <% unless affiche.first_other_showing_today? %>
+                  Ещё будет:
+                <% end %>
+                <%= affiche.html_other_showings %>
+              </div>
+            <% end %>
+          <% end %>
+          <% unless affiche.truncated_description.blank? %>
+            <div class="description">
+              <p class="text"><%= affiche.truncated_description %></p>
+              <p class="more"><%= affiche.more_link %></p>
+            </div>
+          <% end %>
+          <ul class="tags">
+            <% affiche.tags.each do |tag| %>
+              <li><%= link_to(tag, affiches_path(kind: affiche.pluralized_kind, period: :all, tags: tag)) %></li>
+            <% end %>
+          </ul>
+        </div>
       </li>
     <% end %>
   </ul>
-<% end %>
 
-<p>
-  <%= @organization.title %>
-</p>
+  <ul>
+    <% @organization.similar_organizations.each do |similar_organization| %>
+      <li>
+        <%= similar_organization.title %>
 
-<% if @organization.phone.present? %>
-  <p>
-    Телефон: <%= @organization.phone %>
-  </p>
-<% end %>
-
-<% if @organization.site.present? %>
-  <p>
-    Сайт: <%= @organization.site_link %>
-  </p>
-<% end %>
-
-<% if @organization.email.present? %>
-  <p>
-    E-mail: <%= @organization.email_link %>
-</p>
-<% end %>
-
-<% if @organization.description? %>
-  <p>
-    <%= @organization.description %>
-  </p>
-<% end %>
-
-<% if @organization.suborganization.is_a?(Meal) && @organization.cuisines.any? %>
-  <div>
-    Кухня:
-    <ul>
-      <% @organization.cuisines.each do |cuisine| %>
-        <li>
-          <%= link_to cuisine, organizations_path(organization_class: @organization.organization_class, category: 'all', query: "cuisines/#{cuisine.mb_chars.downcase}") %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
-<% if @organization.features.any? %>
-  <div>
-    Особенности:
-    <ul>
-      <% @organization.features.each do |feature| %>
-        <li>
-          <%= link_to feature, organizations_path(organization_class: @organization.organization_class, category: 'all', query: "features/#{feature.mb_chars.downcase}") %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
-<% if @organization.offers.any? %>
-  <div>
-    Предложения:
-    <ul>
-      <% @organization.offers.each do |offer| %>
-        <li>
-          <%= link_to offer, organizations_path(organization_class: @organization.organization_class, category: 'all', query: "offers/#{offer.mb_chars.downcase}") %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-
-<ul>
-  <% @organization.affiches.each do |affiche| %>
-    <li>
-      <div class="image">
-        <%= affiche.list_poster %>
-      </div>
-      <div class="info">
-        <h2><%= affiche.link %></h2>
-        <div class="closest">
-          <%= affiche.when_with_price %>
-        </div>
-        <% if affiche.distribution_movie? %>
-          <div class="seances">
-            <ul class="title">
-              <li class="text"><%= affiche.distribution_movie_schedule_date %></li>
-              <li class="link_all"><%= link_to "Все сеансы", affiche.kind_affiche_path(:anchor => 'showings') %></li>
-            </ul>
-            <ul class="theaters">
-              <% affiche.distribution_movie_nearlest_grouped_showings.each do |place, showings| %>
-                <li class="theater">
-                  <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
-                  <p class="address"><%= showings.first.place_decorator.address_link %></p>
-                </li>
-                <% showings[0..4].each_with_index do |showing, index| %>
-                  <li class="seance<%= " last" if index == 4 %>">
-                    <p class="time"><%= showing.human_time_starts_at %></p>
-                    <p class="price"><%= showing.human_price %></p>
-                  </li>
-                <% end %>
-              <% end %>
-            </ul>
-          </div>
-        <% else %>
-          <% if affiche.other_showings.any? %>
-            <div class="will_be">
-              <% unless affiche.first_other_showing_today? %>
-                Ещё будет:
-              <% end %>
-              <%= affiche.html_other_showings %>
-            </div>
-          <% end %>
+        <% if similar_organization.logotype_url? %>
+          <p>
+            <%= image_tag_for similar_organization.logotype_url, 100, 100 %>
+          </p>
         <% end %>
-        <% unless affiche.truncated_description.blank? %>
-          <div class="description">
-            <p class="text"><%= affiche.truncated_description %></p>
-            <p class="more"><%= affiche.more_link %></p>
-          </div>
-        <% end %>
-        <ul class="tags">
-          <% affiche.tags.each do |tag| %>
-            <li><%= link_to(tag, affiches_path(kind: affiche.pluralized_kind, period: :all, tags: tag)) %></li>
-          <% end %>
-        </ul>
-      </div>
-    </li>
-  <% end %>
-</ul>
+
+        <%= content_tag :div, similar_organization.address_link, :class => "place" unless similar_organization.address_link.blank? %>
+      </li>
+    <% end %>
+  </ul>
 </div>

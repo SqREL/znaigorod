@@ -144,6 +144,14 @@ end
 
 HasSearcher.create_searcher :organizations do
   models :organization
+
+  #property :latitude
+  #property :longitude
+
+  scope :nearest do
+    #search.with(:location).near(search_object.latitude, search_object.longitude, :precision => 7)
+    #with(:location).near('56.4828527102654', '84.9713853586966', :precision => 7)
+  end
 end
 
 HasSearcher.create_searcher :total do

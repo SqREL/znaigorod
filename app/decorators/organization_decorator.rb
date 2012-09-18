@@ -93,6 +93,7 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def similar_organizations
-    OrganizationDecorator.decorate HasSearcher.searcher(:organizations).more_like_this(organization).limit(5).results
+    OrganizationDecorator.decorate HasSearcher.searcher(:organizations, :latitude => organization.latitude, :longitude => organization.longitude).
+      more_like_this(organization).nearest.limit(5).results
   end
 end
