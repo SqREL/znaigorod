@@ -142,15 +142,13 @@ HasSearcher.create_searcher :culture do
   end
 end
 
+# NOTE: как передать значения в scope? o_O
 HasSearcher.create_searcher :organizations do
   models :organization
 
-  #property :latitude
-  #property :longitude
-
-  scope :nearest do
-    #search.with(:location).near(search_object.latitude, search_object.longitude, :precision => 7)
-    #with(:location).near('56.4828527102654', '84.9713853586966', :precision => 7)
+  scope :nearest do |search|
+    search.with(:location).in_radius(search_object.latitude, search_object.longitude, 0.5, bbox: true)
+    search.order_by_geodist(:location, search_object.latitude, search_object.longitude)
   end
 end
 

@@ -7,14 +7,14 @@ class OrganizationDecorator < ApplicationDecorator
     h.link_to image_tag(organization.logotype_url, 100, 75, organization.title), h.organization_path(organization)
   end
 
-  def title_link
-    h.link_to organization.title.gilensize.html_safe, h.organization_path(parent_organization)
+  def title_link(org = parent_organization)
+    h.link_to organization.title.gilensize.html_safe, h.organization_path(org)
   end
 
-  def address_link
+  def address_link(org = parent_organization)
     return "" if organization.address.to_s.blank?
     h.link_to organization.address,
-      h.organization_path(parent_organization),
+      h.organization_path(org),
       :class => 'show_map_link',
       :latitude => organization.address.latitude,
       :longitude => organization.address.longitude
@@ -92,8 +92,25 @@ class OrganizationDecorator < ApplicationDecorator
     hyphenate(html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(230, :separator => ' ').gilensize).html_safe
   end
 
+  # NOTE: может быть как-то можно использовать config/initializers/searchers.rb:146
+  # но пока фиг знает как ;(
+  def raw_similar_organizations
+    #HasSearcher.searcher(:organizations, :latitude => organization.latitude, :longitude => organization.longitude).
+      #more_like_this(organization).nearest.limit(5).results
+    lat, lon = organization.latitude, organization.longitude
+    radius = 1
+
+    search = Organization.search do
+      with(:location).in_radius(lat, lon, radius)
+      without(organization)
+      #order_by_geodist(:location, lat, lon)
+      paginate(page: 1, per_page: 5)
+    end
+
+    search.results
+  end
+
   def similar_organizations
-    OrganizationDecorator.decorate HasSearcher.searcher(:organizations, :latitude => organization.latitude, :longitude => organization.longitude).
-      more_like_this(organization).nearest.limit(5).results
+    OrganizationDecorator.decorate raw_similar_organizations
   end
 end

@@ -143,15 +143,14 @@
   <ul>
     <% @organization.similar_organizations.each do |similar_organization| %>
       <li>
-        <%= similar_organization.title %>
-
         <% if similar_organization.logotype_url? %>
           <p>
             <%= image_tag_for similar_organization.logotype_url, 100, 100 %>
           </p>
         <% end %>
 
-        <%= content_tag :div, similar_organization.address_link, :class => "place" unless similar_organization.address_link.blank? %>
+        <%= similar_organization.title_link(similar_organization) %>
+        <%= similar_organization.address_link(similar_organization) %>
       </li>
     <% end %>
   </ul>
