@@ -26,7 +26,7 @@ Znaigorod::Application.routes.draw do
     root :to => 'organizations#index'
   end
 
-  get 'search' => 'search#index'
+  get 'search/:kind' => 'search#index', :as => :search, :constraints => { kind: /(affiches|organizations)/ }
   get 'geocoder' => 'geocoder#get_coordinates'
 
   get ':kind/:period/(:on)/(categories/*categories)/(tags/*tags)' => 'affiches#index',

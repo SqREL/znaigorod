@@ -113,6 +113,10 @@ ru:
       offer: Предложения
       feature: Особенности
 
+  search:
+    affiches: В мероприятиях
+    organizations: В заведениях
+
   activerecord:
     models:
       affiche: Все мероприятия

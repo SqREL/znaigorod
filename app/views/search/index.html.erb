@@ -1,16 +1,16 @@
-<div class="index">
-  <div class="breadcrumbs">
-    <ul>
-      <li>
-        <a href="/" class='solid_light_blue'>Главная</a><span class='arrow'>&rarr;</span>
-      </li>
-    </ul>
-  </div>
+<ul>
+  <li>
+    <%= @search_presenter.affiches_link %>
+  </li>
+  <li>
+    <%= @search_presenter.organizations_link %>
+  </li>
+</ul>
 
-  <h1>Результаты поиска<span class='result_count'>Найдено: <%= total %></span></h1>
-
-  <div class="list">
-    <%= render :partial => 'commons/list', :locals => { :collection => collection, :remote => false } %>
-  </div>
-
-</div>
+<ul>
+  <% @search_presenter.collection.each do |item| %>
+    <li>
+      <%= item.title %>
+    </li>
+  <% end %>
+</ul>

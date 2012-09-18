@@ -157,10 +157,20 @@ HasSearcher.create_searcher :total do
   keywords :q
 
   scope do |sunspot|
+    sunspot.facet(:kind)
+
     sunspot.any_of do
       with(:last_showing_time).greater_than(DateTime.now)
       with(:kind, :organization)
     end
+  end
+
+  scope :affiches do
+    with(:kind, 'affiche')
+  end
+
+  scope :organizations do
+    with(:kind, 'organization')
   end
 end
 
