@@ -18,7 +18,7 @@
         $.ajax
           url: link
           beforeSend: (jqXHR, settings) ->
-            $(ui.panel).html("<p class='ajax_loading'></p>")
+            $(ui.panel).html("<p class='ajax_loading'>Загрузка...</p>")
           success: (data, textStatus, jqXHR) ->
             $(ui.panel).html(data)
             init_galleria() if data.match /gallery_container/g
