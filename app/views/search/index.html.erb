@@ -7,8 +7,8 @@
       <div class="empty">По запросу ничего не найдено ;(</div>
     <% else %>
       <ul class="tabs">
-        <li><%= @search_presenter.affiches_link %></li>
-        <li><%= @search_presenter.organizations_link %></li>
+        <li class=<%= 'selected' if @search_presenter.affiches? %>><%= @search_presenter.affiches_link %></li>
+        <li class=<%= 'selected' unless @search_presenter.affiches? %>><%= @search_presenter.organizations_link %></li>
       </ul>
 
       <div class="<%= @search_presenter.affiches? ? 'affiches_list' : 'organizations_list' %>">

@@ -159,10 +159,10 @@ HasSearcher.create_searcher :total do
   scope do |sunspot|
     sunspot.facet(:kind)
 
-    sunspot.any_of do
-      with(:last_showing_time).greater_than(DateTime.now)
-      with(:kind, :organization)
-    end
+    #sunspot.any_of do
+      #with(:last_showing_time).greater_than(DateTime.now)
+      #with(:kind, :organization)
+    #end
   end
 
   scope :affiches do

@@ -6,7 +6,9 @@ class SearchPresenter
 
   def initialize(options)
     super(options)
-    @kind = params[:kind]
+
+    @kind = params.delete(:kind)
+    params.delete(:action)
   end
 
   def searcher
@@ -33,9 +35,6 @@ class SearchPresenter
     searcher.organizations.total
   end
 
-  def paginated_collection
-    (affiches? ? searcher.affiches : searcher.organizations).paginate(page: page, per_page: 10).results
-  end
 
   def preferred_kind
     affiches_count > organizations_count ? 'affiches' : 'organizations'
@@ -43,30 +42,34 @@ class SearchPresenter
 
   def affiches_link
     html_options = {}
-    html_options.merge!(class: 'selected') if affiches?
-    html_options.merge!(class: 'disabled') if affiches_count == 0
-
-    Link.new title: "#{I18n.t('search.affiches')} (#{affiches_count})",
-             url: search_path(params.merge(kind: 'affiches')),
-             html_options: html_options
+    html_options.merge!(class: 'disabled') if affiches_count.zero?
+    Link.new title: "#{I18n.t('search.affiches')} (#{affiches_count})", url: search_affiches_path(params), html_options: html_options
   end
 
   def organizations_link
     html_options = {}
-    html_options.merge!(class: 'selected') unless affiches?
-    html_options.merge!(class: 'disabled') if organizations_count == 0
+    html_options.merge!(class: 'disabled') if organizations_count.zero?
+    Link.new title: "#{I18n.t('search.organizations')} (#{organizations_count})", url: search_organizations_path(params)
+  end
 
-    Link.new title: "#{I18n.t('search.organizations')} (#{organizations_count})",
-             url: search_path(params.merge(kind: 'organizations')),
-             html_options: html_options
+  def paginated_affiches
+    searcher.affiches.paginate(page: page, per_page: 10).results
+  end
+
+  def paginated_organizations
+    searcher.organizations.paginate(page: page, per_page: 10).results
+  end
+
+  def paginated_collection
+    affiches? ? paginated_affiches : paginated_organizations
   end
 
   def affiches
-    raw_affiches.map { |a| AfficheDecorator.new a }
+    paginated_affiches.map { |a| AfficheDecorator.new a }
   end
 
   def organizations
-    OrganizationDecorator.decorate raw_organizations
+    OrganizationDecorator.decorate paginated_organizations
   end
 
   def affiches?
