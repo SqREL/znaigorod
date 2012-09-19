@@ -7,14 +7,14 @@
   <div class="organizations_list">
     <h1><span class="strong"><%= @organizations_collection.title %></span> <%= @organizations_collection.subtitle %></h1>
     <ul>
-      <% @organizations_collection.organizations.each do |organization| %>
+      <% @organizations_collection.suborganizations.each do |suborganization| %>
         <li>
-          <%= content_tag :div, organization.logo_link, :class => "image" unless organization.logo_link.blank? %>
+          <%= content_tag :div, suborganization.logo_link, :class => "image" unless suborganization.logo_link.blank? %>
           <div class="info">
 
             <% if @organizations_collection.category_all? %>
               <ul class="categories">
-                <% organization.categories.each do |category| %>
+                <% suborganization.categories.each do |category| %>
                   <li>
                     <%= link_to category, organizations_path(organization_class: @organizations_collection.organization_class.pluralize, category: category.mb_chars.downcase) %>
                   </li>
@@ -22,50 +22,50 @@
               </ul>
             <% end %>
 
-            <h2><%= organization.title_link %></h2>
+            <h2><%= suborganization.title_link %></h2>
 
-            <%= content_tag :div, organization.address_link, :class => "place" unless organization.address_link.blank? %>
+            <%= content_tag :div, suborganization.address_link, :class => "place" unless suborganization.address_link.blank? %>
 
             <div class="contacts">
-              <table<%= " class='full'" if organization.logo_link.blank? %>>
-                <% if organization.phone.present? %>
+              <table<%= " class='full'" if suborganization.logo_link.blank? %>>
+                <% if suborganization.phone.present? %>
                   <tr>
                     <td>Телефон:</td>
-                    <td><%= organization.phone %></td>
+                    <td><%= suborganization.phone %></td>
                   </tr>
                 <% end %>
-                <% if organization.site.present? %>
+                <% if suborganization.site.present? %>
                   <tr>
                     <td>Сайт:</td>
-                    <td><%= organization.site_link %></td>
+                    <td><%= suborganization.site_link %></td>
                   </tr>
                 <% end %>
-                <% if organization.email.present? %>
+                <% if suborganization.email.present? %>
                   <tr>
                     <td>E-mail:</td>
-                    <td><%= organization.email_link %></td>
+                    <td><%= suborganization.email_link %></td>
                   </tr>
                 <% end %>
               </table>
             </div>
 
-            <%= content_tag :hr unless organization.truncated_description.blank? %>
+            <%= content_tag :hr unless suborganization.truncated_description.blank? %>
 
-            <% unless organization.truncated_description.blank? %>
+            <% unless suborganization.truncated_description.blank? %>
               <div class="description">
-                <%= organization.truncated_description %>
-                <p class="more"><%= link_to "Подробнее&hellip;".html_safe, organization_path(organization.parent_organization) %></p>
+                <%= suborganization.truncated_description %>
+                <p class="more"><%= link_to "Подробнее&hellip;".html_safe, organization_path(suborganization.organization) %></p>
               </div>
             <% end %>
 
-            <%= content_tag :hr if organization.features.any? || organization.offers.any? || organization.cuisines.any? %>
+            <%= content_tag :hr if suborganization.features.any? || suborganization.offers.any? || suborganization.cuisines.any? %>
 
-            <% if organization.features.any? || organization.offers.any? || organization.cuisines.any? %>
+            <% if suborganization.features.any? || suborganization.offers.any? || suborganization.cuisines.any? %>
               <div class="characteristics">
-                <% if organization.features.any? %>
+                <% if suborganization.features.any? %>
                   <ul>
                     <li class="title">Особенности:</li>
-                    <% organization.features.each do |feature| %>
+                    <% suborganization.features.each do |feature| %>
                       <li>
                         <%= link_to feature, @organizations_collection.filter_link_url(feature: feature.mb_chars.downcase) %>
                       </li>
@@ -73,10 +73,10 @@
                   </ul>
                 <% end %>
 
-                <% if organization.offers.any? %>
+                <% if suborganization.offers.any? %>
                   <ul>
                     <li class="title">Предложения:</li>
-                    <% organization.offers.each do |offer| %>
+                    <% suborganization.offers.each do |offer| %>
                       <li>
                         <%= link_to offer, @organizations_collection.filter_link_url(offer: offer.mb_chars.downcase) %>
                       </li>
@@ -84,10 +84,10 @@
                   </ul>
                 <% end %>
 
-                <% if organization.cuisines.any? %>
+                <% if suborganization.cuisines.any? %>
                   <ul>
                     <li class="title">Кухня:</li>
-                    <% organization.cuisines.each do |cuisine| %>
+                    <% suborganization.cuisines.each do |cuisine| %>
                       <li>
                         <%= link_to cuisine, @organizations_collection.filter_link_url(cuisine: cuisine.mb_chars.downcase) %>
                       </li>
@@ -128,4 +128,4 @@
   </div>
 </div>
 
-<%= paginate @organizations_collection.paginated_organizations %>
+<%= paginate @organizations_collection.paginated_suborganizations %>

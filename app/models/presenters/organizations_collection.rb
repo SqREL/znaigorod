@@ -174,11 +174,15 @@ class OrganizationsCollection
             disabled: !existed_features.include?(value)}
   end
 
-  def organizations
-    OrganizationDecorator.decorate paginated_organizations
+  def decorator_class
+    "#{organization_class}_decorator".classify.constantize
   end
 
-  def paginated_organizations
+  def suborganizations
+    decorator_class.decorate paginated_suborganizations
+  end
+
+  def paginated_suborganizations
      self.send("#{organization_class}_searcher", list_search_params).paginate(:page => page, :per_page => 10).results
   end
 

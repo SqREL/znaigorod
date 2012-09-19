@@ -20,7 +20,7 @@
             <% if @organization.categories.any? %>
               <ul class="categories">
                 <% @organization.categories.each do |category| %>
-                  <li><%= link_to category, organizations_path(organization_class: @organization.organization_class, category: category.mb_chars.downcase) %></li>
+                  <li><%= link_to category, organizations_path(organization_class: @organization.suborganization_kind, category: category.mb_chars.downcase) %></li>
                 <% end %>
               </ul>
             <% end %>
@@ -106,7 +106,7 @@
                   <li class="title">Особенности:</li>
                   <% @organization.features.each do |feature| %>
                     <li>
-                      <%= link_to feature, organizations_path(organization_class: @organization.organization_class, category: 'all', query: "features/#{feature.mb_chars.downcase}") %>
+                      <%= link_to feature, organizations_path(organization_class: @organization.suborganization_kind, category: 'all', query: "features/#{feature.mb_chars.downcase}") %>
                     </li>
                   <% end %>
                 </ul>
@@ -116,7 +116,7 @@
                   <li class="title">Предложения:</li>
                   <% @organization.offers.each do |offer| %>
                     <li>
-                      <%= link_to offer, organizations_path(organization_class: @organization.organization_class, category: 'all', query: "offers/#{offer.mb_chars.downcase}") %>
+                      <%= link_to offer, organizations_path(organization_class: @organization.suborganization_kind, category: 'all', query: "offers/#{offer.mb_chars.downcase}") %>
                     </li>
                   <% end %>
                 </ul>
@@ -126,7 +126,7 @@
                   <li class="title">Кухня:</li>
                   <% @organization.cuisines.each do |cuisine| %>
                     <li>
-                      <%= link_to cuisine, organizations_path(organization_class: @organization.organization_class, category: 'all', query: "cuisines/#{cuisine.mb_chars.downcase}") %>
+                      <%= link_to cuisine, organizations_path(organization_class: @organization.suborganization_kind, category: 'all', query: "cuisines/#{cuisine.mb_chars.downcase}") %>
                     </li>
                   <% end %>
                 </ul>
@@ -156,8 +156,8 @@
                     <%= link_to image_tag_for(similar_organization.logotype_url, 55, 55), organization_path(similar_organization) %>
                   </div>
                 <% end %>
-                <div class="title"><%= similar_organization.title_link(similar_organization) %></div>
-                <div class="address<%= " offset" if similar_organization.logotype_url? %>"><%= similar_organization.address_link(similar_organization) %></div>
+                <div class="title"><%= similar_organization.title_link %></div>
+                <div class="address<%= " offset" if similar_organization.logotype_url? %>"><%= similar_organization.address_link %></div>
               </li>
             <% end %>
           </ul>
