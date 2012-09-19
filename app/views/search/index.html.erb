@@ -3,24 +3,28 @@
 
     <h1>Результаты поиска &laquo;<%= params[:q] %>&raquo;</h1>
 
-    <ul class="tabs">
-      <li><%= @search_presenter.affiches_link %></li>
-      <li><%= @search_presenter.organizations_link %></li>
-    </ul>
-
-    <div class="<%= @search_presenter.affiches? ? 'affiches_list' : 'organizations_list' %>">
-      <ul>
-        <% @search_presenter.collection.each do |item| %>
-          <li>
-            <% if @search_presenter.affiches? %>
-              <%= render partial: 'affiches/affiche', locals: { affiche: item } %>
-            <% else %>
-              <%= render partial: 'organization', locals: { organization: item } %>
-            <% end %>
-          </li>
-        <% end %>
+    <% if @search_presenter.affiches.empty? && @search_presenter.organizations.empty? %>
+      <div class="empty">По запросу ничего не найдено ;(</div>
+    <% else %>
+      <ul class="tabs">
+        <li><%= @search_presenter.affiches_link %></li>
+        <li><%= @search_presenter.organizations_link %></li>
       </ul>
-    </div>
+
+      <div class="<%= @search_presenter.affiches? ? 'affiches_list' : 'organizations_list' %>">
+        <ul>
+          <% @search_presenter.collection.each do |item| %>
+            <li>
+              <% if @search_presenter.affiches? %>
+                <%= render partial: 'affiches/affiche', locals: { affiche: item } %>
+              <% else %>
+                <%= render partial: 'organization', locals: { organization: item } %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
   </div>
 </div>

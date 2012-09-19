@@ -35,6 +35,36 @@
           <td><%= suborganization.email_link %></td>
         </tr>
       <% end %>
+      <tr>
+        <td>Режим работы:</td>
+        <td>
+          <ul class="schedule">
+            <% suborganization.schedules.each do |schedule| %>
+              <li<%= " class='today'" if l(Date.today, :format => '%a') == schedule.short_human_day %>>
+                <div class="dow">
+                  <%= schedule.short_human_day %>
+                </div>
+                <div class="time">
+                  <% if schedule.holiday? %>
+                    <div class="string"><%= hyphenate("Выходной") %></div>
+                  <% else %>
+                    <% if schedule.from == schedule.to %>
+                      <div class="string"><%= hyphenate("Круглосуточно") %></div>
+                    <% else %>
+                      <div class="from">
+                        <%= l schedule.from, :format => "%H:%M" %>
+                      </div>
+                      <div class="to">
+                        <%= l schedule.to, :format => "%H:%M" %>
+                      </div>
+                    <% end %>
+                  <% end %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
     </table>
   </div>
 
