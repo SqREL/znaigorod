@@ -200,6 +200,7 @@
   .content
     &.organization
       margin-bottom: 20px
+
       .categories
         +clearfix
         float: right
@@ -212,6 +213,7 @@
           margin: 0 0 0 10px
           a
             color: #fff !important
+
       .ui-tabs .ui-tabs-panel .info .description table td
         .schedule li
           +reset-quotation
@@ -243,6 +245,7 @@
               +border-radius(3px)
               .dow
                 background: none
+
       .share_organization
         +clearfix
         font-size: 13px
@@ -254,9 +257,143 @@
             padding-right: 0 !important
             .b-share__handle:last-child
               padding-right: 0 !important
+
       .characteristics
         +characteristics_style
         padding-bottom: 10px
+
+      .affiche
+        +clearfix
+        li
+          +clearfix
+          background-color: #ebe0f0
+          margin-bottom: 20px
+          &:last-child
+            margin-bottom: 10px
+          .image
+            float: left
+            width: 180px
+            margin: 10px
+          .info
+            margin: 10px 10px 10px 200px
+
+            .kind
+              float: right
+              font-size: 11px
+              background-color: #70398a
+              +border-radius(3px)
+              padding: 2px 3px 4px
+              margin: 0 0 0 10px
+              a
+                color: #fff
+
+            h2
+              font-size: 22px
+              font-style: normal
+              line-height: 1.4
+              margin-bottom: 15px
+
+            .closest
+              margin-bottom: 15px
+              p
+                color: #fff
+                font-size: 17px
+                +inline-block
+                +border-radius(3px)
+                background-color: #6b4381
+                padding: 2px 4px 4px
+
+            .will_be
+              margin-bottom: 15px
+              line-height: 1.4
+
+            .seances
+              margin-bottom: 5px
+              line-height: 1.4
+              li
+                margin: 0
+                padding: 0
+              .title
+                +clearfix
+                margin-bottom: 10px
+                li
+                  float: left
+                .text
+                  font-size: 16px
+                  margin-right: 20px
+                .link_all
+                  font-size: 11px
+                  margin-top: 5px
+              .theaters
+                +clearfix
+                li
+                  float: left
+                  margin-bottom: 10px
+                .theater
+                  clear: left
+                  width: 170px
+                  margin: 2px 10px 10px 0
+                  .name
+                    font-size: 14px
+                  .address
+                    font-size: 11px
+                    background: transparent image_url("public/address.png") no-repeat -3px 0
+                    padding-left: 13px
+                .seance
+                  text-align: center
+                  +border-radius(3px)
+                  background-color: #ddd2e2
+                  padding: 2px 4px
+                  margin-right: 17px
+                  &.last
+                    margin-right: 0
+                  .time
+                    font-size: 14px
+                  .price
+                    font-size: 11px
+
+            .place
+              margin-bottom: 15px
+              font-weight: bold
+              p
+                line-height: 1.4
+              .address
+                font-size: 11px
+                font-weight: normal
+                a
+                  +inline-block
+                  height: 16px
+                  padding-left: 13px
+                  background: transparent image_url('public/address.png') no-repeat -3px 0
+
+            .description
+              +clearfix
+              border-bottom: 1px dotted #938e95
+              border-top: 1px dotted #938e95
+              margin-bottom: 15px
+              padding: 10px 0 12px
+              .text
+                line-height: 1.4
+                text-align: justify
+                margin-bottom: 0
+              .more
+                float: right
+                font-size: 11px
+                margin-top: 8px
+                margin-bottom: 0
+
+            .tags
+              +clearfix
+              li
+                float: left
+                font-size: 11px
+                +border-radius(3px)
+                background-color: #87bfd8
+                margin: 0 10px 0 0
+                padding: 2px 3px 4px
+                a
+                  color: #fff
+
   .right_side
     .more_like_this
       .similar_organizations
