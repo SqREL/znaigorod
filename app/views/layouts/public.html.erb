@@ -14,7 +14,7 @@
       <div class="search_form">
         <%= form_tag search_path(kind: 'affiches'), :method => :get do %>
           <%= text_field_tag 'q', params[:q], :placeholder => 'Поиск по городу', :class => 'search' %>
-          <%= image_submit_tag('public/search_submit.png', :class => 'submit', :alt => 'submit') %>
+          <%= submit_tag('', :class => 'submit', :name => '') %>
         <% end %>
       </div>
       <div class="logo">
