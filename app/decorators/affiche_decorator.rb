@@ -179,7 +179,8 @@ class AfficheDecorator < ApplicationDecorator
     if affiche_distribution?
       return affiche.showings.where("starts_at >= ?", showings.first.starts_at)
     else
-      return affiche.showings.where("starts_at > ?", showings.first.starts_at)
+      return affiche.showings.where("starts_at > ?", showings.first.starts_at) unless showings.blank?
+      []
     end
   end
 

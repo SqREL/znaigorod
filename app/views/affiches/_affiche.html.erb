@@ -1,80 +1,61 @@
-<div class="show">
-  <div class="breadcrumbs">
-    <ul>
-      <li>
-        <a href="/" class='solid_light_blue'>Главная</a><span class='arrow'>&rarr;</span>
-      </li>
-      <li>
-        <%= link_to t('affiche'), affiches_path, :class => 'solid_light_blue' %><span class='arrow'>&rarr;</span>
-      </li>
-    </ul>
+<div class="image">
+  <%= affiche.list_poster %>
+</div>
+<div class="info">
+  <% if @affiche_collection %>
+    <%= content_tag(:div, link_to(affiche.human_kind, affiches_path(affiche.pluralized_kind, @affiche_collection.period, @affiche_collection.on)), :class => 'kind') if @affiche_collection.all_kinds? %>
+  <% else %>
+    <%= content_tag(:div, link_to(affiche.human_kind, affiches_path(affiche.pluralized_kind, 'all')), :class => 'kind') %>
+  <% end %>
+  <h2><%= affiche.link %></h2>
+  <div class="closest">
+    <%= affiche.when_with_price %>
   </div>
-
-  <div class="main_info">
-    <%= content_tag :h1, resource.title.gilensize.html_safe %>
-    <%= content_tag :h2, resource.original_title.gilensize.html_safe if resource.original_title? %>
-
-    <div class='description'>
-      <div class='poster'>
-        <%= image_tag_for(resource.poster_url, 290, 390) %>
-        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="button" data-yashareQuickServices="yaru,vkontakte,facebook,twitter,odnoklassniki,lj,gplus"></div>
-      </div>
-
-      <div class="info">
-        <div class="story">
-          <%= RedCloth.new(resource.description).to_html.gsub(/&#8220;|&#8221;/, '"').gilensize.html_safe %>
-        </div>
-      </div>
-
-      <div class="tags">
-        <ul>
-          <% resource.tags.split(', ').flatten.each do |tag| %>
-            <li>
-              <%= link_to tag, affiches_path('search[tags][]' => tag) %></span>
+  <% if affiche.distribution_movie? %>
+    <div class="seances">
+      <ul class="title">
+        <li class="text"><%= affiche.distribution_movie_schedule_date %></li>
+        <li class="link_all"><%= link_to "Все сеансы", affiche.kind_affiche_path(:anchor => 'showings') %></li>
+      </ul>
+      <ul class="theaters">
+        <% affiche.distribution_movie_nearlest_grouped_showings.each do |place, showings| %>
+          <li class="theater">
+            <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
+            <p class="address"><%= showings.first.place_decorator.address_link %></p>
+          </li>
+          <% showings[0..4].each_with_index do |showing, index| %>
+            <li class="seance<%= " last" if index == 4 %>">
+              <p class="time"><%= showing.human_time_starts_at %></p>
+              <p class="price"><%= showing.human_price %></p>
             </li>
           <% end %>
-        </ul>
-      </div>
+        <% end %>
+      </ul>
     </div>
-
-    <div class="images">
-      <% if resource.images.any? %>
-        <h4>Фотографии</h4>
-        <div class="gallery_container" style='margin: 20px auto;'>
-          <% resource.images.each do |image| %>
-            <%= image_tag image.url, :alt => image.description, :title => resource.title %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-
-    <% if resource.attachments.any? %>
-      <div class="attachments">
-        <h4>Прикрепленные файлы</h4>
-        <ul>
-          <% resource.attachments.each do |attachment| %>
-            <li><%= link_to attachment.description, attachment.url %></li>
-          <% end %>
-        </ul>
+  <% else %>
+    <% if affiche.other_showings.any? %>
+      <div class="will_be">
+        <% unless affiche.first_other_showing_today? %>
+          Ещё будет:
+        <% end %>
+        <%= affiche.html_other_showings %>
       </div>
     <% end %>
-
-    <% if resource.trailer_code? %>
-      <div class='trailer'>
-        <%= raw resource.trailer_code %>
-      </div>
-    <% end %>
-
-    <div class='seance'>
-      <% if Movie === resource %>
-        <h4>Сеансы</h4>
-        <%= render :partial => 'seance', :locals => { :affiche => resource } %>
-      <% else %>
-        <h4>Дата и место проведения</h4>
-        <%= render :partial => 'seance', :locals => { :affiche => resource } %>
+    <div class="place">
+      <% affiche.places.each do |place| %>
+        <%= place.place %>
       <% end %>
     </div>
-    <%= render :partial => 'commons/comments_block' %>
-  </div>
+  <% end %>
+  <% unless affiche.truncated_description.blank? %>
+    <div class="description">
+      <p class="text"><%= affiche.truncated_description %></p>
+      <p class="more"><%= affiche.more_link %></p>
+    </div>
+  <% end %>
+  <ul class="tags">
+    <% affiche.tags.each do |tag| %>
+        <li><%= link_to tag, @affiche_collection ? @affiche_collection.url_for_tag(tag) : affiches_path(kind: affiche.pluralized_kind, period: :all, tags: tag) %></li>
+    <% end %>
+  </ul>
 </div>

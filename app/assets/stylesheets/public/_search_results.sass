@@ -1,0 +1,25 @@
+.content_wrapper .search_results
+  .tabs
+    +clearfix
+    text-align: center
+    background: #787B85 image_url('public/today_in_city_menu_bg.png') left top
+    margin: 0 10px 30px 0
+    li
+      +inline-block
+      border-right: 1px dotted #d5d5d3
+      &:first-child
+        border-left: 1px dotted #d5d5d3
+      a
+        width: 178px
+        color: #fff
+        display: block
+        text-decoration: none
+        padding: 12px 0 14px
+        &.disabled
+          cursor: default
+          +opacity(0.35)
+
+  .affiches_list,
+  .organizations_list
+    float: none
+    width: 990px

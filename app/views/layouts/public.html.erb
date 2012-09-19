@@ -97,6 +97,7 @@
     </div>
   </div>
 
+  <%= render :partial => 'commons/metrics' if Rails.env.production? %>
 <% end %>
 
 <%= render :file => 'layouts/base' %>

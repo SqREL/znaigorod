@@ -32,6 +32,7 @@ class SearchPresenter
   def affiches_link
     html_options = {}
     html_options.merge!(class: 'selected') if affiches?
+    html_options.merge!(class: 'disabled') if affiches_count == 0
 
     Link.new title: "#{I18n.t('search.affiches')} (#{affiches_count})",
              url: search_path(params.merge(kind: 'affiches')),
@@ -41,6 +42,7 @@ class SearchPresenter
   def organizations_link
     html_options = {}
     html_options.merge!(class: 'selected') unless affiches?
+    html_options.merge!(class: 'disabled') if organizations_count == 0
 
     Link.new title: "#{I18n.t('search.organizations')} (#{organizations_count})",
              url: search_path(params.merge(kind: 'organizations')),

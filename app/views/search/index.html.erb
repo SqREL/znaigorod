@@ -1,16 +1,26 @@
-<ul>
-  <li>
-    <%= @search_presenter.affiches_link %>
-  </li>
-  <li>
-    <%= @search_presenter.organizations_link %>
-  </li>
-</ul>
+<div class="content_wrapper">
+  <div class="search_results">
 
-<ul>
-  <% @search_presenter.collection.each do |item| %>
-    <li>
-      <%= item.title %>
-    </li>
-  <% end %>
-</ul>
+    <h1>Результаты поиска &laquo;<%= params[:q] %>&raquo;</h1>
+
+    <ul class="tabs">
+      <li><%= @search_presenter.affiches_link %></li>
+      <li><%= @search_presenter.organizations_link %></li>
+    </ul>
+
+    <div class="<%= @search_presenter.affiches? ? 'affiches_list' : 'organizations_list' %>">
+      <ul>
+        <% @search_presenter.collection.each do |item| %>
+          <li>
+            <% if @search_presenter.affiches? %>
+              <%= render partial: 'affiches/affiche', locals: { affiche: item } %>
+            <% else %>
+              <%= render partial: 'organization', locals: { organization: item } %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+  </div>
+</div>
