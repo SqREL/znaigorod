@@ -30,13 +30,21 @@ class SearchPresenter
   end
 
   def affiches_link
+    html_options = {}
+    html_options.merge!(class: 'selected') if affiches?
+
     Link.new title: "#{I18n.t('search.affiches')} (#{affiches_count})",
-             url: search_path(params.merge(kind: 'affiches'))
+             url: search_path(params.merge(kind: 'affiches')),
+             html_options: html_options
   end
 
   def organizations_link
+    html_options = {}
+    html_options.merge!(class: 'selected') unless affiches?
+
     Link.new title: "#{I18n.t('search.organizations')} (#{organizations_count})",
-             url: search_path(params.merge(kind: 'organizations'))
+             url: search_path(params.merge(kind: 'organizations')),
+             html_options: html_options
   end
 
   def affiches
@@ -47,7 +55,11 @@ class SearchPresenter
     OrganizationDecorator.decorate raw_organizations
   end
 
+  def affiches?
+    kind == 'affiches'
+  end
+
   def collection
-    kind == 'affiches' ? affiches : organizations
+    affiches? ? affiches : organizations
   end
 end
