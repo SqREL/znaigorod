@@ -1,0 +1,27 @@
+<div class="info">
+  <% if @organization.categories.any? %>
+    <ul class="categories">
+      <% @organization.categories.each do |category| %>
+        <li><%= link_to category, organizations_path(organization_class: @organization.organization_class, category: category.mb_chars.downcase) %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <div class="head">
+    <h1><%= @organization.title %></h1>
+  </div>
+
+  <div class="description">
+    <% unless @organization.address_link.blank? %>
+      <div class="place">
+        <p class="address"><%= @organization.address_link %></p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="gallery_container">
+  <% @organization.images.each do |image| %>
+    <%= link_to @organization.image_tag(image.url, 124, 93, image.description), image.url %>
+  <% end %>
+</div>

@@ -30,8 +30,8 @@ Znaigorod::Application.routes.draw do
   get 'geocoder' => 'geocoder#get_coordinates'
 
   get ':kind/:period/(:on)/(categories/*categories)/(tags/*tags)' => 'affiches#index',
-        :kind => /movies|concerts|parties|spectacles|exhibitions|sportsevents|others|affiches/,
-        :period => /today|weekly|weekend|all|daily/, :as => :affiches
+      :kind => /movies|concerts|parties|spectacles|exhibitions|sportsevents|others|affiches/,
+      :period => /today|weekly|weekend|all|daily/, :as => :affiches
 
   Affiche.descendants.each do |type|
     get "#{type.name.downcase}/:id" => 'affiches#show', :as => "#{type.name.downcase}"
@@ -42,7 +42,9 @@ Znaigorod::Application.routes.draw do
   resources :organizations, :only => :show
 
   get ':organization_class/(:category)/(*query)' => 'organizations#index',
-            :organization_class => /organizations|meals|entertainments|cultures/, :as => :organizations
+      :organization_class => /organizations|meals|entertainments|cultures/, :as => :organizations
+  get 'ajax/organizations/:id/photogallery' => 'organizations#photogallery', :as => :organization_photogallery
+  get 'ajax/organizations/:id/affiche' => 'organizations#affiche', :as => :organization_affiche
 
   root :to => 'application#main_page'
 

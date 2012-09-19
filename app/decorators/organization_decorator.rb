@@ -76,6 +76,14 @@ class OrganizationDecorator < ApplicationDecorator
     end
   end
 
+  def tabs
+    [].tap do |links|
+      links << h.content_tag(:li, h.link_to("Описание", "#info"))
+      links << h.content_tag(:li, h.link_to("Фотографии", "#photogallery", "data-link" => h.organization_photogallery_path), :class => organization.images.blank? ? 'disabled' : nil)
+      links << h.content_tag(:li, h.link_to("Афиша", "#affiche", "data-link" => h.organization_affiche_path), :class => affiches.blank? ? 'disabled' : nil)
+    end
+  end
+
   def organization_class
     suborganization.try(:class).try(:name).try(:downcase).try(:pluralize)
   end

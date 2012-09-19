@@ -15,6 +15,16 @@ class OrganizationsController < ApplicationController
     @organization = OrganizationDecorator.find(params[:id])
   end
 
+  def photogallery
+    @organization = OrganizationDecorator.find(params[:id])
+    render :layout => false
+  end
+
+  def affiche
+    @organization = OrganizationDecorator.find(params[:id])
+    render :layout => false
+  end
+
   protected
   def collection
     @search ||= resource_class.search do
