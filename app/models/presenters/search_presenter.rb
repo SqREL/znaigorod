@@ -13,6 +13,10 @@ class SearchPresenter
     HasSearcher.searcher(:total, params).boost_by(:first_showing_time_dt)
   end
 
+  def page
+    params[:page] || 1
+  end
+
   def raw_affiches
     searcher.affiches.results
   end
@@ -27,6 +31,14 @@ class SearchPresenter
 
   def organizations_count
     searcher.organizations.total
+  end
+
+  def paginated_collection
+    (affiches? ? searcher.affiches : searcher.organizations).paginate(page: page, per_page: 10).results
+  end
+
+  def preferred_kind
+    affiches_count > organizations_count ? 'affiches' : 'organizations'
   end
 
   def affiches_link
