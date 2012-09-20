@@ -1,0 +1,17 @@
+<div class="main_page_block_wrapper was_in_city">
+  <div class="main_page_block">
+    <h1><span class="strong">Было</span> в городе</h1>
+    <ul class="clearfix">
+      <% @photogallery.collection.each do |item| %>
+        <li>
+          <div class="relative">
+            <div class="counter"><%= item.images_count %></div>
+            <div class="images"><%= item.main_images "photogallery" %></div>
+          </div>
+          <div class="link"><%= item.link "photogallery" %></div>
+          <div class="date"><%= item.date %></div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
