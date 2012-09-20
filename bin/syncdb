@@ -31,13 +31,17 @@ bin/rake db:migrate
 bin/rake db:migrate RAILS_ENV=test
 echo "[done]"
 
-echo -e $COLOR"Sunspot reindex"$ENDCOLOR
-bin/rake sunspot:reindex
-
 echo -e $COLOR"Update :distribution_starts_on for movies"$ENDCOLOR
 bin/rails r "bar = ProgressBar.new(Movie.count); Movie.all.each { |movie| movie.update_attribute(:distribution_starts_on, movie.showings.first.starts_at) if movie.showings.many?; bar.increment! }"
 
 echo -e $COLOR"Update trailers"$ENDCOLOR
 bin/rails r "bar = ProgressBar.new(Movie.count); Movie.all.each { |movie| unless movie.trailer_code.blank?; code = movie.trailer_code.match(/youtube\.com\/v\/(.{11})/); movie.update_attribute(:trailer_code, \"http://www.youtube.com/watch?v=#{code[1]}\") if code; end; bar.increment! }"
+
+echo -e $COLOR"Remove affiches without showings"$ENDCOLOR
+bin/rails r "Affiche.all.select { |a| a.showings.empty? }.map(&:destroy)"
+echo "[done]"
+
+echo -e $COLOR"Sunspot reindex"$ENDCOLOR
+bin/rake sunspot:reindex
 
 hms

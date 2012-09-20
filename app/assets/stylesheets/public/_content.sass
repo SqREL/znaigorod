@@ -422,9 +422,11 @@
       +clearfix
       background-color: #efeaf1
       margin-bottom: 20px
+      $parent_width: 760px
+      $share_width: 366px
       .tags
         +clearfix
-        width: 463px
+        width: $parent_width - $share_width - 10px
         float: left
         margin-left: 10px
         border-top: 1px dotted #948f95
@@ -439,15 +441,22 @@
           a
             color: #fff
       .share
+        +clearfix
+        width: $share_width - 20px
         font-size: 13px
         float: left
         border-top: 1px dotted #948f95
         padding: 7px 0 8px 10px
         margin-right: 10px
+        .yashare-auto-init
+          float: left
         .b-share
           padding-right: 0 !important
           .b-share__handle:last-child
             padding-right: 0 !important
+        #vk_like
+          float: left
+          margin-top: 4px
 
     .distribution
       margin: 20px 0

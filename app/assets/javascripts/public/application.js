@@ -2,6 +2,7 @@
  * = require jquery
  * = require jquery-ui
  * = require public/twitter
+ * = require public/vk
  * = require public/common
  * = require public/jscrollpane
  * = require public/main_page
