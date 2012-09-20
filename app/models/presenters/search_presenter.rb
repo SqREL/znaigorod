@@ -35,6 +35,9 @@ class SearchPresenter
     searcher.organizations.total
   end
 
+  def params_without_page
+    params.clone.tap { |p| p.delete(:page) }
+  end
 
   def preferred_kind
     affiches_count > organizations_count ? 'affiches' : 'organizations'
@@ -43,13 +46,19 @@ class SearchPresenter
   def affiches_link
     html_options = {}
     html_options.merge!(class: 'disabled') if affiches_count.zero?
-    Link.new title: "#{I18n.t('search.affiches')} (#{affiches_count})", url: search_affiches_path(params), html_options: html_options
+
+    Link.new title: "#{I18n.t('search.affiches')} (#{affiches_count})",
+             url: search_affiches_path(params_without_page),
+             html_options: html_options
   end
 
   def organizations_link
     html_options = {}
     html_options.merge!(class: 'disabled') if organizations_count.zero?
-    Link.new title: "#{I18n.t('search.organizations')} (#{organizations_count})", url: search_organizations_path(params)
+
+    Link.new title: "#{I18n.t('search.organizations')} (#{organizations_count})",
+             url: search_organizations_path(params_without_page),
+             html_options: html_options
   end
 
   def paginated_affiches
