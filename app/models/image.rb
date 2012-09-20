@@ -11,16 +11,27 @@ class Image < ActiveRecord::Base
   after_destroy :index_imageable
 
   searchable do
-    text :description
     integer :id
-    string(:imageable_id_str) { imageable_id.to_s }
     string :imageable_type
+    string(:imageable_id_str) { imageable_id.to_s }
+    string :category
+    string :tags, :multiple => true
+    text :description
     time :created_at
   end
 
   private
+
   def index_imageable
     imageable.index_additional_attributes if imageable.respond_to? :index_additional_attributes
+  end
+
+  def category
+    imageable.class.name.underscore
+  end
+
+  def tags
+    imageable.respond_to?(:tags) ? imageable.tags : []
   end
 end
 

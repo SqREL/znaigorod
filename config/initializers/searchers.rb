@@ -73,6 +73,8 @@ HasSearcher.create_searcher :photoreport do
   end
 
   scope do
+    facet(:category)
+    facet(:tags)
     with(:imageable_type, 'Affiche')
     order_by :id, :desc
   end

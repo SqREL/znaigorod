@@ -2,6 +2,8 @@
 
 class Photogallery
   include ActiveAttr::MassAssignment
+  include ActionView::Helpers#::UrlHelper
+  include Rails.application.routes.url_helpers
 
   attr_accessor :params, :period
 
@@ -13,6 +15,18 @@ class Photogallery
 
   def reports_for_main_page
     PhotoreportDecorator.decorate searcher.group(:imageable_id_str).groups[0..2].map(&:value).map { |id| Affiche.find(id) }
+  end
+
+  def menu_link
+    link_to 'Фотогалереи', photogalleries_path(category: 'all')
+  end
+
+  def main_page_links
+    [].tap do |links|
+      links << link_to("#{t('photoreport_periods.weekly')} (#{weekly_reports_count})", photogalleries_path(category: 'all', period: 'week'))
+      links << link_to("#{t('photoreport_periods.monthly')} (#{monthly_reports_count})", photogalleries_path(category: 'all', period: 'month'))
+      links << link_to("#{t('photoreport_periods.total')} (#{total_reports_count})", photogalleries_path(category: 'all'))
+    end
   end
 
   def total_reports_count
