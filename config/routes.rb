@@ -37,8 +37,8 @@ Znaigorod::Application.routes.draw do
       :kind => /movies|concerts|parties|spectacles|exhibitions|sportsevents|others|affiches/,
       :period => /today|weekly|weekend|all|daily/, :as => :affiches
 
-  get 'photogalleries/category/:category/(:period)(/tags/:tags)' => 'photogalleries#index',
-    period: /month|week/,
+  get 'photogalleries/:period/(*query)' => 'photogalleries#index',
+    period: /all|month|week/,
     :as => :photogalleries
 
   Affiche.descendants.each do |type|

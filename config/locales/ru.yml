@@ -80,9 +80,9 @@ ru:
     food_delivery: Доставка еды
 
   photoreport_periods:
-    weekly: Фотоотчеты этой недели
-    monthly: Фотоотчеты этого месяца
-    total: Все фотоотчеты
+    weekly: Фотогалереи этой недели
+    monthly: Фотогалереи этого месяца
+    total: Все фотогалереи
 
   more_like_this:
     movie: Похожее кино

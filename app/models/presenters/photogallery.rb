@@ -1,62 +1,41 @@
 # encoding: utf-8
 
 class Photogallery
-  include ActiveAttr::MassAssignment
-  include ActionView::Helpers#::UrlHelper
   include Rails.application.routes.url_helpers
 
-  attr_accessor :params, :period
+  attr_accessor :period, :query
 
-  def initialize(options = {})
-    super(options)
+  def initialize(params = {})
+    @period = params[:period] || 'all'
+    @query = params[:query] || ''
+  end
 
-    @period = params[:period]  if params
+  def categories
+    query_to_hash['categories'] || []
+  end
+
+  def all_categories?
+    categories.empty?
+  end
+
+  def tags
+    query_to_hash['tags'] || []
+  end
+
+  def main_menu_link
+    Link.new title: 'Фотогалереи', url: photogalleries_path(period: 'all')
   end
 
   def reports_for_main_page
-    PhotoreportDecorator.decorate searcher.group(:imageable_id_str).groups[0..2].map(&:value).map { |id| Affiche.find(id) }
+    PhotoreportDecorator.decorate total_groups.groups[0..2].map(&:value).map { |id| Affiche.find(id) }
   end
 
-  def menu_link
-    link_to 'Фотогалереи', photogalleries_path(category: 'all')
-  end
-
-  def main_page_links
+  def period_links
     [].tap do |links|
-      links << link_to("#{t('photoreport_periods.weekly')} (#{weekly_reports_count})", photogalleries_path(category: 'all', period: 'week'))
-      links << link_to("#{t('photoreport_periods.monthly')} (#{monthly_reports_count})", photogalleries_path(category: 'all', period: 'month'))
-      links << link_to("#{t('photoreport_periods.total')} (#{total_reports_count})", photogalleries_path(category: 'all'))
+      links << Link.new(title: "#{I18n.t('photoreport_periods.weekly')} (#{week_groups_count})", url: photogalleries_path(period: 'week'))
+      links << Link.new(title: "#{I18n.t('photoreport_periods.monthly')} (#{month_groups_count})", url: photogalleries_path(period: 'month'))
+      links << Link.new(title: "#{I18n.t('photoreport_periods.total')} (#{total_groups_count})", url: photogalleries_path(period: 'all'))
     end
-  end
-
-  def total_reports_count
-    searcher.group(:imageable_id_str).total
-  end
-
-  def weekly_reports_count
-    searcher.weekly.group(:imageable_id_str).total
-  end
-
-  def monthly_reports_count
-    searcher.monthly.group(:imageable_id_str).total
-  end
-
-  def page
-    params[:page] || 1
-  end
-
-  def raw_collection
-    search =
-      case period
-      when 'all'
-        searcher.group(:imageable_id_str)
-      when 'month'
-        searcher.monthly.group(:imageable_id_str)
-      when 'week'
-        searcher.weekly.group(:imageable_id_str)
-      end
-
-    search.groups.map(&:value).map { |id| Affiche.find id  }
   end
 
   def collection
@@ -65,7 +44,58 @@ class Photogallery
 
   private
 
+  def key_words
+    %w[categories tags]
+  end
+
+  def query_to_hash
+    {}.tap do |hash|
+      key_word = ''
+
+      query.split('/').each do |word|
+        key_word = word and hash[word] ||= [] and next if key_words.include?(word)
+        hash[key_word] << word
+      end
+    end
+  end
+
   def searcher
     HasSearcher.searcher(:photoreport)
+  end
+
+  def total_groups
+    searcher.group(:imageable_id_str)
+  end
+
+  def week_groups
+    searcher.weekly.group(:imageable_id_str)
+  end
+
+  def month_groups
+    searcher.monthly.group(:imageable_id_str)
+  end
+
+  def total_groups_count
+    total_groups.total
+  end
+
+  def week_groups_count
+    week_groups.total
+  end
+
+  def month_groups_count
+    month_groups.total
+  end
+
+  def raw_collection
+    groups = case period
+             when 'all'
+               total_groups
+             when 'week'
+               week_groups
+             when 'month'
+               month_groups
+             end
+    groups.groups.map(&:value).map { |id| Affiche.find(id) }
   end
 end
