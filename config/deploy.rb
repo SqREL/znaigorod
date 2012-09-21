@@ -70,6 +70,11 @@ namespace :deploy do
     run "cd #{deploy_to}/current && RAILS_ENV=production bin/rake sunspot:reindex"
   end
 
+  desc "Update crontab tasks"
+  task :crontab do
+    run "cd #{deploy_to}/current && exec bundle exec whenever --update-crontab --load-file #{deploy_to}/current/config/schedule.rb"
+  end
+
 end
 
 # remote database.yml
@@ -110,6 +115,7 @@ after "deploy", "deploy:migrate"
 after "deploy", "deploy:copy_unicorn_config"
 after "deploy", "deploy:reload_servers"
 after "deploy:reload_servers", "deploy:cleanup"
+after "deploy", "deploy:crontab"
 after "deploy", "deploy:airbrake"
 
 # deploy:rollback
