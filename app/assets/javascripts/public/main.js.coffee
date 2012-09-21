@@ -1,6 +1,7 @@
 $ ->
   init_common()
   init_vk_like() if $('#vk_like').length
+  init_vk_recommended() if $('#vk_recommended').length
   init_main_page() if $('.main_page_affiche').length
   init_affiches_filter() if $('.affiches_filter .periods .daily').length
   init_affiches_map() if $('.show_map_link').length

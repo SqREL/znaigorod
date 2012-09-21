@@ -91,7 +91,9 @@
                   </td>
                 </tr>
               </table>
-              <%= hyphenate(@organization.html_description).gilensize.html_safe if @organization.description? %>
+              <div class="text">
+                <%= hyphenate(@organization.html_description).gilensize.html_safe if @organization.description? %>
+              </div>
             </div>
           </div>
 

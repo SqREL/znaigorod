@@ -28,6 +28,10 @@ class AfficheDecorator < ApplicationDecorator
     h.send "#{kind}_path", affiche, options
   end
 
+  def kind_affiche_url(options = {})
+    h.send "#{kind}_url", affiche, options
+  end
+
   def kind_affiche_photogallery_path(options = {})
     h.send "#{kind}_photogallery_path", affiche, options
   end
