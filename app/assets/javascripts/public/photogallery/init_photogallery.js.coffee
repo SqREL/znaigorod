@@ -55,3 +55,10 @@
           "-o-transform": "rotate(#{angle})"
           "transform": "rotate(#{angle})"
 
+  $('.content_wrapper .was_in_city_photos li img').hover ->
+    $('img', $(this).closest('li')).css
+      'z-index': 0
+    , 200
+    $(this).css
+      'z-index': 1
+    , 100
