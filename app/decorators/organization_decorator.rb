@@ -73,7 +73,7 @@ class OrganizationDecorator < ApplicationDecorator
     res << "<meta property='og:description' content='#{desc}'/>\n"
     res << "<meta property='og:site_name' content='#{I18n.t('site_title')}' />\n"
     res << "<meta property='og:url' content='#{organization_url}' />\n"
-    res << "<meta property='og:title' content='#{html_title(title)}' />\n"
+    res << "<meta property='og:title' content='#{page_title(title)}' />\n"
     if logotype_url
       image = resized_image_url(logotype_url, 180, 242, false)
       res << "<meta property='og:image' content='#{image}' />\n"
