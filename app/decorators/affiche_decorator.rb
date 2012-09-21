@@ -108,11 +108,13 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def tags_for_vk
+    desc = html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(350, :separator => ' ').html_safe
     res = ""
-    res << "<meta property='og:page_id' content='#{Digest::MD5.hexdigest(slug)}' />\n"
-    res << "<meta property='og:url' content='#{kind_affiche_url}' />\n"
+    res << "<meta name='description' content='#{desc}' />\n"
+    res << "<meta property='og:description' content='#{desc}'/>\n"
+    res << "<meta property='og:site_name' content='#{t('site_title')}' />\n"
     res << "<meta property='og:title' content='#{human_kind}: #{title.gilensize.gsub(/<\/?\w+.*?>/m, " ").gsub("&#160;", " ").gsub(" ,", ",").squish.html_safe}' />\n"
-    res << "<meta property='og:description' content='#{html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(350, :separator => ' ').html_safe}' />\n"
+    res << "<meta property='og:url' content='#{kind_affiche_url}' />\n"
     res << "<meta property='og:image' content='#{poster_url}' />\n"
     res << "<meta name='image' content='#{poster_url}' />\n"
     res << "<link rel='image_src' href='#{poster_url}' />\n"
