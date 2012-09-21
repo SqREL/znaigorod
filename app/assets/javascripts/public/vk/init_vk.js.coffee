@@ -4,11 +4,9 @@ VK.init
   onlyWidgets: true
 
 @init_vk_like = () ->
-  id = $("meta[property=\"og:page_id\"]").attr("content")
   VK.Widgets.Like "vk_like",
     type: "mini"
     height: 18
-  , if id then id else hex_md5(window.location.href)
 
 @init_vk_recommended = () ->
   VK.Widgets.Recommended "vk_recommended"
