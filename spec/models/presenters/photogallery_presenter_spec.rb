@@ -19,17 +19,15 @@ describe Photogallery do
 
   describe '#categories' do
     context '/photogalleries/all' do
-      its(:categories) { should be_empty }
-      its(:all_categories?) { should be_true }
-      its(:tags) { should be_empty }
+      its(:params_categories) { should be_empty }
+      its(:params_tags) { should be_empty }
     end
 
     context '/photogalleries/all/categories/кино/кафе' do
       subject { Photogallery.new period: 'all', query: 'categories/кино/кафе' }
 
-      its(:categories) { should == ['кино', 'кафе'] }
-      its(:all_categories?) { should be_false }
-      its(:tags) { should be_empty }
+      its(:params_categories) { should == ['кино', 'кафе'] }
+      its(:params_tags) { should be_empty }
     end
   end
 
@@ -37,15 +35,15 @@ describe Photogallery do
     context '/photogalleries/all/tags/foo/bar' do
       subject { Photogallery.new period: 'all', query: 'tags/foo/bar' }
 
-      its(:categories) { should be_empty }
-      its(:tags) { should == ['foo', 'bar'] }
+      its(:params_categories) { should be_empty }
+      its(:params_tags) { should == ['foo', 'bar'] }
     end
 
     context '/photogalleries/all/categories/кино/кафе/tags/foo/bar' do
       subject { Photogallery.new period: 'all', query: 'categories/кино/кафе/tags/foo/bar' }
 
-      its(:categories) { should == ['кино', 'кафе'] }
-      its(:tags) { should == ['foo', 'bar'] }
+      its(:params_categories) { should == ['кино', 'кафе'] }
+      its(:params_tags) { should == ['foo', 'bar'] }
     end
   end
 end

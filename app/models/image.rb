@@ -27,7 +27,7 @@ class Image < ActiveRecord::Base
   end
 
   def category
-    imageable.class.name.underscore
+    imageable.class.model_name.human.mb_chars.downcase
   end
 
   def tags

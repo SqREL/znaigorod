@@ -2,24 +2,13 @@
 
 class Photogallery
   include Rails.application.routes.url_helpers
+  include ActionView::Helpers
 
   attr_accessor :period, :query
 
   def initialize(params = {})
     @period = params[:period] || 'all'
     @query = params[:query] || ''
-  end
-
-  def categories
-    query_to_hash['categories'] || []
-  end
-
-  def all_categories?
-    categories.empty?
-  end
-
-  def tags
-    query_to_hash['tags'] || []
   end
 
   def main_menu_link
@@ -35,6 +24,26 @@ class Photogallery
       links << Link.new(title: "#{I18n.t('photoreport_periods.weekly')} (#{week_groups_count})", url: photogalleries_path(period: 'week'))
       links << Link.new(title: "#{I18n.t('photoreport_periods.monthly')} (#{month_groups_count})", url: photogalleries_path(period: 'month'))
       links << Link.new(title: "#{I18n.t('photoreport_periods.total')} (#{total_groups_count})", url: photogalleries_path(period: 'all'))
+    end
+  end
+
+  def category_links
+    [].tap do |links|
+      categories.each do |category|
+        html_options = {}.tap { |opts| opts[:class] = 'selected' if params_categories.include?(category) }
+
+        links << content_tag(:li, Link.new(title: category, url: '#', html_options: html_options), html_options)
+      end
+    end
+  end
+
+  def tag_links
+    [].tap do |links|
+      tags.each do |tag|
+        html_options = {}.tap { |opts| opts[:class] = 'selected' if params_tags.include?(tag) }
+
+        links << content_tag(:li, Link.new(title: tag, url: '#', html_options: html_options), html_options)
+      end
     end
   end
 
@@ -59,20 +68,28 @@ class Photogallery
     end
   end
 
+  def params_categories
+    query_to_hash['categories'] || []
+  end
+
+  def params_tags
+    query_to_hash['tags'] || []
+  end
+
   def searcher
     HasSearcher.searcher(:photoreport)
   end
 
   def total_groups
-    searcher.group(:imageable_id_str)
+    searcher.grouped.group(:imageable_id_str)
   end
 
   def week_groups
-    searcher.weekly.group(:imageable_id_str)
+    searcher.weekly.grouped.group(:imageable_id_str)
   end
 
   def month_groups
-    searcher.monthly.group(:imageable_id_str)
+    searcher.monthly.grouped.group(:imageable_id_str)
   end
 
   def total_groups_count
@@ -85,6 +102,14 @@ class Photogallery
 
   def month_groups_count
     month_groups.total
+  end
+
+  def categories
+    searcher.facet(:category).rows.map(&:value)
+  end
+
+  def tags
+    searcher.facet(:tags).rows.map(&:value)
   end
 
   def raw_collection

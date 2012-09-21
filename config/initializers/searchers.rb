@@ -62,7 +62,8 @@ end
 HasSearcher.create_searcher :photoreport do
   models :image
 
-  group :imageable_id_str
+  property :category
+  property :tags
 
   scope :weekly do
     with(:created_at).greater_than DateTime.now - 1.week
@@ -75,8 +76,14 @@ HasSearcher.create_searcher :photoreport do
   scope do
     facet(:category)
     facet(:tags)
-    with(:imageable_type, 'Affiche')
+
     order_by :id, :desc
+
+    with(:imageable_type, 'Affiche')
+  end
+
+  scope :grouped do
+    group :imageable_id_str
   end
 end
 
