@@ -46,4 +46,19 @@ describe Photogallery do
       its(:params_tags) { should == ['foo', 'bar'] }
     end
   end
+
+  describe '#query_array_for_category' do
+    context '/photogalleries/all/' do
+      subject { Photogallery.new period: 'all' }
+
+      it { subject.send(:query_array_for_category ,'кино').should == ['categories', 'кино'] }
+    end
+
+    context '/photogalleries/all/categories/кино' do
+      subject { Photogallery.new period: 'all', query: 'categories/кино' }
+
+      it { subject.send(:query_array_for_category, 'кино').should be_empty }
+      it { subject.send(:query_array_for_category, 'концерты').should == ['categories', 'кино', 'концерты'] }
+    end
+  end
 end

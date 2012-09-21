@@ -35,7 +35,11 @@ class Photogallery
           opts[:class] = 'disabled' unless current_categories.include?(category)
         end
 
-        links << content_tag(:li, Link.new(title: category, url: '#', html_options: html_options), html_options)
+        links << content_tag(:li,
+                             Link.new(title: category,
+                                      url: photogalleries_path(period: period, query: query_for(category, nil)),
+                                      html_options: html_options),
+                             html_options)
       end
     end
   end
@@ -48,7 +52,11 @@ class Photogallery
           opts[:class] = 'disabled' unless current_tags.include?(tag)
         end
 
-        links << content_tag(:li, Link.new(title: tag, url: '#', html_options: html_options), html_options)
+        links << content_tag(:li,
+                             Link.new(title: tag,
+                                      url: photogalleries_path(period: period, query: query_for(nil, tag)),
+                                      html_options: html_options),
+                             html_options)
       end
     end
   end
@@ -86,16 +94,16 @@ class Photogallery
     HasSearcher.searcher(:photoreport, search_params)
   end
 
-  def total_groups
-    searcher.grouped.group(:imageable_id_str)
+  def total_groups(search_params = {})
+    searcher(search_params).grouped.group(:imageable_id_str)
   end
 
-  def week_groups
-    searcher.weekly.grouped.group(:imageable_id_str)
+  def week_groups(search_params = {})
+    searcher(search_params).weekly.grouped.group(:imageable_id_str)
   end
 
-  def month_groups
-    searcher.monthly.grouped.group(:imageable_id_str)
+  def month_groups(search_params = {})
+    searcher(search_params).monthly.grouped.group(:imageable_id_str)
   end
 
   def total_groups_count
@@ -136,12 +144,34 @@ class Photogallery
   def raw_collection
     groups = case period
              when 'all'
-               total_groups
+               total_groups(search_params)
              when 'week'
                week_groups
              when 'month'
                month_groups
              end
     groups.groups.map(&:value).map { |id| Affiche.find(id) }
+  end
+
+  def query_array_for_category(category)
+    categories = params_categories.clone
+    categories.delete(category)
+
+    (params_categories.include?(category) ? categories : categories + [category]).tap do |array|
+      array.unshift('categories') if array.any?
+    end
+  end
+
+  def query_array_for_tag(tag)
+    tags = params_tags.clone
+    tags.delete(tag)
+
+    (params_tags.include?(tag) ? tags : tags + [tag]).tap do |array|
+      array.unshift('tags') if array.any?
+    end
+  end
+
+  def query_for(category, tag)
+    (query_array_for_category(category) + query_array_for_tag(tag)).compact.join('/')
   end
 end
