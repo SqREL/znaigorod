@@ -28,7 +28,6 @@ class Photogallery
       all_available_categories.each do |category|
         html_options = {}.tap do |opts|
           opts[:class] = 'selected' if params_categories.include?(category)
-          opts[:class] = 'disabled' unless current_categories.include?(category)
         end
 
         links << content_tag(:li,
