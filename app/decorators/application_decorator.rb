@@ -16,6 +16,14 @@ class ApplicationDecorator < Draper::Base
     h.image_tag(resized_image_url(url, width, height, crop), :title => title, :alt => title)
   end
 
+  def page_title(text)
+    text.gilensize.gsub(/<\/?\w+.*?>/m, ' ').gsub("&#160;", " ").gsub(' ,', ',').gsub('&#171;', '«').gsub('&#187;', '»').gsub('&#8220;', '“').gsub('&#8221;', '”').squish.html_safe
+  end
+
+  def html_title(text)
+    text.gilensize.gsub(' ,', ',').squish.html_safe
+  end
+
   def humanize_price(price_min, price_max)
     return "стоимость не указана" if price_min.nil? && price_max.nil?
     return "бесплатно" if price_min == 0 && (price_max.nil? || price_max == 0)

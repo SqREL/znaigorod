@@ -1,5 +1,5 @@
 <% content_for :subtitle do %>
-  <%= @organization.html_title.gsub('&#171;', '«').gsub('&#187;', '»') %>
+  <%= @organization.page_title(@organization.title) %>
 <% end %>
 
 <% content_for :extra_meta do %>
@@ -31,7 +31,7 @@
             <% end %>
 
             <div class="head">
-              <h1><%= @organization.html_title %></h1>
+              <h1><%= @organization.html_title(@organization.title) %></h1>
             </div>
 
             <% if @organization.logotype_url? %>

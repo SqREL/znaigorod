@@ -1,5 +1,5 @@
 <% content_for :subtitle do %>
-  <%= @affiche.title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').gsub("&#160;", " ").gsub(' ,', ',').squish.html_safe %>, <%= @affiche.human_kind.mb_chars.downcase %>
+  <%= @affiche.page_title(@affiche.title) %>, <%= @affiche.human_kind.mb_chars.downcase %>
 <% end %>
 
 <% content_for :extra_meta do %>
@@ -22,8 +22,8 @@
         <div id="info">
           <%= content_tag(:div, link_to(@affiche.human_kind, affiches_path(@affiche.pluralized_kind, 'all')), :class => 'kind') %>
           <div class="head">
-            <%= content_tag :h1, @affiche.title.gilensize.html_safe %>
-            <%= content_tag :h2, @affiche.original_title.gilensize.html_safe unless @affiche.original_title.blank? %>
+            <%= content_tag :h1, @affiche.html_title(@affiche.title) %>
+            <%= content_tag :h2, @affiche.html_title(@affiche.original_title) unless @affiche.original_title.blank? %>
           </div>
 
           <div class="info">
