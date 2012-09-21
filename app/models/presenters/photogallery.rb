@@ -4,11 +4,12 @@ class Photogallery
   include Rails.application.routes.url_helpers
   include ActionView::Helpers
 
-  attr_accessor :period, :query
+  attr_accessor :period, :query, :page
 
   def initialize(params = {})
     @period = params[:period] || 'all'
     @query = params[:query] || ''
+    @page = params[:page] || 1
   end
 
   def main_menu_link
@@ -57,7 +58,11 @@ class Photogallery
   end
 
   def collection
-    PhotoreportDecorator.decorate raw_collection
+    PhotoreportDecorator.decorate paginated_collection.map(&:value).map { |id| Affiche.find(id) }
+  end
+
+  def paginated_collection
+    searcher_for_period.paginate(page: page, per_page: 5).grouped.group(:imageable_id_str).groups
   end
 
   private
@@ -78,31 +83,37 @@ class Photogallery
   end
 
   def week_link
-    html_options = {}.tap { |hash| hash[:class] = 'selected' if period == 'week' }
+    html_options = {}.tap { |hash| hash[:class] = 'current' if period == 'week' }
 
     link = Link.new(title: "#{I18n.t('photoreport_periods.weekly')} (#{week_groups_count})",
                     url: photogalleries_path(period: 'week', query: query_for(nil, nil)),
                     html_options: html_options)
 
+    link = content_tag(:span, link.title) if period == 'week'
+
     content_tag :li, link, html_options
   end
 
   def month_link
-    html_options = {}.tap { |hash| hash[:class] = 'selected' if period == 'month' }
+    html_options = {}.tap { |hash| hash[:class] = 'current' if period == 'month' }
 
     link = Link.new(title: "#{I18n.t('photoreport_periods.monthly')} (#{month_groups_count})",
                     url: photogalleries_path(period: 'month', query: query_for(nil, nil)),
                     html_options: html_options)
 
+    link = content_tag(:span, link.title) if period == 'month'
+
     content_tag :li, link, html_options
   end
 
   def all_link
-    html_options = {}.tap { |hash| hash[:class] = 'selected' if period == 'all' }
+    html_options = {}.tap { |hash| hash[:class] = 'current' if period == 'all' }
 
     link = Link.new(title: "#{I18n.t('photoreport_periods.total')} (#{total_groups_count})",
                     url: photogalleries_path(period: 'all', query: query_for(nil, nil)),
                     html_options: html_options)
+
+    link = content_tag(:span, link.title) if period == 'all'
 
     content_tag :li, link, html_options
   end
@@ -119,16 +130,28 @@ class Photogallery
     HasSearcher.searcher(:photoreport, search_params)
   end
 
+  def total_searcher(search_params)
+    searcher(search_params)
+  end
+
   def total_groups(search_params = {})
-    searcher(search_params).grouped.group(:imageable_id_str)
+    total_searcher(search_params).grouped.group(:imageable_id_str)
+  end
+
+  def week_searcher(search_params)
+    searcher(search_params).weekly
   end
 
   def week_groups(search_params = {})
-    searcher(search_params).weekly.grouped.group(:imageable_id_str)
+    week_searcher(search_params).grouped.group(:imageable_id_str)
+  end
+
+  def month_searcher(search_params)
+    searcher(search_params).monthly
   end
 
   def month_groups(search_params = {})
-    searcher(search_params).monthly.grouped.group(:imageable_id_str)
+    month_searcher(search_params).grouped.group(:imageable_id_str)
   end
 
   def total_groups_count
@@ -166,16 +189,15 @@ class Photogallery
     searcher(search_params).facet(:tags).rows.map(&:value)
   end
 
-  def raw_collection
-    groups = case period
-             when 'all'
-               total_groups(search_params)
-             when 'week'
-               week_groups
-             when 'month'
-               month_groups
-             end
-    groups.groups.map(&:value).map { |id| Affiche.find(id) }
+  def searcher_for_period
+    case period
+    when 'all'
+      total_searcher(search_params)
+    when 'week'
+      week_searcher(search_params)
+    when 'month'
+      month_searcher(search_params)
+    end
   end
 
   def query_array_for_category(category)
