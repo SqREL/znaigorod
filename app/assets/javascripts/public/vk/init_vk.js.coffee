@@ -15,3 +15,9 @@ VK.init
     limit: 5
     period: 'month'
     sort: 'likes'
+
+@init_vk_comments = () ->
+  VK.Widgets.Comments "vk_comments"
+    limit: 10
+    width: "760"
+    attach: "*"
