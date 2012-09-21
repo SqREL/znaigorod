@@ -20,11 +20,7 @@ class Photogallery
   end
 
   def period_links
-    [].tap do |links|
-      links << Link.new(title: "#{I18n.t('photoreport_periods.weekly')} (#{week_groups_count})", url: photogalleries_path(period: 'week'))
-      links << Link.new(title: "#{I18n.t('photoreport_periods.monthly')} (#{month_groups_count})", url: photogalleries_path(period: 'month'))
-      links << Link.new(title: "#{I18n.t('photoreport_periods.total')} (#{total_groups_count})", url: photogalleries_path(period: 'all'))
-    end
+    [week_link, month_link, all_link]
   end
 
   def category_links
@@ -80,6 +76,36 @@ class Photogallery
         hash[key_word] << word
       end
     end
+  end
+
+  def week_link
+    html_options = {}.tap { |hash| hash[:class] = 'selected' if period == 'week' }
+
+    link = Link.new(title: "#{I18n.t('photoreport_periods.weekly')} (#{week_groups_count})",
+                    url: photogalleries_path(period: 'week', query: query_for(nil, nil)),
+                    html_options: html_options)
+
+    content_tag :li, link, html_options
+  end
+
+  def month_link
+    html_options = {}.tap { |hash| hash[:class] = 'selected' if period == 'month' }
+
+    link = Link.new(title: "#{I18n.t('photoreport_periods.monthly')} (#{month_groups_count})",
+                    url: photogalleries_path(period: 'month', query: query_for(nil, nil)),
+                    html_options: html_options)
+
+    content_tag :li, link, html_options
+  end
+
+  def all_link
+    html_options = {}.tap { |hash| hash[:class] = 'selected' if period == 'all' }
+
+    link = Link.new(title: "#{I18n.t('photoreport_periods.total')} (#{total_groups_count})",
+                    url: photogalleries_path(period: 'all', query: query_for(nil, nil)),
+                    html_options: html_options)
+
+    content_tag :li, link, html_options
   end
 
   def params_categories
