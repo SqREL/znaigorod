@@ -29,8 +29,11 @@ class Photogallery
 
   def category_links
     [].tap do |links|
-      categories.each do |category|
-        html_options = {}.tap { |opts| opts[:class] = 'selected' if params_categories.include?(category) }
+      all_available_categories.each do |category|
+        html_options = {}.tap do |opts|
+          opts[:class] = 'selected' if params_categories.include?(category)
+          opts[:class] = 'disabled' unless current_categories.include?(category)
+        end
 
         links << content_tag(:li, Link.new(title: category, url: '#', html_options: html_options), html_options)
       end
@@ -39,8 +42,11 @@ class Photogallery
 
   def tag_links
     [].tap do |links|
-      tags.each do |tag|
-        html_options = {}.tap { |opts| opts[:class] = 'selected' if params_tags.include?(tag) }
+      all_available_tags.each do |tag|
+        html_options = {}.tap do |opts|
+          opts[:class] = 'selected' if params_tags.include?(tag)
+          opts[:class] = 'disabled' unless current_tags.include?(tag)
+        end
 
         links << content_tag(:li, Link.new(title: tag, url: '#', html_options: html_options), html_options)
       end
@@ -76,8 +82,8 @@ class Photogallery
     query_to_hash['tags'] || []
   end
 
-  def searcher
-    HasSearcher.searcher(:photoreport)
+  def searcher(search_params = {})
+    HasSearcher.searcher(:photoreport, search_params)
   end
 
   def total_groups
@@ -104,12 +110,27 @@ class Photogallery
     month_groups.total
   end
 
-  def categories
+  def all_available_categories
     searcher.facet(:category).rows.map(&:value)
   end
 
-  def tags
+  def all_available_tags
     searcher.facet(:tags).rows.map(&:value)
+  end
+
+  def search_params
+    {}.tap do |params|
+      params[:category] = params_categories unless params_categories.empty?
+      params[:tags] = params_tags unless params_tags.empty?
+    end
+  end
+
+  def current_categories
+    searcher(search_params).facet(:category).rows.map(&:value)
+  end
+
+  def current_tags
+    searcher(search_params).facet(:tags).rows.map(&:value)
   end
 
   def raw_collection
