@@ -11,6 +11,7 @@
  * = require public/affiches_map
  * = require public/tabs
  * = require public/poster
+ * = require public/photogallery
  * = require public/distribution
  * = require public/galleria
  * = require public/filters_toggler
