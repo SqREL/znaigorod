@@ -1,6 +1,7 @@
 /*
  * = require jquery
  * = require jquery-ui
+ * = require public/md5
  * = require public/twitter
  * = require public/vk
  * = require public/common

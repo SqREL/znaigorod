@@ -107,6 +107,18 @@ class AfficheDecorator < ApplicationDecorator
     poster_with_link affiche, 200, 268
   end
 
+  def tags_for_vk
+    res = ""
+    res << "<meta property='og:page_id' content='#{Digest::MD5.hexdigest(slug)}' />\n"
+    res << "<meta property='og:url' content='#{kind_affiche_url}' />\n"
+    res << "<meta property='og:title' content='#{human_kind}: #{title.gilensize.gsub(/<\/?\w+.*?>/m, " ").gsub("&#160;", " ").gsub(" ,", ",").squish.html_safe}' />\n"
+    res << "<meta property='og:description' content='#{html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(350, :separator => ' ').html_safe}' />\n"
+    res << "<meta property='og:image' content='#{poster_url}' />\n"
+    res << "<meta name='image' content='#{poster_url}' />\n"
+    res << "<link rel='image_src' href='#{poster_url}' />\n"
+    res.html_safe
+  end
+
   def list_poster
     poster_with_link affiche, 180, 242
   end

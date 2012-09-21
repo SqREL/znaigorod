@@ -34,7 +34,7 @@
         <ul class="submenu">
           <% Affiche.ordered_descendants.each do |name| %>
             <li>
-              <%= link_to name.model_name.human, "/#{name.model_name.pluralize.underscore}/today" %>
+              <%= link_to name.model_name.human, "/#{name.model_name.pluralize.downcase}/today" %>
             </li>
           <% end %>
         </ul>

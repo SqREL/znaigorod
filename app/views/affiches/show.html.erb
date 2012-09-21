@@ -3,12 +3,7 @@
 <% end %>
 
 <% content_for :extra_meta do %>
-  <meta property="og:url" content="<%= @affiche.kind_affiche_url %>" />
-  <meta property="og:title" content="<%= @affiche.human_kind %>: <%= @affiche.title.gilensize.gsub(/<\/?\w+.*?>/m, " ").gsub("&#160;", " ").gsub(" ,", ",").squish.html_safe %>" />
-  <meta property="og:description" content="<%= truncate(@affiche.html_description.gsub(/\<table\>*([^.]*)\<\/table\>/m, "").gsub(/<\/?\w+.*?>/m, " ").gsub("&#160;", " ").squish, :length => 500, :separator => ' ').html_safe %>" />
-  <meta name="image" content="<%= @affiche.poster_url %>"/>
-  <meta property="og:image" content="<%= @affiche.poster_url %>"/>
-  <link rel="image_src" href="<%= @affiche.poster_url %>"/>
+  <%= @affiche.tags_for_vk %>
 <% end %>
 
 <div class="content_wrapper">
