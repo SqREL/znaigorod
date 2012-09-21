@@ -17,8 +17,8 @@ class OrganizationDecorator < ApplicationDecorator
     h.link_to h.hyphenate(organization.title).gilensize.html_safe, h.organization_path(organization)
   end
 
-  def title_link
-    h.link_to h.hyphenate(organization.title).gilensize.html_safe, h.organization_path(organization)
+  def html_title
+    title.gilensize.gsub('&#160;', ' ').gsub(/<\/?\w+.*?>/m, ' ').gsub(' ,', ',').squish.html_safe
   end
 
   def address_link
@@ -28,6 +28,10 @@ class OrganizationDecorator < ApplicationDecorator
       :class => 'show_map_link',
       :latitude => organization.address.latitude,
       :longitude => organization.address.longitude
+  end
+
+  def organization_url
+    h.organization_url(organization)
   end
 
   def email_link
@@ -64,6 +68,20 @@ class OrganizationDecorator < ApplicationDecorator
 
   def suborganization_kind
     raw_suborganization.try(:class).try(:name).try(:downcase).try(:pluralize)
+  end
+
+  def tags_for_vk
+    res = ""
+    res << "<meta property='og:page_id' content='#{Digest::MD5.hexdigest(slug)}' />\n"
+    res << "<meta property='og:url' content='#{organization_url}' />\n"
+    res << "<meta property='og:title' content='#{html_title}' />\n"
+    res << "<meta property='og:description' content='#{html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(350, :separator => ' ').html_safe}' />\n"
+    if logotype_url
+      res << "<meta property='og:image' content='#{logotype_url}' />\n"
+      res << "<meta name='image' content='#{logotype_url}' />\n"
+      res << "<link rel='image_src' href='#{logotype_url}' />\n"
+    end
+    res.html_safe
   end
 
   def affiches
