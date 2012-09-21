@@ -62,7 +62,7 @@ class Photogallery
   end
 
   def paginated_collection
-    searcher_for_period.paginate(page: page, per_page: 5).grouped.group(:imageable_id_str).groups
+    searcher_for_period.paginate(page: page, per_page: 6).grouped.group(:imageable_id_str).groups
   end
 
   private

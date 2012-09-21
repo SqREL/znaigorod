@@ -4,7 +4,7 @@
     <h1><span class="strong">Было</span> в городе</h1>
     <ul class="was_in_city">
       <% @photogallery.collection.each do |item| %>
-        <li>
+        <li claa="<%= cycle('odd', 'even') %>">
           <div class="relative">
             <div class="counter"><%= item.images_count %></div>
             <div class="images"><%= item.main_images "photogallery" %></div>

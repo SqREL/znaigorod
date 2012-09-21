@@ -1,6 +1,6 @@
 VK.init
-  apiId: 3134251 # znaigorod.ru
-# apiId: 3134248 # znaigorod.openteam.ru
+  #apiId: 3134251 # znaigorod.ru
+  apiId: 3134248 # znaigorod.openteam.ru
   onlyWidgets: true
 
 @init_vk_like = () ->
