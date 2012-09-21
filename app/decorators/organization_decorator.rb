@@ -67,15 +67,18 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def tags_for_vk
+    desc = html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(350, :separator => ' ').html_safe
     res = ""
-    res << "<meta property='og:page_id' content='#{Digest::MD5.hexdigest(slug)}' />\n"
+    res << "<meta name='description' content='#{desc}' />\n"
+    res << "<meta property='og:description' content='#{desc}'/>\n"
+    res << "<meta property='og:site_name' content='#{I18n.t('site_title')}' />\n"
     res << "<meta property='og:url' content='#{organization_url}' />\n"
     res << "<meta property='og:title' content='#{html_title(title)}' />\n"
-    res << "<meta property='og:description' content='#{html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(350, :separator => ' ').html_safe}' />\n"
     if logotype_url
-      res << "<meta property='og:image' content='#{logotype_url}' />\n"
-      res << "<meta name='image' content='#{logotype_url}' />\n"
-      res << "<link rel='image_src' href='#{logotype_url}' />\n"
+      image = resized_image_url(logotype_url, 180, 242, false)
+      res << "<meta property='og:image' content='#{image}' />\n"
+      res << "<meta name='image' content='#{image}' />\n"
+      res << "<link rel='image_src' href='#{image}' />\n"
     end
     res.html_safe
   end

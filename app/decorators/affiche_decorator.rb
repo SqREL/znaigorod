@@ -114,7 +114,7 @@ class AfficheDecorator < ApplicationDecorator
     res << "<meta name='description' content='#{desc}' />\n"
     res << "<meta property='og:description' content='#{desc}'/>\n"
     res << "<meta property='og:site_name' content='#{I18n.t('site_title')}' />\n"
-    res << "<meta property='og:title' content='#{human_kind}: #{title.gilensize.gsub(/<\/?\w+.*?>/m, " ").gsub("&#160;", " ").gsub(" ,", ",").squish.html_safe}' />\n"
+    res << "<meta property='og:title' content='#{html_title(title)}' />\n"
     res << "<meta property='og:url' content='#{kind_affiche_url}' />\n"
     res << "<meta property='og:image' content='#{image}' />\n"
     res << "<meta name='image' content='#{image}' />\n"
