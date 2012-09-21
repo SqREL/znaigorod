@@ -5,7 +5,7 @@
   </h1>
 
   <% if resource_class == Affiche || resource_class.superclass == Affiche %>
-    <%= link_to t("посмотреть в публичном виде"), resource, :class => 'edit_link' %>
+    <%= link_to t("посмотреть в публичном виде"), send("#{resource.class.name.downcase}_path", resource), :class => 'edit_link' %>
     <%= render 'manage/affiches/affiche' %>
   <% else %>
     <%= link_to t("посмотреть в публичном виде"), organization_path(resource), :class => 'edit_link' %>
