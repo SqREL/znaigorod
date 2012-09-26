@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120917071350) do
+ActiveRecord::Schema.define(:version => 20120926080208) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -44,8 +44,8 @@ ActiveRecord::Schema.define(:version => 20120917071350) do
 
   create_table "affiches", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.text     "description"
     t.string   "original_title"
     t.string   "poster_url"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(:version => 20120917071350) do
     t.datetime "distribution_ends_on"
     t.string   "slug"
     t.boolean  "constant"
+    t.integer  "yandex_metrika_page_views"
   end
 
   add_index "affiches", ["slug"], :name => "index_affiches_on_slug", :unique => true
