@@ -23,6 +23,8 @@ Znaigorod::Application.routes.draw do
       resources :organizations, :only => [:new, :create, :destroy]
     end
 
+    match 'statistics' => 'affiches#statistics'
+
     root :to => 'organizations#index'
   end
 
