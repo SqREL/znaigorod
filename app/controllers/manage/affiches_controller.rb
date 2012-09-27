@@ -3,6 +3,10 @@ class Manage::AffichesController < Manage::ApplicationController
 
   has_scope :page, :default => 1
 
+  def statistics
+    @statistics_presenter = StatisticsPresenter.new
+  end
+
   protected
     def collection
       params[:include_gone] ? include_gone : only_actual
