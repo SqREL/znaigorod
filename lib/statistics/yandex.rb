@@ -3,18 +3,19 @@ require 'curb'
 module Statistics
   class Yandex
     def update_affiches
-      pb = ProgressBar.new(slugs_with_page_views_counts.size)
+      pb = ProgressBar.new(slugs_with_page_views.size)
       puts 'Updating affiches...'
 
-      slugs_with_page_views_counts.each do |e|
-        affiche = Affiche.find_by_slug(e.slug)
+      slugs_with_page_views.each do |slug, page_views|
+        affiche = Affiche.find_by_slug(slug)
 
         unless affiche
-          puts "Affiche with slug #{e.slug} not found"
+          puts "Affiche with slug #{slug} not found"
           next
         end
 
-        affiche.update_attribute :yandex_metrika_page_views, e.page_views
+        affiche.yandex_metrika_page_views = page_views
+        affiche.save!
         pb.increment!
       end
     end
@@ -81,10 +82,10 @@ module Statistics
       url.split('/').last
     end
 
-    def slugs_with_page_views_counts
-      @slugs_with_page_views_counts ||= [].tap { |array|
+    def slugs_with_page_views
+      @slugs_with_page_views ||= {}.tap { |hash|
         selected_elements.each do |e|
-          array << Hashie::Mash.new(slug: slug_from(e.url), page_views: e.page_views)
+          hash[slug_from(e.url)] = [hash[slug_from(e.url)].to_i, e.page_views].max
         end
       }
     end
