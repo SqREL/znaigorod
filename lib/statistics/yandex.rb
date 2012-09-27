@@ -3,16 +3,24 @@ require 'curb'
 module Statistics
   class Yandex
     def update_affiches
-      results.each do |e|
-        affiche = Affiche.find_by_slug(e['slug'])
+      pb = ProgressBar.new(slugs_with_page_views_counts.size)
+      puts 'Updating affiches...'
+
+      slugs_with_page_views_counts.each do |e|
+        affiche = Affiche.find_by_slug(e.slug)
 
         unless affiche
-          puts "Affiche with slug #{e['slug']} not found"
+          puts "Affiche with slug #{e.slug} not found"
           next
         end
 
-        affiche.update_attribute :yandex_metrika_page_views, e['page_views']
+        affiche.update_attribute :yandex_metrika_page_views, e.page_views
+        pb.increment!
       end
+    end
+
+    def urls
+      selected_elements.map(&:url)
     end
 
     private
@@ -52,31 +60,32 @@ module Statistics
     end
 
     def response_hash
-      JSON.parse(Curl.get(request_url).body_str)
-    end
-
-    def selected_elements
-      response_hash['data'].
-        select { |h| h['url'] =~ /(concert|exhibition|movie|other|party|spectacle|sportsevent)\// }
+      Hashie::Mash.new JSON.parse(Curl.get(request_url).body_str)
     end
 
     def remove_anchor(url)
       url.gsub(/#.*/, '')
     end
 
-    def popular
-      @popular ||= selected_elements.map { |e|
-        { 'url' => remove_anchor(e['url']), 'page_views' => e['page_views'].to_i }
-      }
+    def selected_elements
+      response_hash.data.
+        select { |h| h.url =~ /(concert|exhibition|movie|other|party|spectacle|sportsevent)\// }.tap { |hash|
+          hash.each do |e|
+            e.url = remove_anchor(e.url)
+            e.page_views = e.page_views.to_i
+          end
+        }
     end
 
     def slug_from(url)
       url.split('/').last
     end
 
-    def results
-      popular.map { |e|
-        { 'slug' => slug_from(e['url']), 'page_views' => e['page_views'] }
+    def slugs_with_page_views_counts
+      @slugs_with_page_views_counts ||= [].tap { |array|
+        selected_elements.each do |e|
+          array << Hashie::Mash.new(slug: slug_from(e.url), page_views: e.page_views)
+        end
       }
     end
   end
