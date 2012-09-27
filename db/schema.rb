@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120926080208) do
+ActiveRecord::Schema.define(:version => 20120927041157) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20120926080208) do
     t.string   "slug"
     t.boolean  "constant"
     t.integer  "yandex_metrika_page_views"
+    t.integer  "vkontakte_likes"
   end
 
   add_index "affiches", ["slug"], :name => "index_affiches_on_slug", :unique => true

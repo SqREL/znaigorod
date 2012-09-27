@@ -22,6 +22,7 @@ group :default do
   gem 'gilenson'
   gem 'has_scope'
   gem 'has_searcher'
+  gem 'hashie'
   gem 'inherited_resources'
   gem 'kaminari'
   gem 'nested_form'
@@ -35,6 +36,7 @@ group :default do
   gem 'sunspot_rails'
   gem 'text-hyphen'
   gem 'timecop',                                      :require => false
+  gem 'vkontakte_api',                                :require => false
 end
 
 group :development do
