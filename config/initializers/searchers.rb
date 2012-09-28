@@ -40,7 +40,12 @@ HasSearcher.create_searcher :affiche do
 
   scope do
     with(:starts_at).greater_than DateTime.now.beginning_of_day
-    order_by :starts_at
+
+    order_by(:affiche_popularity, :desc)
+
+    adjust_solr_params do |params|
+      params[:q] = "{!boost b=recip(ms(NOW,starts_at_dt),3.16e-11,1,1)}*:*"
+    end
   end
 
   scope :faceted do
