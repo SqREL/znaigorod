@@ -3,7 +3,7 @@
 class AfficheCollection
   include Rails.application.routes.url_helpers
   include ActiveAttr::MassAssignment
-  attr_accessor :kind, :period, :on, :tags, :page, :categories
+  attr_accessor :kind, :period, :on, :tags, :page, :categories, :list_settings, :presentation_mode
 
 
   def initialize(options)
@@ -20,6 +20,12 @@ class AfficheCollection
     query.split(/(categories|tags)/).tap(&:shift).each_slice(2) do |key, values| parameters[key] = values.split('/').keep_if(&:present?) end
     self.tags = parameters['tags'] || []
     self.categories = parameters['categories'] || []
+    if list_settings
+      list_settings =  self.list_settings.split(",").map {|s| s.gsub!(/{|}|\\|"/, ''); { s.split(':').first => s.split(':').second } }.inject({}) {|h, e| h[e.keys.first] = e.values.first; h}
+      self.presentation_mode = list_settings['presentation']
+    else
+      self.presentation_mode = 'list'
+    end
   end
 
   def kind_links

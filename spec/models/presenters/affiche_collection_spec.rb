@@ -3,7 +3,8 @@
 require 'spec_helper'
 
 describe AfficheCollection do
-  let(:affiche_collection) { AfficheCollection.new(:kind => 'movies', :period => 'all') }
+  let(:params) { { kind: 'movies', period: 'all' } }
+  let(:affiche_collection) { AfficheCollection.new(params) }
   subject { affiche_collection }
 
   describe "daily" do
@@ -139,4 +140,16 @@ describe AfficheCollection do
       it { should == ['actual'] }
     end
   end
+
+  describe "#presentation_mode" do
+    subject { affiche_collection.presentation_mode }
+    context 'when unset' do
+      it { should == 'list' }
+    end
+    context 'when set posters' do
+      let(:params) {{ kind: 'movies', period: 'all', list_settings: "{\"sort\":[\"closest\"],\"presentation\":\"posters\"}" }}
+      it { should == 'posters' }
+    end
+  end
+
 end

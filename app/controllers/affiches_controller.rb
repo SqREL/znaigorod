@@ -6,13 +6,13 @@ class AffichesController < ApplicationController
   def index
     if request.xhr?
       if params[:page]
-        @affiche_collection = AfficheCollection.new(params)
+        @affiche_collection = AfficheCollection.new(params.merge(list_settings: cookies['znaigorod_list_settings']))
         render partial: 'affiches_list', layout: false and return
       end
       @affiche_today = AfficheToday.new(params[:kind])
       render :partial => 'affiche_today', :layout => false and return
     else
-      @affiche_collection = AfficheCollection.new(params)
+      @affiche_collection = AfficheCollection.new(params.merge(list_settings: cookies['znaigorod_list_settings']))
     end
   end
 
