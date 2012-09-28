@@ -104,6 +104,10 @@ class Affiche < ActiveRecord::Base
     images.any?
   end
 
+  def popularity
+    0.3 * yandex_metrika_page_views.to_i + vkontakte_likes.to_i
+  end
+
   private
     def affiche_schedule_attributes_blank?(attributes)
       %w[ends_at ends_on starts_at starts_on].each do |attribute|

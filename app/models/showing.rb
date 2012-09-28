@@ -6,7 +6,7 @@ class Showing < ActiveRecord::Base
 
   validates_presence_of :place, :starts_at
 
-  delegate :tags, :title, :to => :affiche, :prefix => true
+  delegate :tags, :popularity, :title, :distribution_starts_on, :to => :affiche, :prefix => true
   delegate :address, :title, :to => :organization, :prefix => true, :allow_nil => true
 
   after_create  :index_affiche
@@ -22,18 +22,20 @@ class Showing < ActiveRecord::Base
   searchable do
     date :starts_on
     integer :affiche_id
-    string(:affiche_id_str) { affiche_id.to_s }
+    float :affiche_popularity
     integer :organization_id
     integer :price_max
     integer :price_min
     integer(:ends_at_hour) { ends_at.try(:hour) }
     integer(:starts_at_hour) { starts_at.hour }
     string(:affiche_category) { affiche.class.model_name.downcase }
+    string(:affiche_id_str) { affiche_id.to_s }
     string(:tags, :multiple => true) { affiche_tags }
     text :organization_title
     text :place
+    time :affiche_distribution_starts_on
     time :ends_at
-    time :starts_at
+    time :starts_at, :trie => true
   end
 
   def ends_on
