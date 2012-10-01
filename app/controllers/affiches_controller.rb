@@ -7,7 +7,7 @@ class AffichesController < ApplicationController
     if request.xhr?
       if params[:page]
         @affiche_collection = AfficheCollection.new(params.merge(list_settings: cookies['znaigorod_list_settings']))
-        render partial: 'affiches_list', layout: false and return
+        render partial: @affiche_collection.view_partial, layout: false and return
       end
       @affiche_today = AfficheToday.new(params[:kind])
       render :partial => 'affiche_today', :layout => false and return

@@ -28,6 +28,17 @@ class AfficheCollection
     end
   end
 
+
+  def view_partial
+    return 'affiches_list' if presentation_mode == 'list'
+    return 'affiches_posters'
+  end
+
+  def per_page
+    return 5 if presentation_mode == 'list'
+    return 12
+  end
+
   def kind_links
     links = []
     ([Affiche] + Affiche.ordered_descendants).each do |affiche_kind|
@@ -132,7 +143,7 @@ class AfficheCollection
   end
 
   def paginated_affiches
-    searcher(search_params).paginate(:page => page, :per_page => 5).affiches.group(:affiche_id_str).groups
+    searcher(search_params).paginate(:page => page, :per_page => per_page).affiches.group(:affiche_id_str).groups
   end
 
   def searcher_scopes
