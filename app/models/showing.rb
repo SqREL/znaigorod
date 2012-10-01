@@ -6,7 +6,7 @@ class Showing < ActiveRecord::Base
 
   validates_presence_of :place, :starts_at
 
-  delegate :tags, :popularity, :title, :distribution_starts_on, :to => :affiche, :prefix => true
+  delegate :created_at, :distribution_starts_on, :popularity, :tags, :title, :to => :affiche, :prefix => true
   delegate :address, :title, :to => :organization, :prefix => true, :allow_nil => true
 
   after_create  :index_affiche
@@ -33,7 +33,8 @@ class Showing < ActiveRecord::Base
     string(:tags, :multiple => true) { affiche_tags }
     text :organization_title
     text :place
-    time :affiche_distribution_starts_on
+    time :affiche_created_at, :trie => true
+    time :affiche_distribution_starts_on, :trie => true
     time :ends_at
     time :starts_at, :trie => true
   end
