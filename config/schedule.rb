@@ -11,3 +11,7 @@ end
 every :day, :at => '6am' do
   rake 'cron'
 end
+
+every 2.hours do
+  rake 'statistics:all'
+end
