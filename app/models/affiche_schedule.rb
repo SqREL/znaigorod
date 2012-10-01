@@ -17,6 +17,7 @@ class AfficheSchedule < ActiveRecord::Base
   default_value_for :price_max, 0
 
   serialize :holidays, Array
+
   normalize_attribute :holidays, :with => [:as_array_of_integer]
 
   def get_latitude
