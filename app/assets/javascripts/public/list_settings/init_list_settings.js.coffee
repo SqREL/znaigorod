@@ -8,7 +8,7 @@
   $.cookie.defaults =
     path: "/"
     expires: 365
-  unless $.cookie("znaigorod_list_settings")
+  unless $.cookie("znaigorod_affiches_list_settings")
     set_cookie()
   prepare_separators()
   $(".content_wrapper .list_settings .sort ul li a").click (event) ->
@@ -44,5 +44,5 @@ set_cookie = () ->
     true
   presentation = $(".content_wrapper .list_settings .presentation ul li .selected")
   list_settings.presentation = presentation.attr("class").replace("selected", "").trim()
-  $.cookie "znaigorod_list_settings", JSON.stringify(list_settings)
+  $.cookie "znaigorod_affiches_list_settings", JSON.stringify(list_settings)
   true
