@@ -47,7 +47,7 @@ HasSearcher.create_searcher :affiche do
   end
 
   scope :order_by_affiche_created_at do
-    order_by(:affiche_created_at, :asc)
+    order_by(:affiche_created_at, :desc)
   end
 
   scope :order_by_affiche_popularity do
