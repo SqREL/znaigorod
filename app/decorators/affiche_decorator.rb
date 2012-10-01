@@ -117,6 +117,10 @@ class AfficheDecorator < ApplicationDecorator
     poster_with_link affiche, 200, 268
   end
 
+  def posters_list_poster
+    poster_with_link affiche, 170, 228
+  end
+
   def tags_for_vk
     desc = html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(350, :separator => ' ').html_safe
     image = resized_image_url(poster_url, 180, 242, false)
