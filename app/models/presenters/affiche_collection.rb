@@ -181,7 +181,7 @@ class AfficheCollection
   def sort_links
     links = []
 
-    %w[closest newest popular].each do |order|
+    %w[popular newest closest].each do |order|
       links << content_tag(:li,
                            Link.new(:title => I18n.t("affiche.sort.#{order}"),
                                     :html_options => sort.include?(order) ? { class: "#{order} selected"} : { class: order },

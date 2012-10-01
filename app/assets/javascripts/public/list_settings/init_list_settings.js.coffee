@@ -37,10 +37,10 @@ prepare_separators = () ->
 
 set_cookie = () ->
   list_settings =
-    sort: ""
+    sort: []
     presentation: ""
   sort = $(".content_wrapper .list_settings .sort ul li .selected")
-  list_settings.sort = sort.attr("class").replace("selected", "").trim()
+  list_settings.sort.push(sort.attr("class").replace("selected", "").trim())
   presentation = $(".content_wrapper .list_settings .presentation ul li .selected")
   list_settings.presentation = presentation.attr("class").replace("selected", "").trim()
   $.cookie "znaigorod_affiches_list_settings", JSON.stringify(list_settings)
