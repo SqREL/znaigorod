@@ -58,6 +58,11 @@ ru:
       sportsevents: спортивных мероприятий
       others: других мероприятий
 
+    sort:
+      closest: По ближайшему сеансу
+      newest: По новизне
+      popular: По популярности
+
   affiche_periods:
     today: Сегодня
     weekly: На этой неделе

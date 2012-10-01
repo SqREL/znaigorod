@@ -7,6 +7,12 @@
 
   <div class="affiches_list">
     <div class="list_settings">
+      <div class="sort">
+        <p>Сортировка:</p>
+        <ul>
+          <%= @affiche_collection.sort_links %>
+        </ul>
+      </div>
       <div class="presentation">
         <ul>
           <li><a class="list<%= ' selected' if @affiche_collection.presentation_mode == 'list' %>" title="подробный список" href="">список</a></li>

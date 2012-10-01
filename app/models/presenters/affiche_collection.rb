@@ -3,7 +3,8 @@
 class AfficheCollection
   include Rails.application.routes.url_helpers
   include ActiveAttr::MassAssignment
-  attr_accessor :kind, :period, :on, :tags, :page, :categories, :list_settings, :presentation_mode
+  include ActionView::Helpers
+  attr_accessor :kind, :period, :on, :tags, :page, :categories, :list_settings, :presentation_mode, :sort
 
 
   def initialize(options)
@@ -20,12 +21,10 @@ class AfficheCollection
     query.split(/(categories|tags)/).tap(&:shift).each_slice(2) do |key, values| parameters[key] = values.split('/').keep_if(&:present?) end
     self.tags = parameters['tags'] || []
     self.categories = parameters['categories'] || []
-    if list_settings
-      list_settings =  self.list_settings.split(",").map {|s| s.gsub!(/{|}|\\|"/, ''); { s.split(':').first => s.split(':').second } }.inject({}) {|h, e| h[e.keys.first] = e.values.first; h}
-      self.presentation_mode = list_settings['presentation']
-    else
-      self.presentation_mode = 'list'
-    end
+
+    self.list_settings = list_settings.present? ? JSON.parse(list_settings) : {}
+    self.presentation_mode = list_settings['presentation'] || 'list'
+    self.sort = list_settings['sort'] || []
   end
 
 
@@ -166,7 +165,30 @@ class AfficheCollection
       when 'all'
         scopes << 'actual'
       end
+
+      (scopes << sort_scopes).flatten!
     end
+  end
+
+  def sort_scopes
+    [].tap do |scopes|
+      scopes << 'order_by_starts_at'          if sort.include?('closest')
+      scopes << 'order_by_affiche_created_at' if sort.include?('newest')
+      scopes << 'order_by_affiche_popularity' if sort.include?('popular')
+    end
+  end
+
+  def sort_links
+    links = []
+
+    %w[closest newest popular].each do |order|
+      links << content_tag(:li,
+                           Link.new(:title => I18n.t("affiche.sort.#{order}"),
+                                    :html_options => sort.include?(order) ? { class: "#{order} selected"} : { class: order },
+                                    :url => affiches_path(kind, period, on)))
+    end
+
+    (links.join(content_tag(:li, content_tag(:span, '&nbsp;', class: 'separator')))).html_safe
   end
 
   private
@@ -197,5 +219,4 @@ class AfficheCollection
     end
     to_params_arr.any? ? to_params_arr.join("/") : nil
   end
-
 end
