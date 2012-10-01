@@ -128,7 +128,6 @@
         <% if !@affiche.scheduled_showings? && !@affiche.distribution_movie? && @affiche.showings.many? %>
           <div class="many_showings">
             <div class="head">
-              <h3>Дата и место проведения</h3>
               <div class="places">
                 <% @affiche.places.each do |place| %>
                   <%= place.place %>

@@ -6,18 +6,7 @@
 <div class="content_wrapper">
 
   <div class="affiches_list">
-    <h1><span class="strong"><%= @affiche_collection.human_kind %></span> <%= @affiche_collection.human_period.mb_chars.downcase %></h1>
     <div class="list_settings">
-      <div class="sort">
-        <p>Сортировка:</p>
-        <ul>
-          <li><a class="closest selected" href="">По ближайшему сеансу</a></li>
-          <li><span class="separator">&nbsp;</span></li>
-          <li><a class="newest" href="">По времени добавления</a></li>
-          <li><span class="separator">&nbsp;</span></li>
-          <li><a class="popular" href="">По популярности</a></li>
-        </ul>
-      </div>
       <div class="presentation">
         <ul>
           <li><a class="list<%= ' selected' if @affiche_collection.presentation_mode == 'list'  %>" href="">список</a></li>
@@ -26,8 +15,9 @@
         </ul>
       </div>
     </div>
-    <ul class="items_list posters">
-      <%= render partial: 'affiches_posters' %>
+    <h1><span class="strong"><%= @affiche_collection.human_kind %></span> <%= @affiche_collection.human_period.mb_chars.downcase %></h1>
+    <ul class="items_list <%= @affiche_collection.presentation_mode %>">
+      <%= render partial: @affiche_collection.view_partial %>
     </ul>
   </div>
 

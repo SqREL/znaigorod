@@ -15,13 +15,11 @@
     $(this).toggleClass("selected")
     prepare_separators()
     set_cookie()
-    false # TODO remove this when controller/presenter/decorator is ready
   $(".content_wrapper .list_settings .presentation ul li a").click (event) ->
     return false if $(this).hasClass("selected")
     $(".content_wrapper .list_settings .presentation ul li a").removeClass("selected")
     $(this).addClass("selected")
     set_cookie()
-    false # TODO remove this when controller/presenter/decorator is ready
   true
 
 prepare_separators = () ->
