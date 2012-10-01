@@ -11,5 +11,7 @@ namespace :statistics do
 
   desc 'Update Yandex.metrika and VK statistics'
   task :all => [:yandex, :vkontakte] do
+    Showing.index
+    Showing.clean_index_orphans
   end
 end
