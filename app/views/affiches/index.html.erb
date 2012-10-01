@@ -11,11 +11,7 @@
       <div class="sort">
         <p>Сортировка:</p>
         <ul>
-          <li><a class="closest selected" href="">По ближайшему сеансу</a></li>
-          <li><span class="separator">&nbsp;</span></li>
-          <li><a class="newest" href="">По времени добавления</a></li>
-          <li><span class="separator">&nbsp;</span></li>
-          <li><a class="popular" href="">По популярности</a></li>
+          <%= @affiche_collection.sort_links %>
         </ul>
       </div>
       <div class="presentation">
