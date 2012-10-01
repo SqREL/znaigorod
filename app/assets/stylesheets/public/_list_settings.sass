@@ -27,21 +27,22 @@
             padding: 7px 10px
             background-color: #82b4cc
             border: 1px solid #639eba
+            border-left: none
+            border-right: none
             text-decoration: none
-            &.closest
-              +border-left-radius
-              border-right: none
-            &.newest
-              border-left: none
-              border-right: none
-            &.popular
-              border-left: none
-              +border-right-radius
             &.selected
               color: #ebebeb
               border-color: #845999
               background-color: #b492c5
               +box-shadow(#6d4a7e 0 3px 4px inset)
+          &:first-child a
+            +border-left-radius
+            border-left: 1px solid #639eba
+            border-right: none
+          &:last-child a
+            border-left: none
+            borderright: 1px solid #639eba
+            +border-right-radius
           .separator
             display: block
             width: 1px
