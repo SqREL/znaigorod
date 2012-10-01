@@ -12,7 +12,8 @@
     set_cookie()
   prepare_separators()
   $(".content_wrapper .list_settings .sort ul li a").click (event) ->
-    $(this).toggleClass("selected")
+    $(".content_wrapper .list_settings .sort ul li a").removeClass("selected")
+    $(this).addClass("selected")
     prepare_separators()
     set_cookie()
   $(".content_wrapper .list_settings .presentation ul li a").click (event) ->
@@ -36,12 +37,10 @@ prepare_separators = () ->
 
 set_cookie = () ->
   list_settings =
-    sort: []
+    sort: ""
     presentation: ""
-  $(".content_wrapper .list_settings .sort ul li a").each (index, item) ->
-    klass = $(item).attr("class")
-    list_settings.sort.push(klass.replace("selected", "").trim()) if klass.match(/selected/)
-    true
+  sort = $(".content_wrapper .list_settings .sort ul li .selected")
+  list_settings.sort = sort.attr("class").replace("selected", "").trim()
   presentation = $(".content_wrapper .list_settings .presentation ul li .selected")
   list_settings.presentation = presentation.attr("class").replace("selected", "").trim()
   $.cookie "znaigorod_affiches_list_settings", JSON.stringify(list_settings)
