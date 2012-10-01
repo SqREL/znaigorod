@@ -111,14 +111,15 @@ class OrganizationDecorator < ApplicationDecorator
     h.hyphenate(html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(230, :separator => ' ').gilensize).html_safe
   end
 
-  ## NOTE: может быть как-то можно использовать config/initializers/searchers.rb:146
-  ## но пока фиг знает как ;(
+  # NOTE: может быть как-то можно использовать config/initializers/searchers.rb
+  # но пока фиг знает как ;(
   def raw_similar_organizations
     lat, lon = organization.latitude, organization.longitude
     radius = 3
 
     search = suborganization.class.search do
       with(:location).in_radius(lat, lon, radius)
+      without(raw_suborganization)
 
       any_of do
         with("#{raw_suborganization.class.name.downcase}_category", categories.map(&:mb_chars).map(&:downcase))
@@ -126,8 +127,6 @@ class OrganizationDecorator < ApplicationDecorator
         with("#{raw_suborganization.class.name.downcase}_offer", offers.map(&:mb_chars).map(&:downcase)) if offers.any?
         with("#{raw_suborganization.class.name.downcase}_cuisine", cuisines.map(&:mb_chars).map(&:downcase)) if suborganization.is_a?(Meal) && cuisines.any?
       end
-
-      without(raw_suborganization)
 
       order_by_geodist(:location, lat, lon)
       paginate(page: 1, per_page: 5)
