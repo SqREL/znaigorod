@@ -20,9 +20,9 @@
       </div>
       <div class="presentation">
         <ul>
-          <li><a class="list<%= ' selected' if @affiche_collection.presentation_mode == 'list'  %>" href="">список</a></li>
+          <li><a class="list<%= ' selected' if @affiche_collection.presentation_mode == 'list' %>" title="подробный список" href="">список</a></li>
           <li><span class="separator">&nbsp;</span></li>
-          <li><a class="posters<%= ' selected' if @affiche_collection.presentation_mode == 'posters'  %>" href="">постеры</a></li>
+          <li><a class="posters<%= ' selected' if @affiche_collection.presentation_mode == 'posters' %>" title="краткий список" href="">постеры</a></li>
         </ul>
       </div>
     </div>
