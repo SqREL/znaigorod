@@ -115,29 +115,29 @@ describe AfficheCollection do
     subject { affiche_collection.searcher_scopes }
     context "when today" do
       before { affiche_collection.period = 'today' }
-      it { should == ['today'] }
+      it { should == ['today', 'order_by_affiche_popularity'] }
     end
     context "when daily and date = today" do
       before { affiche_collection.period = 'daily' }
       before { affiche_collection.on = Date.today }
-      it { should == ['today'] }
+      it { should == ['today', 'order_by_affiche_popularity'] }
     end
     context "when daily and date != today" do
       before { affiche_collection.period = 'daily' }
       before { affiche_collection.on = Date.today + 3.days }
-      it { should == ['actual'] }
+      it { should == ['actual', 'order_by_affiche_popularity'] }
     end
     context "when weekly" do
       before { affiche_collection.period = 'weekly' }
-      it { should == ['weekly', 'actual'] }
+      it { should == ['weekly', 'actual', 'order_by_affiche_popularity'] }
     end
     context "when weekend" do
       before { affiche_collection.period = 'weekend' }
-      it { should == ['weekend', 'actual'] }
+      it { should == ['weekend', 'actual', 'order_by_affiche_popularity'] }
     end
     context "when all" do
       before { affiche_collection.period = 'all' }
-      it { should == ['actual'] }
+      it { should == ['actual', 'order_by_affiche_popularity'] }
     end
   end
 
