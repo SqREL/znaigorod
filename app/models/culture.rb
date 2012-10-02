@@ -41,7 +41,7 @@ class Culture < ActiveRecord::Base
       latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
     end
 
-    float :organization_rating, :stored => true
+    float :organization_rating
   end
 end
 
