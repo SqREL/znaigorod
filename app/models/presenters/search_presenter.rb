@@ -11,28 +11,40 @@ class SearchPresenter
     params.delete(:action)
   end
 
-  def searcher
-    HasSearcher.searcher(:total, params).boost_by(:first_showing_time_dt)
-  end
-
   def page
     params[:page] || 1
   end
 
-  def raw_affiches
-    searcher.affiches.results
-  end
-
-  def affiches_count
-    searcher.affiches.total
-  end
-
-  def raw_organizations
-    searcher.organizations.results
+  def organizations_searcher
+    HasSearcher.searcher(:organizations, params).order_by_rating
   end
 
   def organizations_count
-    searcher.organizations.total
+    organizations_searcher.total
+  end
+
+  def paginated_organizations
+    organizations_searcher.paginate(page: page, per_page: 5).results
+  end
+
+  def organizations
+    OrganizationDecorator.decorate paginated_organizations
+  end
+
+  def showings_searcher
+    HasSearcher.searcher(:showings, params)
+  end
+
+  def affiches_count
+    showings_searcher.affiche_groups.group(:affiche_id_str).total
+  end
+
+  def paginated_affiches
+    showings_searcher.boost_by(:starts_at_dt).paginate(page: page, per_page: 5).affiche_groups
+  end
+
+  def affiches
+    paginated_affiches.group(:affiche_id_str).groups.map(&:value).map { |id| Affiche.find(id) }.map { |a| AfficheDecorator.new a }
   end
 
   def params_without_page
@@ -61,25 +73,13 @@ class SearchPresenter
              html_options: html_options
   end
 
-  def paginated_affiches
-    searcher.affiches.paginate(page: page, per_page: 5).results
-  end
 
-  def paginated_organizations
-    searcher.organizations.paginate(page: page, per_page: 5).results
-  end
 
   def paginated_collection
     affiches? ? paginated_affiches : paginated_organizations
   end
 
-  def affiches
-    paginated_affiches.map { |a| AfficheDecorator.new a }
-  end
 
-  def organizations
-    OrganizationDecorator.decorate paginated_organizations
-  end
 
   def affiches?
     kind == 'affiches'

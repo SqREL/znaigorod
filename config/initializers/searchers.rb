@@ -112,7 +112,7 @@ HasSearcher.create_searcher :actual_organization do
   property :culture_offer
 
   scope do
-    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_fs}*:*" }
+    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
   end
 end
 
@@ -125,7 +125,7 @@ HasSearcher.create_searcher :meal do
   property :meal_cuisine
 
   scope do
-    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_fs}*:*" }
+    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
 
     facet(:meal_category)
     facet(:meal_feature)
@@ -142,7 +142,7 @@ HasSearcher.create_searcher :entertainment do
   property :entertainment_offer
 
   scope do
-    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_fs}*:*" }
+    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
 
     facet(:entertainment_category)
     facet(:entertainment_feature)
@@ -166,35 +166,27 @@ HasSearcher.create_searcher :culture do
   end
 end
 
-# NOTE: как передать значения в scope? o_O
 HasSearcher.create_searcher :organizations do
   models :organization
+  keywords :q
 
+  scope :order_by_rating do
+    order_by(:rating, :desc)
+  end
+
+  # NOTE: как передать значения в scope? o_O
   scope :nearest do |search|
     search.with(:location).in_radius(search_object.latitude, search_object.longitude, 0.5, bbox: true)
     search.order_by_geodist(:location, search_object.latitude, search_object.longitude)
   end
 end
 
-HasSearcher.create_searcher :total do
-  models :affiche, :organization
+HasSearcher.create_searcher :showings do
+  models :showing
   keywords :q
 
-  scope do |sunspot|
-    sunspot.facet(:kind)
-
-    #sunspot.any_of do
-      #with(:last_showing_time).greater_than(DateTime.now)
-      #with(:kind, :organization)
-    #end
-  end
-
-  scope :affiches do
-    with(:kind, 'affiche')
-  end
-
-  scope :organizations do
-    with(:kind, 'organization')
+  scope :affiche_groups do
+    group(:affiche_id_str)
   end
 end
 

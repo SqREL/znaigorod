@@ -31,6 +31,7 @@ class Showing < ActiveRecord::Base
     string(:affiche_category) { affiche.class.model_name.downcase }
     string(:affiche_id_str) { affiche_id.to_s }
     string(:tags, :multiple => true) { affiche_tags }
+    text :affiche_title
     text :organization_title
     text :place
     time :affiche_created_at, :trie => true
