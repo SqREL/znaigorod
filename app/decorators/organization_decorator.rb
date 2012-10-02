@@ -97,7 +97,7 @@ class OrganizationDecorator < ApplicationDecorator
 
   def affiches
     [].tap do |array|
-      HasSearcher.searcher(:affiche, organization_id: organization.id).actual.affiches.group(:affiche_id_str).groups.map(&:value).map { |id| Affiche.find(id) }.each do |affiche|
+      HasSearcher.searcher(:affiche, organization_id: organization.id).actual.order_by_starts_at.affiches.group(:affiche_id_str).groups.map(&:value).map { |id| Affiche.find(id) }.each do |affiche|
         array << AfficheDecorator.new(affiche)
       end
     end
