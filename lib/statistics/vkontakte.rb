@@ -49,17 +49,19 @@ module Statistics
       @likes_with_slugs ||= [].tap { |array|
         puts 'Getting data from Vk...'
 
+        pb = ProgressBar.new(urls.count)
         urls.each do |url|
           slug = url.split('/').last
           likes = likes_for(url)
 
           array << Hashie::Mash.new(slug: slug, likes: likes) unless likes.zero?
+          pb.increment!
         end
       }
     end
 
     def urls
-      Yandex.new.urls
+      @urls ||= Yandex.new.urls
     end
   end
 end

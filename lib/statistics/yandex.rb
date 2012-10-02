@@ -8,6 +8,7 @@ module Statistics
 
       slugs_with_page_views.each do |slug, page_views|
         affiche = Affiche.find_by_slug(slug)
+        pb.increment!
 
         unless affiche
           puts "Affiche with slug #{slug} not found"
@@ -16,7 +17,6 @@ module Statistics
 
         affiche.yandex_metrika_page_views = page_views
         affiche.save!
-        pb.increment!
       end
     end
 
