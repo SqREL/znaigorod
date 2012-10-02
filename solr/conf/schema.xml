@@ -74,10 +74,7 @@
           />
         <filter class='solr.LowerCaseFilterFactory'/>
         <filter class='solr.PatternReplaceFilterFactory' pattern='ё' replacement='е' replace='all' />
-        <filter class='solr.HunspellStemFilterFactory'
-          dictionary='ru_RU.dic'
-          affix='ru_RU.aff'
-          ignoreCase='true' />
+        <filter class="solr.RussianLightStemFilterFactory" language="Russian" />
       </analyzer>
     </fieldType>
     <fieldType name="autosuggest" class="solr.TextField">
