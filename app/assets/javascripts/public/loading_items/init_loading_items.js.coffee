@@ -3,7 +3,7 @@
     'height': '0'
     'visibility': 'hidden'
   list_url = window.location.pathname
-  list = $('.content_wrapper .affiches_list ul.items_list, .content_wrapper .organizations_list ul.items_list')
+  list = $('.content_wrapper .affiches_list ul.items_list, .content_wrapper .organizations_list ul.items_list, .content_wrapper .affiches_list ul.was_in_city_photos')
   first_item = $('li:first', list)
   last_item = first_item.siblings().last()
   last_item_top = last_item.position().top

@@ -3,6 +3,10 @@
   <%= @affiche_collection.human_period.mb_chars.downcase %> в Томске
 <% end %>
 
+<% content_for :extra_meta do %>
+  <%= @affiche_collection.meta_tags %>
+<% end %>
+
 <div class="content_wrapper">
 
   <div class="affiches_list">

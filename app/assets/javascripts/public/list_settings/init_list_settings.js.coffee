@@ -12,6 +12,7 @@
     set_cookie()
   prepare_separators()
   $(".content_wrapper .list_settings .sort ul li a").click (event) ->
+    return false if $(this).hasClass("selected")
     $(".content_wrapper .list_settings .sort ul li a").removeClass("selected")
     $(this).addClass("selected")
     prepare_separators()

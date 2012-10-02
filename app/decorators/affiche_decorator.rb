@@ -122,11 +122,17 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def tags_for_vk
-    desc = html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(350, :separator => ' ').html_safe
+    desc = ""
+    desc << when_with_price
+    desc << " "
+    desc << main_page_place
+    desc << ". "
+    desc << html_description
+    desc = desc.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, '').gsub(' ,', ',').squish.html_safe
     image = resized_image_url(poster_url, 180, 242, false)
     res = ""
     res << "<meta name='description' content='#{desc}' />\n"
-    res << "<meta property='og:description' content='#{desc}'/>\n"
+    res << "<meta property='og:description' content='#{desc.truncate(350, :separator => ' ').html_safe}'/>\n"
     res << "<meta property='og:site_name' content='#{I18n.t('site_title')}' />\n"
     res << "<meta property='og:title' content='#{page_title(title)}' />\n"
     res << "<meta property='og:url' content='#{kind_affiche_url}' />\n"

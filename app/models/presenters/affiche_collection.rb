@@ -133,6 +133,14 @@ class AfficheCollection
     I18n.t("activerecord.models.#{kind.singularize}")
   end
 
+  def meta_tags
+    res = ''
+    desc = I18n.t("meta_description.#{kind}.#{period}") unless daily_period?
+    desc = I18n.t("meta_description.#{kind}.#{period}", date: I18n.l(on, format: '%e %B')).squish if daily_period?
+    res << "<meta name='description' content='#{desc}' />\n"
+    res.html_safe
+  end
+
   def affiches
     [].tap do |array|
       paginated_affiches.map(&:value).map { |id| Affiche.find(id) }.each do |affiche|
