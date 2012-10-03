@@ -1,6 +1,5 @@
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = "http://znaigorod.ru"
-SitemapGenerator::Sitemap.create_index = :auto
 
 SitemapGenerator::Sitemap.create do
 
