@@ -25,7 +25,6 @@ module Znaigorod
     config.autoload_paths += %W(
                                 #{config.root}/app/models/affiches
                                 #{config.root}/app/models/presenters
-                                #{config.root}/app/models/searches
                                 #{config.root}/lib
                                )
 

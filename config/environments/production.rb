@@ -64,4 +64,12 @@ Znaigorod::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
+
+  config.to_prepare do
+    %w[affiches organizations].each do |dir|
+      Dir[Rails.root.join("app/models/#{dir}/*")].each do |model_path|
+        require_or_load model_path.to_s
+      end
+    end
+  end
 end
