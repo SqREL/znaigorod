@@ -2,6 +2,10 @@
   <%= @organizations_collection.subtitle.capitalize %> в Томске
 <% end %>
 
+<% content_for :extra_meta do %>
+  <%= @organizations_collection.meta_description_organizations %>
+<% end %>
+
 <div class="content_wrapper">
   <div class="organizations_list">
     <h1><span class="strong"><%= @organizations_collection.subtitle.capitalize %></span> в Томске</h1>

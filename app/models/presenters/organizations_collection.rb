@@ -193,7 +193,16 @@ class OrganizationsCollection
     organization_class == 'organization' ? 'catalog' : 'index'
   end
 
-  def meta_organizations_catalog
+  def meta_description_organizations
+    desc = ""
+    desc << self.send("#{organization_class}_categories").map(&:value).join(", ").mb_chars.capitalize
+    desc << ", "
+    desc << I18n.t("organization.list_title.#{organization_class}").mb_chars.downcase
+    desc << " в Томске. "
+    "<meta name='description' content='#{desc.squish}' />".html_safe
+  end
+
+  def meta_description_organizations_catalog
     desc = ""
     self.class.kinds.map(&:name).map(&:downcase).each do |klass|
       desc << self.send("#{klass}_categories").map(&:value).join(", ").mb_chars.capitalize
