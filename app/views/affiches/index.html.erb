@@ -12,17 +12,18 @@
   <div class="affiches_list">
     <h1><span class="strong"><%= @affiche_collection.human_kind %></span> <%= @affiche_collection.human_period.mb_chars.downcase %> в Томске</h1>
     <div class="list_settings">
-      <div class="sort">
-        <p>Сортировка:</p>
-        <ul>
-          <%= @affiche_collection.sort_links %>
-        </ul>
-      </div>
       <div class="presentation">
+        <p>Настройка списка:</p>
         <ul>
           <li><a class="list<%= ' selected' if @affiche_collection.presentation_mode == 'list' %>" title="подробный список" href="">список</a></li>
           <li><span class="separator">&nbsp;</span></li>
           <li><a class="posters<%= ' selected' if @affiche_collection.presentation_mode == 'posters' %>" title="краткий список" href="">постеры</a></li>
+        </ul>
+      </div>
+      <div class="sort">
+        <p>Сортировка:</p>
+        <ul>
+          <%= @affiche_collection.sort_links %>
         </ul>
       </div>
     </div>

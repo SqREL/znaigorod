@@ -25,7 +25,7 @@
   true
 
 prepare_separators = () ->
-  $(".content_wrapper .list_settings .sort ul li .separator").each (index, item) ->
+  $(".content_wrapper .list_settings ul li .separator").each (index, item) ->
     if $('a', $(this).closest('li').prev()).hasClass('selected') || $('a', $(this).closest('li').next()).hasClass('selected')
       $(this).css
         "border-color": "#845999"

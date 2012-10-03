@@ -196,7 +196,7 @@ class AfficheCollection
                                     :url => affiches_path(kind, period, on)))
     end
 
-    (links.join(content_tag(:li, content_tag(:span, '&nbsp;', class: 'separator')))).html_safe
+    (links.join(content_tag(:li, content_tag(:span, '&nbsp;'.html_safe, class: 'separator')))).html_safe
   end
 
   private

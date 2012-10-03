@@ -1,29 +1,36 @@
 .content_wrapper
   .list_settings
     +clearfix
-    line-height: 1.4
-    font-size: 11px
+    border: 1px dotted #9e9ba2
+    +border-radius(3px)
+    background-color: #edeaf1
+    +background-image(linear-gradient(#edeaf1, #fff, #edeaf1))
     margin-bottom: 20px
     ul li
       background: none
       padding: 0
       margin: 0
-
+    p
+      font-size: 11px
+      color: #707070
+    .presentation,
     .sort
-      float: left
       +clearfix
+      margin: 5px 10px
       p, ul
         float: left
       p
-        margin: 8px 10px 0
+        margin-top: 4px
+        margin-right: 5px
       ul
         +clearfix
         li
+          font-size: 10px
           float: left
           a
             color: #fff
             display: block
-            padding: 7px 10px
+            padding: 4px 8px 5px
             background-color: #82b4cc
             border: 1px solid #639eba
             border-left: none
@@ -33,60 +40,42 @@
               color: #ebebeb
               border-color: #845999
               background-color: #b492c5
-              +box-shadow(#6d4a7e 0 3px 4px inset)
+              +box-shadow(#6d4a7e 0 1px 3px inset)
           &:first-child a
-            +border-left-radius
             border-left: 1px solid #639eba
-            border-right: none
+            +border-left-radius
+            &.selected
+              border-color: #845999
           &:last-child a
-            border-left: none
-            borderright: 1px solid #639eba
+            border-right: 1px solid #639eba
             +border-right-radius
+            &.selected
+              border-color: #845999
           .separator
             display: block
             width: 1px
             overflow: hidden
             text-indent: -9999em
-            padding: 7px 0
+            padding: 4px 0 5px
             border-top: 1px solid #639eba
             border-bottom: 1px solid #639eba
             background-color: #639eba
-
     .presentation
+      float: left
+      a
+        width: 15px
+        overflow: hidden
+        text-indent: -9999em
+        background-image: image_url('public/list_settings_presentation.png')
+        background-position: center center
+        background-repeat: no-repeat
+        &.list
+          background-position: 8px 3px
+          &.selected
+            background-position: 8px -84px
+        &.posters
+          background-position: -79px 3px
+          &.selected
+            background-position: -79px -84px
+    .sort
       float: right
-      ul
-        +clearfix
-        li
-          float: left
-          a
-            display: block
-            width: 30px
-            overflow: hidden
-            text-indent: -9999em
-            padding: 7px 0
-            background-color: #82b4cc
-            background-repeat: no-repeat
-            background-position: center center
-            border: 1px solid #639eba
-            &.list
-              border-right: 0
-              +border-left-radius
-              background-image: image_url('public/list_settings_presentation_list.png')
-            &.posters
-              border-left: 0
-              background-image: image_url('public/list_settings_presentation_posters.png')
-              +border-right-radius
-            &.selected
-              color: #ebebeb
-              border-color: #845999
-              background-color: #b492c5
-              +box-shadow(#6d4a7e 0 3px 4px inset)
-          .separator
-            display: block
-            width: 1px
-            overflow: hidden
-            text-indent: -9999em
-            padding: 7px 0
-            border-top: 1px solid #845999
-            border-bottom: 1px solid #845999
-            background-color: #845999
