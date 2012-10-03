@@ -15,6 +15,7 @@ class Showing < ActiveRecord::Base
   default_scope order(:starts_at)
 
   scope :actual, where('starts_at >= ?', DateTime.now.beginning_of_day)
+  scope :with_organization, where('organization_id IS NOT NULL')
 
   default_value_for :price_max, 0
   default_value_for :price_min, 0

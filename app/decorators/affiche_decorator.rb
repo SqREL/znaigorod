@@ -142,6 +142,18 @@ class AfficheDecorator < ApplicationDecorator
     res.html_safe
   end
 
+  def raw_places
+    showings.with_organization.map(&:organization).map(&:title).uniq
+  end
+
+  def keywords_content
+    [human_kind, affiche.tags, raw_places].flatten.map(&:mb_chars).map(&:downcase).join(',')
+  end
+
+  def meta_keywords
+    h.tag(:meta, name: 'keywords', content: keywords_content)
+  end
+
   def list_poster
     poster_with_link affiche, 180, 242
   end
