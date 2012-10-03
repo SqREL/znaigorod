@@ -95,6 +95,17 @@ class OrganizationDecorator < ApplicationDecorator
     res.html_safe
   end
 
+  def keywords_content
+    keywords = raw_suborganization.categories + raw_suborganization.features + raw_suborganization.offers
+    keywords += raw_suborganization.cuisines.map { |cuisine| "#{cuisine} кухня" } if raw_suborganization.is_a?(Meal)
+
+    keywords.map(&:mb_chars).map(&:downcase).join(',')
+  end
+
+  def meta_keywords
+    h.tag(:meta, name: 'keywords', content: keywords_content)
+  end
+
   def affiches
     [].tap do |array|
       HasSearcher.searcher(:affiche, organization_id: organization.id).actual.order_by_starts_at.affiches.group(:affiche_id_str).groups.map(&:value).map { |id| Affiche.find(id) }.each do |affiche|
