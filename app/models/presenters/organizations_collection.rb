@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class OrganizationsCollection
   include ActiveAttr::MassAssignment
   include Rails.application.routes.url_helpers
@@ -192,11 +194,14 @@ class OrganizationsCollection
   end
 
   def meta_organizations_catalog
-    %w[meal entertainment culture].each do |klass|
-      p klass
+    desc = ""
+    self.class.kinds.map(&:name).map(&:downcase).each do |klass|
+      desc << self.send("#{klass}_categories").map(&:value).join(", ").mb_chars.capitalize
+      desc << ", "
+      desc << I18n.t("organization.list_title.#{klass}").mb_chars.downcase
+      desc << " в Томске. "
     end
-    desc = I18n.t("meta_description.organizations_catalog")
-    "<meta name='description' content='#{desc}' />".html_safe
+    "<meta name='description' content='#{desc.squish}' />".html_safe
   end
 
 end
