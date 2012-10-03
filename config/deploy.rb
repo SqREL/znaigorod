@@ -78,7 +78,9 @@ namespace :deploy do
   desc 'Refresh sitemap'
   task :refresh_sitemaps do
     run "cd #{deploy_to}/current && RAILS_ENV=production bin/rake sitemap:refresh"
+    run "gunzip -c #{deploy_to}/shared/sitemaps/sitemap1.xml.gz > #{deploy_to}/shared/sitemaps/sitemap1.xml"
     run "ln -s #{deploy_to}/shared/sitemaps/sitemap1.xml.gz #{release_path}/public/sitemap.xml.gz"
+    run "ln -s #{deploy_to}/shared/sitemaps/sitemap1.xml #{release_path}/public/sitemap.xml"
   end
 end
 
