@@ -25,11 +25,11 @@ class ApplicationDecorator < Draper::Base
   end
 
   def humanize_price(price_min, price_max)
-    return "стоимость не указана" if price_min.nil? && price_max.nil?
-    return "бесплатно" if price_min == 0 && (price_max.nil? || price_max == 0)
-    return "#{price_min} руб." if price_min > 0 && ((price_max.nil? || price_max == 0) || price_max == price_min)
-    return "#{price_min} &ndash; #{price_max} руб.".html_safe if price_min > 0 && price_max > 0
-    return "бесплатно &ndash; #{price_max} руб.".html_safe if price_min == 0 && price_max > 0
+    return h.hyphenate("стоимость не указана") if price_min.nil? && price_max.nil?
+    return h.hyphenate("бесплатно") if price_min == 0 && (price_max.nil? || price_max == 0)
+    return h.hyphenate("#{price_min} руб.") if price_min > 0 && ((price_max.nil? || price_max == 0) || price_max == price_min)
+    return h.hyphenate("#{price_min} &ndash; #{price_max} руб.").html_safe if price_min > 0 && price_max > 0
+    return h.hyphenate("бесплатно &ndash; #{price_max} руб.").html_safe if price_min == 0 && price_max > 0
   end
 
 end
