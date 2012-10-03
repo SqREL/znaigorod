@@ -113,6 +113,15 @@ class AfficheDecorator < ApplicationDecorator
     RedCloth.new(affiche.description).to_html.gsub(/&#8220;|&#8221;/, '"').gilensize.html_safe
   end
 
+  def html_attachments
+    return "" if attachments.blank?
+    links = []
+    attachments.each do |attachment|
+      links << h.content_tag(:li, h.link_to(attachment.description, attachment.url))
+    end
+    h.content_tag :ul, links.join("\n").html_safe
+  end
+
   def main_page_poster
     poster_with_link affiche, 200, 268
   end
@@ -215,8 +224,8 @@ class AfficheDecorator < ApplicationDecorator
   def human_distribution
     return nil unless distribution_starts_on?
     if distribution_starts_on? && distribution_ends_on?
-      return "С #{distribution_starts_on.day} до #{I18n.l(distribution_ends_on, :format => '%e %B')}".squish if  distribution_starts_on.month == distribution_ends_on.month
-      return "С #{I18n.l(distribution_starts_on, :format => '%e %B')} до #{I18n.l(distribution_ends_on, :format => '%e %B')}".squish
+      return "С #{distribution_starts_on.day} по #{I18n.l(distribution_ends_on, :format => '%e %B')}".squish if  distribution_starts_on.month == distribution_ends_on.month
+      return "С #{I18n.l(distribution_starts_on, :format => '%e %B')} по #{I18n.l(distribution_ends_on, :format => '%e %B')}".squish
     end
     return "С #{I18n.l(distribution_starts_on, :format => '%e %B')}".squish
   end
