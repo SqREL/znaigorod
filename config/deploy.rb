@@ -77,8 +77,8 @@ namespace :deploy do
 
   desc 'Refresh sitemap'
   task :refresh_sitemaps do
-    run "ln -s #{deploy_to}/shared/sitemaps/sitemap1.xml.gz #{release_path}/public/sitemap.xml.gz"
     run "cd #{deploy_to}/current && RAILS_ENV=production bin/rake sitemap:refresh"
+    run "ln -s #{deploy_to}/shared/sitemaps/sitemap1.xml.gz #{release_path}/public/sitemap.xml.gz"
   end
 end
 
