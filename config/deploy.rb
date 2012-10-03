@@ -77,7 +77,8 @@ namespace :deploy do
 
   desc 'Refresh sitemap'
   task :refresh_sitemaps do
-    run "ln -s #{deploy_to}/shared/sitemaps/ #{release_path}/public/"
+    run "ln -s #{deploy_to}/shared/sitemaps/sitemap1.xml.gz #{release_path}/public/sitemap.xml.gz"
+    run "cd #{deploy_to}/current && RAILS_ENV=production bin/rake sitemap:refresh"
   end
 end
 
@@ -132,8 +133,8 @@ after "deploy", "deploy:copy_unicorn_config"
 after "deploy", "deploy:reload_servers"
 after "deploy:restart", "deploy:cleanup"
 after "deploy", "deploy:crontab"
-after "deploy", "deploy:airbrake"
 after "deploy", "deploy:refresh_sitemaps"
+after "deploy", "deploy:airbrake"
 
 # deploy:rollback
 after "deploy:rollback", "deploy:reload_servers"

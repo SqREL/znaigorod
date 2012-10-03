@@ -1,6 +1,7 @@
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = "http://znaigorod.ru"
-SitemapGenerator::Sitemap.sitemaps_path = Rails.env.production? ? File.expand_path('../../../../shared/', __FILE__) : 'public/'
+SitemapGenerator::Sitemap.sitemaps_path = Rails.env.production? ? File.expand_path('../../../../shared/sitemaps/', __FILE__) : 'public/'
+SitemapGenerator::Sitemap.create_index = false
 
 SitemapGenerator::Sitemap.create do
 
