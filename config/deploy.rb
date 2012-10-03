@@ -75,6 +75,10 @@ namespace :deploy do
     run "cd #{deploy_to}/current && exec bundle exec whenever --update-crontab --load-file #{deploy_to}/current/config/schedule.rb"
   end
 
+  desc 'Refresh sitemap'
+  task :refresh_sitemaps do
+    run "ln -s #{deploy_to}/shared/sitemap/ #{release_path}/public/"
+  end
 end
 
 # remote database.yml
@@ -129,6 +133,7 @@ after "deploy", "deploy:reload_servers"
 after "deploy:restart", "deploy:cleanup"
 after "deploy", "deploy:crontab"
 after "deploy", "deploy:airbrake"
+after "deploy", "deploy:refresh_sitemaps"
 
 # deploy:rollback
 after "deploy:rollback", "deploy:reload_servers"
