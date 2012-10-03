@@ -77,7 +77,7 @@ namespace :deploy do
 
   desc 'Refresh sitemap'
   task :refresh_sitemaps do
-    run "ln -s #{deploy_to}/shared/sitemap/ #{release_path}/public/"
+    run "ln -s #{deploy_to}/shared/sitemaps/ #{release_path}/public/"
   end
 end
 
