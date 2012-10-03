@@ -22,10 +22,12 @@ class Affiche < ActiveRecord::Base
   accepts_nested_attributes_for :showings, :allow_destroy => true
 
   default_scope order('affiches.id DESC')
+  default_value_for :yandex_metrika_page_views, 0
+  default_value_for :vkontakte_likes, 0
 
-  scope :latest,        ->(count) { limit(count) }
-  scope :with_images,   -> { where('image_url IS NOT NULL') }
-  scope :with_showings, -> { includes(:showings).where('showings.starts_at > :date OR showings.ends_at > :date', { :date => Date.today }) }
+  scope :latest,           ->(count) { limit(count) }
+  scope :with_images,      -> { where('image_url IS NOT NULL') }
+  scope :with_showings,    -> { includes(:showings).where('showings.starts_at > :date OR showings.ends_at > :date', { :date => Date.today }) }
 
   alias_attribute :to_s, :title
 

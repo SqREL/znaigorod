@@ -15,3 +15,7 @@ end
 every 2.hours do
   rake 'statistics:all'
 end
+
+every :day, :at => '5am' do
+  rake "-s sitemap:refresh"
+end

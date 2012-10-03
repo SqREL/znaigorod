@@ -33,6 +33,7 @@ group :default do
   gem 'russian'
   gem 'simple-navigation'
   gem 'simple_form'
+  gem 'sitemap_generator'
   gem 'sunspot_rails'
   gem 'text-hyphen'
   gem 'timecop',                                      :require => false
@@ -43,7 +44,7 @@ group :development do
   gem 'annotate',                                     :require => false
   gem 'capistrano'
   gem 'rvm-capistrano'
-  gem 'hirb',                                         :require => false
+  gem 'hirb'
   gem 'sunspot_solr'
 end
 
