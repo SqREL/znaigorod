@@ -191,4 +191,12 @@ class OrganizationsCollection
     organization_class == 'organization' ? 'catalog' : 'index'
   end
 
+  def meta_organizations_catalog
+    %w[meal entertainment culture].each do |klass|
+      p klass
+    end
+    desc = I18n.t("meta_description.organizations_catalog")
+    "<meta name='description' content='#{desc}' />".html_safe
+  end
+
 end
