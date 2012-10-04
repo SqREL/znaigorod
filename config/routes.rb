@@ -49,6 +49,15 @@ Znaigorod::Application.routes.draw do
     get "#{type.name.downcase}/:id/trailer" => 'affiches#trailer', :as => "#{type.name.downcase}_trailer"
   end
 
+
+  # legacy organization urls
+  constraints(:id => /\d+/) do
+    get 'organizations/:id' => redirect { |params, req|
+      o = Organization.find(params[:id])
+      "/organizations/#{o.slug}"
+    }
+  end
+
   resources :organizations, :only => :show
 
   get ':organization_class/(:category)/(*query)' => 'organizations#index',
@@ -62,9 +71,12 @@ Znaigorod::Application.routes.draw do
 
   # legacy urls
 
+  get 'affiches' =>  redirect('/affiches/all')
+
   get 'affiches/:id' => redirect { |params, req|
     a = Affiche.find(params[:id])
     "/#{a.class.model_name.downcase}/#{a.slug}"
   }
+
 
 end
