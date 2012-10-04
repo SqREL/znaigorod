@@ -76,8 +76,8 @@ SitemapGenerator::Sitemap.create do
     add send("#{affiche.class.name.downcase}_path", affiche),
       :changefreq => 'weekly',
       :priority => 0.9*affiche.popularity/max_popularity,
-      :lastmod => affiche.updated_at,
-      :images => [{ :loc => affiche.poster_url, :title => affiche.title }]
+      :lastmod => affiche.updated_at #,
+      #:images => [{ :loc => affiche.poster_url, :title => affiche.title }]
   end
 
   max_rating = Organization.all.map(&:rating).max
@@ -86,7 +86,7 @@ SitemapGenerator::Sitemap.create do
     add organization_path(organization),
       :changefreq => 'weekly',
       :priority => 0.9*organization.rating/max_rating,
-      :lastmod => organization.updated_at,
-      :images => [{ :loc => organization.logotype_url, :title => organization.title }]
+      :lastmod => organization.updated_at #,
+      #:images => [{ :loc => organization.logotype_url, :title => organization.title }]
   end
 end
