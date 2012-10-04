@@ -3,5 +3,7 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 User-Agent: *
 Disallow:
-Sitemap: http://znaigorod.ru/sitemap.xml
 Sitemap: http://znaigorod.ru/sitemap.xml.gz
+User-Agent: *
+Disallow:
+Sitemap: http://znaigorod.ru/sitemap.xml
