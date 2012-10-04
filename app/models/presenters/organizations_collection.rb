@@ -2,6 +2,7 @@
 
 class OrganizationsCollection
   include ActiveAttr::MassAssignment
+  include ActionView::Helpers
   include Rails.application.routes.url_helpers
 
   attr_accessor :organization_class, :category, :query, :page
@@ -213,4 +214,7 @@ class OrganizationsCollection
     "<meta name='description' content='#{desc.squish}' />".html_safe
   end
 
+  def meta_keywords
+    tag(:meta, name: 'keywords', content: OrganizationCollectionKeywords.new(self).to_s)
+  end
 end
