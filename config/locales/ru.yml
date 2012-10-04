@@ -219,6 +219,7 @@ ru:
         trailer_code: Код трейлера
         distribution_starts_on: Начало проката
         distribution_ends_on: Окончание проката
+        vk_aid: Код альбома события ВКонтакте
         constant: Постоянная экспозиция
 
       affiche_schedule:

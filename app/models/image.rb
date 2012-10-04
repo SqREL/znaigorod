@@ -1,5 +1,5 @@
 class Image < ActiveRecord::Base
-  attr_accessible :description, :url
+  attr_accessible :description, :url, :thumbnail_url
 
   belongs_to :imageable, :polymorphic => true
 

@@ -1,3 +1,7 @@
+# encoding: utf-8
+
+require 'vkontakte_api'
+
 class Affiche < ActiveRecord::Base
   extend FriendlyId
 
@@ -5,7 +9,7 @@ class Affiche < ActiveRecord::Base
                   :tag, :title, :vfs_path, :affiche_schedule_attributes,
                   :images_attributes, :attachments_attributes,
                   :distribution_starts_on, :distribution_ends_on,
-                  :original_title, :trailer_code
+                  :original_title, :trailer_code, :vk_aid
 
 
   has_many :images,      :as => :imageable, :dependent => :destroy
@@ -34,6 +38,8 @@ class Affiche < ActiveRecord::Base
   friendly_id :title, use: :slugged
 
   normalize_attribute :image_url
+
+  after_save :get_images_from_vk
 
   searchable do
     boolean :has_images, :using => :has_images?
@@ -117,6 +123,19 @@ class Affiche < ActiveRecord::Base
       end
 
       true
+    end
+
+    def get_images_from_vk
+      gid, aid = vk_aid.split('_')
+      VkontakteApi::Client.new(Settings['vk.token']).photos.get(gid: gid, aid: aid).each do |image_hash|
+        self.images.find_or_initialize_by_url_and_thumbnail_url(
+                                                                  :url => (image_hash['src_xbig'].present? ? image_hash['src_xbig'] : image_hash['src_big']),
+                                                                  :thumbnail_url => image_hash['src']
+        ).tap do |image|
+          image.description = image_hash['text'].present? ? image_hash['text'] : 'нет описания'
+          image.save!
+        end
+      end
     end
 end
 

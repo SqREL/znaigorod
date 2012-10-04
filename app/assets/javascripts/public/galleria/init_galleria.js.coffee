@@ -9,6 +9,7 @@
     showCounter: false
     showInfo: true
     thumbnails: true
+    thumbCrop: 'width'
     transition: 'fade'
     transitionSpeed: 500
     width: 740

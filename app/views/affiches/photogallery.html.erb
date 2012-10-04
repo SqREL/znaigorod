@@ -12,6 +12,10 @@
 </div>
 <div class="gallery_container">
   <% @affiche.images.each do |image| %>
-    <%= link_to @affiche.image_tag(image.url, 124, 93, image.description), image.url %>
+    <% if image.thumbnail_url? %>
+      <%= link_to image_tag(image.thumbnail_url, :width => '124', :height => '93', :title => image.description), image.url %>
+    <% else %>
+      <%= link_to @affiche.image_tag(image.url, 124, 93, image.description), image.url %>
+    <% end %>
   <% end %>
 </div>

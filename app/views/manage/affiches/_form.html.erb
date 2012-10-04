@@ -3,6 +3,7 @@
 <%= f.input :description %>
 <%= f.input :tag %>
 <%= f.input :trailer_code %>
+<%= f.input :vk_aid %>
 <%= f.input :distribution_starts_on, :as => :date_picker %>
 <%= f.input :distribution_ends_on, :as => :date_picker %>
 <%= f.input :constant if [Exhibition, Other].include?(f.object.class) %>
