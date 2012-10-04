@@ -59,4 +59,12 @@ Znaigorod::Application.routes.draw do
   root :to => 'application#main_page'
 
   mount ElVfsClient::Engine => '/'
+
+  # legacy urls
+
+  get 'affiches/:id' => redirect { |params, req|
+    a = Affiche.find(params[:id])
+    "/#{a.class.model_name.underscore.pluralize}/#{a.slug}"
+  }
+
 end
