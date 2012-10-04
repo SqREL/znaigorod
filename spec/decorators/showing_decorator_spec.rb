@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'spec_helper'
+require 'text/hyphen'
 
 describe ShowingDecorator do
   let(:showing) { Showing.new(:starts_at => Time.zone.now.beginning_of_day) }
@@ -66,13 +67,13 @@ describe ShowingDecorator do
     context "when prices nil" do
       before { showing.price_min = nil }
       before { showing.price_max = nil }
-      it { should == "стоимость не указана" }
+      it { should == "сто\u00ADи\u00ADмость не ука\u00ADзана" }
     end
 
     context "when price_min=0 price_max=nil" do
       before { showing.price_min = 0 }
       before { showing.price_max = nil }
-      it { should == "бесплатно" }
+      it { should == "бес\u00ADплатно" }
     end
 
     context "when set price_min" do
@@ -90,7 +91,7 @@ describe ShowingDecorator do
     context "when min_price = 0 and max_price > 0" do
       before { showing.price_min = 0 }
       before { showing.price_max = 150 }
-      it { should == "бесплатно &ndash; 150 руб." }
+      it { should == "бес\u00ADплатно &ndash; 150 руб." }
     end
 
     context "when price_min = price_max" do
