@@ -6,7 +6,6 @@ class AfficheCollection
   include ActionView::Helpers
   attr_accessor :kind, :period, :on, :tags, :page, :categories, :list_settings, :presentation_mode, :sort
 
-
   def initialize(options)
     super(options)
     begin
@@ -27,6 +26,9 @@ class AfficheCollection
     self.sort = !!list_settings['sort'].try(:any?) ? list_settings['sort'] : ['popular']
   end
 
+  def meta_keywords
+    tag(:meta, name: 'keywords', content: AfficheCollectionKeywords.new(self).to_s)
+  end
 
   def view_partial
     return 'affiches_list' if presentation_mode == 'list'

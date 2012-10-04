@@ -152,7 +152,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def raw_places
-    showings.with_organization.map(&:organization).map(&:title).uniq
+    showings.with_organization.map(&:organization).uniq.map(&:title).map { |t| t.split(',').join(' ') }
   end
 
   def keywords_content
