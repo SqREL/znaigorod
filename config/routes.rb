@@ -64,7 +64,7 @@ Znaigorod::Application.routes.draw do
 
   get 'affiches/:id' => redirect { |params, req|
     a = Affiche.find(params[:id])
-    "/#{a.class.model_name.underscore.pluralize}/#{a.slug}"
+    "/#{a.class.model_name.downcase}/#{a.slug}"
   }
 
 end
