@@ -9,8 +9,8 @@ Znaigorod::Application.routes.draw do
     resources :search, :only => :index
 
     resources :affiches do
-      resources :attachments, :only => [:new, :create, :destroy]
-      resources :images, :only => [:new, :create, :destroy]
+      resources :attachments, :only => [:new, :create, :destroy, :edit, :update]
+      resources :images, :only => [:new, :create, :destroy, :edit, :update]
     end
 
     resources :organizations do
@@ -18,8 +18,8 @@ Znaigorod::Application.routes.draw do
       resource :entertainment
       resource :meal
 
-      resources :attachments, :only => [:new, :create, :destroy]
-      resources :images, :only => [:new, :create, :destroy]
+      resources :attachments, :only => [:new, :create, :destroy, :edit, :update]
+      resources :images, :only => [:new, :create, :destroy, :edit, :update]
       resources :organizations, :only => [:new, :create, :destroy]
     end
 

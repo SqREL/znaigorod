@@ -109,6 +109,7 @@
           <li>
             <%= image_tag image.url, :alt => image.description, :title => image.description %>
             <%= link_to "Удалить", manage_affiche_image_path(resource, image), :method => :delete, :confirm => 'Вы уверены?' %>
+            <%= link_to 'Редактировать', edit_manage_affiche_image_path(resource, image) %>
           </li>
         <% end %>
       </ul>
@@ -130,6 +131,7 @@
           <li>
             <%= link_to attachment.description, attachment.url %>
             <%= link_to "Удалить", manage_affiche_attachment_path(resource, attachment), :method => :delete, :confirm => 'Вы уверены?' %>
+            <%= link_to 'Редактировать', edit_manage_affiche_attachment_path(resource, attachment) %>
           </li>
         <% end %>
       </ul>
