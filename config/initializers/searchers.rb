@@ -63,7 +63,7 @@ HasSearcher.create_searcher :similar_affiches do
   models :affiche
 
   scope do
-    with(:last_showing_time).greater_than 1.minute.since.change(:min => 0)
+    with(:last_showing_time).greater_than HasSearcher.cacheable_now
   end
 
   scope :with_images do
@@ -78,11 +78,11 @@ HasSearcher.create_searcher :photoreport do
   property :tags
 
   scope :weekly do
-    with(:created_at).greater_than DateTime.now - 1.week
+    with(:created_at).greater_than 1.week.ago.beginning_of_day
   end
 
   scope :monthly do
-    with(:created_at).greater_than DateTime.now - 1.month
+    with(:created_at).greater_than 1.month.ago.beginning_of_day
   end
 
   scope do
@@ -229,7 +229,7 @@ HasSearcher.create_searcher :showing do
 
   property :starts_on, :modificator => :greater_than do |search|
     starts_on_gt = search_object.starts_on_greater_than || Date.today
-    ends_at_gt = search_object.starts_on_less_than || Date.today + 1.week
+    ends_at_gt = search_object.starts_on_less_than || 1.week.since.to_date
 
     search.any_of do
       with(:starts_on).greater_than(starts_on_gt)
@@ -238,7 +238,7 @@ HasSearcher.create_searcher :showing do
   end
 
   scope :actual do
-    with(:starts_at).greater_than DateTime.now
+    with(:starts_at).greater_than HasSearcher.cacheable_now
   end
 
   scope :today do
