@@ -10,7 +10,7 @@ class Affiche < ActiveRecord::Base
                   :tag, :title, :vfs_path, :affiche_schedule_attributes,
                   :images_attributes, :attachments_attributes,
                   :distribution_starts_on, :distribution_ends_on,
-                  :original_title, :trailer_code, :vk_aid
+                  :original_title, :trailer_code, :vk_aid, :yandex_fotki_url
 
 
   has_many :images,      :as => :imageable, :dependent => :destroy
@@ -41,6 +41,7 @@ class Affiche < ActiveRecord::Base
   normalize_attribute :image_url
 
   after_save :save_images_from_vk, :if => :vk_aid?
+  after_save :save_images_from_yandex_fotki, :if => :yandex_fotki_url?
 
   searchable do
     boolean :has_images, :using => :has_images?
@@ -161,6 +162,21 @@ class Affiche < ActiveRecord::Base
     sig = Digest::MD5.hexdigest(params.map{|k,v| "#{k}=#{v}"}.join + Settings['vk.app_secret'])
 
     return "http://api.vk.com/api.php?#{params.map{|k,v| "#{k}=#{v}"}.join('&')}&sig=#{sig}"
+  end
+
+  def save_images_from_yandex_fotki
+    get_images_from_yandex_fotki.each do |image_hash|
+      image_hash = image_hash['img']
+
+      self.images.find_or_initialize_by_url_and_thumbnail_url(:url => image_hash['XXL']['href'], :thumbnail_url => image_hash['S']['href']).tap do |image|
+        image.description = image_hash['summary'].present? ? image_hash['summary'] : 'без описания'
+        image.save!
+      end
+    end
+  end
+
+  def get_images_from_yandex_fotki
+    JSON.parse(Curl.get("http://api-fotki.yandex.ru/api/users/#{yandex_fotki_url}/photos/?format=json").body_str)['entries']
   end
 end
 

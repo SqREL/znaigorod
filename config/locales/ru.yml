@@ -220,6 +220,7 @@ ru:
         distribution_starts_on: Начало проката
         distribution_ends_on: Окончание проката
         vk_aid: Код альбома события ВКонтакте
+        yandex_fotki_url: URL альбома из Фотки.Яндекс
         constant: Постоянная экспозиция
 
       affiche_schedule:
