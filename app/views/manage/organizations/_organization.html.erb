@@ -44,6 +44,15 @@
   </div>
 
   <div>
+    <span class="label">Ссылка на 3D-тур:</span>
+    <% if resource.tour_link.present? %>
+      <span class="value"><%= content_tag :abbr, truncate(resource.tour_link, :length => 20), :title => resource.tour_link %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+
+  <div>
     <span class="label">Залы заведения:</span>
     <% if resource.halls.any? %>
       <span class="value">

@@ -3,7 +3,7 @@ class Organization < ActiveRecord::Base
 
   attr_accessible :address_attributes, :description, :email, :halls_attributes,
                   :images_attributes, :organization_id, :phone, :schedules_attributes,
-                  :site, :title, :vfs_path, :attachments_attributes, :logotype_url
+                  :site, :title, :vfs_path, :attachments_attributes, :logotype_url, :tour_link
 
   belongs_to :organization
 
@@ -130,5 +130,6 @@ end
 #  organization_id :integer
 #  logotype_url    :text
 #  slug            :string(255)
+#  tour_link       :text
 #
 
