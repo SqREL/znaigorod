@@ -18,5 +18,6 @@
  * = require public/prepare_organizations
  * = require public/loading_items
  * = require public/list_settings
+ * = require public/swfkrpano
  * = require public/main
  */

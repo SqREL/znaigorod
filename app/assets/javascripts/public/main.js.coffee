@@ -15,4 +15,5 @@ $ ->
   init_photogallery() if $('.content_wrapper .was_in_city_photos li').length
   init_loading_items() if $('.content_wrapper .affiches_list ul li, .content_wrapper .organizations_list ul li').length
   init_list_settings() if $('.content_wrapper .list_settings').length
+  init_swfkrpano() if $("#krpano").length
   true
