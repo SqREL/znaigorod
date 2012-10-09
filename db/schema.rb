@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121008072001) do
+ActiveRecord::Schema.define(:version => 20121009071346) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -114,6 +114,8 @@ ActiveRecord::Schema.define(:version => 20121008072001) do
     t.text     "description"
     t.string   "imageable_type"
     t.string   "thumbnail_url"
+    t.integer  "width"
+    t.integer  "height"
   end
 
   add_index "images", ["imageable_id"], :name => "index_images_on_organization_id"
@@ -173,13 +175,5 @@ ActiveRecord::Schema.define(:version => 20121008072001) do
   end
 
   add_index "showings", ["affiche_id"], :name => "index_showings_on_affiche_id"
-
-  create_table "vk_tokens", :force => true do |t|
-    t.string   "token"
-    t.integer  "expires_in"
-    t.boolean  "active"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
 end

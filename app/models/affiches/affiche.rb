@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'vkontakte_api'
+require 'curb'
 
 class Affiche < ActiveRecord::Base
   extend FriendlyId
@@ -19,7 +20,6 @@ class Affiche < ActiveRecord::Base
   has_one :affiche_schedule, :dependent => :destroy
 
   validates_presence_of :description, :poster_url, :title
-  validate :presence_actual_vk_token, :if => :vk_aid?
 
   accepts_nested_attributes_for :affiche_schedule, :allow_destroy => true, :reject_if => :affiche_schedule_attributes_blank?
   accepts_nested_attributes_for :images, :allow_destroy => true, :reject_if => :all_blank
@@ -40,8 +40,7 @@ class Affiche < ActiveRecord::Base
 
   normalize_attribute :image_url
 
-  after_save :get_images_from_vk, :if => :vk_aid?
-  after_save :check_vk_token
+  after_save :save_images_from_vk, :if => :vk_aid?
 
   searchable do
     boolean :has_images, :using => :has_images?
@@ -128,39 +127,40 @@ class Affiche < ActiveRecord::Base
     true
   end
 
-  def presence_actual_vk_token
-    unless VkToken.active.any?
-      errors.add(:vk_aid, 'Нет актуального токена ВКонтакте, для получения токена откройте ссылку "Получить токен" в НОВОМ окне')
+  def save_images_from_vk
+    get_images_from_vk.each do |image_hash|
+      self.images.find_or_initialize_by_url_and_thumbnail_url(
+        :url => (image_hash['photo']['src_xbig'].present? ? image_hash['photo']['src_xbig'] : image_hash['photo']['src_big']),
+        :thumbnail_url => image_hash['photo']['src']
+      ).tap do |image|
+        image.width  = image_hash['photo']['width']
+        image.height = image_hash['photo']['height']
+        image.description = image_hash['photo']['text'].present? ? image_hash['photo']['text'] : 'без описания'
+        image.save!
+      end
     end
-  end
-
-  def check_vk_token
-    VkToken.check
-  end
-
-  def vk_token
-    VkToken.active_token
   end
 
   def get_images_from_vk
     id, aid = vk_aid.split('_')
 
     photos = []
-    begin
-      photos = VkontakteApi::Client.new(vk_token).photos.get(uid: id, aid: aid)
-    rescue
-      photos = VkontakteApi::Client.new(vk_token).photos.get(gid: id, aid: aid)
+
+    response = Curl.get(prepare_url_4_vk({ uid: id, aid: aid })).body_str.gsub(/{"error":".+"}/, '')
+
+    if response.empty?
+      response = Curl.get(prepare_url_4_vk({ gid: id, aid: aid })).body_str.gsub(/{"error":".+"}/, '')
     end
 
-    photos.each do |image_hash|
-      self.images.find_or_initialize_by_url_and_thumbnail_url(
-        :url => (image_hash['src_xbig'].present? ? image_hash['src_xbig'] : image_hash['src_big']),
-        :thumbnail_url => image_hash['src']
-      ).tap do |image|
-        image.description = image_hash['text'].present? ? image_hash['text'] : 'нет описания'
-        image.save!
-      end
-    end
+    photos = JSON.parse(response)['response']
+  end
+
+  def prepare_url_4_vk(options)
+    params = { api_id: Settings['vk.app_id'], format: 'JSON', method: 'photos.get' }.merge(options).sort
+
+    sig = Digest::MD5.hexdigest(params.map{|k,v| "#{k}=#{v}"}.join + Settings['vk.app_secret'])
+
+    return "http://api.vk.com/api.php?#{params.map{|k,v| "#{k}=#{v}"}.join('&')}&sig=#{sig}"
   end
 end
 
