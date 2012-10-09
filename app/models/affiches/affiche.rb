@@ -39,7 +39,7 @@ class Affiche < ActiveRecord::Base
 
   normalize_attribute :image_url
 
-  after_save :get_images_from_vk
+  after_save :get_images_from_vk, :if => :vk_aid?
 
   searchable do
     boolean :has_images, :using => :has_images?
@@ -117,26 +117,32 @@ class Affiche < ActiveRecord::Base
   end
 
   private
-    def affiche_schedule_attributes_blank?(attributes)
-      %w[ends_at ends_on starts_at starts_on].each do |attribute|
-        return false unless attributes[attribute].blank?
-      end
 
-      true
+  def affiche_schedule_attributes_blank?(attributes)
+    %w[ends_at ends_on starts_at starts_on].each do |attribute|
+      return false unless attributes[attribute].blank?
     end
 
-    def get_images_from_vk
-      gid, aid = vk_aid.split('_')
-      VkontakteApi::Client.new(Settings['vk.token']).photos.get(gid: gid, aid: aid).each do |image_hash|
-        self.images.find_or_initialize_by_url_and_thumbnail_url(
-                                                                  :url => (image_hash['src_xbig'].present? ? image_hash['src_xbig'] : image_hash['src_big']),
-                                                                  :thumbnail_url => image_hash['src']
-        ).tap do |image|
-          image.description = image_hash['text'].present? ? image_hash['text'] : 'нет описания'
-          image.save!
-        end
+    true
+  end
+
+  def vk_token
+    VkToken.last.try(:token)
+  end
+
+  def get_images_from_vk
+    gid, aid = vk_aid.split('_')
+
+    VkontakteApi::Client.new(vk_token).photos.get(gid: gid, aid: aid).each do |image_hash|
+      self.images.find_or_initialize_by_url_and_thumbnail_url(
+        :url => (image_hash['src_xbig'].present? ? image_hash['src_xbig'] : image_hash['src_big']),
+        :thumbnail_url => image_hash['src']
+      ).tap do |image|
+        image.description = image_hash['text'].present? ? image_hash['text'] : 'нет описания'
+        image.save!
       end
     end
+  end
 end
 
 # == Schema Information

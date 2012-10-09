@@ -25,6 +25,10 @@ Znaigorod::Application.routes.draw do
 
     match 'statistics' => 'affiches#statistics'
 
+    get 'get_vk_token' => 'vk#get_token'
+    get 'new_vk_token' => 'vk#new_token'
+    post 'create_vk_token' => 'vk#create_token'
+
     root :to => 'organizations#index'
   end
 

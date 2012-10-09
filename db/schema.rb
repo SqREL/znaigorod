@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121004085842) do
+ActiveRecord::Schema.define(:version => 20121008072001) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -173,5 +173,11 @@ ActiveRecord::Schema.define(:version => 20121004085842) do
   end
 
   add_index "showings", ["affiche_id"], :name => "index_showings_on_affiche_id"
+
+  create_table "vk_tokens", :force => true do |t|
+    t.string   "token"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
 end

@@ -1,0 +1,5 @@
+<%= simple_form_for [:manage, @vk_token], url: manage_create_vk_token_path do |f| %>
+  <%= f.input :token %>
+
+  <%= f.button :submit %>
+<% end %>
