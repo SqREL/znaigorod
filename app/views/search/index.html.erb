@@ -8,7 +8,6 @@
     <h1>Результаты поиска &laquo;<%= params[:q] %>&raquo;</h1>
 
     <% if true || @search_presenter.hits? %>
-
       <div class="search_hits">
         <ul class="items_list">
           <%= render :partial => "search_results_list" %>

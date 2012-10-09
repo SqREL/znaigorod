@@ -1,3 +1,6 @@
+require 'nokogiri'
+require 'redcloth'
+
 class Organization < ActiveRecord::Base
   extend FriendlyId
 
@@ -47,6 +50,8 @@ class Organization < ActiveRecord::Base
 
   paginates_per Settings['pagination.per_page'] || 10
 
+  alias_attribute :title_ru, :title
+
   searchable do
     float :rating
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
@@ -54,7 +59,8 @@ class Organization < ActiveRecord::Base
     text :address
     text :category,                   :more_like_this => true
     text :cuisine,                    :more_like_this => true
-    text :description, :boost => 0.5
+    text :description, :boost => 0.5                            do description_as_plain_text end
+    text :description_ru, :boost => 0.5                         do description_as_plain_text end
     text :email, :boost => 0.5
     text :feature,                    :more_like_this => true
     text :offer,                      :more_like_this => true
@@ -112,6 +118,10 @@ class Organization < ActiveRecord::Base
 
   def self.grouped_collection_for_select
     organizations = Organization.where(:organization_id => nil).order(:title)
+  end
+
+  def description_as_plain_text
+    @description_as_plain_text ||= Nokogiri::HTML(RedCloth.new(description).to_html.gsub(/&#8220;|&#8221;/, '"').gilensize).text
   end
 end
 

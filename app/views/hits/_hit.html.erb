@@ -1,3 +1,11 @@
 <hr/>
 <%= link_to hit.title, hit.result %>
 <div class='excerpt'><%= hit.excerpt %></div>
+<% hit.additional_fields.each do |field| %>
+  <% if hit.highlights(field).any? %>
+    <div class='<%= field %>'>
+      <span class='field_description'><%= hit.result.class.human_attribute_name(field) %></span>
+      <%= hit.highlighted(field) %>
+    </div>
+  <% end %>
+<% end %>

@@ -2,26 +2,26 @@ class HitDecorator < ApplicationDecorator
   decorates 'sunspot/search/hit'
 
   def title
-    h.safe_join [highlight(:title_ru), "(".html_safe + highlight(:original_title) + ")".html_safe], " "
+    highlighted(:title_ru) || truncated(:title)
   end
 
   def excerpt
-    highlight(:description_ru)
+    highlighted(:description_ru) || truncated(:description_as_plain_text)
+  end
+
+  def additional_fields
+    %w[original_title]
   end
 
   def to_partial_path
     'hits/hit'
   end
 
+  def highlighted(field)
+    highlights(field).map(&:formatted).map{|phrase| phrase.gsub(/\A[[:punct:][:space:]]+/, '')}.join(' ... ').html_safe.presence
+  end
 
-  private
-    def highlight(field)
-      h.highlight stored(field).first, phrases(field) rescue nil
-    end
-
-    def phrases(field)
-      highlights(field).map do |highlight|
-        highlight.instance_eval { @highlight }.scan(/@@@hl@@@([^@]+)@@@endhl@@@/)
-      end.flatten
-    end
+  def truncated(field)
+    h.truncate(result.send(field), :length => 256, :separator => ' ')
+  end
 end
