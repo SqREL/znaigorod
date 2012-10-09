@@ -22,4 +22,9 @@ class OrganizationsController < ApplicationController
     @organization = OrganizationDecorator.find(params[:id])
     render layout: false
   end
+
+  def tour
+    @organization = OrganizationDecorator.find(params[:id])
+    render layout: false
+  end
 end

@@ -64,6 +64,7 @@ Znaigorod::Application.routes.draw do
       :organization_class => /organizations|meals|entertainments|cultures/, :as => :organizations
   get 'ajax/organizations/:id/photogallery' => 'organizations#photogallery', :as => :organization_photogallery
   get 'ajax/organizations/:id/affiche' => 'organizations#affiche', :as => :organization_affiche
+  get 'ajax/organizations/:id/tour' => 'organizations#tour', :as => :organization_tour
 
   root :to => 'application#main_page'
 

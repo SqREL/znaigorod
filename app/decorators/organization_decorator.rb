@@ -71,6 +71,11 @@ class OrganizationDecorator < ApplicationDecorator
                                              :title => affiches.blank? ? "Недоступно" : nil,
                                             "data-link" => h.organization_affiche_path),
                              :class => affiches.blank? ? 'disabled' : nil)
+      links << h.content_tag(:li, h.link_to("3D-тур",
+                                            "#tour",
+                                             :title => organization.tour_link.blank? ? "Недоступно" : nil,
+                                            "data-link" => h.organization_tour_path),
+                             :class => organization.tour_link.blank? ? 'disabled' : nil)
     end
   end
 

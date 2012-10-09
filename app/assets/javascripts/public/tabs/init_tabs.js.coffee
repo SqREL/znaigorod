@@ -25,6 +25,7 @@
           success: (data, textStatus, jqXHR) ->
             $(ui.panel).html(data)
             init_galleria() if data.match /gallery_container/g
+            init_swfkrpano() if data.match /krpano/g
             true
           error: (jqXHR, textStatus, errorThrown) ->
             $(ui.panel).html("<p class='error'>Ошибка!</p>")
