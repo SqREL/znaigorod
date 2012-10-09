@@ -80,14 +80,14 @@ end
 #
 # Table name: showings
 #
-#  id              :integer         not null, primary key
+#  id              :integer          not null, primary key
 #  affiche_id      :integer
 #  place           :string(255)
 #  starts_at       :datetime
 #  price_min       :integer
 #  hall            :string(255)
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #  ends_at         :datetime
 #  price_max       :integer
 #  organization_id :integer

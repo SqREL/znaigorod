@@ -7,3 +7,23 @@ Fabricator(:affiche_schedule) do
   hall 'hall'
   price_min 100
 end
+
+# == Schema Information
+#
+# Table name: affiche_schedules
+#
+#  id         :integer          not null, primary key
+#  affiche_id :integer
+#  starts_on  :date
+#  ends_on    :date
+#  starts_at  :time
+#  ends_at    :time
+#  holidays   :string(255)
+#  place      :string(255)
+#  hall       :string(255)
+#  price_min  :integer
+#  price_max  :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+

@@ -15,12 +15,12 @@ end
 #
 # Table name: addresses
 #
-#  id              :integer         not null, primary key
+#  id              :integer          not null, primary key
 #  street          :string(255)
 #  house           :string(255)
 #  organization_id :integer
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #  latitude        :string(255)
 #  longitude       :string(255)
 #

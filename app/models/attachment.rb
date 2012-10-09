@@ -5,16 +5,17 @@ class Attachment < ActiveRecord::Base
 
   validates_presence_of :description, :url
 end
+
 # == Schema Information
 #
 # Table name: attachments
 #
-#  id              :integer         not null, primary key
+#  id              :integer          not null, primary key
 #  attachable_id   :integer
 #  attachable_type :string(255)
 #  url             :string(255)
 #  description     :text
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 

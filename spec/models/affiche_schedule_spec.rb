@@ -32,7 +32,7 @@ end
 #
 # Table name: affiche_schedules
 #
-#  id         :integer         not null, primary key
+#  id         :integer          not null, primary key
 #  affiche_id :integer
 #  starts_on  :date
 #  ends_on    :date
@@ -43,7 +43,7 @@ end
 #  hall       :string(255)
 #  price_min  :integer
 #  price_max  :integer
-#  created_at :datetime        not null
-#  updated_at :datetime        not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 

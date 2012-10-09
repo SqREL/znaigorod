@@ -56,14 +56,14 @@ end
 #
 # Table name: meals
 #
-#  id              :integer         not null, primary key
+#  id              :integer          not null, primary key
 #  category        :text
 #  feature         :text
 #  offer           :text
 #  payment         :string(255)
 #  cuisine         :text
 #  organization_id :integer
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 

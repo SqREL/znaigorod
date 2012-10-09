@@ -35,13 +35,13 @@ end
 #
 # Table name: schedules
 #
-#  id              :integer         not null, primary key
+#  id              :integer          not null, primary key
 #  day             :integer
 #  from            :time
 #  to              :time
 #  organization_id :integer
-#  created_at      :datetime        not null
-#  updated_at      :datetime        not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #  holiday         :boolean
 #
 

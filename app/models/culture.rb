@@ -58,3 +58,18 @@ end
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
+
+# == Schema Information
+#
+# Table name: cultures
+#
+#  id              :integer          not null, primary key
+#  category        :text
+#  feature         :text
+#  offer           :text
+#  payment         :string(255)
+#  organization_id :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
