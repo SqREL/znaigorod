@@ -59,15 +59,16 @@ class Organization < ActiveRecord::Base
     text :address
     text :category,                   :more_like_this => true
     text :cuisine,                    :more_like_this => true
-    text :description, :boost => 0.5                            do description_as_plain_text end
-    text :description_ru, :boost => 0.5                         do description_as_plain_text end
+    text :description, :boost => 0.5                                              do description_as_plain_text end
+    text :description_ru, :boost => 0.5,                        :stored => true   do description_as_plain_text end
     text :email, :boost => 0.5
     text :feature,                    :more_like_this => true
     text :offer,                      :more_like_this => true
     text :payment
     text :site, :boost => 0.5
     text :term
-    text :title, :boost => 2
+    text :title, :boost => 2 * 1.2
+    text :title_ru, :boost => 2,                                :stored => true
   end
 
   def term
