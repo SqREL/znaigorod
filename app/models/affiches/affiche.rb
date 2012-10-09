@@ -43,39 +43,22 @@ class Affiche < ActiveRecord::Base
   after_save :save_images_from_vk, :if => :vk_aid?
   after_save :save_images_from_yandex_fotki, :if => :yandex_fotki_url?
 
+  alias_attribute :title_ru, :title
+  alias_attribute :description_ru, :description
+
   searchable do
     boolean :has_images, :using => :has_images?
-    integer :showing_ids, :multiple => true
-    string(:kind) { 'affiche' }
-    text :title,            :boost => 2,    :more_like_this => true
-    text :original_title,   :boost => 1.5,  :more_like_this => true
-    text :tag,              :boost => 1,    :more_like_this => true
-    text :description,      :boost => 0.5
-    text(:kind) { self.class.model_name.human }
-    time :first_showing_time, :trie => true
+    text :title,              :boost => 2 * 1.2,                      :more_like_this => true
+    text :title_ru,           :boost => 2,          :stored => true,  :more_like_this => true
+    text :original_title,     :boost => 1.5,        :stored => true,  :more_like_this => true
+    text :tag,                :boost => 1 * 1.2,    :stored => true,  :more_like_this => true
+    text :description,        :boost => 0.5 * 1.2
+    text :description_ru,     :boost => 0.5,        :stored => true
     time :last_showing_time
   end
 
   def self.ordered_descendants
     [Movie, Concert, Party, Spectacle, Exhibition, SportsEvent, Other]
-  end
-
-  def search_showing_ids(search_params)
-    search_params ||= {}
-    params = search_params.reverse_merge :starts_on_greater_than => Date.today,
-                                         :affiche_id => self.id
-    HasSearcher.searcher(:showing, params).result_ids
-  end
-
-  def showings_grouped_by_day(search_params = nil)
-    showing_ids = search_showing_ids(search_params)
-
-    Hash[showings.where(:id => showing_ids).group_by(&:starts_on).map.first(9)]
-  end
-
-  def showings_grouped_by_organization_and_day(organization, search_params = nil)
-    showing_ids = search_showing_ids(search_params)
-    Hash[showings.where(:id => showing_ids, :organization_id => organization.id).group_by(&:starts_on).map.first(9)]
   end
 
   def tags

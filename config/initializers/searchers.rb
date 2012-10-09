@@ -254,3 +254,12 @@ HasSearcher.create_searcher :manage_organization do
   models :organization
   keywords :q
 end
+
+HasSearcher.create_searcher :general do
+  models :organization, :affiche
+  keywords :q do
+    highlight :title_ru
+    highlight :original_title
+    highlight :description_ru
+  end
+end

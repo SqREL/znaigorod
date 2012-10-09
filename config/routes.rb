@@ -29,9 +29,6 @@ Znaigorod::Application.routes.draw do
   end
 
   get 'search' => 'search#search', :as => :search
-  get 'search/affiches', :as => :search_affiches
-  get 'search/organizations', :as => :search_organizations
-
 
   get 'geocoder' => 'geocoder#get_coordinates'
 
@@ -43,12 +40,13 @@ Znaigorod::Application.routes.draw do
     period: /all|month|week/,
     :as => :photogalleries
 
+  get 'sportsevent/:id' => 'affiches#show', :as => :sports_event
+
   Affiche.descendants.each do |type|
     get "#{type.name.downcase}/:id" => 'affiches#show', :as => "#{type.name.downcase}"
     get "#{type.name.downcase}/:id/photogallery" => 'affiches#photogallery', :as => "#{type.name.downcase}_photogallery"
     get "#{type.name.downcase}/:id/trailer" => 'affiches#trailer', :as => "#{type.name.downcase}_trailer"
   end
-
 
   # legacy organization urls
   constraints(:id => /\d+/) do
