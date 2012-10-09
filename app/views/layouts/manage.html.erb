@@ -27,8 +27,13 @@
   </div>
 
   <div class="main_container">
+    <div class="vk_token">
+      <%= link_to "Получить токен-ВКонтакте",  manage_get_vk_token_path, :class => VkToken.active.any? ? 'good' : 'expired', :target => '_blank' %>
+    </div>
+
     <%= yield %>
   </div>
+
 <% end %>
 
 <%= render :file => 'layouts/base' %>

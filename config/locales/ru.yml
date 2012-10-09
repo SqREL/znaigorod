@@ -295,6 +295,10 @@ ru:
         to: до
         holiday: Выходной
 
+      vk_token:
+        token: ВКонтакте-токен
+        expires_in: Истекает через
+
   manage:
     add_affiche: Добавление события
     add_attachment: Добавить файл

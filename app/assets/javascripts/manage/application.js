@@ -13,7 +13,7 @@
  * = require ./autosuggest_handler
  * = require ./geocoder
  * = require ./choose_coordinate
- * require ./red_cloth
+ * = require ./vk_token
  * = require ./new_affiche
  * = require ./main
  */
