@@ -259,7 +259,9 @@ HasSearcher.create_searcher :general do
   models :organization, :affiche
   keywords :q do
     highlight :title_ru
-    highlight :original_title
     highlight :description_ru
+    HitDecorator::ADDITIONAL_FIELDS.each do |field|
+      highlight field
+    end
   end
 end

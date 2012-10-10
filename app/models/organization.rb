@@ -56,19 +56,17 @@ class Organization < ActiveRecord::Base
     float :rating
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
     string(:kind) { 'organization' }
-    text :address
-    text :category,                   :more_like_this => true
-    text :cuisine,                    :more_like_this => true
-    text :description, :boost => 0.5                                              do description_as_plain_text end
-    text :description_ru, :boost => 0.5,                        :stored => true   do description_as_plain_text end
-    text :email, :boost => 0.5
-    text :feature,                    :more_like_this => true
-    text :offer,                      :more_like_this => true
-    text :payment
-    text :site, :boost => 0.5
+    text :title,            :boost => 2 * 1.2
+    text :title_ru,         :boost => 2,          :more_like_this => true,  :stored => true
+    text :category,                               :more_like_this => true,  :stored => true
+    text :cuisine,                                :more_like_this => true,  :stored => true
+    text :feature,                                :more_like_this => true,  :stored => true
+    text :offer,                                  :more_like_this => true,  :stored => true
+    text :payment,                                                          :stored => true
+    text :description,      :boost => 0.5 * 1.2                                               do description_as_plain_text end
+    text :description_ru,   :boost => 0.5,                                  :stored => true   do description_as_plain_text end
+    text :address,                                                          :stored => true
     text :term
-    text :title, :boost => 2 * 1.2
-    text :title_ru, :boost => 2,                                :stored => true
   end
 
   def term

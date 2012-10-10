@@ -1,16 +1,16 @@
 class HitDecorator < ApplicationDecorator
   decorates 'sunspot/search/hit'
 
+  AFFICHE_FIELDS = %w[original_title tag]
+  ORGANIZATION_FIELDS = %w[category cuisine feature offer payment address]
+  ADDITIONAL_FIELDS = AFFICHE_FIELDS + ORGANIZATION_FIELDS
+
   def title
     highlighted(:title_ru) || truncated(:title)
   end
 
   def excerpt
     highlighted(:description_ru) || truncated(:description_as_plain_text)
-  end
-
-  def additional_fields
-    %w[original_title]
   end
 
   def to_partial_path
