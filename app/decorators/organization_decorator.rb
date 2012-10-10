@@ -13,12 +13,12 @@ class OrganizationDecorator < ApplicationDecorator
 
   def logo_link
     if organization.logotype_url?
-      h.link_to image_tag(organization.logotype_url, 180, 180, organization.title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').squish.html_safe), h.organization_path(organization)
+      h.link_to image_tag(organization.logotype_url, 180, 180, organization.title.text_gilensize), h.organization_path(organization)
     end
   end
 
   def title_link
-    h.link_to h.hyphenate(organization.title).gilensize.html_safe, h.organization_path(organization)
+    h.link_to organization.title.text_gilensize.hyphenate, h.organization_path(organization)
   end
 
   def address_link
@@ -115,10 +115,9 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def tags_for_vk
-    desc = html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.html_safe
     res = ""
-    res << "<meta name='description' content='#{desc}' />\n"
-    res << "<meta property='og:description' content='#{desc.truncate(350, :separator => ' ').html_safe}'/>\n"
+    res << "<meta name='description' content='#{text_description}' />\n"
+    res << "<meta property='og:description' content='#{text_description.truncate(350, :separator => ' ')}'/>\n"
     res << "<meta property='og:site_name' content='#{I18n.t('site_title')}' />\n"
     res << "<meta property='og:url' content='#{organization_url}' />\n"
     res << "<meta property='og:title' content='#{title.text_gilensize}' />\n"
@@ -151,7 +150,7 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def truncated_description
-    html_description.excerpt.hyphenate
+    description.excerpt.hyphenate
   end
 
   # NOTE: может быть как-то можно использовать config/initializers/searchers.rb

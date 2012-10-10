@@ -114,9 +114,9 @@ class AfficheDecorator < ApplicationDecorator
       place_title = place_title.truncate(max_lenght, :separator => ' ')
       max_lenght -= place_title.size
       if place.organization
-        place_output += h.link_to place_title.text_gilensize.hyphenate, h.organization_path(place.organization), :title => place_link_title.gilensize.as_text
+        place_output += h.link_to place_title.text_gilensize.hyphenate, h.organization_path(place.organization), :title => place_link_title.text_gilensize
       else
-        place_output += place_link_title.blank? ? place_title.text_gilensize.hyphenate : h.content_tag(:abbr, place_title.text_gilensize.hyphenate, :title => place_link_title.gilensize.as_text)
+        place_output += place_link_title.blank? ? place_title.text_gilensize.hyphenate : h.content_tag(:abbr, place_title.text_gilensize.hyphenate, :title => place_link_title.text_gilensize)
       end
       break if max_lenght < 3
       place_output += ", " if index < places.size - 1
@@ -135,7 +135,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def truncated_description
-    html_description.excerpt.hyphenate
+    description.excerpt.hyphenate
   end
 
   def html_attachments
@@ -334,7 +334,7 @@ class AfficheDecorator < ApplicationDecorator
   private
 
   def truncated_link(length, anchor = nil)
-    h.link_to h.hyphenate(affiche.title.truncate(length, :separator => ' ')).gilensize.html_safe, kind_affiche_path(anchor: anchor), :title => affiche.title
+    h.link_to affiche.title.text_gilensize.truncated(length), kind_affiche_path(anchor: anchor), :title => affiche.title
   end
 
   def in_one_day?
@@ -346,7 +346,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def poster(affiche, width, height)
-    image_tag(affiche.poster_url, width, height, affiche.title.gilensize.gsub(/<\/?\w+.*?>/m, '').html_safe)
+    image_tag(affiche.poster_url, width, height, affiche.title.text_gilensize)
   end
 
   def searcher

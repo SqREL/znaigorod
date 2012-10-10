@@ -1,8 +1,8 @@
 <% content_for :affiche_content do %>
   <%= content_tag(:div, link_to(@affiche.human_kind, affiches_path(@affiche.pluralized_kind, 'all')), :class => 'kind') %>
   <div class="head">
-    <%= content_tag :h1, @affiche.title.gilensize.html_safe %>
-    <%= content_tag :h2, @affiche.original_title.gilensize.html_safe unless @affiche.original_title.blank? %>
+    <%= content_tag :h1, @affiche.title.text_gilensize %>
+    <%= content_tag :h2, @affiche.original_title.text_gilensize if @affiche.original_title? %>
   </div>
   <div class="info">
     <div class="description">

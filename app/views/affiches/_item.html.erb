@@ -1,6 +1,6 @@
 <div class="item">
   <h3>
-    <%= link_to item.title.gilensize.html_safe, affiche_path(item), :class => 'solid_light_blue' %>
+    <%= link_to item.title.text_gilensize, affiche_path(item), :class => 'solid_light_blue' %>
     <span class='category'><%= link_to item.class.model_name.human, affiches_path('search[affiche_category][]' => transliterate(item.class.model_name.human.mb_chars.downcase)) %></span>
   </h3>
   <div class="poster">

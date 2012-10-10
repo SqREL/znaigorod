@@ -1,6 +1,6 @@
 <div class="item">
   <h3>
-    <%= link_to item.title.gilensize.html_safe, item, :class => 'solid_light_blue' %>
+    <%= link_to item.title.text_gilensize, item, :class => 'solid_light_blue' %>
     <% item.category.split(',').map(&:squish).each do |c| %>
       <span class='category'><%= link_to c, send("#{item.class.model_name.underscore.pluralize}_path", 'search[categories][]' => c) %></span>
     <% end %>

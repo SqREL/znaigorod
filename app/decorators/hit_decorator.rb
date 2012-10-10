@@ -6,11 +6,11 @@ class HitDecorator < ApplicationDecorator
   ADDITIONAL_FIELDS = AFFICHE_FIELDS + ORGANIZATION_FIELDS
 
   def title
-    highlighted(:title_ru) || title.truncated
+    highlighted(:title_ru) || result.title.truncated(100)
   end
 
   def excerpt
-    highlighted(:description_ru) || html_description.excerpt
+    highlighted(:description_ru) || result.description.excerpt
   end
 
   def to_partial_path
