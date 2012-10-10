@@ -129,5 +129,13 @@ describe OrganizationsCollection do
       its(:offers) { should == ['обеды'] }
       its(:cuisines) { should == ['русская', 'европейская', 'китайская'] }
     end
+
+    context '/kafe/cuisines/russian/asian/features/ololo/pysh/offers/111/222/lat/83.2342/lon/23.3434/rad/5' do
+      let(:params) { { organization_class: 'meals', category: 'кафе', query: '/kafe/cuisines/russian/asian/features/ololo/pysh/offers/111/222/lat/83.2342/lon/23.3434/rad/5' } }
+
+      its(:lat) { should == 83.2342 }
+      its(:lon) { should == 23.3434 }
+      its(:rad) { should == 5 }
+    end
   end
 end

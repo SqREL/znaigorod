@@ -105,7 +105,7 @@ class OrganizationsCollection
     groups = []
     groups << 'category' if category == 'all'
     groups << 'cuisine' if organization_class == 'meal'
-    groups += ['offer', 'feature']
+    groups += ['offer', 'feature', 'lat', 'lon', 'rad']
   end
 
   def filters
@@ -216,5 +216,17 @@ class OrganizationsCollection
 
   def meta_keywords
     tag(:meta, name: 'keywords', content: OrganizationCollectionKeywords.new(self).to_s)
+  end
+
+  def lat
+    parameters['lat'].first.try :to_f
+  end
+
+  def lon
+    parameters['lon'].first.try :to_f
+  end
+
+  def rad
+    parameters['rad'].first.try :to_f
   end
 end
