@@ -45,6 +45,18 @@ class AfficheDecorator < ApplicationDecorator
               h.affiches_path(kind: kind.pluralize, period: :all)
   end
 
+  def crumbs
+    links = []
+    links << h.content_tag(:li, h.link_to("Главная", h.root_path), :class => "crumb")
+    links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
+    links << h.content_tag(:li, h.link_to("Вся афиша", h.affiches_path(kind: "affiches", period: :all)), :class => "crumb")
+    links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
+    links << h.content_tag(:li, h.link_to("Все #{human_kind.mb_chars.downcase}", h.affiches_path(kind: kind.pluralize, period: :all)), :class => "crumb")
+    links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
+    links << h.content_tag(:li, h.link_to(title, kind_affiche_path), :class => "crumb")
+    h.content_tag :ul, links.join("\n").html_safe, :class => "breadcrumbs"
+  end
+
   def link
     h.link_to affiche.title.gilensize.html_safe, kind_affiche_path
   end
