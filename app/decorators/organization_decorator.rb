@@ -150,12 +150,8 @@ class OrganizationDecorator < ApplicationDecorator
     end
   end
 
-  def html_description
-    RedCloth.new(organization.description).to_html.gsub(/&#8220;|&#8221;/, '"').gilensize.html_safe
-  end
-
   def truncated_description
-    h.hyphenate(html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(230, :separator => ' ').gilensize).html_safe
+    html_description.excerpt.hyphenate
   end
 
   # NOTE: может быть как-то можно использовать config/initializers/searchers.rb

@@ -1,7 +1,5 @@
 class Manage::RedClothController < Manage::ApplicationController
   def show
-    html = params[:text] ? RedCloth.new(params[:text]).to_html : ''
-
-    render :text => html
+    render :text => params[:text].try(:as_html)
   end
 end

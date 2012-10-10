@@ -27,8 +27,8 @@
 
   <div>
     <span class="label">Описание:</span>
-    <% if resource.description.present? %>
-      <span class="value"><%= raw RedCloth.new(resource.description).to_html %></span>
+    <% if resource.description? %>
+      <span class="value"><%= resource.html_description %></span>
     <% else %>
       <span class="blank">Не указано</span>
     <% end %>

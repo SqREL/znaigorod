@@ -1,6 +1,3 @@
-require 'nokogiri'
-require 'redcloth'
-
 class Organization < ActiveRecord::Base
   extend FriendlyId
 
@@ -63,8 +60,8 @@ class Organization < ActiveRecord::Base
     text :feature,                                :more_like_this => true,  :stored => true
     text :offer,                                  :more_like_this => true,  :stored => true
     text :payment,                                                          :stored => true
-    text :description,      :boost => 0.5 * 1.2                                               do description_as_plain_text end
-    text :description_ru,   :boost => 0.5,                                  :stored => true   do description_as_plain_text end
+    text :description,      :boost => 0.5 * 1.2                                               do text_description end
+    text :description_ru,   :boost => 0.5,                                  :stored => true   do text_description end
     text :address,                                                          :stored => true
     text :term
   end
@@ -119,8 +116,12 @@ class Organization < ActiveRecord::Base
     organizations = Organization.where(:organization_id => nil).order(:title)
   end
 
-  def description_as_plain_text
-    @description_as_plain_text ||= Nokogiri::HTML(RedCloth.new(description).to_html.gsub(/&#8220;|&#8221;/, '"').gilensize).text
+  def html_description
+    @html_description ||= description.as_html
+  end
+
+  def text_description
+    @text_description ||= html_description.as_text
   end
 end
 

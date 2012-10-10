@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'nokogiri'
-require 'redcloth'
 require 'vkontakte_api'
 require 'curb'
 
@@ -53,8 +51,8 @@ class Affiche < ActiveRecord::Base
     text :title_ru,           :boost => 2,          :stored => true,  :more_like_this => true
     text :original_title,     :boost => 1.5,        :stored => true,  :more_like_this => true
     text :tag,                :boost => 1 * 1.2,    :stored => true,  :more_like_this => true
-    text :description,        :boost => 0.5 * 1.2                                               do description_as_plain_text end
-    text :description_ru,     :boost => 0.5,        :stored => true                             do description_as_plain_text end
+    text :description,        :boost => 0.5 * 1.2                                               do text_description end
+    text :description_ru,     :boost => 0.5,        :stored => true                             do text_description end
     time :last_showing_time
   end
 
@@ -100,6 +98,14 @@ class Affiche < ActiveRecord::Base
 
   def popularity
     0.3 * yandex_metrika_page_views.to_i + vkontakte_likes.to_i
+  end
+
+  def html_description
+    @html_description ||= description.as_html
+  end
+
+  def text_description
+    @text_description ||= html_description.as_text
   end
 
   private
@@ -161,10 +167,6 @@ class Affiche < ActiveRecord::Base
 
   def get_images_from_yandex_fotki
     JSON.parse(Curl.get("http://api-fotki.yandex.ru/api/users/#{yandex_fotki_url}/photos/?format=json").body_str)['entries']
-  end
-
-  def description_as_plain_text
-    @description_as_plain_text ||= Nokogiri::HTML(RedCloth.new(description).to_html.gsub(/&#8220;|&#8221;/, '"').gilensize).text
   end
 end
 

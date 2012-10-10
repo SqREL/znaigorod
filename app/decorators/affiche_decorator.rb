@@ -114,9 +114,9 @@ class AfficheDecorator < ApplicationDecorator
       place_title = place_title.truncate(max_lenght, :separator => ' ')
       max_lenght -= place_title.size
       if place.organization
-        place_output += h.link_to h.hyphenate(place_title).gilensize.html_safe, h.organization_path(place.organization), :title => place_link_title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').html_safe
+        place_output += h.link_to place_title.hyphenate.gilensize.html_safe, h.organization_path(place.organization), :title => place_link_title.gilensize.as_text
       else
-        place_output += place_link_title.blank? ? h.hyphenate(place_title).gilensize.html_safe : h.content_tag(:abbr, h.hyphenate(place_title).gilensize.html_safe, :title => place_link_title.gilensize.gsub(/<\/?\w+.*?>/m, ' ').html_safe)
+        place_output += place_link_title.blank? ? place_title.hyphenate.gilensize.html_safe : h.content_tag(:abbr, place_title.hyphenate.gilensize.html_safe, :title => place_link_title.gilensize.as_text)
       end
       break if max_lenght < 3
       place_output += ", " if index < places.size - 1
@@ -135,11 +135,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def truncated_description
-    h.hyphenate(html_description.gsub(/<table>.*<\/table>/m, '').gsub(/<\/?\w+.*?>/m, ' ').squish.truncate(230, :separator => ' ').gilensize).html_safe
-  end
-
-  def html_description
-    RedCloth.new(affiche.description).to_html.gsub(/&#8220;|&#8221;/, '"').gilensize.html_safe
+    html_description.excerpt.hyphenate
   end
 
   def html_attachments
