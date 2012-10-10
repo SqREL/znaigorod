@@ -17,7 +17,7 @@ class SearchPresenter
   end
 
   def collection
-    @collection ||= HasSearcher.searcher(:general, params)
+    @collection ||= HasSearcher.searcher(:global, params)
   end
 
   def hits

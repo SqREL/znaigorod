@@ -255,7 +255,7 @@ HasSearcher.create_searcher :manage_organization do
   keywords :q
 end
 
-HasSearcher.create_searcher :general do
+HasSearcher.create_searcher :global do
   models :organization, :affiche
   keywords :q do
     highlight :title_ru
