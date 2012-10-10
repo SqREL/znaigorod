@@ -1,5 +1,4 @@
 class Other < Affiche
-  attr_accessible :constant
 end
 
 # == Schema Information

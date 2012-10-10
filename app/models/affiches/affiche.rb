@@ -10,7 +10,7 @@ class Affiche < ActiveRecord::Base
                   :tag, :title, :vfs_path, :affiche_schedule_attributes,
                   :images_attributes, :attachments_attributes,
                   :distribution_starts_on, :distribution_ends_on,
-                  :original_title, :trailer_code, :vk_aid, :yandex_fotki_url
+                  :original_title, :trailer_code, :vk_aid, :yandex_fotki_url, :constant
 
 
   has_many :images,      :as => :imageable, :dependent => :destroy

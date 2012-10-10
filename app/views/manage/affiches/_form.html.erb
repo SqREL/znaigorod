@@ -7,7 +7,7 @@
 <%= f.input :yandex_fotki_url %>
 <%= f.input :distribution_starts_on, :as => :date_picker %>
 <%= f.input :distribution_ends_on, :as => :date_picker %>
-<%= f.input :constant if [Exhibition, Other].include?(f.object.class) %>
+<%= f.input :constant %>
 
 <div class='poster'>
   <h3>Постер для события:</h3>
