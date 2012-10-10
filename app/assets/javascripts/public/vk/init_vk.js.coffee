@@ -24,7 +24,7 @@ VK.init
   true
 
 @init_vk_group_thin = () ->
-  VK.Widgets.Group "vk_groups_thin"
+  VK.Widgets.Group "vk_group_thin"
     mode: 0
     width: "200"
     height: "360"
@@ -32,9 +32,26 @@ VK.init
   true
 
 @init_vk_group_thick = () ->
-  VK.Widgets.Group "vk_groups_thick"
+  VK.Widgets.Group "vk_group_thick"
     mode: 0
     width: "285"
+    height: "360"
+  , 35689602
+  true
+
+@init_vk_group_subscribers = () ->
+  VK.Widgets.Group "vk_group_subscribers"
+    mode: 0
+    width: "285"
+    height: "423"
+  , 35689602
+  true
+
+@init_vk_group_news = () ->
+  VK.Widgets.Group "vk_group_news"
+    mode: 2
+    wide: 1
+    width: "675"
     height: "360"
   , 35689602
   true

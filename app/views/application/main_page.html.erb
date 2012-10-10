@@ -62,8 +62,18 @@
   <div class="main_page_block">
     <ul>
       <li><a href="<%= organizations_path(organization_class: 'meals') %>">Все заведения питания (<%= @actual_organizations.total_meals %>)</a></li>
-      <li><a href="<%= organizations_path(organization_class: 'entertainments') %>">Все развлекательные заведения (<%= @actual_organizations.total_entertainments %>)</a><li>
-      <li><a href="<%= organizations_path(organization_class: 'cultures') %>">Все заведения культуры (<%= @actual_organizations.total_cultures %>)</a><li>
+      <li><a href="<%= organizations_path(organization_class: 'entertainments') %>">Все развлекательные заведения (<%= @actual_organizations.total_entertainments %>)</a></li>
+      <li><a href="<%= organizations_path(organization_class: 'cultures') %>">Все заведения культуры (<%= @actual_organizations.total_cultures %>)</a></li>
     </ul>
+  </div>
+</div>
+
+<div class="main_page_block_wrapper news_in_city">
+  <div class="main_page_block">
+    <h1><span class="strong">Новости</span> города</h1>
+    <div class="vk_group_news_wrapper">
+      <div id="vk_group_news"></div>
+      <div id="vk_group_subscribers"></div>
+    </div>
   </div>
 </div>
