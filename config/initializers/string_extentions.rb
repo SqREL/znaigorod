@@ -4,7 +4,7 @@ class String
   def as_html
     require 'redcloth'
     require 'gilenson'
-    RedCloth.new(self).to_html.gsub(/&#8220;|&#8221;/, '"').gilensize.html_safe
+    Gilenson::RedClothExtra.new(self).to_html.html_safe
   end
 
   def as_text
@@ -28,5 +28,9 @@ class String
 
   def excerpt
     self.without_table.as_text.truncated
+  end
+
+  def text_gilensize
+    self.gilensize(:html => false, :raw_output => true).squish
   end
 end

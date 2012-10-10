@@ -58,7 +58,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def link
-    h.link_to affiche.title.gilensize.html_safe, kind_affiche_path
+    h.link_to affiche.title.text_gilensize, kind_affiche_path
   end
 
   def more_link
@@ -114,9 +114,9 @@ class AfficheDecorator < ApplicationDecorator
       place_title = place_title.truncate(max_lenght, :separator => ' ')
       max_lenght -= place_title.size
       if place.organization
-        place_output += h.link_to place_title.hyphenate.gilensize.html_safe, h.organization_path(place.organization), :title => place_link_title.gilensize.as_text
+        place_output += h.link_to place_title.text_gilensize.hyphenate, h.organization_path(place.organization), :title => place_link_title.gilensize.as_text
       else
-        place_output += place_link_title.blank? ? place_title.hyphenate.gilensize.html_safe : h.content_tag(:abbr, place_title.hyphenate.gilensize.html_safe, :title => place_link_title.gilensize.as_text)
+        place_output += place_link_title.blank? ? place_title.text_gilensize.hyphenate : h.content_tag(:abbr, place_title.text_gilensize.hyphenate, :title => place_link_title.gilensize.as_text)
       end
       break if max_lenght < 3
       place_output += ", " if index < places.size - 1
@@ -168,7 +168,7 @@ class AfficheDecorator < ApplicationDecorator
     res << "<meta name='description' content='#{desc}' />\n"
     res << "<meta property='og:description' content='#{desc.truncate(350, :separator => ' ').html_safe}'/>\n"
     res << "<meta property='og:site_name' content='#{I18n.t('site_title')}' />\n"
-    res << "<meta property='og:title' content='#{page_title(title)}' />\n"
+    res << "<meta property='og:title' content='#{title.text_gilensize}' />\n"
     res << "<meta property='og:url' content='#{kind_affiche_url}' />\n"
     res << "<meta property='og:image' content='#{image}' />\n"
     res << "<meta name='image' content='#{image}' />\n"
@@ -287,12 +287,11 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def html_many_other_showings
-    return "" unless other_showings_size > 0
-    ("&nbsp;" + h.link_to("и еще #{other_showings_size}", kind_affiche_path(:anchor => "showings"))).gilensize.html_safe
+    h.link_to("и еще #{other_showings_size}", kind_affiche_path(:anchor => "showings")) if other_showings_size > 0
   end
 
   def html_other_showings
-    ((ShowingDecorator.decorate(other_showings[0..1]).map(&:html_other_showing)).compact.join(", <br />") + html_many_other_showings).html_safe
+    ((ShowingDecorator.decorate(other_showings[0..1]).map(&:html_other_showing)).compact.join(", <br />") + "&nbsp;" + html_many_other_showings.to_s).html_safe
   end
 
   def distribution_movie?

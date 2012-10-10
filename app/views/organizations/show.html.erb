@@ -9,7 +9,7 @@
     <% end %>
 
     <div class="head">
-      <h1><%= @organization.html_title(@organization.title) %></h1>
+      <h1><%= @organization.title.text_gilensize %></h1>
     </div>
 
     <% if @organization.logotype_url? %>
@@ -75,7 +75,7 @@
         </tr>
       </table>
       <div class="text">
-        <%= hyphenate(@organization.html_description).gilensize.html_safe if @organization.description? %>
+        <%= @organization.html_description.hyphenate if @organization.description? %>
       </div>
     </div>
 
