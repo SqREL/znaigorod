@@ -193,6 +193,7 @@ class AfficheDecorator < ApplicationDecorator
       return showings.first.human_when
     else
       last_showing = ShowingDecorator.new(affiche.showings.last)
+      return "Время проведения неизвестно" unless last_showing.showing
       case affiche.class.name
       when 'Movie'
         if affiche_distribution?
