@@ -16,10 +16,6 @@ class ApplicationDecorator < Draper::Base
     h.image_tag(resized_image_url(url, width, height, crop), :title => title, :alt => title)
   end
 
-  def html_title(text)
-    text.gilensize.gsub(' ,', ',').squish.html_safe
-  end
-
   def humanize_price(price_min, price_max)
     return h.hyphenate("стоимость не указана") if price_min.nil? && price_max.nil?
     return h.hyphenate("бесплатно") if price_min == 0 && (price_max.nil? || price_max == 0)
