@@ -11,7 +11,7 @@ VK.init
 
 @init_vk_recommended = () ->
   VK.Widgets.Recommended "vk_recommended"
-    limit: 10
+    limit: 5
     period: 'month'
     sort: 'likes'
   true
@@ -21,4 +21,20 @@ VK.init
     limit: 10
     width: "760"
     attach: "*"
+  true
+
+@init_vk_group_thin = () ->
+  VK.Widgets.Group "vk_groups_thin"
+    mode: 0
+    width: "200"
+    height: "360"
+  , 35689602
+  true
+
+@init_vk_group_thick = () ->
+  VK.Widgets.Group "vk_groups_thick"
+    mode: 0
+    width: "285"
+    height: "360"
+  , 35689602
   true
