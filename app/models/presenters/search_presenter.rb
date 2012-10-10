@@ -3,24 +3,19 @@ class SearchPresenter
 
   attr_accessor :params
 
-  def initialize(options)
-    super(options)
-    params.delete(:action)
-  end
-
   def page
     params[:page] || 1
   end
 
-  def paginated_collection
-    collection.paginate(page: page, per_page: 5)
-  end
-
   def collection
-    @collection ||= HasSearcher.searcher(:global, params)
+    @collection ||= HasSearcher.searcher(:global, params).paginate(page: page, per_page: 10)
   end
 
   def hits
     HitDecorator.decorate collection.hits
+  end
+
+  def hits?
+    !collection.total.zero?
   end
 end
