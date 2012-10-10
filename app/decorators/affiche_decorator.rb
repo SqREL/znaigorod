@@ -45,7 +45,7 @@ class AfficheDecorator < ApplicationDecorator
               h.affiches_path(kind: kind.pluralize, period: :all)
   end
 
-  def crumbs
+  def breadcrumbs
     links = []
     links << h.content_tag(:li, h.link_to("Главная", h.root_path), :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
