@@ -7,8 +7,12 @@ class SearchPresenter
     params[:page] || 1
   end
 
+  def searcher
+    @searcher ||= HasSearcher.searcher(:global, params)
+  end
+
   def collection
-    @collection ||= HasSearcher.searcher(:global, params).paginate(page: page, per_page: 10)
+    @collection ||= searcher.paginate(page: page, per_page: 10)
   end
 
   def hits

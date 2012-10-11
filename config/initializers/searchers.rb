@@ -264,4 +264,9 @@ HasSearcher.create_searcher :global do
       highlight field
     end
   end
+  scope do
+    adjust_solr_params do |params|
+      params[:fl] = 'id score'
+    end
+  end
 end

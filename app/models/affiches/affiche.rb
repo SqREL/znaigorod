@@ -53,7 +53,7 @@ class Affiche < ActiveRecord::Base
     text :tag,                :boost => 1 * 1.2,    :stored => true,  :more_like_this => true
     text :description,        :boost => 0.5 * 1.2                                               do text_description end
     text :description_ru,     :boost => 0.5,        :stored => true                             do text_description end
-    time :last_showing_time
+    time :last_showing_time,  :trie => true
   end
 
   def self.ordered_descendants
