@@ -263,6 +263,12 @@ HasSearcher.create_searcher :global do
     HitDecorator::ADDITIONAL_FIELDS.each do |field|
       highlight field
     end
+    boost 1 do
+      any_of do
+        with(:last_showing_time).greater_than(HasSearcher.cacheable_now)
+        with(:last_showing_time, nil)
+      end
+    end
   end
   scope do
     adjust_solr_params do |params|
