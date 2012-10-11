@@ -1,6 +1,8 @@
 require "bundler/capistrano"
 require "rvm/capistrano"
 
+load "config/deploy/tag"
+
 settings_yml_path = "config/settings.yml"
 config = YAML::load(File.open(settings_yml_path))
 raise "not found deploy key in settings.yml. see settings.yml.example" unless config['deploy']
