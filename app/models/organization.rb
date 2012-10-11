@@ -106,6 +106,7 @@ class Organization < ActiveRecord::Base
     r += 1 if description?
     r += 1 if email?
     r += 1 if phone?
+    r += 1 if tour_link?
     r / 100.0
   end
 
