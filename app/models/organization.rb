@@ -39,6 +39,7 @@ class Organization < ActiveRecord::Base
   scope :ordered_by_updated_at, order('updated_at DESC')
   scope :parental,              where(:organization_id => nil)
 
+  before_save :set_rating
   after_save :index_additional_attributes
 
   alias_attribute :to_s, :title
@@ -50,7 +51,6 @@ class Organization < ActiveRecord::Base
   alias_attribute :title_ru, :title
 
   searchable do
-    float :rating
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
     string(:kind) { 'organization' }
     text :title,            :boost => 2 * 1.2
@@ -63,6 +63,9 @@ class Organization < ActiveRecord::Base
     text :description,      :boost => 0.5 * 1.2                                               do text_description end
     text :description_ru,   :boost => 0.5,                                  :stored => true   do text_description end
     text :address,                                                          :stored => true
+
+    float :rating
+
     text :term
   end
 
@@ -103,15 +106,6 @@ class Organization < ActiveRecord::Base
     additional_attributes.map(&:index)
   end
 
-  def rating
-    r = nearest_affiches.count + images.count
-    r += 1 if description?
-    r += 1 if email?
-    r += 1 if phone?
-    r += 1 if tour_link?
-    r / 100.0
-  end
-
   def self.grouped_collection_for_select
     organizations = Organization.where(:organization_id => nil).order(:title)
   end
@@ -122,6 +116,17 @@ class Organization < ActiveRecord::Base
 
   def text_description
     @text_description ||= html_description.as_text
+  end
+
+  private
+
+  def set_rating
+    self.rating = nearest_affiches.count + images.count
+    self.rating += 1 if description?
+    self.rating += 1 if email?
+    self.rating += 1 if phone?
+    self.rating += 1 if tour_link?
+    self.rating / 100.0
   end
 end
 

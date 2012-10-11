@@ -269,6 +269,14 @@ HasSearcher.create_searcher :global do
         with(:last_showing_time, nil)
       end
     end
+    boost(
+      function {
+        sum(
+          div(:popularity, Affiche.maximum(:popularity)),
+          div(:rating, Organization.maximum(:rating))
+        )
+      }
+    )
   end
   scope do
     adjust_solr_params do |params|
