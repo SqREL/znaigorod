@@ -47,7 +47,7 @@ class AfficheDecorator < ApplicationDecorator
 
   def breadcrumbs
     links = []
-    links << h.content_tag(:li, h.link_to("Главная", h.root_path), :class => "crumb")
+    links << h.content_tag(:li, h.link_to("Знай\u00ADГород", h.root_path), :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
     links << h.content_tag(:li, h.link_to("Вся афиша", h.affiches_path(kind: "affiches", period: :all)), :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
@@ -69,21 +69,38 @@ class AfficheDecorator < ApplicationDecorator
     AfficheScheduleDecorator.decorate affiche.affiche_schedule
   end
 
-  def tabs
+  def navigation
     [].tap do |links|
-      links << h.content_tag(:li, h.link_to("Описание", "#info"))
-      links << h.content_tag(:li,
-                             h.link_to(affiche.is_a?(Movie) ? "Кадры" : "Фотографии",
-                                       "#photogallery",
-                                       :title => affiche.has_images? ? nil : "Недоступно",
-                                       "data-link" => kind_affiche_photogallery_path),
-                             :class => affiche.has_images? ? nil : 'disabled')
-      links << h.content_tag(:li,
-                             h.link_to(affiche.is_a?(Movie) ? "Трейлер" : "Видео",
-                                       "#trailer",
-                                       :title => affiche.trailer_code? ? nil : "Недоступно",
-                                       "data-link" => kind_affiche_trailer_path),
-                             :class => affiche.trailer_code? ? nil : 'disabled')
+      klass = []
+      klass << "current" if h.current_page?(kind_affiche_path)
+      klass << "before_current" if h.current_page?(kind_affiche_photogallery_path)
+      links << h.content_tag(:li, h.link_to("Описание", kind_affiche_path),
+                             :class => klass.any? ? klass.join(" ") : nil)
+      klass = []
+      klass << "disabled" unless affiche.has_images?
+      klass << "current" if h.current_page?(kind_affiche_photogallery_path)
+      klass << "before_current" if h.current_page?(kind_affiche_trailer_path)
+      if affiche.has_images?
+        links << h.content_tag(:li, h.link_to(affiche.is_a?(Movie) ? "Кадры" : "Фотографии",
+                                              kind_affiche_photogallery_path),
+                               :class => klass.any? ? klass.join(" ") : nil)
+      else
+        links << h.content_tag(:li, h.content_tag(:span, affiche.is_a?(Movie) ? "Кадры" : "Фотографии",
+                                                  :title => "Недоступно"),
+                               :class => klass.any? ? klass.join(" ") : nil)
+      end
+      klass = []
+      klass << "disabled" unless affiche.trailer_code?
+      klass << "current" if h.current_page?(kind_affiche_trailer_path)
+      if affiche.trailer_code?
+        links << h.content_tag(:li, h.link_to(affiche.is_a?(Movie) ? "Трейлер" : "Видео",
+                                              kind_affiche_trailer_path),
+                               :class => klass.any? ? klass.join(" ") : nil)
+      else
+        links << h.content_tag(:li, h.content_tag(:span, affiche.is_a?(Movie) ? "Трейлер" : "Видео",
+                                                  :title => "Недоступно"),
+                               :class => klass.any? ? klass.join(" ") : nil)
+      end
     end
   end
 

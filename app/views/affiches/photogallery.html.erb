@@ -1,21 +1,24 @@
-<%= content_tag(:div, link_to(@affiche.human_kind, affiches_path(@affiche.pluralized_kind, 'all')), :class => 'kind') %>
-<div class="head">
-  <%= content_tag :h1, @affiche.title.gilensize.html_safe %>
-  <%= content_tag :h2, @affiche.original_title.gilensize.html_safe unless @affiche.original_title.blank? %>
-</div>
-<div class="info">
-  <div class="description">
-    <div class="closest">
-      <%= @affiche.when_with_price %>
+<% content_for :affiche_content do %>
+  <%= content_tag(:div, link_to(@affiche.human_kind, affiches_path(@affiche.pluralized_kind, 'all')), :class => 'kind') %>
+  <div class="head">
+    <%= content_tag :h1, @affiche.title.gilensize.html_safe %>
+    <%= content_tag :h2, @affiche.original_title.gilensize.html_safe unless @affiche.original_title.blank? %>
+  </div>
+  <div class="info">
+    <div class="description">
+      <div class="closest">
+        <%= @affiche.when_with_price %>
+      </div>
     </div>
   </div>
-</div>
-<div class="gallery_container">
-  <% @affiche.images.each do |image| %>
-    <% if image.thumbnail_url? %>
-      <%= link_to image_tag(image.thumbnail_url, :width => '124', :height => '93', :title => image.description), image.url %>
-    <% else %>
-      <%= link_to @affiche.image_tag(image.url, 124, 93, image.description), image.url %>
+  <div class="gallery_container">
+    <% @affiche.images.each do |image| %>
+      <% if image.thumbnail_url? %>
+        <%= link_to image_tag(image.thumbnail_url, :width => '124', :height => '93', :title => image.description), image.url %>
+      <% else %>
+        <%= link_to @affiche.image_tag(image.url, 124, 93, image.description), image.url %>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
+<%= render :file => "affiches/wrapper" %>

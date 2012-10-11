@@ -44,7 +44,7 @@ class OrganizationDecorator < ApplicationDecorator
 
   def breadcrumbs
     links = []
-    links << h.content_tag(:li, h.link_to("Главная", h.root_path), :class => "crumb")
+    links << h.content_tag(:li, h.link_to("Знай\u00ADГород", h.root_path), :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
     links << h.content_tag(:li, h.link_to(I18n.t("organization.list_title.#{suborganization_kind.singularize}"), h.organizations_path(:organization_class => suborganization_kind)), :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")

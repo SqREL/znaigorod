@@ -1,0 +1,149 @@
+<% content_for :subtitle do %>
+  <%= @affiche.page_title(@affiche.title) %>, <%= @affiche.human_kind.mb_chars.downcase %> в Томске
+<% end %>
+
+<% content_for :extra_meta do %>
+  <%= @affiche.tags_for_vk %>
+  <%= @affiche.meta_keywords %>
+<% end %>
+
+<div class="content_wrapper">
+
+  <%= @affiche.breadcrumbs %>
+
+  <div class="clearfix">
+
+    <div class="content">
+
+      <div class="affiche">
+        <%= yield :affiche_content %>
+      </div>
+
+      <div class="tags_and_share">
+        <ul class="tags">
+          <% @affiche.tags.each do |tag| %>
+            <li><%= link_to(tag, affiches_path(kind: @affiche.pluralized_kind, period: :all, tags: tag)) %></li>
+          <%end%>
+        </ul>
+        <div class="share">
+          <%= render :partial => "commons/share_this" %>
+        </div>
+      </div>
+
+      <% if @affiche.showings.many? %>
+        <% if @affiche.distribution_movie? %>
+          <div class="distribution">
+            <ul class="dates">
+              <li class="first">
+                <h3>Сеансы</h3>
+              </li>
+              <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
+                <% unless showings_with_place.values.blank? %>
+                  <li class="text">
+                    <p class="date" data-id="date-<%= date %>"><%= showings_with_place.values.first.first.human_date %></p>
+                    <p class="day_of_week"><%= l date, format: '%A' %></p>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+
+            <% @affiche.distribution_movie_grouped_showings.each do |date, showings_with_place| %>
+              <div class="theaters" data-id="date-<%= date %>">
+                <% showings_with_place.each do |place, showings| %>
+                  <ul>
+                    <li class="theater">
+                      <p class="name"><%= showings.first.place_decorator.link_short_title %></p>
+                      <p class="address"><%= showings.first.place_decorator.address_link %></p>
+                    </li>
+                    <% showings.each_with_index do |showing, index| %>
+                      <li class="seance<%= ' break' if index > 0 && index % 7 == 0 %>">
+                        <%= content_tag :p, showing.human_time_starts_at, :class => "time" unless showing.human_time_starts_at.blank? %>
+                        <%= content_tag :p, showing.human_price, :class => "price" unless showing.human_price.blank? %>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+
+        <% end %>
+        <% if @affiche.scheduled_showings? %>
+          <div class="sheduled">
+            <div class="head">
+              <h3>Расписание</h3>
+              <div class="places">
+                <% @affiche.places.each do |place| %>
+                  <%= place.place %>
+                <% end %>
+              </div>
+            </div>
+            <div class="shedule">
+              <div class="price"><strong>Стоимость:</strong> <%= @affiche.schedule.human_price %></div>
+              <ul>
+                <% @affiche.schedule.days.each do |li| %>
+                  <%= li %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        <% end %>
+        <% if !@affiche.scheduled_showings? && !@affiche.distribution_movie? && @affiche.showings.many? %>
+          <div class="many_showings">
+            <div class="head">
+              <div class="places">
+                <% @affiche.places.each do |place| %>
+                  <%= place.place %>
+                <% end %>
+              </div>
+            </div>
+            <ul>
+              <% @affiche.showings.each do |showing| %>
+                <li class="<%= cycle('odd', 'even') %>">
+                  <%= showing.for_schedule %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      <% end %>
+      <% if Rails.env.production? %>
+        <div id="vk_comments"></div>
+      <% end %>
+    </div>
+
+    <div class="right_side">
+
+      <ul class="navigation">
+        <% @affiche.navigation.each do |link| %>
+          <%= link %>
+        <% end %>
+      </ul>
+
+      <% unless @affiche.similar_affiches.blank? %>
+        <div class="more_like_this">
+          <h2><%= I18n.t "more_like_this.#{@affiche.kind}" %></h2>
+          <ul>
+            <% @affiche.similar_affiches.each do |affiche| %>
+              <li>
+                <div class="title"><%= link_to affiche.title.gilensize.html_safe, affiche.kind_affiche_path %></div>
+                <div class="image"><%= affiche.more_like_this_poster %></div>
+                <%= content_tag :div, affiche.main_page_place, :class => "places" unless affiche.main_page_place.blank? %>
+              </li>
+            <% end %>
+          </ul>
+          <div class="all_today">
+            <%= @affiche.all_affiches_link %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="vk_group_wrapper">
+        <div id="vk_group_thin"></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+

@@ -22,13 +22,9 @@ class AffichesController < ApplicationController
 
   def photogallery
     @affiche = AfficheDecorator.new Affiche.find(params[:id])
-
-    render :layout => false
   end
 
   def trailer
     @affiche = AfficheDecorator.new Affiche.find(params[:id])
-
-    render :layout => false
   end
 end

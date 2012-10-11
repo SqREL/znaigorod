@@ -291,6 +291,8 @@
       +border-radius(3px)
       padding: 2px 3px 4px
       margin: 10px 0 0 10px
+      a
+        color: #fff
 
     .head
       margin-bottom: 15px
@@ -300,130 +302,63 @@
     h2
       font-style: italic
 
-    .ui-tabs
-      color: inherit
-      +border-radius(0)
-      background: none
+    .affiche
+      position: relative
       background-color: #efeaf1
-      border: none
-      padding: 0
-      .ui-widget-content
-        color: inherit
-        a
-          color: #0d92bb
-        .kind
-          a
-            color: #fff
-      .ui-tabs-nav
-        border: none
-        +border-radius(0)
-        text-align: center
-        background: #787B85 image_url('public/today_in_city_menu_bg.png') left top
-        padding: 0
-        li
-          top: 0
-          float: none
-          +inline-block
-          margin: 0 -2px
-          background: none
-          border-style: dotted
-          border-color: #d5d5d3
-          border-top: none
-          border-left: none
-          +border-radius(0)
-          &:first-child
-            border-left: 1px dotted #d5d5d3
-          a
-            float: none
-            width: 178px
-            color: #fff
-            font-weight: normal
-            display: block
-            padding: 10px 0
-          &.ui-state-disabled
-            +opacity(1)
-            a
-              +opacity(0.35)
-              cursor: default
-          &.ui-state-active
-            border: none
-            +border-radius(0)
-            border-top: 4px solid #d0e1e9
-            border-left: 1px solid #d2cfd8
-            border-right: 1px solid #d2cfd8
-            background: none
-            background-color: #efeaf1
-            a
-              cursor: default
-              text-align: center
-              color: #302047
-              padding-top: 7px
-              padding-bottom: 9px
-      .ui-tabs-panel
-        +border-radius(0)
-        padding: 10px 10px 0
-        .ajax_loading
-          width: 20px
-          height: 20px
-          background: #efeaf1 image_url('public/galleria_loader.gif') no-repeat 2px 2px
-          padding: 5px 0 20px 25px
-        .error
-          color: #880000
-          font-size: 26px
-          text-align: center
-          padding: 100px 0
-        .info
-          +clearfix
-          .image
-            width: 180px
-            float: left
-            margin-right: 10px
-          .description
-            line-height: 1.4
-            h1, h2, h3, h4, h5, p, table, ol, ul
-              margin-bottom: 10px
-              line-height: 1.5
-            h2
-              font-size: 18px
-            h3
-              font-size: 16px
-            table
-              width: 550px
-              &.full
-                width: 100%
-              tr:nth-child(odd) td
-                background-color: #e8e0eb
-              tr td:first-child
-                width: 5%
-                white-space: nowrap
-                font-weight: bold
-                &:first-letter
-                  text-transform: uppercase
-              td
-                padding: 2px 4px
-            ul li:before
-              content: "\2013"
+      border-top: 4px solid #d0e1e9
+      padding: 5px 10px 0
+      .info
+        +clearfix
+        .image
+          width: 180px
+          float: left
+          margin-right: 10px
+        .description
+          line-height: 1.4
+          h1, h2, h3, h4, h5, p, table, ol, ul
+            margin-bottom: 10px
+            line-height: 1.5
+          h2
+            font-size: 18px
+          h3
+            font-size: 16px
+          table
+            width: 550px
+            &.full
+              width: 100%
+            tr:nth-child(odd) td
+              background-color: #e8e0eb
+            tr td:first-child
+              width: 5%
+              white-space: nowrap
+              font-weight: bold
+              &:first-letter
+                text-transform: uppercase
+            td
+              padding: 2px 4px
+          ul li:before
+            content: "\2013"
+            padding-right: 5px
+          ol
+            counter-reset: li
+            li:before
+              content: counter(li)"."
+              counter-increment: li
               padding-right: 5px
-            ol
-              counter-reset: li
-              li:before
-                content: counter(li)"."
-                counter-increment: li
-                padding-right: 5px
-            .closest
-              p
-                +inline-block
-                color: #fff
-                font-size: 17px
-                background-color: #6b4381
-                +border-radius(3px)
-                padding: 2px 4px 4px
-                .price
-                  font-size: 14px
-        .trailer
-          +clearfix
-          border-top: 1px dotted #948f95
-          padding: 10px 0
+          .closest
+            p
+              +inline-block
+              color: #fff
+              font-size: 17px
+              background-color: #6b4381
+              +border-radius(3px)
+              padding: 2px 4px 4px
+              .price
+                font-size: 14px
+      .trailer
+        +clearfix
+        border-top: 1px dotted #948f95
+        padding: 10px 0
 
     .place
       font-weight: bold
@@ -475,9 +410,12 @@
           padding-right: 0 !important
           .b-share__handle:last-child
             padding-right: 0 !important
-        #vk_like
+        #vk_like,
+        #vk_like_fake
           float: left
           margin-top: 4px
+        #vk_like_fake
+          width: 100px
 
     .distribution
       margin: 20px 0
@@ -691,6 +629,39 @@
     float: left
     width: 200px
     margin: 0 10px 0 30px
+
+    .navigation
+      +border-radius(3px)
+      margin: 0 0 20px 0
+      li
+        text-align: center
+        background: #787b85 image_url('public/today_in_city_menu_bg.png') repeat left top
+        a, span
+          display: block
+          font-size: 16px
+          color: #fff
+          border-bottom: 1px dotted #d5d7d6
+          padding: 15px 0
+          margin: 0 5px
+        &:first-child
+          +border-top-radius(3px)
+        &:last-child
+          +border-bottom-radius(3px)
+          a, span
+            border-bottom: none
+        &.current
+          +border-radius(0)
+          background: #784391 image_url('public/affiches_filter_current_arrow.png') no-repeat left center
+          margin-left: -10px
+          a
+            color: #fff
+            font-size: 20px
+            border-bottom: none
+            margin-left: 15px
+        &.before_current a
+          border-bottom: none
+        &.disabled span
+          color: #ccc
 
     .vk_group_wrapper
       margin-bottom: 20px
