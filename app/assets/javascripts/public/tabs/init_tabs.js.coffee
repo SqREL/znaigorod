@@ -4,11 +4,6 @@
 
   container = $(".content .tabs")
 
-  $('.info .description table tr', container).each (index, item) ->
-    td = $('td:first', this)
-    td.text(td.text().squish() + ':') if !td.text().match(/:$/) && td.text() != ""
-    true
-
   container.tabs
     disabled: get_disabled()
     show: (event, ui) ->
