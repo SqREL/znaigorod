@@ -1,42 +1,9 @@
 require "bundler/capistrano"
 require "rvm/capistrano"
 
+load "config/deploy/settings"
+load "config/deploy/database"
 load "config/deploy/tag"
-
-settings_yml_path = "config/settings.yml"
-config = YAML::load(File.open(settings_yml_path))
-raise "not found deploy key in settings.yml. see settings.yml.example" unless config['deploy']
-application = config['deploy']["application"]
-raise "not found deploy.application key in settings.yml. see settings.yml.example" unless application
-domain = config['deploy']["domain"]
-raise "not found deploy.domain key in settings.yml. see settings.yml.example" unless domain
-port = config['deploy']["port"]
-raise "not found deploy.port key in settings.yml. see settings.yml.example" unless port
-
-set :application, application
-set :domain, domain
-set :port, port
-
-set :rails_env, "production"
-set :deploy_to, "/srv/#{application}"
-set :use_sudo, false
-set :unicorn_instance_name, "unicorn"
-
-set :scm, :git
-set :repository, "https://github.com/openteam-com/znaigorod.git"
-set :branch, "master"
-set :deploy_via, :remote_cache
-
-set :keep_releases, 7
-
-set :bundle_gemfile,  "Gemfile"
-set :bundle_dir,      File.join(fetch(:shared_path), 'bundle')
-set :bundle_flags,    "--deployment --quiet --binstubs"
-set :bundle_without,  [:development, :test]
-
-role :web, domain
-role :app, domain
-role :db,  domain, :primary => true
 
 namespace :deploy do
   desc "Copy config files"
@@ -83,50 +50,6 @@ namespace :deploy do
     run "gunzip -c #{deploy_to}/shared/sitemaps/sitemap1.xml.gz > #{deploy_to}/shared/sitemaps/sitemap1.xml"
     run "ln -s #{deploy_to}/shared/sitemaps/sitemap1.xml.gz #{release_path}/public/sitemap.xml.gz"
     run "ln -s #{deploy_to}/shared/sitemaps/sitemap1.xml #{release_path}/public/sitemap.xml"
-  end
-end
-
-# remote database.yml
-database_yml_path = "config/database.yml"
-config = YAML::load(capture("cat #{deploy_to}/shared/#{database_yml_path}"))
-adapter = config[rails_env]["adapter"]
-database = config[rails_env]["database"]
-db_username = config[rails_env]["username"]
-host = config[rails_env]["host"]
-
-#local database.yml
-config = YAML::load(File.open(database_yml_path))
-local_rails_env = 'development'
-local_adapter = config[local_rails_env]["adapter"]
-local_database = config[local_rails_env]["database"]
-local_db_username = config[local_rails_env]["username"]
-
-set :timestamp, Time.now.strftime("%Y-%m-%d-%H-%M")
-namespace :db do
-  desc "upload local database to remote server"
-  task :export do
-    if adapter == "postgresql"
-      run_locally("pg_dump -O #{local_database} > tmp/#{local_database}-#{timestamp}.sql")
-      upload "tmp/#{local_database}-#{timestamp}.sql", "#{deploy_to}/shared/database/#{local_database}-#{timestamp}.sql"
-      sudo "/etc/init.d/#{unicorn_instance_name} stop"
-      run "cd #{deploy_to}/current && RAILS_ENV=production bin/rake db:drop && RAILS_ENV=production bin/rake db:create"
-      run "psql -d #{database} -h #{host} -U #{db_username} -f #{deploy_to}/shared/database/#{local_database}-#{timestamp}.sql"
-      sudo "/etc/init.d/#{unicorn_instance_name} start"
-    else
-      puts "Cannot backup, adapter #{adapter} is not implemented for backup yet"
-    end
-  end
-
-  desc "download data to local database"
-  task :import do
-    run_locally("bin/rake sunspot:solr:stop; true")
-    run_locally("bin/rake db:drop")
-    run_locally("bin/rake db:create")
-    run_locally("ssh #{domain} -p #{port} pg_dump -U #{db_username} -h #{host} #{database} | psql #{local_database}")
-    run_locally("bin/rake db:migrate")
-    run_locally("bin/rake db:migrate RAILS_ENV=test")
-    run_locally("bin/rake sunspot:solr:start")
-    run_locally("bin/rake sunspot:reindex")
   end
 end
 
