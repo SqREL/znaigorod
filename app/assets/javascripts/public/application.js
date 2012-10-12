@@ -19,5 +19,6 @@
  * = require public/loading_items
  * = require public/list_settings
  * = require public/swfkrpano
+ * = require public/geofiltration
  * = require public/main
  */

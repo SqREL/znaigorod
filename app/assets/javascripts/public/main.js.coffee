@@ -20,4 +20,5 @@ $ ->
   init_loading_items() if $('.content_wrapper .affiches_list ul li, .content_wrapper .organizations_list ul li').length
   init_list_settings() if $('.content_wrapper .list_settings').length
   init_swfkrpano() if $("#krpano").length
+  init_geofiltration() if $('.geofilter').length
   true

@@ -20,9 +20,9 @@ class OrganizationsCollection
   end
 
   self.kinds.map(&:name).map(&:downcase).each do |klass|
-    define_method "#{klass}_searcher" do |params = {}|
-      HasSearcher.searcher(klass.to_sym, params)
-    end
+    #define_method "#{klass}_searcher" do |params = {}|
+      #HasSearcher.searcher(klass.to_sym, params)
+    #end
 
     define_method "#{klass}_categories_links" do
       self.send("#{klass}_categories").map do |row|
@@ -31,7 +31,7 @@ class OrganizationsCollection
     end
 
     define_method "#{klass}_categories" do
-      self.send("#{klass}_searcher").facet("#{klass}_category").rows
+      HasSearcher.searcher(klass.to_sym).facet("#{klass}_category").rows
     end
   end
 
@@ -110,7 +110,8 @@ class OrganizationsCollection
 
   def filters
     {}.tap do |hash|
-      filter_groups.each do |group|
+      #filter_groups.each do |group|
+      filter_groups.select {|g| !%w[lat lon rad].include?(g) }.each do |group|
         hash[group] = self.send("#{group}_filters")
       end
     end
@@ -127,7 +128,8 @@ class OrganizationsCollection
 
   def filter_link_url(params)
     filter_params = {}
-    filter_groups.each do |filter|
+    #filter_groups.each do |filter|
+    filter_groups.select {|g| !%w[lat lon rad].include?(g) }.each do |filter|
       existed_filter_params = self.send(filter.pluralize) || []
       tag = params[filter.to_sym]
       if existed_filter_params.include?(tag)
@@ -143,6 +145,18 @@ class OrganizationsCollection
       query += [key.pluralize] + values
     end
     organizations_path(organization_class: organization_class.pluralize, category: category, query: query.compact.join("/"))
+  end
+
+  def meal_searcher(args = {})
+    new_searcher
+  end
+
+  def culture_searcher(args = {})
+    new_searcher
+  end
+
+  def entertainment_searcher(args = {})
+    new_searcher
   end
 
   def category_filters
@@ -187,7 +201,8 @@ class OrganizationsCollection
   end
 
   def paginated_suborganizations
-     self.send("#{organization_class}_searcher", list_search_params).paginate(:page => page, :per_page => 5).results
+     #self.send("#{organization_class}_searcher", list_search_params).paginate(:page => page, :per_page => 5).results
+     organizations
   end
 
   def view
@@ -219,14 +234,50 @@ class OrganizationsCollection
   end
 
   def lat
-    parameters['lat'].first.try :to_f
+    (parameters['lat'].try(:first) || 56.474091).to_f
+    #(parameters['lat'].try(:first) || 84.949593).to_f
   end
 
   def lon
-    parameters['lon'].first.try :to_f
+    #(parameters['lon'].try(:first) || 56.474091).to_f
+    (parameters['lon'].try(:first) || 84.949593).to_f
   end
 
   def rad
-    parameters['rad'].first.try :to_f
+    (parameters['rad'].try(:first) || 9).to_f
+  end
+
+  def suborganizations_class
+    organization_class.classify.constantize
+  end
+
+  def new_searcher
+    categories = list_search_params["#{organization_class}_category"] || []
+    features = list_search_params["#{organization_class}_feature"] || []
+    offers = list_search_params["#{organization_class}_offer"] || []
+    cuisines = list_search_params["#{organization_class}_cuisine"] || []
+
+    suborganizations_class.search do |search|
+      search.with(:location).in_radius(lat, lon, rad)
+
+      search.with("#{organization_class}_category", categories.map(&:mb_chars).map(&:downcase)) if categories.any?
+      search.with("#{organization_class}_feature", features.map(&:mb_chars).map(&:downcase)) if features.any?
+      search.with("#{organization_class}_offer", offers.map(&:mb_chars).map(&:downcase)) if offers.any?
+      search.with("#{organization_class}_cuisine", cuisines.map(&:mb_chars).map(&:downcase)) if cuisines.any?
+
+      search.facet("#{organization_class}_category")
+      search.facet("#{organization_class}_feature")
+      search.facet("#{organization_class}_offer")
+      search.facet("#{organization_class}_cuisine") #if suborganizations_class.is_a?(Meal)
+
+      search.adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
+
+      search.order_by_geodist(:location, lat, lon)
+      search.paginate(page: page, per_page: 5)
+    end
+  end
+
+  def organizations
+    new_searcher.results
   end
 end
