@@ -18,3 +18,5 @@ deploy:
   application:          appname.ru
   domain:               user@host
   port:                 port
+  solr_domain:          user@host
+  solr_port:            port
