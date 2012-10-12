@@ -3,6 +3,7 @@ require "rvm/capistrano"
 
 load "config/deploy/settings"
 load "config/deploy/database"
+load "config/deploy/solr"
 load "config/deploy/tag"
 
 namespace :deploy do
