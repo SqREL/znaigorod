@@ -43,22 +43,27 @@ class Affiche < ActiveRecord::Base
   after_save :save_images_from_vk, :if => :vk_aid?
   after_save :save_images_from_yandex_fotki, :if => :yandex_fotki_url?
 
+  alias_attribute :tag_ru, :tag
   alias_attribute :title_ru, :title
   alias_attribute :place_ru, :place
 
   before_save :set_popularity
 
   searchable do
-    boolean :has_images, :using => :has_images?
-    text :title,              :boost => 2 * 1.2,                      :more_like_this => true
+    text :title,              :boost => 2 * 1.2
     text :title_ru,           :boost => 2,          :stored => true,  :more_like_this => true
     text :original_title,     :boost => 1.5,        :stored => true,  :more_like_this => true
-    text :tag,                :boost => 1 * 1.2,    :stored => true,  :more_like_this => true
+    text :tag,                :boost => 1 * 1.2
+    text :tag_ru,             :boost => 1 * 1.2,    :stored => true,  :more_like_this => true
+    text :place,              :boost => 1 * 1.2
+    text :place_ru,           :boost => 1,          :stored => true
     text :description,        :boost => 0.5 * 1.2                                               do text_description end
     text :description_ru,     :boost => 0.5,        :stored => true                             do text_description end
-    text :place,              :boost => 1 * 1.2,    :stored => true
-    text :place_ru,           :boost => 1,          :stored => true
+
+    boolean :has_images, :using => :has_images?
+
     float :popularity,        :trie => true
+
     time :last_showing_time,  :trie => true
   end
 
@@ -71,7 +76,7 @@ class Affiche < ActiveRecord::Base
   end
 
   def place
-    showings.map(&:place).uniq.join(", ")
+    showings.pluck(:place).uniq.join(", ")
   end
 
   def first_showing

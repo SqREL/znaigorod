@@ -79,9 +79,9 @@
           catenateAll='1'
           preserveOriginal='1'
           />
+        <filter class='solr.RussianLightStemFilterFactory'/>
         <filter class='solr.LowerCaseFilterFactory'/>
         <filter class='solr.PatternReplaceFilterFactory' pattern='ё' replacement='е' replace='all' />
-        <filter class="solr.RussianLightStemFilterFactory" language="Russian" />
       </analyzer>
     </fieldType>
     <fieldType name="autosuggest" class="solr.TextField">
@@ -165,13 +165,13 @@
     <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name='_local*' stored='false' type='tdouble' multiValued='false' indexed='true'/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
-    <dynamicField name='*_text' stored='false' type='text' multiValued='true' indexed='true'/>
-    <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name='*_ru_text' stored='false' type='ru_text' multiValued='true' indexed='true'/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
-    <dynamicField name='*_texts' stored='true' type='text' multiValued='true' indexed='true'/>
+    <dynamicField name='*_text' stored='false' type='text' multiValued='true' indexed='true'/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name='*_ru_texts' stored='true' type='ru_text' multiValued='true' indexed='true'/>
+    <!-- *** This dynamicField is used by Sunspot! *** -->
+    <dynamicField name='*_texts' stored='true' type='text' multiValued='true' indexed='true'/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name='*_b' stored='false' type='boolean' multiValued='false' indexed='true'/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
@@ -253,13 +253,13 @@
     <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name='*_dtms' stored='true' type='tdate' multiValued='true' indexed='true'/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
-    <dynamicField name='*_textv' stored='false' termVectors='true' type='text' multiValued='true' indexed='true'/>
-    <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name='*_ru_textv' stored='false' termVectors='true' type='ru_text' multiValued='true' indexed='true'/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
-    <dynamicField name='*_textsv' stored='true' termVectors='true' type='text' multiValued='true' indexed='true'/>
+    <dynamicField name='*_textv' stored='false' termVectors='true' type='text' multiValued='true' indexed='true'/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name='*_ru_textsv' stored='true' termVectors='true' type='ru_text' multiValued='true' indexed='true'/>
+    <!-- *** This dynamicField is used by Sunspot! *** -->
+    <dynamicField name='*_textsv' stored='true' termVectors='true' type='text' multiValued='true' indexed='true'/>
     <!-- *** This dynamicField is used by Sunspot! *** -->
     <dynamicField name='*_et' stored='false' termVectors='true' type='tdouble' multiValued='false' indexed='true'/>
     <!-- *** This dynamicField is used by Sunspot! *** -->

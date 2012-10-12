@@ -49,17 +49,27 @@ class Organization < ActiveRecord::Base
   paginates_per Settings['pagination.per_page'] || 10
 
   alias_attribute :title_ru, :title
+  alias_attribute :category_ru, :category
+  alias_attribute :cuisine_ru, :cuisine
+  alias_attribute :feature_ru, :feature
+  alias_attribute :offer_ru, :offer
+  alias_attribute :payment_ru, :payment
 
   searchable do
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
     string(:kind) { 'organization' }
     text :title,            :boost => 2 * 1.2
     text :title_ru,         :boost => 2,          :more_like_this => true,  :stored => true
-    text :category,                               :more_like_this => true,  :stored => true
-    text :cuisine,                                :more_like_this => true,  :stored => true
-    text :feature,                                :more_like_this => true,  :stored => true
-    text :offer,                                  :more_like_this => true,  :stored => true
-    text :payment,                                                          :stored => true
+    text :category,         :boost => 1.2
+    text :category_ru,      :boost => 1,          :more_like_this => true,  :stored => true
+    text :cuisine,          :boost => 1.2
+    text :cuisine_ru,       :boost => 1,          :more_like_this => true,  :stored => true
+    text :feature,          :boost => 1.2
+    text :feature_ru,       :boost => 1,          :more_like_this => true,  :stored => true
+    text :offer,            :boost => 1.2
+    text :offer_ru,         :boost => 1,          :more_like_this => true,  :stored => true
+    text :payment,          :boost => 1.2
+    text :payment_ru,       :boost => 1,                                    :stored => true
     text :description,      :boost => 0.5 * 1.2                                               do text_description end
     text :description_ru,   :boost => 0.5,                                  :stored => true   do text_description end
     text :address,                                                          :stored => true
