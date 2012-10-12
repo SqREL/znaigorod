@@ -3,7 +3,12 @@
     'height': '0'
     'visibility': 'hidden'
   list_url = window.location.pathname
-  list = $('.content_wrapper .affiches_list ul.items_list, .content_wrapper .organizations_list ul.items_list, .content_wrapper .affiches_list ul.was_in_city_photos')
+  list = $(
+    '.content_wrapper .affiches_list ul.items_list,' +
+    '.content_wrapper .affiches_list ul.was_in_city_photos,' +
+    '.content_wrapper .organizations_list ul.items_list,' +
+    '.content_wrapper .search_hits ul.items_list'
+  )
   first_item = $('li:first', list)
   last_item = first_item.siblings().last()
   last_item_top = last_item.position().top
@@ -13,7 +18,7 @@
     if $(this).scrollTop() + $(this).height() >= last_item_top && !busy
       busy = true
       search_params = ""
-      if window.location.search.match(/\?q=/) && window.location.search.match(/utf8=/)
+      if window.location.search.match(/(\?|&)q=/) && window.location.search.match(/(\?|&)utf8=/)
         search_params = window.location.search.replace(/^\?/, "&")
       $.ajax
         url: "#{list_url}?page=#{parseInt(page) + 1}#{search_params}"
