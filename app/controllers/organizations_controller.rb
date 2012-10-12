@@ -15,16 +15,13 @@ class OrganizationsController < ApplicationController
 
   def photogallery
     @organization = OrganizationDecorator.find(params[:id])
-    render layout: false
   end
 
   def affiche
     @organization = OrganizationDecorator.find(params[:id])
-    render layout: false
   end
 
   def tour
     @organization = OrganizationDecorator.find(params[:id])
-    render layout: false
   end
 end

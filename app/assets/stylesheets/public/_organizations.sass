@@ -239,7 +239,12 @@
       margin: 20px 0 0 15px
 
   .content
-    &.organization
+    .organization
+      position: relative
+      +clearfix
+      background-color: #efeaf1
+      border-top: 4px solid #d0e1e9
+      padding: 5px 10px 0
       margin-bottom: 20px
 
       .categories
@@ -251,41 +256,79 @@
           background-color: #70398a
           +border-radius(3px)
           padding: 2px 3px 4px
-          margin: 0 0 0 10px
+          margin: 10px 0 0 10px
           a
             color: #fff !important
 
-      .ui-tabs .ui-tabs-panel .info .description table td
-        .schedule li
-          +reset-quotation
-        .schedule
-          +clearfix
-          margin-bottom: 0
-          li
-            float: left
-            text-align: center
-            margin-right: 15px
-            &:last-child
-              margin-right: 0
-            .dow
-              width: 45px
-              font-size: 14px
+      .info
+        +clearfix
+        .image
+          width: 180px
+          float: left
+          margin-right: 10px
+        .description
+          line-height: 1.4
+          h1, h2, h3, h4, h5, p, table, ol, ul
+            margin-bottom: 10px
+            line-height: 1.5
+          h2
+            font-size: 18px
+          h3
+            font-size: 16px
+          table
+            width: 550px
+            &.full
+              width: 100%
+            tr:nth-child(odd) td
+              background-color: #e8e0eb
+            tr td:first-child
+              width: 5%
+              white-space: nowrap
               font-weight: bold
-              background-color: #ded1e3
-              +border-radius(3px)
-              padding-bottom: 2px
-              margin-bottom: 2px
-            .string
-              width: 45px
-              font-size: 10px
-              text-transform: lowercase
-              margin-top: 4px
-            &.today
-              color: #fff
-              background-color: #784391
-              +border-radius(3px)
+              &:first-letter
+                text-transform: uppercase
+            td
+              padding: 2px 4px
+          ul li:before
+            content: "\2013"
+            padding-right: 5px
+          ol
+            counter-reset: li
+            li:before
+              content: counter(li)"."
+              counter-increment: li
+              padding-right: 5px
+          .schedule
+            +clearfix
+            margin-bottom: 0
+            li
+              padding: 0
+              margin: 0
+              background: none
+              float: left
+              text-align: center
+              margin-right: 2px
+              &:last-child
+                margin-right: 0
               .dow
-                background: none
+                width: 45px
+                font-size: 14px
+                font-weight: bold
+                background-color: #ded1e3
+                +border-radius(3px)
+                padding-bottom: 2px
+                margin-bottom: 2px
+              .string
+                width: 45px
+                font-size: 10px
+                text-transform: lowercase
+                margin-top: 4px
+              &.today
+                color: #fff
+                background-color: #784391
+                +border-radius(3px)
+                .dow
+                  background: none
 
       .share_organization
         +clearfix
@@ -300,6 +343,8 @@
           padding-right: 0 !important
           .b-share__handle:last-child
             padding-right: 0 !important
+        #vk_like_fake
+          width: 100px
 
       .characteristics
         +characteristics_style
@@ -307,6 +352,8 @@
 
       .affiche
         +clearfix
+        border-top: 1px dotted #948F95
+        padding: 10px 0 0 0
         li
           +clearfix
           background-color: #ebe0f0
@@ -440,9 +487,11 @@
                   color: #fff
       #tour
         +clearfix
-      #krpano
+      div#krpano
         height: 560px
         margin-bottom: 10px
+        border-top: 1px dotted #948f95
+        padding-top: 10px
       #vk_comments
         margin: 20px 0 0 0
 

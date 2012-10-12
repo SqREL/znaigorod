@@ -68,24 +68,45 @@ class OrganizationDecorator < ApplicationDecorator
 
   delegate :categories, :features, :offers, :cuisines, :to => :suborganization
 
-  def tabs
+  def navigation
     [].tap do |links|
-      links << h.content_tag(:li, h.link_to("Описание", "#info"))
-      links << h.content_tag(:li, h.link_to("Фотографии",
-                                            "#photogallery",
-                                             :title => organization.images.blank? ? "Недоступно" : nil,
-                                            "data-link" => h.organization_photogallery_path),
-                             :class => organization.images.blank? ? 'disabled' : nil)
-      links << h.content_tag(:li, h.link_to("Афиша",
-                                            "#affiche",
-                                             :title => affiches.blank? ? "Недоступно" : nil,
-                                            "data-link" => h.organization_affiche_path),
-                             :class => affiches.blank? ? 'disabled' : nil)
-      links << h.content_tag(:li, h.link_to("3D-тур",
-                                            "#tour",
-                                             :title => organization.tour_link.blank? ? "Недоступно" : nil,
-                                            "data-link" => h.organization_tour_path),
-                             :class => organization.tour_link.blank? ? 'disabled' : nil)
+      klass = []
+      klass << "current" if h.current_page?(h.organization_path)
+      klass << "before_current" if h.current_page?(h.organization_photogallery_path)
+      links << h.content_tag(:li, h.link_to("Описание", h.organization_path),
+                             :class => klass.any? ? klass.join(" ") : nil)
+      klass = []
+      klass << "disabled" if organization.images.blank?
+      klass << "current" if h.current_page?(h.organization_photogallery_path)
+      klass << "before_current" if h.current_page?(h.organization_affiche_path)
+      unless organization.images.blank?
+        links << h.content_tag(:li, h.link_to("Фотографии", h.organization_photogallery_path),
+                               :class => klass.any? ? klass.join(" ") : nil)
+      else
+        links << h.content_tag(:li, h.content_tag(:span, "Фотографии", :title => "Недоступно"),
+                               :class => klass.any? ? klass.join(" ") : nil)
+      end
+      klass = []
+      klass << "disabled" if affiches.blank?
+      klass << "current" if h.current_page?(h.organization_affiche_path)
+      klass << "before_current" if h.current_page?(h.organization_tour_path)
+      unless affiches.blank?
+      links << h.content_tag(:li, h.link_to("Афиша", h.organization_affiche_path),
+                             :class => klass.any? ? klass.join(" ") : nil)
+      else
+        links << h.content_tag(:li, h.content_tag(:span, "Афиша", :title => "Недоступно"),
+                               :class => klass.any? ? klass.join(" ") : nil)
+      end
+      klass = []
+      klass << "disabled" if organization.tour_link.blank?
+      klass << "current" if h.current_page?(h.organization_tour_path)
+      unless organization.tour_link.blank?
+        links << h.content_tag(:li, h.link_to("3D-тур", h.organization_tour_path),
+                               :class => klass.any? ? klass.join(" ") : nil)
+      else
+        links << h.content_tag(:li, h.content_tag(:span, "3D-тур", :title => "Недоступно"),
+                               :class => klass.any? ? klass.join(" ") : nil)
+      end
     end
   end
 

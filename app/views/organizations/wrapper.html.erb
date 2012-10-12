@@ -1,0 +1,61 @@
+<% content_for :subtitle do %>
+  <%= @organization.page_title(@organization.title) %>
+<% end %>
+
+<% content_for :extra_meta do %>
+  <%= @organization.tags_for_vk %>
+  <%= @organization.meta_keywords %>
+<% end %>
+
+<div class="content_wrapper">
+
+  <%= @organization.breadcrumbs %>
+
+  <div class="clearfix">
+
+    <div class="content">
+
+      <div class="organization">
+        <%= yield :organization_content %>
+      </div>
+
+      <% if Rails.env.production? %>
+        <div id="vk_comments"></div>
+      <% end %>
+
+    </div>
+
+    <div class="right_side">
+
+      <ul class="navigation">
+        <% @organization.navigation.each do |link| %>
+          <%= link %>
+        <% end %>
+      </ul>
+
+      <% unless @organization.similar_organizations.blank? %>
+        <div class="more_like_this">
+          <h2>Похожие заведения поблизости</h2>
+          <ul class="similar_organizations">
+            <% @organization.similar_organizations.each do |similar_organization| %>
+              <li>
+                <% if similar_organization.logotype_url? %>
+                  <div class="image">
+                    <%= link_to image_tag_for(similar_organization.logotype_url, 55, 55), organization_path(similar_organization) %>
+                  </div>
+                <% end %>
+                <div class="title"><%= similar_organization.title_link %></div>
+                <div class="address<%= " offset" if similar_organization.logotype_url? %>"><%= similar_organization.address_link %></div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="vk_group_wrapper">
+        <div id="vk_group_thin"></div>
+      </div>
+
+    </div>
+  </div>
+</div>

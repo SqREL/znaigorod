@@ -1,186 +1,122 @@
-<% content_for :subtitle do %>
-  <%= @organization.page_title(@organization.title) %>
-<% end %>
+<% content_for :organization_content do  %>
+  <div class="info">
+    <% if @organization.categories.any? %>
+      <ul class="categories">
+        <% @organization.categories.each do |category| %>
+          <li><%= link_to category, organizations_path(organization_class: @organization.suborganization_kind, category: category.mb_chars.downcase) %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
-<% content_for :extra_meta do %>
-  <%= @organization.tags_for_vk %>
-  <%= @organization.meta_keywords %>
-<% end %>
-
-<div class="content_wrapper">
-
-  <%= @organization.breadcrumbs %>
-
-  <div class="clearfix">
-
-    <div class="content organization">
-
-      <div class="tabs">
-        <ul class="nav">
-          <% @organization.tabs.each do |link| %>
-            <%= link %>
-          <% end %>
-        </ul>
-
-        <div id="info">
-          <div class="info">
-            <% if @organization.categories.any? %>
-              <ul class="categories">
-                <% @organization.categories.each do |category| %>
-                  <li><%= link_to category, organizations_path(organization_class: @organization.suborganization_kind, category: category.mb_chars.downcase) %></li>
-                <% end %>
-              </ul>
-            <% end %>
-
-            <div class="head">
-              <h1><%= @organization.html_title(@organization.title) %></h1>
-            </div>
-
-            <% if @organization.logotype_url? %>
-              <div class="image">
-                <%= link_to image_tag_for(@organization.logotype_url, 180, 180), @organization.logotype_url %>
-              </div>
-            <% end %>
-
-            <div class="description">
-              <% unless @organization.address_link.blank? %>
-                <div class="place">
-                  <p class="address"><%= @organization.address_link %></p>
-                </div>
-              <% end %>
-              <table<%= " class='full'" unless @organization.logotype_url? %>>
-                <% if @organization.phone.present? %>
-                  <tr>
-                    <td>Телефон:</td>
-                    <td><%= @organization.phone %></td>
-                  </tr>
-                <% end %>
-                <% if @organization.site.present? %>
-                  <tr>
-                    <td>Сайт:</td>
-                    <td><%= @organization.site_link %></td>
-                  </tr>
-                <% end %>
-                <% if @organization.email.present? %>
-                  <tr>
-                    <td>E-mail:</td>
-                    <td><%= @organization.email_link %></td>
-                  </tr>
-                <% end %>
-                <tr>
-                  <td>Режим работы:</td>
-                  <td>
-                    <ul class="schedule">
-                      <% @organization.schedules.each do |schedule| %>
-                        <li<%= " class='today'" if l(Date.today, :format => '%a') == schedule.short_human_day %>>
-                          <div class="dow">
-                            <%= schedule.short_human_day %>
-                          </div>
-                          <div class="time">
-                            <% if schedule.holiday? %>
-                              <div class="string"><%= hyphenate("Выходной") %></div>
-                            <% else %>
-                              <% if schedule.from == schedule.to %>
-                                <div class="string"><%= hyphenate("Круглосуточно") %></div>
-                              <% else %>
-                                <div class="from">
-                                  <%= l schedule.from, :format => "%H:%M" %>
-                                </div>
-                                <div class="to">
-                                  <%= l schedule.to, :format => "%H:%M" %>
-                                </div>
-                              <% end %>
-                            <% end %>
-                          </div>
-                        </li>
-                      <% end %>
-                    </ul>
-                  </td>
-                </tr>
-              </table>
-              <div class="text">
-                <%= hyphenate(@organization.html_description).gilensize.html_safe if @organization.description? %>
-              </div>
-            </div>
-          </div>
-
-          <div class="share_organization">
-            <%= render :partial => "commons/share_this" %>
-          </div>
-
-          <% if @organization.features.any? || @organization.offers.any? || @organization.cuisines.any? %>
-            <div class="characteristics">
-              <% if @organization.features.any? %>
-                <ul>
-                  <li class="title">Особенности:</li>
-                  <% @organization.features.each do |feature| %>
-                    <li>
-                      <%= link_to feature, organizations_path(organization_class: @organization.suborganization_kind, category: 'all', query: "features/#{feature.mb_chars.downcase}") %>
-                    </li>
-                  <% end %>
-                </ul>
-              <% end %>
-              <% if @organization.offers.any? %>
-                <ul>
-                  <li class="title">Предложения:</li>
-                  <% @organization.offers.each do |offer| %>
-                    <li>
-                      <%= link_to offer, organizations_path(organization_class: @organization.suborganization_kind, category: 'all', query: "offers/#{offer.mb_chars.downcase}") %>
-                    </li>
-                  <% end %>
-                </ul>
-              <% end %>
-              <% if @organization.suborganization.is_a?(Meal) && @organization.cuisines.any? %>
-                <ul>
-                  <li class="title">Кухня:</li>
-                  <% @organization.cuisines.each do |cuisine| %>
-                    <li>
-                      <%= link_to cuisine, organizations_path(organization_class: @organization.suborganization_kind, category: 'all', query: "cuisines/#{cuisine.mb_chars.downcase}") %>
-                    </li>
-                  <% end %>
-                </ul>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-
-        <div id="photogallery">
-        </div>
-
-        <div id="affiche">
-        </div>
-
-        <div id="tour">
-        </div>
-
-      </div>
-
-      <div id="vk_comments"></div>
-
+    <div class="head">
+      <h1><%= @organization.html_title(@organization.title) %></h1>
     </div>
 
-    <div class="right_side">
-      <% unless @organization.similar_organizations.blank? %>
-        <div class="more_like_this">
-          <h2>Похожие заведения поблизости</h2>
-          <ul class="similar_organizations">
-            <% @organization.similar_organizations.each do |similar_organization| %>
-              <li>
-                <% if similar_organization.logotype_url? %>
-                  <div class="image">
-                    <%= link_to image_tag_for(similar_organization.logotype_url, 55, 55), organization_path(similar_organization) %>
+    <% if @organization.logotype_url? %>
+      <div class="image">
+        <%= link_to image_tag_for(@organization.logotype_url, 180, 180), @organization.logotype_url %>
+      </div>
+    <% end %>
+
+    <div class="description">
+      <% unless @organization.address_link.blank? %>
+        <div class="place">
+          <p class="address"><%= @organization.address_link %></p>
+        </div>
+      <% end %>
+      <table<%= " class='full'" unless @organization.logotype_url? %>>
+        <% if @organization.phone.present? %>
+          <tr>
+            <td>Телефон:</td>
+            <td><%= @organization.phone %></td>
+          </tr>
+        <% end %>
+        <% if @organization.site.present? %>
+          <tr>
+            <td>Сайт:</td>
+            <td><%= @organization.site_link %></td>
+          </tr>
+        <% end %>
+        <% if @organization.email.present? %>
+          <tr>
+            <td>E-mail:</td>
+            <td><%= @organization.email_link %></td>
+          </tr>
+        <% end %>
+        <tr>
+          <td>Режим работы:</td>
+          <td>
+            <ul class="schedule">
+              <% @organization.schedules.each do |schedule| %>
+                <li<%= " class='today'" if l(Date.today, :format => '%a') == schedule.short_human_day %>>
+                  <div class="dow">
+                    <%= schedule.short_human_day %>
                   </div>
-                <% end %>
-                <div class="title"><%= similar_organization.title_link %></div>
-                <div class="address<%= " offset" if similar_organization.logotype_url? %>"><%= similar_organization.address_link %></div>
+                  <div class="time">
+                    <% if schedule.holiday? %>
+                      <div class="string"><%= hyphenate("Выходной") %></div>
+                    <% else %>
+                      <% if schedule.from == schedule.to %>
+                        <div class="string"><%= hyphenate("Круглосуточно") %></div>
+                      <% else %>
+                        <div class="from">
+                          <%= l schedule.from, :format => "%H:%M" %>
+                        </div>
+                        <div class="to">
+                          <%= l schedule.to, :format => "%H:%M" %>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </td>
+        </tr>
+      </table>
+      <div class="text">
+        <%= hyphenate(@organization.html_description).gilensize.html_safe if @organization.description? %>
+      </div>
+    </div>
+
+    <div class="share_organization">
+      <%= render :partial => "commons/share_this" %>
+    </div>
+
+    <% if @organization.features.any? || @organization.offers.any? || @organization.cuisines.any? %>
+      <div class="characteristics">
+        <% if @organization.features.any? %>
+          <ul>
+            <li class="title">Особенности:</li>
+            <% @organization.features.each do |feature| %>
+              <li>
+                <%= link_to feature, organizations_path(organization_class: @organization.suborganization_kind, category: 'all', query: "features/#{feature.mb_chars.downcase}") %>
               </li>
             <% end %>
           </ul>
-        </div>
-      <% end %>
-      <div class="vk_group_wrapper">
-        <div id="vk_group_thin"></div>
+        <% end %>
+        <% if @organization.offers.any? %>
+          <ul>
+            <li class="title">Предложения:</li>
+            <% @organization.offers.each do |offer| %>
+              <li>
+                <%= link_to offer, organizations_path(organization_class: @organization.suborganization_kind, category: 'all', query: "offers/#{offer.mb_chars.downcase}") %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+        <% if @organization.suborganization.is_a?(Meal) && @organization.cuisines.any? %>
+          <ul>
+            <li class="title">Кухня:</li>
+            <% @organization.cuisines.each do |cuisine| %>
+              <li>
+                <%= link_to cuisine, organizations_path(organization_class: @organization.suborganization_kind, category: 'all', query: "cuisines/#{cuisine.mb_chars.downcase}") %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
       </div>
-    </div>
+    <% end %>
   </div>
-</div>
+<% end %>
+<%= render :file => "organizations/wrapper" %>
