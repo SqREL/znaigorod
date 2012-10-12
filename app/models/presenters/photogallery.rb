@@ -67,7 +67,7 @@ class Photogallery
 
   private
 
-  def key_words
+  def keywords
     %w[categories tags]
   end
 
@@ -76,7 +76,7 @@ class Photogallery
       key_word = ''
 
       query.split('/').each do |word|
-        key_word = word and hash[word] ||= [] and next if key_words.include?(word)
+        key_word = word and hash[word] ||= [] and next if keywords.include?(word)
         hash[key_word] << word
       end
     end
