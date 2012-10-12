@@ -157,5 +157,6 @@ end
 #  logotype_url    :text
 #  slug            :string(255)
 #  tour_link       :text
+#  rating          :float
 #
 

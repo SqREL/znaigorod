@@ -205,5 +205,6 @@ end
 #  vkontakte_likes           :integer
 #  vk_aid                    :string(255)
 #  yandex_fotki_url          :string(255)
+#  popularity                :float
 #
 
