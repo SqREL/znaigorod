@@ -1,5 +1,5 @@
 <% content_for :subtitle do %>
-  <%= @affiche.page_title(@affiche.title) %>, <%= @affiche.human_kind.mb_chars.downcase %> в Томске
+  <%= @affiche.title.text_gilensize %>, <%= @affiche.human_kind.mb_chars.downcase %> в Томске
 <% end %>
 
 <% content_for :extra_meta do %>
@@ -126,7 +126,7 @@
           <ul>
             <% @affiche.similar_affiches.each do |affiche| %>
               <li>
-                <div class="title"><%= link_to affiche.title.gilensize.html_safe, affiche.kind_affiche_path %></div>
+                <div class="title"><%= link_to affiche.title.text_gilensize, affiche.kind_affiche_path %></div>
                 <div class="image"><%= affiche.more_like_this_poster %></div>
                 <%= content_tag :div, affiche.main_page_place, :class => "places" unless affiche.main_page_place.blank? %>
               </li>

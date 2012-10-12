@@ -8,7 +8,7 @@ class PhotoreportDecorator < AfficheDecorator
   end
 
   def link
-    h.link_to h.hyphenate(affiche.title.truncate(77, :separator => ' ')).gilensize.html_safe, kind_affiche_photogallery_path, :title => affiche.title
+    h.link_to affiche.title.text_gilensize.truncated(77), kind_affiche_photogallery_path, :title => affiche.title
   end
 
   def main_images

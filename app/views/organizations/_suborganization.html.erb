@@ -46,10 +46,10 @@
                 </div>
                 <div class="time">
                   <% if schedule.holiday? %>
-                    <div class="string"><%= hyphenate("Выходной") %></div>
+                    <div class="string"><%= "Выходной".hyphenate %></div>
                   <% else %>
                     <% if schedule.from == schedule.to %>
-                      <div class="string"><%= hyphenate("Круглосуточно") %></div>
+                      <div class="string"><%= "Круглосуточно".hyphenate %></div>
                     <% else %>
                       <div class="from">
                         <%= l schedule.from, :format => "%H:%M" %>

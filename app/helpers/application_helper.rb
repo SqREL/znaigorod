@@ -33,10 +33,6 @@ module ApplicationHelper
     end
   end
 
-  def hyphenate(text)
-    text.hyphenate
-  end
-
   def search_class(resource_class)
     return resource_class if [Affiche, Organization].include?(resource_class)
     return Affiche        if Affiche.descendants.include?(resource_class)
