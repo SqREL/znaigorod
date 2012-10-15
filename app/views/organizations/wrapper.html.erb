@@ -38,6 +38,16 @@
                 </li>
               <% end %>
             </ul>
+            <% unless @affiche_collection.tag_links.blank? %>
+              <ul class="tags need_toggler">
+                <li class="title">Теги</li>
+                <% @affiche_collection.tag_links.each do |tag_link| %>
+                  <li class="<%= tag_link.html_options[:class] %>">
+                    <%= tag_link %>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
           <% end %>
         <% end %>
       </ul>

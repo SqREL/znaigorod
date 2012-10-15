@@ -58,7 +58,7 @@ Znaigorod::Application.routes.draw do
 
   resources :organizations, :only => :show do
     get :photogallery, :tour, :on => :member
-    get 'affiche/:period/(:on)/(categories/*categories)/(tags/*tags)' => 'organizations#affiche',
+    get 'affiche/:period/(:on)/(tags/*tags)' => 'organizations#affiche',
       :defaults => {period: :all},
       :period => /today|weekly|weekend|all|daily/, :on => :member, :as => :affiche
   end

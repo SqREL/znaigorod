@@ -80,27 +80,26 @@ class OrganizationDecorator < ApplicationDecorator
     actual_affiches_count > 0
   end
 
-  def has_view?
+  def has_show?
     true
   end
 
   def navigation
     links = []
-    %w(view photogallery tour affiche).each do |method|
+    %w(show photogallery tour affiche).each do |method|
       links << Link.new(
                         title: I18n.t("organization.#{method}"),
-                        url: h.send(method == 'view' ? "organization_path" : "#{method}_organization_path"),
-                        current: h.current_page?(action: method == 'view' ? "show" : method),
+                        url: h.send(method == 'show' ? "organization_path" : "#{method}_organization_path"),
+                        current: h.controller.action_name == method,
                         disabled: !self.send("has_#{method}?"),
                         kind: method
                        )
     end
     current_index = links.index { |link| link.current? }
+    return links unless current_index
     links[current_index - 1].html_options[:class] += ' before_current' if current_index > 0
-    links[current_index + 1].html_options[:class] += ' after_current' if current_index < links.size - 1
     links[current_index].html_options[:class] += ' current'
     links
-
   end
 
   def suborganization_kind
@@ -132,14 +131,6 @@ class OrganizationDecorator < ApplicationDecorator
 
   def meta_keywords
     h.tag(:meta, name: 'keywords', content: keywords_content)
-  end
-
-  def affiches
-    [].tap do |array|
-      HasSearcher.searcher(:affiche, organization_id: organization.id).actual.order_by_starts_at.affiches.group(:affiche_id_str).groups.map(&:value).map { |id| Affiche.find(id) }.each do |affiche|
-        array << AfficheDecorator.new(affiche)
-      end
-    end
   end
 
   def actual_affiches_count

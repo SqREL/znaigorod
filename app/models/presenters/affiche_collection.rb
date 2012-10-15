@@ -113,7 +113,7 @@ class AfficheCollection
   end
 
   def url_for_tag(tag)
-    affiches_path(kind, period, on, tags: tag_params('tags',tag), categories: categories.any? ? categories : nil)
+    organization ? affiche_organization_path(organization, period: period, on: on, tags: tag_params('tags', tag)) : affiches_path(kind, period, on, tags: tag_params('tags',tag), categories: categories.any? ? categories : nil)
   end
 
   def daily_period?
