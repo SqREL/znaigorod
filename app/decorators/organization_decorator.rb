@@ -68,46 +68,38 @@ class OrganizationDecorator < ApplicationDecorator
 
   delegate :categories, :features, :offers, :cuisines, :to => :suborganization
 
+  def has_photogallery?
+    organization.images.any?
+  end
+
+  def has_tour?
+    organization.tour_link?
+  end
+
+  def has_affiche?
+    actual_affiches_count > 0
+  end
+
+  def has_view?
+    true
+  end
+
   def navigation
-    [].tap do |links|
-      klass = []
-      klass << "current" if h.current_page?(h.organization_path)
-      klass << "before_current" if h.current_page?(h.organization_photogallery_path)
-      links << h.content_tag(:li, h.link_to("Описание", h.organization_path),
-                             :class => klass.any? ? klass.join(" ") : nil)
-      klass = []
-      klass << "disabled" if organization.images.blank?
-      klass << "current" if h.current_page?(h.organization_photogallery_path)
-      klass << "before_current" if h.current_page?(h.organization_affiche_path)
-      unless organization.images.blank?
-        links << h.content_tag(:li, h.link_to("Фотографии", h.organization_photogallery_path),
-                               :class => klass.any? ? klass.join(" ") : nil)
-      else
-        links << h.content_tag(:li, h.content_tag(:span, "Фотографии", :title => "Недоступно"),
-                               :class => klass.any? ? klass.join(" ") : nil)
-      end
-      klass = []
-      klass << "disabled" if affiches.blank?
-      klass << "current" if h.current_page?(h.organization_affiche_path)
-      klass << "before_current" if h.current_page?(h.organization_tour_path)
-      unless affiches.blank?
-      links << h.content_tag(:li, h.link_to("Афиша", h.organization_affiche_path),
-                             :class => klass.any? ? klass.join(" ") : nil)
-      else
-        links << h.content_tag(:li, h.content_tag(:span, "Афиша", :title => "Недоступно"),
-                               :class => klass.any? ? klass.join(" ") : nil)
-      end
-      klass = []
-      klass << "disabled" if organization.tour_link.blank?
-      klass << "current" if h.current_page?(h.organization_tour_path)
-      unless organization.tour_link.blank?
-        links << h.content_tag(:li, h.link_to("3D-тур", h.organization_tour_path),
-                               :class => klass.any? ? klass.join(" ") : nil)
-      else
-        links << h.content_tag(:li, h.content_tag(:span, "3D-тур", :title => "Недоступно"),
-                               :class => klass.any? ? klass.join(" ") : nil)
-      end
+    links = []
+    %w(view photogallery tour affiche).each do |method|
+      links << Link.new(
+                        title: I18n.t("organization.#{method}"),
+                        url: h.send(method == 'view' ? "organization_path" : "#{method}_organization_path"),
+                        current: h.current_page?(h.send(method == 'view' ? "organization_path" : "#{method}_organization_path")),
+                        disabled: !self.send("has_#{method}?")
+                       )
     end
+    current_index = links.index { |link| link.current? }
+    links[current_index - 1].html_options[:class] += ' before_current' if current_index > 0
+    links[current_index + 1].html_options[:class] += ' after_current' if current_index < links.size - 1
+    links[current_index].html_options[:class] += ' current'
+    links
+
   end
 
   def suborganization_kind
@@ -147,6 +139,10 @@ class OrganizationDecorator < ApplicationDecorator
         array << AfficheDecorator.new(affiche)
       end
     end
+  end
+
+  def actual_affiches_count
+    HasSearcher.searcher(:affiche, organization_id: organization.id).actual.order_by_starts_at.affiches.group(:affiche_id_str).total
   end
 
   def truncated_description

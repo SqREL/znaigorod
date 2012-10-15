@@ -19,6 +19,8 @@ class OrganizationsController < ApplicationController
 
   def affiche
     @organization = OrganizationDecorator.find(params[:id])
+    @affiche_collection = AfficheCollection.new(params.merge(list_settings: cookies['znaigorod_affiches_list_settings']).merge(ogranization: @organization))
+    render partial: @affiche_collection.view_partial, layout: false and return if request.xhr?
   end
 
   def tour

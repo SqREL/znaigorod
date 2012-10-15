@@ -4,7 +4,7 @@ class AfficheCollection
   include Rails.application.routes.url_helpers
   include ActiveAttr::MassAssignment
   include ActionView::Helpers
-  attr_accessor :kind, :period, :on, :tags, :page, :categories, :list_settings, :presentation_mode, :sort
+  attr_accessor :kind, :period, :on, :tags, :page, :categories, :list_settings, :presentation_mode, :sort, :organization
 
   def initialize(options)
     super(options)
@@ -14,6 +14,8 @@ class AfficheCollection
       self.on = Date.today
     end if self.daily_period?
     self.categories ||= ""
+    self.kind ||= 'affiches'
+    self.period ||= 'all'
     query = "categories/#{self.categories}/tags/#{self.tags}"
     query = "categories/#{self.categories}" if self.categories.include?('tags')
     parameters = {}
@@ -31,8 +33,8 @@ class AfficheCollection
   end
 
   def view_partial
-    return 'affiches_list' if presentation_mode == 'list'
-    return 'affiches_posters'
+    return 'affiches/affiches_list' if presentation_mode == 'list'
+    return 'affiches/affiches_posters'
   end
 
   def per_page
@@ -195,10 +197,14 @@ class AfficheCollection
       links << content_tag(:li,
                            Link.new(:title => I18n.t("affiche.sort.#{order}"),
                                     :html_options => sort.include?(order) ? { class: "#{order} selected"} : { class: order },
-                                    :url => affiches_path(kind, period, on)))
+                                    :url => list_url))
     end
 
     (links.join(content_tag(:li, content_tag(:span, '&nbsp;'.html_safe, class: 'separator')))).html_safe
+  end
+
+  def list_url
+    organization ? affiche_organization_path(organization) : affiches_path(kind, period, on)
   end
 
   private

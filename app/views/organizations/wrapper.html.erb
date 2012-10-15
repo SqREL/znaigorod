@@ -29,7 +29,7 @@
 
       <ul class="navigation">
         <% @organization.navigation.each do |link| %>
-          <%= link %>
+          <li class="<%= link.html_options[:class] %>"><%= link %></li>
         <% end %>
       </ul>
 

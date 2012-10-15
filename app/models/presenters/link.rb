@@ -10,6 +10,7 @@ class Link
   def initialize(options)
     super(options)
     self.html_options ||= {}
+    self.html_options[:class] ||= ""
     if disabled
       html_options[:class].blank? ?  html_options[:class] = "disabled" : html_options[:class] += " disabled"
     end
