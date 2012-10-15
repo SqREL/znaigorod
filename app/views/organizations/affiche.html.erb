@@ -21,29 +21,26 @@
     </div>
   </div>
 
-  <div class="content_wrapper">
-
-    <div class="affiches_list">
-      <div class="list_settings">
-        <div class="presentation">
-          <p>Настройка списка:</p>
-          <ul>
-            <li><a class="list<%= ' selected' if @affiche_collection.presentation_mode == 'list' %>" title="подробный список" href="">список</a></li>
-            <li><span class="separator">&nbsp;</span></li>
-            <li><a class="posters<%= ' selected' if @affiche_collection.presentation_mode == 'posters' %>" title="краткий список" href="">постеры</a></li>
-          </ul>
-        </div>
-        <div class="sort">
-          <p>Сортировка:</p>
-          <ul>
-            <%= @affiche_collection.sort_links %>
-          </ul>
-        </div>
+  <div class="affiches_list">
+    <div class="list_settings">
+      <div class="presentation">
+        <p>Настройка списка:</p>
+        <ul>
+          <li><a class="list<%= ' selected' if @affiche_collection.presentation_mode == 'list' %>" title="подробный список" href="">список</a></li>
+          <li><span class="separator">&nbsp;</span></li>
+          <li><a class="posters<%= ' selected' if @affiche_collection.presentation_mode == 'posters' %>" title="краткий список" href="">постеры</a></li>
+        </ul>
       </div>
-      <ul class="items_list <%= @affiche_collection.presentation_mode %>">
-        <%= render partial: @affiche_collection.view_partial %>
-      </ul>
+      <div class="sort">
+        <p>Сортировка:</p>
+        <ul>
+          <%= @affiche_collection.sort_links %>
+        </ul>
+      </div>
     </div>
+    <ul class="items_list <%= @affiche_collection.presentation_mode %>">
+      <%= render partial: @affiche_collection.view_partial %>
+    </ul>
   </div>
 
 <% end %>
