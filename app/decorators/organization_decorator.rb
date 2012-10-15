@@ -90,8 +90,9 @@ class OrganizationDecorator < ApplicationDecorator
       links << Link.new(
                         title: I18n.t("organization.#{method}"),
                         url: h.send(method == 'view' ? "organization_path" : "#{method}_organization_path"),
-                        current: h.current_page?(h.send(method == 'view' ? "organization_path" : "#{method}_organization_path")),
-                        disabled: !self.send("has_#{method}?")
+                        current: h.current_page?(action: method == 'view' ? "show" : method),
+                        disabled: !self.send("has_#{method}?"),
+                        kind: method
                        )
     end
     current_index = links.index { |link| link.current? }

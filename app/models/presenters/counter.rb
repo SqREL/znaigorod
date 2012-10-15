@@ -2,7 +2,7 @@
 
 class Counter
   include ActiveAttr::MassAssignment
-  attr_accessor :kind
+  attr_accessor :kind, :organization
 
   def today
     @today ||= searcher.today.affiches.group(:affiche_id_str).total
@@ -24,6 +24,7 @@ class Counter
   def searcher
     search_params = {}
     search_params[:affiche_category] = kind.singularize unless kind == 'affiche'
+    search_params[:organization_id] = organization.id if organization
     HasSearcher.searcher(:affiche, search_params)
   end
 end

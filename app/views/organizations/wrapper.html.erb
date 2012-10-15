@@ -30,6 +30,15 @@
       <ul class="navigation">
         <% @organization.navigation.each do |link| %>
           <li class="<%= link.html_options[:class] %>"><%= link %></li>
+          <% if link.current && link.kind == 'affiche' %>
+            <ul class="periods">
+              <% @affiche_collection.period_links.each do |period_link| %>
+                <li class="<%= period_link.html_options[:class] %>">
+                  <%= period_link.current? ? content_tag(:span, period_link.title) : link_to(period_link.title, period_link.url) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
         <% end %>
       </ul>
 
