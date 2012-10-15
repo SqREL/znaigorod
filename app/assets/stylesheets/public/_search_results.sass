@@ -1,44 +1,36 @@
 .content_wrapper .search_results
-  .tabs
-    +clearfix
-    text-align: center
-    background: #787B85 image_url('public/today_in_city_menu_bg.png') left top
-    margin: 0 10px 30px 0
+  .items_list
     li
-      +inline-block
-      border-right: 1px dotted #d5d5d3
-      margin: 0 -2px
-      &:first-child
-        border-left: 1px dotted #d5d5d3
-      &.selected
-        background-color: #fff
-        border-top: 4px solid #d0e1e9
-        a
-          color: #302046
-          padding-top: 8px
-      a
-        width: 178px
-        color: #fff
-        display: block
-        text-decoration: none
-        padding: 12px 0 14px
-        &.disabled
-          cursor: default
-          +opacity(0.35)
-
-  .affiches_list,
-  .organizations_list
-    float: none
-    width: 990px
-
-  .organizations_list
-    ul li .info .contacts table
-      width: 780px
-      &.full
-        width: 970px
-      .schedule
+      +clearfix
+      background-color: #efeaf1
+      line-height: 1.4
+      margin-bottom: 20px
+      padding: 10px 10px 5px
+      em
+        font-style: normal
+        font-weight: bold
+      .image
+        float: left
+        margin: 0 10px 5px 0
+      .kind
+        +clearfix
+        font-size: 11px
+        float: right
         li
-          margin-right: 15px
+          float: left
+          background-color: #70398A
+          +border-radius(3px)
+          padding: 2px 3px 4px
+          margin: 0 0 0 10px
+          a
+            color: #fff
+      .title
+        font-size: 16px
+        margin-bottom: 5px
+      .excerpt
+        margin-bottom: 5px
+      .debug
+        margin-bottom: 5px
   .empty
     font-size: 22px
     color: #777

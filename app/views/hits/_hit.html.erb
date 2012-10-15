@@ -1,4 +1,6 @@
-<%= link_to hit.title, hit.result %>
+<%= content_tag :div, link_to(hit.image_item, hit.result), class: "image" if hit.image? %>
+<%= content_tag :ul, hit.kind_links, class: "kind" unless hit.kind_links.blank? %>
+<div class='title'><%= link_to hit.title, hit.result %></div>
 <div class='excerpt'><%= hit.excerpt %></div>
 <% HitDecorator::ADDITIONAL_FIELDS.each do |field| %>
   <% if hit.highlights(field).any? %>

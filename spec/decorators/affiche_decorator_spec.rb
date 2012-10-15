@@ -15,7 +15,7 @@ describe AfficheDecorator do
     end
     context 'long title' do
       before { affiche.title = 'Санкт Петербург — путешествие во времени и пространстве' }
-      it { should =~ /Санкт Петер\u00ADбург — путе\u00ADше\u00ADствие во&#160;вре\u00ADмени&#160;и&#8230;/ }
+      it { should =~ /Санкт Петербург — путешествие во времени…/ }
       it { should =~ /title=\"Санкт Петербург — путешествие во времени и пространстве\"/ }
     end
   end
@@ -23,7 +23,7 @@ describe AfficheDecorator do
   describe "#link" do
     subject { decorator.link }
     before { affiche.title = 'Санкт Петербург — путешествие во времени и пространстве' }
-    it { should =~ /Санкт Петербург — путешествие во&#160;времени и&#160;пространстве/ }
+    it { should =~ /Санкт Петербург — путешествие во времени и пространстве/ }
   end
 
   describe "#main_page_place" do
@@ -38,8 +38,8 @@ describe AfficheDecorator do
     end
     context 'when showing place long' do
       before { showing.stub(:place).and_return('Информационный центр по сильно опто коммуникационным технологиям') }
-      it { should =~ /title=\"Информационный центр по&#160;сильно опто коммуникационным технологиям"/ }
-      it { should =~ /Информационный центр по&#160;сильно опто/ }
+      it { should =~ /title=\"Информационный центр по сильно опто коммуникационным технологиям\"/ }
+      it { should =~ /Инфор­ма­ци­он­ный центр по ­сильно опто…/ }
     end
     context 'when showing place is_a Organization' do
       let(:organization) { Organization.new(:title => 'Киномакс, кинотеатр') }

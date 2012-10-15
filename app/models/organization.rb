@@ -96,6 +96,10 @@ class Organization < ActiveRecord::Base
     meal_cuisine
   end
 
+  def poster_url
+    self.logotype_url
+  end
+
   %w[category feature offer payment].each do |method|
     define_method method do
       [send("entertainment_#{method}"), send("meal_#{method}")].delete_if(&:blank?).compact.join(', ')

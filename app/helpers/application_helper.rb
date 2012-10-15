@@ -9,8 +9,8 @@ module ApplicationHelper
     result
   end
 
-  def image_tag_for(url, width, height, crop = true)
-    image_tag resized_image_url(url, width, height, crop)
+  def image_tag_for(url, width, height, crop = true, alt = "")
+    image_tag resized_image_url(url, width, height, crop), size: "#{width}x#{height}", alt: alt
   end
 
   def image_image_tag_for(affiche, width, height, options={})

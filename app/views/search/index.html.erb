@@ -8,11 +8,9 @@
     <h1>Результаты поиска &laquo;<%= params[:q] %>&raquo;</h1>
 
     <% if @search_presenter.hits? %>
-      <div class="search_hits">
-        <ul class="items_list">
-          <%= render :partial => "search_results_list" %>
-        </ul>
-      </div>
+      <ul class="items_list">
+        <%= render :partial => "search_results_list" %>
+      </ul>
     <% else %>
       <div class="empty">По запросу &laquo;<%= params[:q] %>&raquo; ничего не найдено ;(</div>
     <% end %>
