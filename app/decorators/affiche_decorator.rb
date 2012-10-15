@@ -81,20 +81,22 @@ class AfficheDecorator < ApplicationDecorator
     affiche.trailer_code?
   end
 
+  def navigation_title(method)
+    case method
+    when 'show'
+      "Описание"
+    when 'photogallery'
+      affiche.is_a?(Movie) ? "Кадры" : "Фотографии"
+    when 'trailer'
+      affiche.is_a?(Movie) ? "Трейлер" : "Видео"
+    end
+  end
+
   def navigation
     links = []
     %w(show photogallery trailer).each do |method|
-      title =
-        case method
-        when 'show'
-          "Описание"
-        when 'photogallery'
-          affiche.is_a?(Movie) ? "Кадры" : "Фотографии"
-        when 'trailer'
-          affiche.is_a?(Movie) ? "Трейлер" : "Видео"
-        end
       links << Link.new(
-                        title: title,
+                        title: navigation_title(method),
                         url: method == 'show' ? self.send("kind_affiche_path") : self.send("kind_affiche_#{method}_path"),
                         current: h.controller.action_name == method,
                         disabled: !self.send("has_#{method}?"),

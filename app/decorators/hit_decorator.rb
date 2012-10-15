@@ -71,9 +71,26 @@ class HitDecorator < ApplicationDecorator
   end
 
   def snipped_links
+    links = []
     if organization?
+      organization_decorator = OrganizationDecorator.new(result)
+      %w(photogallery tour affiche).each do |method|
+        links << Link.new(
+          title: I18n.t("organization.#{method}"),
+          url: h.send("#{method}_organization_path", result)
+        ) if organization_decorator.send("has_#{method}?")
+      end
     else
+      affiche_decorator = AfficheDecorator.new(result)
+      %w(photogallery trailer).each do |method|
+        links << Link.new(
+          title: affiche_decorator.navigation_title(method),
+          url: affiche_decorator.send("kind_affiche_#{method}_path")
+        ) if affiche_decorator.send("has_#{method}?")
+      end
     end
+    return "" if links.empty?
+    h.content_tag :ul, links.map {|l| h.content_tag :li, l.to_s}.join("\n").html_safe, class: :snipped_links
   end
 
   def closest
