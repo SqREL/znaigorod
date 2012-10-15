@@ -33,6 +33,19 @@ class ShowingDecorator < ApplicationDecorator
     end
   end
 
+  def human_when_time
+    unless ends_at?
+      date = "#{H_M(starts_at)}" unless starts_at_only_date?
+      return date
+    else
+      from_time = starts_at_only_date? ? '' : H_M(starts_at)
+      to_time = ends_at_only_date? ? '' : H_M(ends_at)
+      date = "#{from_time}" unless starts_at_only_date?
+      date += " &ndash; #{to_time}" unless ends_at_only_date?
+      return date
+    end
+  end
+
   def human_time_starts_at
     H_M(showing.starts_at)
   end
@@ -105,8 +118,7 @@ class ShowingDecorator < ApplicationDecorator
         date.html_safe
       end
       html << date
-      p starts_at
-      html << h.content_tag(:p, H_M(starts_at), class: 'time') if starts_at.beginning_of_day != starts_at
+      html << h.content_tag(:p, human_when_time.html_safe, class: 'time') if starts_at.beginning_of_day != starts_at
       html << h.content_tag(:p, human_price, :class => 'price') unless human_price.blank?
     end.html_safe
   end
