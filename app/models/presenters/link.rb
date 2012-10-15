@@ -17,6 +17,7 @@ class Link
   end
 
   def to_s
+    return content_tag(:span, title, class: html_options[:class]) if disabled == true
     link_to title, url, html_options
   end
 end
