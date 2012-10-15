@@ -223,6 +223,7 @@ class AfficheCollection
     search_params[:starts_on] = on if period == 'daily'
     search_params[:tags] = tags if tags.any?
     search_params[:affiche_id] = affiche_id if affiche_id
+    search_params[:organization_id] = organization.id if organization
     search_params
   end
 
