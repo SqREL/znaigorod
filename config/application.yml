@@ -76,10 +76,10 @@ app:
           category: meal
           options:
             category: доставка готовых блюд
-        theatre:
+        sauna:
           category: entertainment
           options:
-            category: театры
+            category: сауны
         night_club:
           category: entertainment
           options:
