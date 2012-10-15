@@ -69,39 +69,43 @@ class AfficheDecorator < ApplicationDecorator
     AfficheScheduleDecorator.decorate affiche.affiche_schedule
   end
 
+  def has_show?
+    true
+  end
+
+  def has_photogallery?
+    affiche.has_images?
+  end
+
+  def has_trailer?
+    affiche.trailer_code?
+  end
+
   def navigation
-    [].tap do |links|
-      klass = []
-      klass << "current" if h.current_page?(kind_affiche_path)
-      klass << "before_current" if h.current_page?(kind_affiche_photogallery_path)
-      links << h.content_tag(:li, h.link_to("Описание", kind_affiche_path),
-                             :class => klass.any? ? klass.join(" ") : nil)
-      klass = []
-      klass << "disabled" unless affiche.has_images?
-      klass << "current" if h.current_page?(kind_affiche_photogallery_path)
-      klass << "before_current" if h.current_page?(kind_affiche_trailer_path)
-      if affiche.has_images?
-        links << h.content_tag(:li, h.link_to(affiche.is_a?(Movie) ? "Кадры" : "Фотографии",
-                                              kind_affiche_photogallery_path),
-                               :class => klass.any? ? klass.join(" ") : nil)
-      else
-        links << h.content_tag(:li, h.content_tag(:span, affiche.is_a?(Movie) ? "Кадры" : "Фотографии",
-                                                  :title => "Недоступно"),
-                               :class => klass.any? ? klass.join(" ") : nil)
-      end
-      klass = []
-      klass << "disabled" unless affiche.trailer_code?
-      klass << "current" if h.current_page?(kind_affiche_trailer_path)
-      if affiche.trailer_code?
-        links << h.content_tag(:li, h.link_to(affiche.is_a?(Movie) ? "Трейлер" : "Видео",
-                                              kind_affiche_trailer_path),
-                               :class => klass.any? ? klass.join(" ") : nil)
-      else
-        links << h.content_tag(:li, h.content_tag(:span, affiche.is_a?(Movie) ? "Трейлер" : "Видео",
-                                                  :title => "Недоступно"),
-                               :class => klass.any? ? klass.join(" ") : nil)
-      end
+    links = []
+    %w(show photogallery trailer).each do |method|
+      title =
+        case method
+        when 'show'
+          "Описание"
+        when 'photogallery'
+          affiche.is_a?(Movie) ? "Кадры" : "Фотографии"
+        when 'trailer'
+          affiche.is_a?(Movie) ? "Трейлер" : "Видео"
+        end
+      links << Link.new(
+                        title: title,
+                        url: method == 'show' ? self.send("kind_affiche_path") : self.send("kind_affiche_#{method}_path"),
+                        current: h.controller.action_name == method,
+                        disabled: !self.send("has_#{method}?"),
+                        kind: method
+                       )
     end
+    current_index = links.index { |link| link.current? }
+    return links unless current_index
+    links[current_index - 1].html_options[:class] += ' before_current' if current_index > 0
+    links[current_index].html_options[:class] += ' current'
+    links
   end
 
   def main_page_place

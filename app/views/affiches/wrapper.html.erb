@@ -116,7 +116,7 @@
 
       <ul class="navigation">
         <% @affiche.navigation.each do |link| %>
-          <%= link %>
+          <li class="<%= link.html_options[:class] %>"><%= link %></li>
         <% end %>
       </ul>
 
