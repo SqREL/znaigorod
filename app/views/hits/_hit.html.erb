@@ -1,16 +1,18 @@
 <%= content_tag :div, link_to(hit.image_item, hit.result), class: "image" if hit.image? %>
 <%= content_tag :ul, hit.kind_links, class: "kind" unless hit.kind_links.blank? %>
-<div class='title'><%= link_to hit.title, hit.result %></div>
+<div class="title"><%= link_to hit.title, hit.result %></div>
+<%= hit.closest %>
+<%= hit.places %>
 <div class='excerpt'><%= hit.excerpt %></div>
 <% HitDecorator::ADDITIONAL_FIELDS.each do |field| %>
-  <% if hit.highlights(field).any? %>
-    <div class='<%= field %>'>
-      <span class='field_description'><%= hit.result.class.human_attribute_name(field) %></span>
-      <%= hit.highlighted(field) %>
-    </div>
+  <% if (hit.highlights(field) + hit.highlights("#{field}_ru")).any? %>
+    <ul class="tags">
+      <li class="field_description"><%= hit.result.class.human_attribute_name(field) %>:</li>
+      <%= hit.splitted_fields(field) %>
+    </ul>
   <% end %>
 <% end %>
-<% if Rails.env.development? %>
+<% if Rails.env.development? && false %>
   <div class='debug'>
     <%= hit.score %> |
     <%= hit.result.popularity if hit.result.respond_to? :popularity %>

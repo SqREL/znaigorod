@@ -210,14 +210,14 @@ class AfficheDecorator < ApplicationDecorator
 
   def human_when
     if showings.any?
-       if affiche.constant?
-         case affiche.class
-         when Exhibition
-           return "Постоянная экспозиция"
-         else
-           return "Постоянное мероприятие"
-         end
-    end
+      if affiche.constant?
+        case affiche.class
+        when Exhibition
+          return "Постоянная экспозиция"
+        else
+          return "Постоянное мероприятие"
+        end
+      end
       return human_distribution if affiche.distribution_starts_on?
       return showings.first.human_when
     else

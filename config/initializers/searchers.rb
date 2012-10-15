@@ -261,6 +261,7 @@ HasSearcher.create_searcher :global do
     highlight :title_ru
     highlight :description_ru
     HitDecorator::ADDITIONAL_FIELDS.each do |field|
+      highlight "#{field}_ru" if (Organization.instance_methods + Affiche.instance_methods).include? :"#{field}_ru"
       highlight field
     end
     boost 1 do
