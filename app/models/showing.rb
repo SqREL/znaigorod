@@ -12,8 +12,6 @@ class Showing < ActiveRecord::Base
   after_create  :index_affiche
   after_destroy :index_affiche
 
-  default_scope order(:starts_at)
-
   scope :actual, -> { where('starts_at >= ?', DateTime.now.beginning_of_day) }
 
   scope :with_organization, where('organization_id IS NOT NULL')

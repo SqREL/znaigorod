@@ -17,6 +17,9 @@ class Affiche < ActiveRecord::Base
   has_many :attachments, :as => :attachable, :dependent => :destroy
   has_many :showings, :dependent => :destroy, :order => :starts_at
 
+  has_many :organizations, :through => :showings, :uniq => true
+  has_many :addresses, :through => :organizations, :uniq => true, :source => :address
+
   has_one :affiche_schedule, :dependent => :destroy
 
   validates_presence_of :description, :poster_url, :title
@@ -45,7 +48,6 @@ class Affiche < ActiveRecord::Base
 
   alias_attribute :tag_ru, :tag
   alias_attribute :title_ru, :title
-  alias_attribute :place_ru, :place
 
   before_save :set_popularity
 
@@ -56,7 +58,9 @@ class Affiche < ActiveRecord::Base
     text :tag,              :boost => 1 * 1.2
     text :tag_ru,           :boost => 1 * 1.2,    :more_like_this => true,  :stored => true
     text :place,            :boost => 1 * 1.2
-    text :place_ru,         :boost => 1,          :stored => true
+    text :place_ru,         :boost => 1
+    text :address,          :boost => 0.8 * 1.2
+    text :address_ru,       :boost => 0.8
     text :description,      :boost => 0.5 * 1.2                                               do text_description end
     text :description_ru,   :boost => 0.5,        :stored => true                             do text_description end
 
@@ -76,8 +80,16 @@ class Affiche < ActiveRecord::Base
   end
 
   def place
-    showings.pluck(:place).uniq.join(", ")
+    showings.pluck(:place).uniq.join(' ')
   end
+
+  alias_method :place_ru, :place
+
+  def address
+    addresses.uniq.join(' ')
+  end
+
+  alias_method :address_ru, :address
 
   def first_showing
     showings.first
