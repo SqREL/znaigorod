@@ -48,12 +48,15 @@ class Organization < ActiveRecord::Base
 
   paginates_per Settings['pagination.per_page'] || 10
 
+  alias_attribute :poster_url, :logotype_url
+
   alias_attribute :title_ru, :title
   alias_attribute :category_ru, :category
   alias_attribute :cuisine_ru, :cuisine
   alias_attribute :feature_ru, :feature
   alias_attribute :offer_ru, :offer
   alias_attribute :payment_ru, :payment
+  alias_attribute :address_ru, :address
 
   searchable do
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
@@ -72,7 +75,8 @@ class Organization < ActiveRecord::Base
     text :payment_ru,       :boost => 1,                                    :stored => true
     text :description,      :boost => 0.5 * 1.2                                               do text_description end
     text :description_ru,   :boost => 0.5,                                  :stored => true   do text_description end
-    text :address,                                                          :stored => true
+    text :address,          :boost => 0.8 * 1.2
+    text :address_ru,       :boost => 0.8,                                  :stored => true
 
     float :rating
 
@@ -94,10 +98,6 @@ class Organization < ActiveRecord::Base
 
   def cuisine
     meal_cuisine
-  end
-
-  def poster_url
-    self.logotype_url
   end
 
   %w[category feature offer payment].each do |method|

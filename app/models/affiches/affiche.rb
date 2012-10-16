@@ -50,15 +50,15 @@ class Affiche < ActiveRecord::Base
   before_save :set_popularity
 
   searchable do
-    text :title,              :boost => 2 * 1.2
-    text :title_ru,           :boost => 2,          :stored => true,  :more_like_this => true
-    text :original_title,     :boost => 1.5,        :stored => true,  :more_like_this => true
-    text :tag,                :boost => 1 * 1.2
-    text :tag_ru,             :boost => 1 * 1.2,    :stored => true,  :more_like_this => true
-    text :place,              :boost => 1 * 1.2
-    text :place_ru,           :boost => 1,          :stored => true
-    text :description,        :boost => 0.5 * 1.2                                               do text_description end
-    text :description_ru,     :boost => 0.5,        :stored => true                             do text_description end
+    text :title,            :boost => 2 * 1.2
+    text :title_ru,         :boost => 2,          :more_like_this => true,  :stored => true
+    text :original_title,   :boost => 1.5,        :more_like_this => true,  :stored => true
+    text :tag,              :boost => 1 * 1.2
+    text :tag_ru,           :boost => 1 * 1.2,    :more_like_this => true,  :stored => true
+    text :place,            :boost => 1 * 1.2
+    text :place_ru,         :boost => 1,          :stored => true
+    text :description,      :boost => 0.5 * 1.2                                               do text_description end
+    text :description_ru,   :boost => 0.5,        :stored => true                             do text_description end
 
     boolean :has_images, :using => :has_images?
 

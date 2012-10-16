@@ -260,9 +260,13 @@ HasSearcher.create_searcher :global do
   keywords :q do
     highlight :title_ru
     highlight :description_ru
+    highlight :address_ru
     HitDecorator::ADDITIONAL_FIELDS.each do |field|
-      highlight "#{field}_ru" if (Organization.instance_methods + Affiche.instance_methods).include? :"#{field}_ru"
-      highlight field
+      if (Organization.instance_methods + Affiche.instance_methods).include? :"#{field}_ru"
+        highlight "#{field}_ru"
+      else
+        highlight field
+      end
     end
     boost 1 do
       any_of do

@@ -2,17 +2,15 @@ class HitDecorator < ApplicationDecorator
   decorates 'sunspot/search/hit'
 
   AFFICHE_FIELDS = %w[original_title tag]
-  ORGANIZATION_FIELDS = %w[category cuisine feature offer payment address]
+  ORGANIZATION_FIELDS = %w[category cuisine feature offer payment]
   ADDITIONAL_FIELDS = AFFICHE_FIELDS + ORGANIZATION_FIELDS
 
   def image
-    return result.poster_url if result.poster_url
-    nil
+    result.poster_url.presence
   end
 
   def image?
-    return true unless result.poster_url.blank?
-    false
+    result.poster_url?
   end
 
   def  organization?

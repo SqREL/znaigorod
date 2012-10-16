@@ -5,7 +5,6 @@
 <%= hit.closest %>
 <%= hit.places %>
 <div class='excerpt'><%= hit.excerpt %></div>
-<% HitDecorator::ADDITIONAL_FIELDS.delete("address") %>
 <% HitDecorator::ADDITIONAL_FIELDS.each do |field| %>
   <% if (hit.highlights(field) + hit.highlights("#{field}_ru")).any? %>
     <ul class="tags">
@@ -14,7 +13,7 @@
     </ul>
   <% end %>
 <% end %>
-<% if Rails.env.development? && false %>
+<% if Rails.env.development? %>
   <div class='debug'>
     <%= hit.score %> |
     <%= hit.result.popularity if hit.result.respond_to? :popularity %>
