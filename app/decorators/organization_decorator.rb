@@ -49,6 +49,13 @@ class OrganizationDecorator < ApplicationDecorator
     links << h.content_tag(:li, h.link_to(I18n.t("organization.list_title.#{suborganization_kind.singularize}"), h.organizations_path(:organization_class => suborganization_kind)), :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
     links << h.content_tag(:li, h.link_to(title, h.organization_path(organization)), :class => "crumb")
+    %w(photogallery tour affiche).each do |method|
+      if h.controller.action_name == method
+        links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
+        links << h.content_tag(:li, h.link_to(I18n.t("organization.#{method}"), h.send("#{method}_organization_path"), :class => "crumb"))
+      end
+    end
+
     h.content_tag :ul, links.join("\n").html_safe, :class => "breadcrumbs"
   end
 

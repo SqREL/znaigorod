@@ -15,9 +15,27 @@
 
     <div class="content">
 
-      <div class="organization">
-        <%= yield :organization_content %>
+      <div class="organization_info">
+        <% if @organization.categories.any? %>
+          <ul class="categories">
+            <% @organization.categories.each do |category| %>
+              <li><%= link_to category, organizations_path(organization_class: @organization.suborganization_kind, category: category.mb_chars.downcase) %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <div class="head">
+          <h1><%= @organization.title %></h1>
+        </div>
+
+        <% unless @organization.address_link.blank? %>
+          <div class="place">
+            <p class="address"><%= @organization.address_link %></p>
+          </div>
+        <% end %>
       </div>
+
+      <%= yield :organization_content %>
 
       <% if Rails.env.production? %>
         <div id="vk_comments"></div>

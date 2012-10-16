@@ -54,6 +54,12 @@ class AfficheDecorator < ApplicationDecorator
     links << h.content_tag(:li, h.link_to("Все #{human_kind.mb_chars.downcase}", h.affiches_path(kind: kind.pluralize, period: :all)), :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
     links << h.content_tag(:li, h.link_to(title, kind_affiche_path), :class => "crumb")
+    %w(photogallery trailer).each do |method|
+      if h.controller.action_name == method
+        links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
+        links << h.content_tag(:li, h.link_to(navigation_title(method), self.send("kind_affiche_#{method}_path")), :class => "crumb")
+      end
+    end
     h.content_tag :ul, links.join("\n").html_safe, :class => "breadcrumbs"
   end
 
