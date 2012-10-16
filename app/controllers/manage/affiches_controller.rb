@@ -17,8 +17,6 @@ class Manage::AffichesController < Manage::ApplicationController
 
       Affiche.search {
         keywords(params[:q])
-        # NOTE: use [0] if showing_ids is empty
-        with(:showing_ids, showing_ids + [0])
         paginate(paginate_options.merge(:per_page => per_page))
 
         adjust_solr_params do |params|
