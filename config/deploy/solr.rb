@@ -2,9 +2,9 @@ settings_yml_path = "config/settings.yml"
 config = YAML::load(File.open(settings_yml_path))
 raise "not found deploy key in settings.yml. see settings.yml.example" unless config['deploy']
 solr_domain = config['deploy']["solr_domain"]
-raise "not found deploy.domain key in settings.yml. see settings.yml.example" unless solr_domain
+raise "not found deploy.solr_domain key in settings.yml. see settings.yml.example" unless solr_domain
 solr_port = config['deploy']["solr_port"]
-raise "not found deploy.port key in settings.yml. see settings.yml.example" unless solr_port
+raise "not found deploy.solr_port key in settings.yml. see settings.yml.example" unless solr_port
 
 namespace :solr do
   desc "Upload local solr config to remote server"
