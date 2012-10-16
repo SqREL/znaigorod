@@ -101,8 +101,10 @@ class HitDecorator < ApplicationDecorator
 
   def places
     if organization?
+      address = highlighted('address')
       organization_decorator = OrganizationDecorator.new(result)
-      h.content_tag(:div, h.content_tag(:span, organization_decorator.address_link, class: :address), class: :places)
+      link = address ? organization_decorator.address_link(address) : organization_decorator.address_link
+      h.content_tag(:div, h.content_tag(:span, link, class: :address), class: :places)
     else
       affiche_decorator = AfficheDecorator.new(result)
       result_places = ""
@@ -115,7 +117,7 @@ class HitDecorator < ApplicationDecorator
 
   def splitted_fields(field)
     res = ""
-    highlighted(field).split(",").each do |piece|
+    highlighted(field).to_s.split(",").each do |piece|
       link = ""
       if organization?
         link = "/#{raw_suborganization.class.name.underscore.pluralize}/all/#{field.pluralize}/#{piece.squish.as_text.mb_chars.downcase}"
@@ -132,7 +134,7 @@ class HitDecorator < ApplicationDecorator
   end
 
   def highlighted(field)
-    (highlights("#{field}_ru") || highlights(field)).map(&:formatted).map{|phrase| phrase.gsub(/\A[[:punct:][:space:]]+/, '')}.join(' ... ').html_safe.presence
+    (highlights("#{field}_ru") + highlights(field)).map(&:formatted).map{|phrase| phrase.gsub(/\A[[:punct:][:space:]]+/, '')}.join(' ... ').html_safe.presence
   end
 
   def truncated(field)
