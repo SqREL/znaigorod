@@ -1,7 +1,6 @@
-
 @init_affiches_filter = () ->
 
-  link = $($('.affiches_filter .periods .daily').children()[0])
+  link = $($('.affiches_filter .periods .daily, .navigation .periods .daily').children()[0])
   wrapper = link.closest('li')
 
   cal = $('<input id="ui-calendar" type="text" />').appendTo('body').datepicker
@@ -13,22 +12,23 @@
       day = if inst.selectedDay < 10 then "0#{inst.selectedDay}" else inst.selectedDay
       date = "#{year}-#{month}-#{day}"
 
-      location = window.location.pathname.split('/')
-      location[2] = 'daily'
-      if typeof location[3] != "undefined" && location[3] != null
-        if location[3].match /\d{4}-\d{1,2}-\d{1,2}/
-          location[3] = date
-        else
-          location.splice(3, 0, date)
+      location = window.location.pathname
+      if location.match(/\d{4}-\d{1,2}-\d{1,2}/)
+        location = location.replace(/\d{4}-\d{1,2}-\d{1,2}/, date)
+      else if location.match(/daily/)
+        cal.datepicker('setDate', date)
+        location = location.replace(/daily/, "daily/#{date}")
       else
-        location[3] = date
-      window.location.pathname = location.join('/')
+        for key, value of ["today", "weekly", "weekend", "all"]
+          location = location.replace("#{value}", "daily/#{date}") if location.match("#{value}")
+      window.location.pathname = location
 
       true
-  location = window.location.pathname.split('/')
-  if typeof location[3] != "undefined" && location[3] != null && location[3].match /\d{4}-\d{1,2}-\d{1,2}/
-    cal.datepicker('setDate', location[3])
-  else if location[2] == 'daily'
+
+  location = window.location.pathname
+  if location.match(/\d{4}-\d{1,2}-\d{1,2}/)
+    cal.datepicker('setDate', location.match(/\d{4}-\d{1,2}-\d{1,2}/)[0])
+  else if location.match(/daily/)
     current_date = new Date
     cal.datepicker('setDate', current_date.toLocaleFormat('%Y-%m-%d'))
   cal.css

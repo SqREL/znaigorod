@@ -64,7 +64,8 @@ class AfficheCollection
       links << Link.new(:title => link_title.html_safe,
                         :current => affiche_period == period,
                         :html_options => html_options,
-                        :url => list_url(period: affiche_period))
+                        :url => organization ? affiche_organization_path(organization, period: affiche_period) : affiches_path(kind: kind, period: affiche_period))
+
     end
     current_index = links.index { |link| link.current? }
     links[current_index - 1].html_options[:class] += 'before_current' if current_index > 0
@@ -195,16 +196,14 @@ class AfficheCollection
 
     %w[popular newest closest].each do |order|
       links << content_tag(:li,
-                           Link.new(:title => I18n.t("affiche.sort.#{order}"),
+                           Link.new(
+                                    :title => I18n.t("affiche.sort.#{order}"),
                                     :html_options => sort.include?(order) ? { class: "#{order} selected"} : { class: order },
-                                    :url => list_url))
+                                    :url => (organization ? affiche_organization_path(organization, period: period) : affiches_path(kind: kind, period: period, on: on))
+      ))
     end
 
     (links.join(content_tag(:li, content_tag(:span, '&nbsp;'.html_safe, class: 'separator')))).html_safe
-  end
-
-  def list_url(options = {})
-    organization ? affiche_organization_path(organization, period: options[:period] || period) : affiches_path(kind, period: options[:period] || period, on: on)
   end
 
   private
