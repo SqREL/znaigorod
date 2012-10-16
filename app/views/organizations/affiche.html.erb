@@ -38,9 +38,13 @@
         </ul>
       </div>
     </div>
-    <ul class="items_list <%= @affiche_collection.presentation_mode %>">
-      <%= render partial: @affiche_collection.view_partial %>
-    </ul>
+    <% unless @affiche_collection.affiches.blank? %>
+      <ul class="items_list <%= @affiche_collection.presentation_mode %>">
+        <%= render partial: @affiche_collection.view_partial %>
+      </ul>
+    <% else %>
+      <p class="empty_items_list">По заданным параметрам ничего не найдено ;(</p>
+    <% end %>
   </div>
 
 <% end %>
