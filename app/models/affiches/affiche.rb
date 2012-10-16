@@ -52,17 +52,19 @@ class Affiche < ActiveRecord::Base
   before_save :set_popularity
 
   searchable do
-    text :title,            :boost => 2 * 1.2
-    text :title_ru,         :boost => 2,          :more_like_this => true,  :stored => true
-    text :original_title,   :boost => 1.5,        :more_like_this => true,  :stored => true
-    text :tag,              :boost => 1 * 1.2
-    text :tag_ru,           :boost => 1 * 1.2,    :more_like_this => true,  :stored => true
-    text :place,            :boost => 1 * 1.2
-    text :place_ru,         :boost => 1
-    text :address,          :boost => 0.8 * 1.2
-    text :address_ru,       :boost => 0.8
-    text :description,      :boost => 0.5 * 1.2                                               do text_description end
-    text :description_ru,   :boost => 0.5,        :stored => true                             do text_description end
+    text :title,                :boost => 2 * 1.2
+    text :title_ru,             :boost => 2,          :more_like_this => true,  :stored => true
+    text :original_title,       :boost => 1.5,        :more_like_this => true,  :stored => true
+    text :human_model_name,     :boost => 1 * 1.2
+    text :human_model_name_ru,  :boost => 1
+    text :tag,                  :boost => 1 * 1.2
+    text :tag_ru,               :boost => 1,          :more_like_this => true,  :stored => true
+    text :place,                :boost => 1 * 1.2
+    text :place_ru,             :boost => 1
+    text :address,              :boost => 0.8 * 1.2
+    text :address_ru,           :boost => 0.8
+    text :description,          :boost => 0.5 * 1.2                                               do text_description end
+    text :description_ru,       :boost => 0.5,        :stored => true                             do text_description end
 
     boolean :has_images, :using => :has_images?
 
@@ -70,6 +72,12 @@ class Affiche < ActiveRecord::Base
 
     time :last_showing_time,  :trie => true
   end
+
+  def human_model_name
+    self.class.model_name.human
+  end
+
+  alias_attribute :human_model_name_ru, :human_model_name
 
   def self.ordered_descendants
     [Movie, Concert, Party, Spectacle, Exhibition, SportsEvent, Other]

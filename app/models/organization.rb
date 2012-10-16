@@ -61,22 +61,22 @@ class Organization < ActiveRecord::Base
   searchable do
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
     string(:kind) { 'organization' }
-    text :title,            :boost => 2 * 1.2
-    text :title_ru,         :boost => 2,          :more_like_this => true,  :stored => true
-    text :category,         :boost => 1.2
-    text :category_ru,      :boost => 1,          :more_like_this => true,  :stored => true
-    text :cuisine,          :boost => 1.2
-    text :cuisine_ru,       :boost => 1,          :more_like_this => true,  :stored => true
-    text :feature,          :boost => 1.2
-    text :feature_ru,       :boost => 1,          :more_like_this => true,  :stored => true
-    text :offer,            :boost => 1.2
-    text :offer_ru,         :boost => 1,          :more_like_this => true,  :stored => true
-    text :payment,          :boost => 1.2
-    text :payment_ru,       :boost => 1,                                    :stored => true
-    text :description,      :boost => 0.5 * 1.2                                               do text_description end
-    text :description_ru,   :boost => 0.5,                                  :stored => true   do text_description end
-    text :address,          :boost => 0.8 * 1.2
-    text :address_ru,       :boost => 0.8,                                  :stored => true
+    text :title,                :boost => 2 * 1.2
+    text :title_ru,             :boost => 2,          :more_like_this => true,  :stored => true
+    text :category,             :boost => 1.2
+    text :category_ru,          :boost => 1
+    text :cuisine,              :boost => 1.2
+    text :cuisine_ru,           :boost => 1,          :more_like_this => true,  :stored => true
+    text :feature,              :boost => 1.2
+    text :feature_ru,           :boost => 1,          :more_like_this => true,  :stored => true
+    text :offer,                :boost => 1.2
+    text :offer_ru,             :boost => 1,          :more_like_this => true,  :stored => true
+    text :payment,              :boost => 1.2
+    text :payment_ru,           :boost => 1,                                    :stored => true
+    text :description,          :boost => 0.5 * 1.2                                               do text_description end
+    text :description_ru,       :boost => 0.5,                                  :stored => true   do text_description end
+    text :address,              :boost => 0.8 * 1.2
+    text :address_ru,           :boost => 0.8,                                  :stored => true
 
     float :rating
 
