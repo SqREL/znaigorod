@@ -1,12 +1,16 @@
 <% content_for :organization_content do  %>
-  <div class="organization">
 
+  <div class="organization">
     <div class="gallery_container">
       <% @organization.images.each do |image| %>
         <%= link_to @organization.image_tag(image.url, 124, 93, image.description), image.url %>
       <% end %>
     </div>
-
   </div>
+
+  <% if Rails.env.production? %>
+    <div id="vk_comments"></div>
+  <% end %>
+
 <% end %>
 <%= render :file => "organizations/wrapper" %>

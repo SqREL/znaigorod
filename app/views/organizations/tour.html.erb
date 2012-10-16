@@ -1,11 +1,15 @@
 <% content_for :organization_content do  %>
-  <div class="organization">
 
+  <div class="organization">
     <div id="krpano">
       <noscript><center>ERROR: Javascript not activated</center></noscript>
       <%= link_to @organization.tour_link, @organization.tour_link, :class => "tour_link" %>
     </div>
-
   </div>
+
+  <% if Rails.env.production? %>
+    <div id="vk_comments"></div>
+  <% end %>
+
 <% end %>
 <%= render :file => "organizations/wrapper" %>

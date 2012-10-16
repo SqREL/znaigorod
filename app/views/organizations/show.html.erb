@@ -105,5 +105,10 @@
       <% end %>
     </div>
   </div>
+
+  <% if Rails.env.production? %>
+    <div id="vk_comments"></div>
+  <% end %>
+
 <% end %>
 <%= render :file => "organizations/wrapper" %>
