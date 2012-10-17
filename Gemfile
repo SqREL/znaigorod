@@ -45,6 +45,7 @@ group :development do
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'hirb'
+  gem 'rails-erd'
   gem 'sunspot_solr'
 end
 
