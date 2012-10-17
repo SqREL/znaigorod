@@ -66,36 +66,6 @@
           <li class='email'><a href='mailto:team@znaigorod.ru' class='solid_dark_gray'>team@znaigorod.ru</a></li>
         </ul>
       </div>
-      <% if Rails.env.production? %>
-        <div class="twitter_timeline">
-          <h5><%= t('twitter_timeline') %></h5>
-          <script>
-            new TWTR.Widget({
-              version: 2,
-              type: 'profile',
-              rpp: 3,
-              interval: 30000,
-              width: 'auto',
-              height: 'auto',
-              theme: {
-                shell: {
-                  background: 'transparent',
-                },
-                tweets: {
-                  background: 'transparent'
-                }
-              },
-              features: {
-                scrollbar: false,
-                loop: false,
-                live: false,
-                behavior: 'all',
-                avatars: false
-              }
-            }).render().setUser('znaigorod').start();
-          </script>
-        </div>
-      <% end %>
     </div>
   </div>
 
