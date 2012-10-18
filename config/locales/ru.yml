@@ -322,6 +322,13 @@ ru:
         ping_pong:    Настольный теннис
         hookah:       Кальян
 
+      sauna_hall_bath:
+        finnish:      Финская
+        infrared:     Инфракрасная (лечебная)
+        japanese:     Японская (водяная)
+        russian:      Русская
+        turkish:      Турецкая
+
       schedule:
         day:          День недели
         from:         с

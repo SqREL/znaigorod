@@ -13,3 +13,10 @@
   <%= entertainment_form.input :ping_pong %>
   <%= entertainment_form.input :hookah %>
 <% end %>
+<%= f.simple_fields_for :sauna_hall_bath_attributes, resource.sauna_hall_bath || resource.build_sauna_hall_bath do |bath_form| %>
+  <%= bath_form.input :russian %>
+  <%= bath_form.input :finnish %>
+  <%= bath_form.input :turkish %>
+  <%= bath_form.input :japanese %>
+  <%= bath_form.input :infrared %>
+<% end %>
