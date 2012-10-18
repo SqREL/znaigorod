@@ -308,6 +308,11 @@ ru:
       sauna_hall:
         title: Название
 
+      sauna_hall_capacity:
+        default: Вместительность
+        maximal: Максимальная вместительность
+        extra_guest_cost: Стоимость дополнительного человека
+
       schedule:
         day: День недели
         from: с
