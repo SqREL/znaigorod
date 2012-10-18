@@ -1,8 +1,10 @@
 <%= f.simple_fields_for :sauna_accessory_attributes, resource.sauna_accessory || resource.build_sauna_accessory do |form| %>
-  <%= form.input :sheets, :as => :integer %>
-  <%= form.input :sneakers, :as => :integer %>
-  <%= form.input :bathrobes, :as => :integer %>
-  <%= form.input :towels, :as => :integer %>
-  <%= form.input :brooms, :as => :integer %>
-  <%= form.input :oils, :as => :integer %>
+  <%= form.input :sheets %>
+  <%= form.input :sneakers %>
+  <%= form.input :bathrobes %>
+  <%= form.input :towels %>
+  <%= form.input :ability_brooms %>
+  <%= form.input :brooms %>
+  <%= form.input :ability_oils %>
+  <%= form.input :oils %>
 <% end %>
