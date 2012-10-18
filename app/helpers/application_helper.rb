@@ -120,20 +120,26 @@ module ApplicationHelper
 
   def form_url_for_resource
     if resource.class.superclass == Affiche || resource_class == Organization
-      return [:manage, resource]
+      [:manage, resource]
     elsif [Culture, Entertainment, Meal, Sauna].include?(resource_class)
-      return send("manage_organization_#{resource_class.model_name.underscore}_path", parent)
+      send("manage_organization_#{resource_class.model_name.underscore}_path", parent)
     elsif parent.class.superclass == Affiche
       if (resource_class == Image || resource_class == Attachment) && resource.persisted?
-        return send("manage_#{parent.class.superclass.model_name.underscore}_#{resource_class.model_name.underscore}_path", parent, resource)
+         send("manage_#{parent.class.superclass.model_name.underscore}_#{resource_class.model_name.underscore}_path", parent, resource)
       else
-        return send("manage_#{parent.class.superclass.model_name.underscore}_#{resource_class.model_name.underscore.pluralize}_path", parent)
+         send("manage_#{parent.class.superclass.model_name.underscore}_#{resource_class.model_name.underscore.pluralize}_path", parent)
       end
     elsif parent.class == Organization
       if (resource_class == Image || resource_class == Attachment) && resource.persisted?
-        return send("manage_organization_#{resource_class.model_name.underscore}_path", parent, resource)
+         send("manage_organization_#{resource_class.model_name.underscore}_path", parent, resource)
       else
-        return send("manage_organization_#{resource_class.model_name.underscore.pluralize}_path", parent)
+         send("manage_organization_#{resource_class.model_name.underscore.pluralize}_path", parent)
+      end
+    elsif resource_class == SaunaHall
+      if resource.new_record?
+        manage_organization_sauna_sauna_halls_path(@organization)
+      else
+        manage_organization_sauna_sauna_hall_path(@organization, @sauna_hall)
       end
     end
   end

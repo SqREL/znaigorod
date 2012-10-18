@@ -1,7 +1,9 @@
 class Manage::SaunasController < Manage::ApplicationController
-  actions :all, :except => :show
+  actions :all, :except => [:index, :show]
 
-  belongs_to :organization, :singleton => true
+  defaults :singleton => true
+
+  belongs_to :organization
 
   before_filter :redirect_to_edit, :only => :new, :if => :sauna_exists?
 

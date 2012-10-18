@@ -303,6 +303,9 @@ ru:
         brooms: Веники
         oils: Ароматические масла
 
+      sauna_hall:
+        title: Название
+
       schedule:
         day: День недели
         from: с

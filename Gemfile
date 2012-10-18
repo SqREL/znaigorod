@@ -23,7 +23,7 @@ group :default do
   gem 'has_scope'
   gem 'has_searcher'
   gem 'hashie'
-  gem 'inherited_resources'
+  gem 'inherited_resources',                          :git => 'git://github.com/DouweM/inherited_resources', :branch => 'nested-singletons' # NOTE: https://github.com/josevalim/inherited_resources/pull/194
   gem 'kaminari'
   gem 'nested_form'
   gem 'openteam-commons'

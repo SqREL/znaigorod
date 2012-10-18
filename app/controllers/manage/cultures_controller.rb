@@ -1,7 +1,9 @@
 class Manage::CulturesController < Manage::ApplicationController
-  actions :all, :except => :show
+  defaults :singleton => true
 
-  belongs_to :organization, :singleton => true
+  actions :all, :except => [:index, :show]
+
+  belongs_to :organization
 
   before_filter :redirect_to_edit, :only => :new, :if => :culture_exists?
 
