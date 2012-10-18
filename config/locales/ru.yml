@@ -313,11 +313,20 @@ ru:
         maximal: Максимальная вместительность
         extra_guest_cost: Стоимость дополнительного человека
 
+      sauna_hall_entertainment:
+        karaoke:      Караоке
+        tv:           Теле/видео аппаратура
+        billiard:     Бильярд
+        instruments:  Музыкальные инструменты
+        board_games:  Настольные игры
+        ping_pong:    Настольный теннис
+        hookah:       Кальян
+
       schedule:
-        day: День недели
-        from: с
-        to: до
-        holiday: Выходной
+        day:          День недели
+        from:         с
+        to:           до
+        holiday:      Выходной
 
   manage:
     add_affiche: Добавление события

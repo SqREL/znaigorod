@@ -4,3 +4,12 @@
   <%= capacity_form.input :maximal %>
   <%= capacity_form.input :extra_guest_cost %>
 <% end %>
+<%= f.simple_fields_for :sauna_hall_entertainment_attributes, resource.sauna_hall_entertainment || resource.build_sauna_hall_entertainment do |entertainment_form| %>
+  <%= entertainment_form.input :karaoke %>
+  <%= entertainment_form.input :tv %>
+  <%= entertainment_form.input :billiard %>
+  <%= entertainment_form.input :instruments %>
+  <%= entertainment_form.input :board_games %>
+  <%= entertainment_form.input :ping_pong %>
+  <%= entertainment_form.input :hookah %>
+<% end %>
