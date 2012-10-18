@@ -1,0 +1,10 @@
+<div class='type'>
+  <h3>
+    Сауна
+    <%= link_to t('edit'), edit_manage_organization_sauna_path(sauna.organization), :class => 'edit_link' %>
+    <%= link_to t('delete'), manage_organization_sauna_path(sauna.organization), :method => :delete, :confirm => 'Вы уверены?', :class => 'delete_link' %>
+  </h3>
+  <div>
+  </div>
+</div>
+

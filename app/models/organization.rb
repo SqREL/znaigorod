@@ -19,6 +19,7 @@ class Organization < ActiveRecord::Base
   has_one :culture,         :dependent => :destroy
   has_one :entertainment,   :dependent => :destroy
   has_one :meal,            :dependent => :destroy
+  has_one :sauna,           :dependent => :destroy
 
   validates_presence_of :title
 

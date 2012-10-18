@@ -295,6 +295,14 @@ ru:
         offer: Предложение
         payment: Способы оплаты
 
+      sauna_accessory:
+        sheets: Простыни
+        sneakers: Тапочки
+        bathrobes: Халаты
+        towels: Полотенца
+        brooms: Веники
+        oils: Ароматические масла
+
       schedule:
         day: День недели
         from: с

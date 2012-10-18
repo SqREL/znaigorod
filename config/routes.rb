@@ -17,6 +17,7 @@ Znaigorod::Application.routes.draw do
       resource :culture
       resource :entertainment
       resource :meal
+      resource :sauna
 
       resources :attachments, :only => [:new, :create, :destroy, :edit, :update]
       resources :images, :only => [:new, :create, :destroy, :edit, :update]
