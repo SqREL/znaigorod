@@ -8,3 +8,10 @@
   <%= form.input :ability_oils %>
   <%= form.input :oils %>
 <% end %>
+
+<%= f.simple_fields_for :sauna_child_stuff, resource.sauna_child_stuff || resource.build_sauna_child_stuff do |form| %>
+  <%= form.input :life_jacket %>
+  <%= form.input :cartoons %>
+  <%= form.input :games %>
+  <%= form.input :rubber_ring %>
+<% end %>

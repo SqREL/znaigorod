@@ -305,6 +305,12 @@ ru:
         ability_oils: Возможность использовать ароматические масла
         oils: Ароматические масла в продаже
 
+      sauna_child_stuff:
+        life_jacket: Жилеты
+        cartoons: Мультики
+        games: Игры
+        rubber_ring: Надувные круги
+
       sauna_hall:
         title: Название
 
