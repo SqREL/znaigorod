@@ -5,6 +5,43 @@
     <%= link_to t('delete'), manage_organization_sauna_path(sauna.organization), :method => :delete, :confirm => 'Вы уверены?', :class => 'delete_link' %>
   </h3>
 
+  <% if sauna.sauna_accessory %>
+    <h5>Общая информация</h5>
+    <% %w(sheets sneakers bathrobes towels ability_brooms brooms ability_oils oils).each do |field| %>
+      <%= render :partial => 'manage/saunas/attribute', :locals => { :object => sauna.sauna_accessory.class.human_attribute_name(field), :field => sauna.sauna_accessory.send("#{field}") } %>
+    <% end %>
+  <% else %>
+    не указано
+  <% end %>
+
+  <% if sauna.sauna_massage %>
+    <h5>Массаж</h5>
+    <% %w(anticelltilitis classical spa).each do |field| %>
+      <%= render :partial => 'manage/saunas/attribute', :locals => { :object => sauna.sauna_massage.class.human_attribute_name(field), :field => sauna.sauna_massage.send("#{field}") } %>
+    <% end %>
+  <% else %>
+    не указано
+  <% end %>
+
+  <% if sauna.sauna_child_stuff %>
+    <h5>Для детей</h5>
+    <% %w(life_jacket cartoons games rubber_ring).each do |field| %>
+      <%= render :partial => 'manage/saunas/attribute', :locals => { :object => sauna.sauna_child_stuff.class.human_attribute_name(field), :field => sauna.sauna_child_stuff.send("#{field}") } %>
+    <% end %>
+  <% else %>
+    не указано
+  <% end %>
+
+  <% if sauna.sauna_stuff %>
+    <h5>Разное</h5>
+    <% %w(wifi safe).each do |field| %>
+      <%= render :partial => 'manage/saunas/attribute', :locals => { :object => sauna.sauna_stuff.class.human_attribute_name(field), :field => sauna.sauna_stuff.send("#{field}") } %>
+    <% end %>
+  <% else %>
+    не указано
+  <% end %>
+
+  <h2>Залы</h2>
   <ul>
     <% sauna.sauna_halls.each do |hall| %>
       <li>
