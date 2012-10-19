@@ -342,6 +342,10 @@ ru:
         waterfall:    Водопад
         water_filter: Система очистки воды
 
+      sauna_hall_water_accessory:
+        jacuzzi:      Джакузи
+        bucket:       Ведро-обливайка
+
       schedule:
         day:          День недели
         from:         с
