@@ -348,6 +348,10 @@ ru:
         ping_pong:    Настольный теннис
         aerohockey:   Аэрохоккей
         hookah:       Кальян
+        checkers:     Шахматы
+        chess:        Шашки
+        backgammon:   Нарды
+        guitar:       Гитара
 
       sauna_hall_interior:
         floors:       Количество этажей (уровней)
