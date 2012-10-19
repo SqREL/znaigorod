@@ -1,70 +1,79 @@
-Бассейн
-<% if @sauna_hall.sauna_hall_pool %>
-  <%= @sauna_hall.sauna_hall_pool.size %>
-  <%= @sauna_hall.sauna_hall_pool.contraflow %>
-  <%= @sauna_hall.sauna_hall_pool.geyser %>
-  <%= @sauna_hall.sauna_hall_pool.waterfall %>
-<% else %>
-  не указано
-<% end %>
+<h1>Зал: <%= @sauna_hall.title %></h1>
 
-Вместительность
+<p>
+  <%= link_to t('edit'), edit_manage_organization_sauna_sauna_hall_path(@sauna_hall.sauna.organization, @sauna_hall), :class => 'edit_link' %>
+  <%= link_to t('delete'), manage_organization_sauna_sauna_hall_path(@sauna_hall.sauna.organization, @sauna_hall), :method => :delete, :confirm => 'Вы уверены?', :class => 'delete_link' %>
+</p>
+
+<%= render :partial => 'manage/sauna_halls/attribute', :locals => {
+  :object => @sauna_hall.class.human_attribute_name("tour_link"), :field => @sauna_hall.tour_link } %>
+
+<h5>Вместительность</h5>
 <% if @sauna_hall.sauna_hall_capacity %>
-  <%= @sauna_hall.sauna_hall_capacity.default %>
-  <%= @sauna_hall.sauna_hall_capacity.maximal %>
-  <%= @sauna_hall.sauna_hall_capacity.extra_guest_cost %>
+  <% %w(default maximal extra_guest_cost).each do |field| %>
+    <%= render :partial => 'manage/sauna_halls/attribute', :locals => {
+      :object => @sauna_hall.sauna_hall_capacity.class.human_attribute_name(field), :field => @sauna_hall.sauna_hall_capacity.send("#{field}") } %>
+  <% end %>
 <% else %>
   не указано
 <% end %>
 
-Развлечения
+<h5>Развлечения</h5>
 <% if @sauna_hall.sauna_hall_entertainment %>
-  <%= @sauna_hall.sauna_hall_entertainment.karaoke %>
-  <%= @sauna_hall.sauna_hall_entertainment.guitar %>
-  <%= @sauna_hall.sauna_hall_entertainment.tv %>
-  <%= @sauna_hall.sauna_hall_entertainment.hookah %>
-  <%= @sauna_hall.sauna_hall_entertainment.billiard %>
-  <%= @sauna_hall.sauna_hall_entertainment.ping_pong %>
-  <%= @sauna_hall.sauna_hall_entertainment.aerohockey %>
-  <%= @sauna_hall.sauna_hall_entertainment.checkers %>
-  <%= @sauna_hall.sauna_hall_entertainment.chess %>
-  <%= @sauna_hall.sauna_hall_entertainment.backgammon %>
+  <% %w(karaoke guitar tv hookah billiard ping_pong aerohockey checkers chess backgammon).each do |field| %>
+    <%= render :partial => 'manage/sauna_halls/attribute', :locals => {
+      :object => @sauna_hall.sauna_hall_entertainment.class.human_attribute_name(field), :field => @sauna_hall.sauna_hall_entertainment.send("#{field}") } %>
+  <% end %>
 <% else %>
   не указано
 <% end %>
 
-Парная
+<h5>Парные</h5>
 <% if @sauna_hall.sauna_hall_bath %>
-  <%= @sauna_hall.sauna_hall_bath.russian %>
-  <%= @sauna_hall.sauna_hall_bath.finnish %>
-  <%= @sauna_hall.sauna_hall_bath.turkish %>
-  <%= @sauna_hall.sauna_hall_bath.infrared %>
-  <%= @sauna_hall.sauna_hall_bath.japanese %>
+  <% %w(russian finnish turkish infrared japanese).each do |field| %>
+    <%= render :partial => 'manage/sauna_halls/attribute', :locals => {
+      :object => @sauna_hall.sauna_hall_bath.class.human_attribute_name(field), :field => @sauna_hall.sauna_hall_bath.send("#{field}") } %>
+  <% end %>
 <% else %>
   не указано
 <% end %>
 
-Особенности зала
-<% if @sauna_hall.sauna_hall_stuff %>
-  <%= @sauna_hall.sauna_hall_stuff.pit %>
-  <%= @sauna_hall.sauna_hall_stuff.pylon %>
-  <%= @sauna_hall.sauna_hall_stuff.barbecue %>
+<h5>Бассейн</h5>
+<% if @sauna_hall.sauna_hall_pool %>
+  <% %w(size contraflow geyser waterfall).each do |field| %>
+    <%= render :partial => 'manage/sauna_halls/attribute', :locals => {
+      :object => @sauna_hall.sauna_hall_pool.class.human_attribute_name(field), :field => @sauna_hall.sauna_hall_pool.send("#{field}") } %>
+  <% end %>
 <% else %>
   не указано
 <% end %>
 
-Водные процедуры
+<h5>Водные процедуры</h5>
 <% if @sauna_hall.sauna_hall_water_accessory %>
-  <%= @sauna_hall.sauna_hall_water_accessory.jacuzzi %>
-  <%= @sauna_hall.sauna_hall_water_accessory.bucket %>
+  <% %w(jacuzzi bucket).each do |field| %>
+    <%= render :partial => 'manage/sauna_halls/attribute', :locals => {
+      :object => @sauna_hall.sauna_hall_water_accessory.class.human_attribute_name(field), :field => @sauna_hall.sauna_hall_water_accessory.send("#{field}") } %>
+  <% end %>
 <% else %>
   не указано
 <% end %>
 
-Интерьер
+<h5>Разное</h5>
+<% if @sauna_hall.sauna_hall_stuff %>
+  <% %w(pit pylon barbecue).each do |field| %>
+    <%= render :partial => 'manage/sauna_halls/attribute', :locals => {
+      :object => @sauna_hall.sauna_hall_stuff.class.human_attribute_name(field), :field => @sauna_hall.sauna_hall_stuff.send("#{field}") } %>
+  <% end %>
+<% else %>
+  не указано
+<% end %>
+
+<h5>Интерьер</h5>
 <% if @sauna_hall.sauna_hall_interior %>
-  <%= @sauna_hall.sauna_hall_interior.floors %>
-  <%= @sauna_hall.sauna_hall_interior.lounges %>
+  <% %w(floors lounges).each do |field| %>
+    <%= render :partial => 'manage/sauna_halls/attribute', :locals => {
+      :object => @sauna_hall.sauna_hall_interior.class.human_attribute_name(field), :field => @sauna_hall.sauna_hall_interior.send("#{field}") } %>
+  <% end %>
 <% else %>
   не указано
 <% end %>
