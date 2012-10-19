@@ -15,5 +15,6 @@
  * = require ./choose_coordinate
  * = require ./vk_token
  * = require ./new_affiche
+ * = require ./saunas
  * = require ./main
  */

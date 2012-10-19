@@ -1,28 +1,45 @@
-<%= f.simple_fields_for :sauna_accessory_attributes, resource.sauna_accessory || resource.build_sauna_accessory do |form| %>
-  <%= form.input :sheets %>
-  <%= form.input :sneakers %>
-  <%= form.input :bathrobes %>
-  <%= form.input :towels %>
-  <%= form.input :ability_brooms %>
-  <%= form.input :brooms %>
-  <%= form.input :ability_oils %>
-  <%= form.input :oils %>
-<% end %>
+<div id="sauna_tabs">
+  <ul>
+    <li><a href="#sauna_accessory_attributes">Общая информация</a></li>
+    <li><a href="#sauna_massage">Массаж</a></li>
+    <li><a href="#sauna_child_stuff">Для детей</a></li>
+    <li><a href="#sauna_stuff">Разное</a></li>
+  </ul>
 
-<%= f.simple_fields_for :sauna_massage, resource.sauna_massage || resource.build_sauna_massage do |form| %>
-  <%= form.input :anticelltilitis %>
-  <%= form.input :classical %>
-  <%= form.input :spa %>
-<% end %>
+  <div id="sauna_accessory_attributes">
+    <%= f.simple_fields_for :sauna_accessory_attributes, resource.sauna_accessory || resource.build_sauna_accessory do |form| %>
+      <%= form.input :sheets %>
+      <%= form.input :sneakers %>
+      <%= form.input :bathrobes %>
+      <%= form.input :towels %>
+      <%= form.input :ability_brooms %>
+      <%= form.input :brooms %>
+      <%= form.input :ability_oils %>
+      <%= form.input :oils %>
+    <% end %>
+  </div>
 
-<%= f.simple_fields_for :sauna_child_stuff, resource.sauna_child_stuff || resource.build_sauna_child_stuff do |form| %>
-  <%= form.input :life_jacket %>
-  <%= form.input :cartoons %>
-  <%= form.input :games %>
-  <%= form.input :rubber_ring %>
-<% end %>
+  <div id="sauna_massage">
+    <%= f.simple_fields_for :sauna_massage, resource.sauna_massage || resource.build_sauna_massage do |form| %>
+      <%= form.input :anticelltilitis %>
+      <%= form.input :classical %>
+      <%= form.input :spa %>
+    <% end %>
+  </div>
 
-<%= f.simple_fields_for :sauna_stuff, resource.sauna_stuff || resource.build_sauna_stuff do |form| %>
-  <%= form.input :wifi %>
-  <%= form.input :safe %>
-<% end %>
+  <div id="sauna_child_stuff">
+    <%= f.simple_fields_for :sauna_child_stuff, resource.sauna_child_stuff || resource.build_sauna_child_stuff do |form| %>
+      <%= form.input :life_jacket %>
+      <%= form.input :cartoons %>
+      <%= form.input :games %>
+      <%= form.input :rubber_ring %>
+    <% end %>
+  </div>
+
+  <div id="sauna_stuff">
+    <%= f.simple_fields_for :sauna_stuff, resource.sauna_stuff || resource.build_sauna_stuff do |form| %>
+      <%= form.input :wifi %>
+      <%= form.input :safe %>
+    <% end %>
+  </div>
+</div>

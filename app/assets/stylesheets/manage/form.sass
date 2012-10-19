@@ -49,6 +49,8 @@
         padding: 2px 5px
         margin: 0
         width: 600px
+      .boolean
+        width: auto
 
       select
         height: 25px
@@ -222,6 +224,15 @@
     &.with_coordinates
       background: image_url('compass.png') no-repeat left center
       padding: 0 0 0 18px
+  #sauna_tabs
+    input.integer
+      width: 50px
+      margin: 0 5px 0 15px
+    input.boolean
+      margin: 2px 0 8px
+    .input_wrapper
+      +inline-block
+      white-space: nowrap
 
 .ui-datepicker
   font-size: 0.9em
