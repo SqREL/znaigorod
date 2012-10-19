@@ -15,5 +15,9 @@ class Sauna < ActiveRecord::Base
   accepts_nested_attributes_for :sauna_stuff
   attr_accessible :sauna_stuff_attributes
 
+  has_one :sauna_massage, :dependent => :destroy
+  accepts_nested_attributes_for :sauna_massage
+  attr_accessible :sauna_massage_attributes
+
   delegate :title, :to => :organization
 end

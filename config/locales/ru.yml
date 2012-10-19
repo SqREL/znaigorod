@@ -310,6 +310,11 @@ ru:
         ability_oils: Возможность использовать ароматические масла
         oils: Ароматические масла в продаже
 
+      sauna_massage:
+        spa: Спа
+        classical: Классический
+        anticelltilitis: Антицеллюлитный
+
       sauna_child_stuff:
         life_jacket: Жилеты
         cartoons: Мультики

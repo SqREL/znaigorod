@@ -9,6 +9,12 @@
   <%= form.input :oils %>
 <% end %>
 
+<%= f.simple_fields_for :sauna_massage, resource.sauna_massage || resource.build_sauna_massage do |form| %>
+  <%= form.input :anticelltilitis %>
+  <%= form.input :classical %>
+  <%= form.input :spa %>
+<% end %>
+
 <%= f.simple_fields_for :sauna_child_stuff, resource.sauna_child_stuff || resource.build_sauna_child_stuff do |form| %>
   <%= form.input :life_jacket %>
   <%= form.input :cartoons %>
