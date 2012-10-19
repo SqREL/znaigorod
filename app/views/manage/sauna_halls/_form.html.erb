@@ -22,18 +22,18 @@
 
   <div id="sauna_hall_entertainment_attributes">
     <%= f.simple_fields_for :sauna_hall_entertainment_attributes, resource.sauna_hall_entertainment || resource.build_sauna_hall_entertainment do |entertainment_form| %>
-      <%= entertainment_form.input :guitar %>
-      <%= entertainment_form.input :karaoke %>
-      <%= entertainment_form.input :tv %>
-      <%= entertainment_form.input :hookah %>
+      <%= entertainment_form.input :guitar, :input_html => { :class => "cost" } %>
+      <%= entertainment_form.input :karaoke, :input_html => { :class => "cost" } %>
+      <%= entertainment_form.input :tv, :input_html => { :class => "cost" } %>
+      <%= entertainment_form.input :hookah, :input_html => { :class => "cost" } %>
 
-      <%= entertainment_form.input :billiard %>
-      <%= entertainment_form.input :ping_pong %>
-      <%= entertainment_form.input :aerohockey %>
+      <%= entertainment_form.input :billiard, :input_html => { :class => "cost" } %>
+      <%= entertainment_form.input :ping_pong, :input_html => { :class => "cost" } %>
+      <%= entertainment_form.input :aerohockey, :input_html => { :class => "cost" } %>
 
-      <%= entertainment_form.input :checkers %>
-      <%= entertainment_form.input :chess %>
-      <%= entertainment_form.input :backgammon %>
+      <%= entertainment_form.input :checkers, :input_html => { :class => "cost" } %>
+      <%= entertainment_form.input :chess, :input_html => { :class => "cost" } %>
+      <%= entertainment_form.input :backgammon, :input_html => { :class => "cost" } %>
     <% end %>
   </div>
 
