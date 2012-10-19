@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121019040952) do
+ActiveRecord::Schema.define(:version => 20121019044626) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -138,8 +138,8 @@ ActiveRecord::Schema.define(:version => 20121019040952) do
   create_table "organization_stands", :force => true do |t|
     t.integer  "organization_id"
     t.integer  "places"
-    t.integer  "guarded"
-    t.integer  "video_observation"
+    t.boolean  "guarded"
+    t.boolean  "video_observation"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
@@ -194,11 +194,11 @@ ActiveRecord::Schema.define(:version => 20121019040952) do
 
   create_table "sauna_hall_baths", :force => true do |t|
     t.integer  "sauna_hall_id"
-    t.integer  "russian"
-    t.integer  "finnish"
-    t.integer  "turkish"
-    t.integer  "japanese"
-    t.integer  "infrared"
+    t.boolean  "russian"
+    t.boolean  "finnish"
+    t.boolean  "turkish"
+    t.boolean  "japanese"
+    t.boolean  "infrared"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
@@ -242,9 +242,9 @@ ActiveRecord::Schema.define(:version => 20121019040952) do
   create_table "sauna_hall_pools", :force => true do |t|
     t.integer  "sauna_hall_id"
     t.string   "size"
-    t.integer  "contraflow"
-    t.integer  "geyser"
-    t.integer  "waterfall"
+    t.boolean  "contraflow"
+    t.boolean  "geyser"
+    t.boolean  "waterfall"
     t.string   "water_filter"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
