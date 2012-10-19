@@ -345,9 +345,8 @@ ru:
         karaoke:      Караоке
         tv:           Теле/видео аппаратура
         billiard:     Бильярд
-        instruments:  Музыкальные инструменты
-        board_games:  Настольные игры
         ping_pong:    Настольный теннис
+        aerohockey:   Аэрохоккей
         hookah:       Кальян
 
       sauna_hall_interior:

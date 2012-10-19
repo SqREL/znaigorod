@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121019045210) do
+ActiveRecord::Schema.define(:version => 20121019045840) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -219,12 +219,11 @@ ActiveRecord::Schema.define(:version => 20121019045210) do
     t.integer  "karaoke"
     t.integer  "tv"
     t.integer  "billiard"
-    t.integer  "instruments"
-    t.integer  "board_games"
     t.integer  "ping_pong"
     t.integer  "hookah"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.integer  "aerohockey"
   end
 
   add_index "sauna_hall_entertainments", ["sauna_hall_id"], :name => "index_sauna_hall_entertainments_on_sauna_hall_id"
