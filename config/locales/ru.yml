@@ -328,11 +328,6 @@ ru:
       sauna_hall:
         title: Название
 
-      sauna_hall_capacity:
-        default: Вместительность
-        maximal: Максимальная вместительность
-        extra_guest_cost: Стоимость дополнительного человека
-
       sauna_hall_entertainment:
         karaoke:      Караоке
         tv:           Теле/видео аппаратура
@@ -341,6 +336,11 @@ ru:
         board_games:  Настольные игры
         ping_pong:    Настольный теннис
         hookah:       Кальян
+
+      sauna_hall_capacity:
+        default: Вместительность
+        maximal: Максимальная вместительность
+        extra_guest_cost: Стоимость дополнительного человека
 
       sauna_hall_bath:
         finnish:      Финская
@@ -355,6 +355,11 @@ ru:
         geyser:       Гейзер
         waterfall:    Водопад
         water_filter: Система очистки воды
+
+      sauna_hall_stuff:
+        pit:          Танцпол
+        pylon:        Пилон
+        barbecue:     Мангал/барбекю
 
       sauna_hall_water_accessory:
         jacuzzi:      Джакузи
