@@ -335,6 +335,13 @@ ru:
         russian:      Русская
         turkish:      Турецкая
 
+      sauna_hall_pool:
+        size:         Размеры
+        contraflow:   Противоток
+        geyser:       Гейзер
+        waterfall:    Водопад
+        water_filter: Система очистки воды
+
       schedule:
         day:          День недели
         from:         с

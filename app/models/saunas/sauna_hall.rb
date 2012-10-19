@@ -14,4 +14,8 @@ class SaunaHall < ActiveRecord::Base
   has_one :sauna_hall_bath, :dependent => :destroy
   accepts_nested_attributes_for :sauna_hall_bath
   attr_accessible :sauna_hall_bath_attributes
+
+  has_one :sauna_hall_pool, :dependent => :destroy
+  accepts_nested_attributes_for :sauna_hall_pool
+  attr_accessible :sauna_hall_pool_attributes
 end

@@ -20,3 +20,10 @@
   <%= bath_form.input :japanese %>
   <%= bath_form.input :infrared %>
 <% end %>
+<%= f.simple_fields_for :sauna_hall_pool_attributes, resource.sauna_hall_pool || resource.build_sauna_hall_pool do |pool_form| %>
+  <%= pool_form.input :size %>
+  <%= pool_form.input :contraflow %>
+  <%= pool_form.input :geyser %>
+  <%= pool_form.input :waterfall %>
+  <%= pool_form.input :water_filter %>
+<% end %>
