@@ -327,6 +327,7 @@ ru:
 
       sauna_hall:
         title: Название
+        tour_link: Ссылка на 3D-тур
 
       sauna_hall_bath:
         finnish:      Финская

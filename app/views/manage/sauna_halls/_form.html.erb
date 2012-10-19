@@ -1,4 +1,5 @@
 <%= f.input :title %>
+<%= f.input :tour_link %>
 <%= f.simple_fields_for :sauna_hall_capacity_attributes, resource.sauna_hall_capacity || resource.build_sauna_hall_capacity do |capacity_form| %>
   <%= capacity_form.input :default %>
   <%= capacity_form.input :maximal %>
