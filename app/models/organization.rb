@@ -49,6 +49,10 @@ class Organization < ActiveRecord::Base
 
   paginates_per Settings['pagination.per_page'] || 10
 
+  has_one :organization_stand, :dependent => :destroy
+  accepts_nested_attributes_for :organization_stand
+  attr_accessible :organization_stand_attributes
+
   alias_attribute :poster_url, :logotype_url
 
   alias_attribute :title_ru, :title

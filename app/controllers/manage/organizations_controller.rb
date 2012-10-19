@@ -5,9 +5,15 @@ class Manage::OrganizationsController < Manage::ApplicationController
 
   belongs_to :organization, :optional => true
 
+  before_filter :build_nested_objects, :only => [:new, :edit]
+
   respond_to :html, :json
 
   private
+
+    def build_nested_objects
+      resource.organization_stand || resource.build_organization_stand
+    end
 
     alias_method :old_collection, :collection
 

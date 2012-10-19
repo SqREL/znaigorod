@@ -276,6 +276,11 @@ ru:
         tour_link: Ссылка на 3D-тур
         updated_at: Обновлено
 
+      organization_stand:
+        places:             Количество мест
+        guarded:            Охрана
+        video_observation:  Видеонаблюдение
+
       culture:
         category: Категория
         feature: Особенности

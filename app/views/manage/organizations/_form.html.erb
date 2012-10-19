@@ -10,6 +10,10 @@
 <%= f.input :site %>
 <%= f.input :tour_link %>
 
+<div class='organization_stand'>
+  <%= f.simple_fields_for :organization_stand %>
+</div>
+
 <div class='logotype'>
   <h3>Логотип заведения:</h3>
   <%= f.input :logotype_url, :as => :hidden %>

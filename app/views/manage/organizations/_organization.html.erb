@@ -66,6 +66,23 @@
       <span class="blank">Не указано</span>
     <% end %>
   </div>
+
+  <div>
+    <span class="label">Парковка:</span>
+    <% if resource.organization_stand %>
+      <span class="value">
+        <ul>
+          <% if resource.organization_stand.places? %>
+            <li>Количество мест: <%= resource.organization_stand.places %></li>
+          <% end %>
+          <li>Охраняемая: <%= resource.organization_stand.guarded ? 'да' : 'нет' %></li>
+          <li>С видеонаблюдением: <%= resource.organization_stand.video_observation ? 'да' : 'нет' %></li>
+        </ul>
+      </span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
 </div>
 
 <div class="column">
