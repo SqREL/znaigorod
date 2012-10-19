@@ -18,7 +18,10 @@ Znaigorod::Application.routes.draw do
       resource :entertainment, :except => [:index, :show]
       resource :meal, :except => [:index, :show]
       resource :sauna, :except => [:index, :show] do
-        resources :sauna_halls, :except => [:index, :show]
+        resources :sauna_halls, :except => :index
+      end
+      resources :sauna_halls, :only => [] do
+        resources :images, :only => [:new, :create, :destroy, :edit, :update]
       end
 
       resources :attachments, :only => [:new, :create, :destroy, :edit, :update]

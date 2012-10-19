@@ -1,26 +1,29 @@
 class Manage::ImagesController < Manage::ApplicationController
   actions :new, :create, :destroy, :update, :edit
 
-  belongs_to :affiche, :organization, :polymorphic => true, :optional => true
+  belongs_to :affiche, :organization, :sauna_hall, :polymorphic => true, :optional => true
 
   def create
-    create! do
-      is_parent_affiche? ? manage_affiche_path(parent) : manage_organization_path(parent)
-    end
+    create! { collection_path }
+  end
+
+  def update
+    update! { collection_path }
   end
 
   def destroy
-    destroy! do
-      is_parent_affiche? ? manage_affiche_path(parent) : manage_organization_path(parent)
-    end
+    destroy! { collection_path }
   end
 
   protected
     def collection_path
-      is_parent_affiche? ? manage_affiche_images_path(parent) : manage_organization_images_path(parent)
-    end
-
-    def is_parent_affiche?
-      parent.class.superclass.name.underscore == 'affiche'
+      case parent
+      when Affiche
+        manage_affiche_path(parent)
+      when Organization
+        manage_organization_path(parent)
+      when SaunaHall
+        manage_organization_sauna_sauna_hall_path(@organization, parent)
+      end
     end
 end

@@ -135,6 +135,12 @@ module ApplicationHelper
       else
          send("manage_organization_#{resource_class.model_name.underscore.pluralize}_path", parent)
       end
+    elsif parent.class == SaunaHall
+      if resource_class == Image && resource.persisted?
+        [:manage, @organization, @sauna_hall, @image]
+      else
+        [:manage, @organization, @sauna_hall, :images]
+      end
     elsif resource_class == SaunaHall
       if resource.new_record?
         manage_organization_sauna_sauna_halls_path(@organization)

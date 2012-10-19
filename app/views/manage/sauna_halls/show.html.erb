@@ -1,0 +1,93 @@
+Бассейн
+<% if @sauna_hall.sauna_hall_pool %>
+  <%= @sauna_hall.sauna_hall_pool.size %>
+  <%= @sauna_hall.sauna_hall_pool.contraflow %>
+  <%= @sauna_hall.sauna_hall_pool.geyser %>
+  <%= @sauna_hall.sauna_hall_pool.waterfall %>
+<% else %>
+  не указано
+<% end %>
+
+Вместительность
+<% if @sauna_hall.sauna_hall_capacity %>
+  <%= @sauna_hall.sauna_hall_capacity.default %>
+  <%= @sauna_hall.sauna_hall_capacity.maximal %>
+  <%= @sauna_hall.sauna_hall_capacity.extra_guest_cost %>
+<% else %>
+  не указано
+<% end %>
+
+Развлечения
+<% if @sauna_hall.sauna_hall_entertainment %>
+  <%= @sauna_hall.sauna_hall_entertainment.karaoke %>
+  <%= @sauna_hall.sauna_hall_entertainment.guitar %>
+  <%= @sauna_hall.sauna_hall_entertainment.tv %>
+  <%= @sauna_hall.sauna_hall_entertainment.hookah %>
+  <%= @sauna_hall.sauna_hall_entertainment.billiard %>
+  <%= @sauna_hall.sauna_hall_entertainment.ping_pong %>
+  <%= @sauna_hall.sauna_hall_entertainment.aerohockey %>
+  <%= @sauna_hall.sauna_hall_entertainment.checkers %>
+  <%= @sauna_hall.sauna_hall_entertainment.chess %>
+  <%= @sauna_hall.sauna_hall_entertainment.backgammon %>
+<% else %>
+  не указано
+<% end %>
+
+Парная
+<% if @sauna_hall.sauna_hall_bath %>
+  <%= @sauna_hall.sauna_hall_bath.russian %>
+  <%= @sauna_hall.sauna_hall_bath.finnish %>
+  <%= @sauna_hall.sauna_hall_bath.turkish %>
+  <%= @sauna_hall.sauna_hall_bath.infrared %>
+  <%= @sauna_hall.sauna_hall_bath.japanese %>
+<% else %>
+  не указано
+<% end %>
+
+Особенности зала
+<% if @sauna_hall.sauna_hall_stuff %>
+  <%= @sauna_hall.sauna_hall_stuff.pit %>
+  <%= @sauna_hall.sauna_hall_stuff.pylon %>
+  <%= @sauna_hall.sauna_hall_stuff.barbecue %>
+<% else %>
+  не указано
+<% end %>
+
+Водные процедуры
+<% if @sauna_hall.sauna_hall_water_accessory %>
+  <%= @sauna_hall.sauna_hall_water_accessory.jacuzzi %>
+  <%= @sauna_hall.sauna_hall_water_accessory.bucket %>
+<% else %>
+  не указано
+<% end %>
+
+Интерьер
+<% if @sauna_hall.sauna_hall_interior %>
+  <%= @sauna_hall.sauna_hall_interior.floors %>
+  <%= @sauna_hall.sauna_hall_interior.lounges %>
+<% else %>
+  не указано
+<% end %>
+
+<div class='images'>
+  <h3>
+    Галерея изображений
+    <%= link_to "Добавить изображение", [:new, :manage, @organization, resource, :image], :class => 'edit_link'  %>
+  </h3>
+  <% if resource.images.any? %>
+    <span class="value">
+      <ul>
+        <% resource.images.each do |image| %>
+          <li>
+            <%= image_tag image.url, :alt => image.description, :title => image.description %>
+            <%= link_to "Удалить", [:manage, @organization, resource, image], :method => :delete, :confirm => 'Вы уверены?' %>
+            <%= link_to 'Редактировать', [:edit, :manage, @organization, resource, image] %>
+          </li>
+        <% end %>
+      </ul>
+    </span>
+  <% else %>
+    <span class="blank">Нет изображений</span>
+  <% end %>
+</div>
+
