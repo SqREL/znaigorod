@@ -36,3 +36,7 @@
   <%= stuff_form.input :pylon %>
   <%= stuff_form.input :barbecue %>
 <% end %>
+<%= f.simple_fields_for :sauna_hall_interior_attributes, resource.sauna_hall_interior || resource.build_sauna_hall_interior do |stuff_form| %>
+  <%= stuff_form.input :floors %>
+  <%= stuff_form.input :lounges %>
+<% end %>

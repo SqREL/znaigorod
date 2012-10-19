@@ -328,6 +328,18 @@ ru:
       sauna_hall:
         title: Название
 
+      sauna_hall_bath:
+        finnish:      Финская
+        infrared:     Инфракрасная (лечебная)
+        japanese:     Японская (водяная)
+        russian:      Русская
+        turkish:      Турецкая
+
+      sauna_hall_capacity:
+        default: Вместительность
+        maximal: Максимальная вместительность
+        extra_guest_cost: Стоимость дополнительного человека
+
       sauna_hall_entertainment:
         karaoke:      Караоке
         tv:           Теле/видео аппаратура
@@ -337,17 +349,9 @@ ru:
         ping_pong:    Настольный теннис
         hookah:       Кальян
 
-      sauna_hall_capacity:
-        default: Вместительность
-        maximal: Максимальная вместительность
-        extra_guest_cost: Стоимость дополнительного человека
-
-      sauna_hall_bath:
-        finnish:      Финская
-        infrared:     Инфракрасная (лечебная)
-        japanese:     Японская (водяная)
-        russian:      Русская
-        turkish:      Турецкая
+      sauna_hall_interior:
+        floors:       Количество этажей (уровней)
+        lounges:      Количество комнат отдыха
 
       sauna_hall_pool:
         size:         Размеры
