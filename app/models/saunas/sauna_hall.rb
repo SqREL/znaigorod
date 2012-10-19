@@ -1,7 +1,9 @@
 class SaunaHall < ActiveRecord::Base
-  attr_accessible :title, :tour_link
+  attr_accessible :title, :tour_link, :vfs_path
 
   belongs_to :sauna
+
+  has_many :images, :as => :imageable,  :dependent => :destroy
 
   has_one :sauna_hall_bath, :dependent => :destroy
   accepts_nested_attributes_for :sauna_hall_bath
@@ -31,3 +33,17 @@ class SaunaHall < ActiveRecord::Base
   accepts_nested_attributes_for :sauna_hall_water_accessory
   attr_accessible :sauna_hall_water_accessory_attributes
 end
+
+# == Schema Information
+#
+# Table name: sauna_halls
+#
+#  id         :integer          not null, primary key
+#  sauna_id   :integer
+#  title      :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  tour_link  :string(255)
+#  vfs_path   :text
+#
+

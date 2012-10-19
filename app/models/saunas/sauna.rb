@@ -21,3 +21,14 @@ class Sauna < ActiveRecord::Base
 
   delegate :title, :to => :organization
 end
+
+# == Schema Information
+#
+# Table name: saunas
+#
+#  id              :integer          not null, primary key
+#  organization_id :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
