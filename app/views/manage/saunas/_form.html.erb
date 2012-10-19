@@ -8,38 +8,38 @@
 
   <div id="sauna_accessory_attributes">
     <%= f.simple_fields_for :sauna_accessory_attributes, resource.sauna_accessory || resource.build_sauna_accessory do |form| %>
-      <%= form.input :sheets %>
-      <%= form.input :sneakers %>
-      <%= form.input :bathrobes %>
-      <%= form.input :towels %>
-      <%= form.input :ability_brooms %>
-      <%= form.input :brooms %>
-      <%= form.input :ability_oils %>
-      <%= form.input :oils %>
+      <%= form.input :sheets, :input_html => { :class => "cost" } %>
+      <%= form.input :sneakers, :input_html => { :class => "cost" } %>
+      <%= form.input :bathrobes, :input_html => { :class => "cost" } %>
+      <%= form.input :towels, :input_html => { :class => "cost" } %>
+      <%= form.input :ability_brooms, :input_html => { :class => "cost" } %>
+      <%= form.input :brooms, :input_html => { :class => "cost" } %>
+      <%= form.input :ability_oils, :input_html => { :class => "cost" } %>
+      <%= form.input :oils, :input_html => { :class => "cost" } %>
     <% end %>
   </div>
 
   <div id="sauna_massage">
     <%= f.simple_fields_for :sauna_massage, resource.sauna_massage || resource.build_sauna_massage do |form| %>
-      <%= form.input :anticelltilitis %>
-      <%= form.input :classical %>
-      <%= form.input :spa %>
+      <%= form.input :anticelltilitis, :input_html => { :class => "cost" } %>
+      <%= form.input :classical, :input_html => { :class => "cost" } %>
+      <%= form.input :spa, :input_html => { :class => "cost" } %>
     <% end %>
   </div>
 
   <div id="sauna_child_stuff">
     <%= f.simple_fields_for :sauna_child_stuff, resource.sauna_child_stuff || resource.build_sauna_child_stuff do |form| %>
-      <%= form.input :life_jacket %>
-      <%= form.input :cartoons %>
-      <%= form.input :games %>
-      <%= form.input :rubber_ring %>
+      <%= form.input :life_jacket, :input_html => { :class => "cost" } %>
+      <%= form.input :cartoons, :input_html => { :class => "cost" } %>
+      <%= form.input :games, :input_html => { :class => "cost" } %>
+      <%= form.input :rubber_ring, :input_html => { :class => "cost" } %>
     <% end %>
   </div>
 
   <div id="sauna_stuff">
     <%= f.simple_fields_for :sauna_stuff, resource.sauna_stuff || resource.build_sauna_stuff do |form| %>
-      <%= form.input :wifi %>
-      <%= form.input :safe %>
+      <%= form.input :wifi, :input_html => { :class => "cost" } %>
+      <%= form.input :safe, :input_html => { :class => "cost" } %>
     <% end %>
   </div>
 </div>
