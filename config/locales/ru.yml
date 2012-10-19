@@ -311,6 +311,10 @@ ru:
         games: Игры
         rubber_ring: Надувные круги
 
+      sauna_stuff:
+        wifi:     WiFi
+        safe:     Сейф
+
       sauna_hall:
         title: Название
 

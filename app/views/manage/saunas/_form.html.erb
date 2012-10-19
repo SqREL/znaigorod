@@ -15,3 +15,8 @@
   <%= form.input :games %>
   <%= form.input :rubber_ring %>
 <% end %>
+
+<%= f.simple_fields_for :sauna_stuff, resource.sauna_stuff || resource.build_sauna_stuff do |form| %>
+  <%= form.input :wifi %>
+  <%= form.input :safe %>
+<% end %>
