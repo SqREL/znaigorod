@@ -16,7 +16,7 @@ class Manage::OrganizationsController < Manage::ApplicationController
     resource.organization_stand || resource.build_organization_stand
     resource.address || resource.build_address
 
-    ((1..6).to_a + [0]).each do |day|
+    (1..7).each do |day|
       resource.schedules.build(:day => day)
     end unless resource.schedules.any?
   end

@@ -329,6 +329,12 @@ ru:
         title: Название
         tour_link: Ссылка на 3D-тур
 
+      sauna_hall_schedule:
+        day: День недели
+        from: С
+        to: По
+        price: Цена
+
       sauna_hall_bath:
         finnish:      Финская
         infrared:     Инфракрасная (лечебная)
@@ -378,6 +384,8 @@ ru:
         from:         с
         to:           до
         holiday:      Выходной
+
+
 
   manage:
     add_affiche: Добавление события

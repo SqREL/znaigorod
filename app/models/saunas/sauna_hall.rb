@@ -5,6 +5,10 @@ class SaunaHall < ActiveRecord::Base
 
   has_many :images, :as => :imageable,  :dependent => :destroy
 
+  has_many :sauna_hall_schedules, :dependent => :destroy
+  accepts_nested_attributes_for :sauna_hall_schedules, :allow_destroy => true, :reject_if => :all_blank
+  attr_accessible :sauna_hall_schedules_attributes
+
   has_one :sauna_hall_bath, :dependent => :destroy
   accepts_nested_attributes_for :sauna_hall_bath
   attr_accessible :sauna_hall_bath_attributes
