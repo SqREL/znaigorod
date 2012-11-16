@@ -1,0 +1,5 @@
+<%= f.input :day, :as => :select, :collection => Schedule.days_for_select %>
+<%= f.input :from, :as => :string, :input_html => {:value => f.object.from ? l(f.object.from, :format => '%H:%M') : '' } %>
+<%= f.input :to, :as => :string, :input_html => { :value => f.object.to ? l(f.object.to, :format => '%H:%M') : '' } %>
+<%= f.input :price, :input_html => { :class => "required" } %>
+<%= f.link_to_remove 'Удалить этот интервал' %>

@@ -147,6 +147,12 @@ module ApplicationHelper
       else
         manage_organization_sauna_sauna_hall_path(@organization, @sauna_hall)
       end
+    elsif resource_class == PoolTable
+      if resource.new_record?
+        manage_organization_billiard_pool_tables_path(@organization)
+      else
+        manage_organization_billiard_pool_table_path(@organization, @pool_table)
+      end
     end
   end
 

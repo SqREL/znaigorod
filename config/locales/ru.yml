@@ -332,6 +332,11 @@ ru:
         title: Название
         description: Описание
 
+      pool_table:
+        kind: Тип
+        size: Размер (ф)
+        count: Количество
+
       sauna_accessory:
         sheets: Простыни
         sneakers: Тапочки
@@ -455,6 +460,7 @@ ru:
     add_sports_event: Добавление спортивного события
     add_sport: Добавление спортивного заведения
     add_billiard: Добавление бильярдного зала
+    add_pool_table: Добавление бильярдных столов
     add_sauna: Добавление информации о сауне
     add_sauna_hall: Добавление информации о зале
     edit_affiche: Редактирование информации о событии
@@ -473,6 +479,7 @@ ru:
     edit_sauna_hall: Редактирование информации о зале
     edit_sport: Редактирование информации о спортивном заведении
     edit_billiard: Редактирование бильярдного зала
+    edit_pool_table: Редактирование бильярдных столов
 
   simple_form:
     fieldset:

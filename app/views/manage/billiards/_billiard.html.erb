@@ -44,12 +44,15 @@
       <span class="blank">Не указано</span>
     <% end %>
   </div>
-  <div>
-    <span class="label">Способ оплаты:</span>
-    <% if billiard.payment.present? %>
-      <span class="value"><%= billiard.payment %></span>
-    <% else %>
-      <span class="blank">Не указано</span>
-    <% end %>
-  </div>
+  <fieldset>
+    <legend>Столы</legend>
+    <ul>
+      <% billiard.pool_tables.each do |pool_table| %>
+        <li>
+          <%= link_to pool_table.title, [:edit, :manage, @organization, :billiard, pool_table] %>
+        </li>
+      <% end %>
+    </ul>
+    <%= link_to 'Добавить стол', new_manage_organization_billiard_pool_table_path(billiard.organization) %>
+  </fieldset>
 </div>
