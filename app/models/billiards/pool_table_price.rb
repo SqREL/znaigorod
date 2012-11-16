@@ -6,4 +6,8 @@ class PoolTablePrice < ActiveRecord::Base
   default_scope order('day, pool_table_prices.from')
 
   default_value_for :day, 1
+
+  def to_s
+    "#{day} #{from} #{to} #{price}"
+  end
 end

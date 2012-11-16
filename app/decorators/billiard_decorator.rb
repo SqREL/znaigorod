@@ -8,21 +8,21 @@ class BilliardDecorator < SuborganizationDecorator
   end
 
   def characteristics_on_show
-    #content = ""
-    ##content << "\n"
-    ##self.send(name).each do |value|
-    ##end
-    #services.group_by(&:title).each do |title, services|
-      #content << h.content_tag(:li, title, class: "title")
-      #services.each do |service|
-        #content << h.content_tag(:li, service.offer)
-        #content << h.content_tag(:li, service.feature)
-        #content << h.content_tag(:li, service.age)
-      #end
-      #content << "\n"
-    #end
-    #h.content_tag(:ul, content.html_safe) +
-    characteristics_by_type("features offers")
+    content = ""
+
+    pool_tables.group_by(&:kind).each do |kind, pool_tables|
+      content << h.content_tag(:li, kind, class: "title")
+      pool_tables.each do |pool_table|
+        content << h.content_tag(:li, pool_table.count)
+        content << h.content_tag(:li, pool_table.size)
+
+        pool_table.pool_table_prices.each do |pool_table_price|
+          content << h.content_tag(:p, pool_table_price)
+        end
+      end
+      content << "\n"
+    end
+    h.content_tag(:ul, content.html_safe) + characteristics_by_type("features offers")
   end
 
 end

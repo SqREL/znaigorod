@@ -46,7 +46,11 @@ class OrganizationDecorator < ApplicationDecorator
     links = []
     links << h.content_tag(:li, h.link_to("Знай\u00ADГород", h.root_path), :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
-    links << h.content_tag(:li, h.link_to(I18n.t("organization.list_title.#{priority_suborganization_kind}"), h.organizations_path(:organization_class => priority_suborganization_kind.pluralize)), :class => "crumb")
+
+    # NOTE: грязный хак коих много ;(
+    suborganization_kind = priority_suborganization_kind == 'billiard' ? 'entertainment' : priority_suborganization_kind
+
+    links << h.content_tag(:li, h.link_to(I18n.t("organization.list_title.#{priority_suborganization_kind}"), h.organizations_path(:organization_class => suborganization_kind.pluralize)), :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
     links << h.content_tag(:li, link_to_priority_cateroy, :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
@@ -78,16 +82,23 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def link_to_priority_cateroy
-    h.link_to(priority_category, h.organizations_path(organization_class: priority_suborganization_kind.pluralize, category: priority_category.mb_chars.downcase))
+    # NOTE: грязный хак коих много ;(
+    suborganization_kind = priority_suborganization_kind == 'billiard' ? 'entertainment' : priority_suborganization_kind
+
+    h.link_to(priority_category, h.organizations_path(organization_class: suborganization_kind.pluralize, category: priority_category.mb_chars.downcase))
   end
 
   def categories_links
     [].tap do |arr|
       suborganizations.each do |suborganization|
         suborganization.categories.each do |category|
+
+        # NOTE: грязный хак коих много ;(
+        suborganization_class = suborganization.is_a?(Billiard) ? Entertainment : suborganization.class
+
          arr<< Link.new(
            title: category,
-           url: h.organizations_path(organization_class: suborganization.class.name.downcase.pluralize, category: category.mb_chars.downcase)
+           url: h.organizations_path(organization_class: suborganization_class.name.downcase.pluralize, category: category.mb_chars.downcase)
          )
         end
       end
