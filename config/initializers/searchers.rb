@@ -188,6 +188,22 @@ HasSearcher.create_searcher :culture do
   end
 end
 
+HasSearcher.create_searcher :sport do
+  models :sport
+
+  property :sport_category
+  property :sport_feature
+  property :sport_offer
+
+  scope do
+    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
+
+    facet(:sport_category)
+    facet(:sport_feature)
+    facet(:sport_offer)
+  end
+end
+
 HasSearcher.create_searcher :organizations do
   models :organization
   keywords :q
