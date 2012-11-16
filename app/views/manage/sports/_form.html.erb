@@ -1,4 +1,7 @@
 <%= f.input :title %>
 <%= f.input :description %>
-<%= f.simple_fields_for :services %>
-<%= f.link_to_add 'Добавить услугу', :services %>
+<fieldset id="sport_services">
+  <legend>Услуги</legend>
+  <%= f.simple_fields_for :services %>
+  <p class="add"><%= f.link_to_add 'Добавить услугу', :services %></p>
+</div>
