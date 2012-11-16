@@ -19,10 +19,11 @@ class Organization < ActiveRecord::Base
 
   has_one :address,         :dependent => :destroy
   has_one :culture,         :dependent => :destroy
-  has_one :entertainment,   :dependent => :destroy
+  has_one :entertainment,   :dependent => :destroy, :conditions => { type: nil }
   has_one :meal,            :dependent => :destroy
   has_one :sauna,           :dependent => :destroy
   has_one :sport,           :dependent => :destroy
+  has_one :billiard,        :dependent => :destroy
 
   validates_presence_of :title, :priority_suborganization_kind
 

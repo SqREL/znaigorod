@@ -160,6 +160,7 @@
 <div class="types">
   <%= render resource.meal if resource.meal %>
   <%= render resource.entertainment if resource.entertainment %>
+  <%= render resource.billiard if resource.billiard %>
   <%= render resource.culture if resource.culture %>
   <%= render resource.sauna if resource.sauna %>
   <%= render resource.sport if resource.sport %>
@@ -178,6 +179,9 @@
     <% end %>
     <% unless resource.sport %>
       <li><%= link_to "Добавить спортивное заведение", new_manage_organization_sport_path(resource), :class => 'create_link' %></li>
+    <% end %>
+    <% unless resource.billiard %>
+      <li><%= link_to "Добавить бильярдный зал", new_manage_organization_billiard_path(resource), :class => 'create_link' %></li>
     <% end %>
   </ul>
 </div>

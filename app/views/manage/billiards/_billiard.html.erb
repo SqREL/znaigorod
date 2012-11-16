@@ -1,0 +1,55 @@
+<div class="type">
+  <h3>
+    Бильярдный зал
+    <%= link_to t('edit'), edit_manage_organization_billiard_path(billiard.organization), :class => 'edit_link' %>
+    <%= link_to t('delete'), manage_organization_billiard_path(billiard.organization), :method => :delete, :confirm => 'Вы уверены?', :class => 'delete_link' %>
+</h3>
+  <div>
+    <span class="label">Название:</span>
+    <% if billiard.title? %>
+      <span class="value"><%= billiard.title %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Описание:</span>
+    <% if billiard.description? %>
+      <span class="value"><%= billiard.description %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Категория:</span>
+    <% if billiard.category.present? %>
+      <span class="value"><%= billiard.category %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Особенности:</span>
+    <% if billiard.feature.present? %>
+      <span class="value"><%= billiard.feature %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Предложение:</span>
+    <% if billiard.offer.present? %>
+      <span class="value"><%= billiard.offer %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <span class="label">Способ оплаты:</span>
+    <% if billiard.payment.present? %>
+      <span class="value"><%= billiard.payment %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+</div>

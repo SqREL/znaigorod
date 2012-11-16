@@ -16,13 +16,13 @@ Znaigorod::Application.routes.draw do
     resources :organizations do
       resource :culture, :except => [:index, :show]
       resource :entertainment, :except => [:index, :show]
+      resource :billiard, :except => [:index, :show]
       resource :meal, :except => [:index, :show]
+      resource :sport, :except => [:index, :show]
 
       resource :sauna, :except => [:index, :show] do
         resources :sauna_halls, :except => :index
       end
-
-      resource :sport, :except => [:index, :show]
 
       resources :sauna_halls, :only => [] do
         resources :images, :only => [:new, :create, :destroy, :edit, :update]

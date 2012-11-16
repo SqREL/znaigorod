@@ -121,7 +121,7 @@ module ApplicationHelper
   def form_url_for_resource
     if resource.class.superclass == Affiche || resource_class == Organization
       [:manage, resource]
-    elsif [Culture, Entertainment, Meal, Sauna, Sport].include?(resource_class)
+    elsif [Culture, Entertainment, Meal, Sauna, Sport, Billiard].include?(resource_class)
       send("manage_organization_#{resource_class.model_name.underscore}_path", parent)
     elsif parent.class.superclass == Affiche
       if (resource_class == Image || resource_class == Attachment) && resource.persisted?

@@ -1,0 +1,2 @@
+class Billiard < Entertainment
+end

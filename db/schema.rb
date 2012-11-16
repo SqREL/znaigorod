@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116043408) do
+ActiveRecord::Schema.define(:version => 20121116073222) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(:version => 20121116043408) do
     t.datetime "updated_at",      :null => false
     t.string   "title"
     t.text     "description"
+    t.string   "type"
   end
 
   add_index "entertainments", ["organization_id"], :name => "index_entertainments_on_organization_id"
