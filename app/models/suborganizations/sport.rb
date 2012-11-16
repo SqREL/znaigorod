@@ -6,6 +6,8 @@ class Sport < ActiveRecord::Base
   has_many :services, :as => :context, :dependent => :destroy
 
   accepts_nested_attributes_for :services, :reject_if => :all_blank, :allow_destroy =>  true
+
+  delegate :title, :to => :organization
 end
 
 # == Schema Information

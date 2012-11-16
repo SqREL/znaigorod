@@ -143,7 +143,9 @@ class Organization < ActiveRecord::Base
   end
 
   def available_suborganization_kinds
-    [:culture, :entertainment, :meal]
+    Dir.chdir(Rails.root.join('app/models/suborganizations')) {
+      Dir['*.rb'].map { |f| f.gsub('.rb', '') }
+    }
   end
 
   def priority_suborganization
