@@ -324,6 +324,14 @@ ru:
         title: Название
         description: Описание
 
+      billiard:
+        category: Категория
+        feature: Особенности
+        offer: Предложение
+        payment: Способы оплаты
+        title: Название
+        description: Описание
+
       sauna_accessory:
         sheets: Простыни
         sneakers: Тапочки

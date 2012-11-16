@@ -176,11 +176,12 @@ class OrganizationDecorator < ApplicationDecorator
       with(:location).in_radius(lat, lon, radius)
       without(priority_suborganization)
 
+      prefix = priority_suborganization_kind == 'billiard' ? 'entertainment' : priority_suborganization_kind
       any_of do
-        with("#{priority_suborganization_kind}_category", categories.map(&:mb_chars).map(&:downcase))
-        with("#{priority_suborganization_kind}_feature", priority_suborganization.features.map(&:mb_chars).map(&:downcase)) if priority_suborganization.respond_to?(:features) && priority_suborganization.features.any?
-        with("#{priority_suborganization_kind}_offer", priority_suborganization.offers.map(&:mb_chars).map(&:downcase)) if priority_suborganization.respond_to?(:offers) && priority_suborganization.offers.any?
-        with("#{priority_suborganization_kind}_cuisine", priority_suborganization.cuisines.map(&:mb_chars).map(&:downcase)) if priority_suborganization.respond_to?(:cuisines) && priority_suborganization.cuisines.any?
+        with("#{prefix}_category", categories.map(&:mb_chars).map(&:downcase))
+        with("#{prefix}_feature", priority_suborganization.features.map(&:mb_chars).map(&:downcase)) if priority_suborganization.respond_to?(:features) && priority_suborganization.features.any?
+        with("#{prefix}_offer", priority_suborganization.offers.map(&:mb_chars).map(&:downcase)) if priority_suborganization.respond_to?(:offers) && priority_suborganization.offers.any?
+        with("#{prefix}_cuisine", priority_suborganization.cuisines.map(&:mb_chars).map(&:downcase)) if priority_suborganization.respond_to?(:cuisines) && priority_suborganization.cuisines.any?
       end
 
       order_by_geodist(:location, lat, lon)
