@@ -179,6 +179,7 @@ ru:
       meal: Заведения общественного питания
       entertainment: Развлекательные заведения
       culture: Культурные заведения
+      sport: Спортивные заведения
     singularize_title:
       organization: Заведение города
       meal: Заведение общественного питания
@@ -426,6 +427,8 @@ ru:
       sport:
         title: Название
         description: Описание
+        feature: Особенности
+        offer: Предложения
 
   manage:
     add_affiche: Добавление события

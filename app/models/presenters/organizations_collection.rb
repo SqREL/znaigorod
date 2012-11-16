@@ -16,7 +16,7 @@ class OrganizationsCollection
   end
 
   def self.kinds
-    [Meal, Entertainment, Culture]
+    [Meal, Entertainment, Culture, Sport]
   end
 
   self.kinds.map(&:name).map(&:downcase).each do |klass|

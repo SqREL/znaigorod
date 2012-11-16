@@ -9,6 +9,8 @@ class Service < ActiveRecord::Base
 
   delegate :index, :to => :context, :prefix => true
   after_save :context_index
+
+  normalize_attributes :feature, :offer, :with => :blank
 end
 
 # == Schema Information

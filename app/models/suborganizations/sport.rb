@@ -3,15 +3,15 @@ class Sport < ActiveRecord::Base
 
   belongs_to :organization
 
-  has_many :services, :as => :context, :dependent => :destroy
+  has_many :services, :as => :context, :dependent => :destroy, :order => 'id'
 
   accepts_nested_attributes_for :services, :reject_if => :all_blank, :allow_destroy =>  true
 
-  delegate :title, :images, :address, :phone, :schedules, :halls,
-           :site?, :site, :email?, :email, :description, :description?, :affiches,
+  delegate :images, :address, :phone, :schedules, :halls,
+           :site?, :site, :email?, :email, :affiches,
            :latitude, :longitude, :nearest_affiches, :to => :organization
 
-  delegate :touch, :to => :organization, :prefix => true
+  delegate :touch, :title, :description, :description?, :to => :organization, :prefix => true
   after_save :organization_touch
 
   def self.or_facets
@@ -27,15 +27,15 @@ class Sport < ActiveRecord::Base
   end
 
   def category
-    services.pluck(:title).uniq.join(', ')
+    services.pluck(:title).uniq.compact.join(', ')
   end
 
   def feature
-    services.pluck(:feature).uniq.join(', ')
+    services.pluck(:feature).uniq.compact.join(', ')
   end
 
   def offer
-    services.pluck(:offer).uniq.join(', ')
+    services.pluck(:offer).uniq.compact.join(', ')
   end
 
   def categories
@@ -44,6 +44,10 @@ class Sport < ActiveRecord::Base
 
   def features
     feature.split(',').map(&:squish)
+  end
+
+  def offers
+    offer.split(',').map(&:squish)
   end
 
   delegate :rating, :to => :organization, :prefix => true
