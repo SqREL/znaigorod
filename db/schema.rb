@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116090309) do
+ActiveRecord::Schema.define(:version => 20121116093412) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -175,6 +175,18 @@ ActiveRecord::Schema.define(:version => 20121116090309) do
   end
 
   add_index "organizations", ["slug"], :name => "index_organizations_on_slug", :unique => true
+
+  create_table "pool_table_prices", :force => true do |t|
+    t.integer  "pool_table_id"
+    t.integer  "day"
+    t.time     "from"
+    t.time     "to"
+    t.integer  "price"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "pool_table_prices", ["pool_table_id"], :name => "index_pool_table_prices_on_pool_table_id"
 
   create_table "pool_tables", :force => true do |t|
     t.integer  "size"

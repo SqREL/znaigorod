@@ -337,6 +337,12 @@ ru:
         size: Размер (ф)
         count: Количество
 
+      pool_table_price:
+        day: День недели
+        from: с
+        to: до
+        price: Цена
+
       sauna_accessory:
         sheets: Простыни
         sneakers: Тапочки
