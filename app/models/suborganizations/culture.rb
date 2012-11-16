@@ -46,6 +46,7 @@ class Culture < ActiveRecord::Base
     float :organization_rating
   end
 end
+
 # == Schema Information
 #
 # Table name: cultures
