@@ -2,6 +2,9 @@
 <%= f.input :size %>
 <%= f.input :count %>
 
-<%= f.simple_fields_for :pool_table_prices %>
-<%= f.link_to_add 'Добавить интервал стоимости', :pool_table_prices %>
+<fieldset id="pool_table_prices">
+  <legend>Цена по дням недели и часам</legend>
+  <%= f.simple_fields_for :pool_table_prices %>
+  <p class="add"><%= f.link_to_add 'Добавить интервал стоимости', :pool_table_prices %></p>
+</div>
 
