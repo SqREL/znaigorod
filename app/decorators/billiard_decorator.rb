@@ -8,21 +8,26 @@ class BilliardDecorator < SuborganizationDecorator
   end
 
   def characteristics_on_show
-    content = ""
-
+    content = "<tr>" +
+              "<th colspan='2'>Бильярдные столы</th>"
+              "</tr>"
     pool_tables.group_by(&:kind).each do |kind, pool_tables|
-      content << h.content_tag(:li, kind, class: "title")
+      content << "<tr>"
+      content << h.content_tag(:td, kind, class: "title", colspan: 2)
+      content << "</tr>\n"
       pool_tables.each do |pool_table|
-        content << h.content_tag(:li, pool_table.count)
-        content << h.content_tag(:li, pool_table.size)
-
+        content << "<tr>"
+        content << h.content_tag(:td, "Размер стола: #{pool_table.size} футов")
+        content << h.content_tag(:td, "Количество столов: #{pool_table.count}")
+        content << "</tr>\n"
         pool_table.pool_table_prices.each do |pool_table_price|
-          content << h.content_tag(:p, pool_table_price)
+          content << "<tr>"
+          content << h.content_tag(:td, pool_table_price, colspan: 2)
+          content << "</tr>\n"
         end
       end
-      content << "\n"
     end
-    h.content_tag(:ul, content.html_safe) + characteristics_by_type("features offers")
+    h.content_tag(:table, content.html_safe, class: :services_attributes) + characteristics_by_type("features offers")
   end
 
 end
