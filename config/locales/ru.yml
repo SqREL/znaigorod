@@ -180,6 +180,7 @@ ru:
       entertainment: Развлекательные заведения
       culture: Культурные заведения
       sport: Спортивные заведения
+      billiard: Бильярдные клубы
     singularize_title:
       organization: Заведение города
       meal: Заведение общественного питания
@@ -194,6 +195,14 @@ ru:
     tour: 3D-тур
     affiche: Афиша
     show: Описание
+
+  billiard:
+    pool_table:
+      zero: "нет столов"
+      one: "%{count} стол"
+      few: "%{count} стола"
+      many: "%{count} столов"
+      other: "%{count} стола"
 
   search:
     affiches: В мероприятиях

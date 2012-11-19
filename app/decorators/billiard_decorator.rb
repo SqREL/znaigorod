@@ -17,7 +17,7 @@ class BilliardDecorator < SuborganizationDecorator
       content << "</tr>\n"
       pool_tables.each do |pool_table|
         content << "<tr>"
-        content << h.content_tag(:td, "#{pool_table.size} футов, #{pool_table.count}")
+        content << h.content_tag(:td, h.raw("#{pool_table.size} футов,<br />#{I18n.t("billiard.pool_table", count: pool_table.count)}"))
         content << h.content_tag(:td, prices_table(pool_table))
         content << "</tr>\n"
       end
@@ -37,9 +37,12 @@ class BilliardDecorator < SuborganizationDecorator
       else
         intervals_html = ""
         grouped_prices[schedule.day].each do |interval|
-          intervals_html << h.content_tag(:div, I18n.l(interval.from, :format => "%H:%M"), class: :from)
-          intervals_html << h.content_tag(:div, I18n.l(interval.to, :format => "%H:%M"), class: :from)
-          intervals_html << h.content_tag(:div, "#{interval.price} руб.", class: :price)
+          if interval.from == interval.to
+            intervals_html << h.content_tag(:div, "Круглосуточно".hyphenate, class: :string)
+          else
+            intervals_html << h.content_tag(:div, h.raw("#{I18n.l(interval.from, :format => "%H:%M")}&ndash;#{I18n.l(interval.to, :format => "%H:%M")}"), class: [:from_to, :small])
+          end
+          intervals_html << h.content_tag(:div, "#{interval.price} руб.", class: [:price, :small])
         end
         intervals_html.html_safe
       end
