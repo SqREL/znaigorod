@@ -27,9 +27,11 @@ class HitDecorator < ApplicationDecorator
   def kind_links
     kind = ""
     if organization?
+      organization_class = suborganization.class.name.underscore.gsub(/_decorator/, '').pluralize
+      organization_class = 'entertainments' if organization_class == 'billiards'
       suborganization.categories.each do |category|
         kind << h.content_tag(:li,
-                              h.link_to(category, h.organizations_path(organization_class: suborganization.class.name.underscore.gsub(/_decorator/, '').pluralize,
+                              h.link_to(category, h.organizations_path(organization_class: organization_class,
                                                                        category: category.mb_chars.downcase)))
       end
     else
@@ -47,9 +49,7 @@ class HitDecorator < ApplicationDecorator
   end
 
   def raw_suborganization
-    return result.meal if result.respond_to?(:meal) && result.meal
-    return result.entertainment if result.respond_to?(:entertainment) && result.entertainment
-    return result.culture if result.respond_to?(:culture) && result.culture
+    return result.priority_suborganization
   end
 
   def suborganization_decorator_class
