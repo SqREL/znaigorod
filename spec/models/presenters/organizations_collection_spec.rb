@@ -9,7 +9,7 @@ describe OrganizationsCollection do
     let(:params) {{}}
     subject { presenter.kind_links }
 
-    its(:size) { should == 3 }
+    its(:size) { should == 4 }
 
     context 'meals' do
       subject { presenter.kind_links.keys.first }
