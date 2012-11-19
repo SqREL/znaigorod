@@ -81,6 +81,22 @@ class OrganizationDecorator < ApplicationDecorator
     priority_suborganization.categories.first
   end
 
+  def schedule_content
+    content = ""
+    schedules.each do |schedule|
+      day = h.content_tag(:div, schedule.short_human_day, class: :dow)
+      schedule_content = if schedule.holiday?
+        h.content_tag(:div, "Выходной".hyphenate, class: :string)
+      elsif schedule.from == schedule.to
+        h.content_tag(:div, "Круглосуточно".hyphenate, class: :string)
+      else
+        (h.content_tag(:div, I18n.l(schedule.from, :format => "%H:%M"), class: :from) + h.content_tag(:div, I18n.l(schedule.to, :format => "%H:%M"), class: :to)).html_safe
+      end
+      content << h.content_tag(:li, (day + schedule_content).html_safe, class: I18n.l(Date.today, :format => '%a') == schedule.short_human_day ? 'today' : nil)
+    end
+    h.content_tag(:ul, content.html_safe, class: :schedule)
+  end
+
   def link_to_priority_cateroy
     # NOTE: грязный хак коих много ;(
     suborganization_kind = priority_suborganization_kind == 'billiard' ? 'entertainment' : priority_suborganization_kind

@@ -32,31 +32,7 @@
           <tr>
             <td>Режим работы:</td>
             <td>
-              <ul class="schedule">
-                <% @organization.schedules.each do |schedule| %>
-                  <li<%= raw(" class='today'") if l(Date.today, :format => '%a') == schedule.short_human_day %>>
-                    <div class="dow">
-                      <%= schedule.short_human_day %>
-                    </div>
-                    <div class="time">
-                      <% if schedule.holiday? %>
-                        <div class="string"><%= "Выходной".hyphenate %></div>
-                      <% else %>
-                        <% if schedule.from == schedule.to %>
-                          <div class="string"><%= "Круглосуточно".hyphenate %></div>
-                        <% else %>
-                          <div class="from">
-                            <%= l schedule.from, :format => "%H:%M" %>
-                          </div>
-                          <div class="to">
-                            <%= l schedule.to, :format => "%H:%M" %>
-                          </div>
-                        <% end %>
-                      <% end %>
-                    </div>
-                  </li>
-                <% end %>
-              </ul>
+              <%= @organization.schedule_content %>
             </td>
           </tr>
         </table>
