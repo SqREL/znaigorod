@@ -10,16 +10,14 @@ end
 #
 # Table name: sauna_accessories
 #
-#  id          :integer          not null, primary key
-#  sauna_id    :integer
-#  sheets      :integer
-#  sneakers    :integer
-#  bathrobes   :integer
-#  towels      :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  ware        :boolean
-#  title       :string(255)
-#  description :text
+#  id         :integer          not null, primary key
+#  sauna_id   :integer
+#  sheets     :integer
+#  sneakers   :integer
+#  bathrobes  :integer
+#  towels     :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  ware       :boolean
 #
 

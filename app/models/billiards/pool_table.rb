@@ -13,3 +13,17 @@ class PoolTable < ActiveRecord::Base
     "#{kind} #{size} футов"
   end
 end
+
+# == Schema Information
+#
+# Table name: pool_tables
+#
+#  id          :integer          not null, primary key
+#  size        :integer
+#  count       :integer
+#  kind        :string(255)
+#  billiard_id :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+

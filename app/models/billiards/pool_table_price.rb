@@ -11,3 +11,18 @@ class PoolTablePrice < ActiveRecord::Base
     "#{day} #{from} #{to} #{price}"
   end
 end
+
+# == Schema Information
+#
+# Table name: pool_table_prices
+#
+#  id            :integer          not null, primary key
+#  pool_table_id :integer
+#  day           :integer
+#  from          :time
+#  to            :time
+#  price         :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
