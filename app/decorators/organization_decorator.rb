@@ -42,17 +42,24 @@ class OrganizationDecorator < ApplicationDecorator
     h.link_to site, site, rel: "nofollow", target: "_blank"
   end
 
+  # FIXME: грязный хак ;(
+  def fake_kind
+    %w[billiard sauna].include?(priority_suborganization_kind) ? 'entertainment' : priority_suborganization_kind
+  end
+
+  # FIXME: грязный хак ;(
+  def fake_class
+    [Billiard, Sauna].include?(priority_suborganization.class) ? Entertainment : priority_suborganization.class
+  end
+
   def breadcrumbs
     links = []
     links << h.content_tag(:li, h.link_to("Знай\u00ADГород", h.root_path), :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
 
-    # NOTE: грязный хак коих много ;(
-    suborganization_kind = priority_suborganization_kind == 'billiard' ? 'entertainment' : priority_suborganization_kind
-
-    links << h.content_tag(:li, h.link_to(I18n.t("organization.list_title.#{suborganization_kind}"), h.organizations_path(:organization_class => suborganization_kind.pluralize)), :class => "crumb")
+    links << h.content_tag(:li, h.link_to(I18n.t("organization.list_title.#{fake_kind}"), h.organizations_path(:organization_class => fake_kind.pluralize)), :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
-    links << h.content_tag(:li, link_to_priority_cateroy, :class => "crumb")
+    links << h.content_tag(:li, link_to_priority_category, :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
     links << h.content_tag(:li, h.link_to(title, h.organization_path(organization)), :class => "crumb")
     %w(photogallery tour affiche).each do |method|
@@ -97,11 +104,8 @@ class OrganizationDecorator < ApplicationDecorator
     h.content_tag(:ul, content.html_safe, class: :schedule)
   end
 
-  def link_to_priority_cateroy
-    # NOTE: грязный хак коих много ;(
-    suborganization_kind = priority_suborganization_kind == 'billiard' ? 'entertainment' : priority_suborganization_kind
-
-    h.link_to(priority_category, h.organizations_path(organization_class: suborganization_kind.pluralize, category: priority_category.mb_chars.downcase))
+  def link_to_priority_category
+    h.link_to(priority_category, h.organizations_path(organization_class: fake_kind.pluralize, category: priority_category.mb_chars.downcase))
   end
 
   def categories_links
@@ -109,12 +113,9 @@ class OrganizationDecorator < ApplicationDecorator
       suborganizations.each do |suborganization|
         suborganization.categories.each do |category|
 
-        # NOTE: грязный хак коих много ;(
-        suborganization_class = suborganization.is_a?(Billiard) ? Entertainment : suborganization.class
-
          arr<< Link.new(
            title: category,
-           url: h.organizations_path(organization_class: suborganization_class.name.downcase.pluralize, category: category.mb_chars.downcase)
+           url: h.organizations_path(organization_class: fake_class.name.downcase.pluralize, category: category.mb_chars.downcase)
          )
         end
       end
@@ -205,7 +206,7 @@ class OrganizationDecorator < ApplicationDecorator
     description.excerpt.hyphenate
   end
 
-  # NOTE: может быть как-то можно использовать config/initializers/searchers.rb
+  # FIXME: может быть как-то можно использовать config/initializers/searchers.rb
   # но пока фиг знает как ;(
   def raw_similar_organizations
     lat, lon = organization.latitude, organization.longitude
@@ -215,12 +216,11 @@ class OrganizationDecorator < ApplicationDecorator
       with(:location).in_radius(lat, lon, radius)
       without(priority_suborganization)
 
-      prefix = priority_suborganization_kind == 'billiard' ? 'entertainment' : priority_suborganization_kind
       any_of do
-        with("#{prefix}_category", categories.map(&:mb_chars).map(&:downcase))
-        with("#{prefix}_feature", priority_suborganization.features.map(&:mb_chars).map(&:downcase)) if priority_suborganization.respond_to?(:features) && priority_suborganization.features.any?
-        with("#{prefix}_offer", priority_suborganization.offers.map(&:mb_chars).map(&:downcase)) if priority_suborganization.respond_to?(:offers) && priority_suborganization.offers.any?
-        with("#{prefix}_cuisine", priority_suborganization.cuisines.map(&:mb_chars).map(&:downcase)) if priority_suborganization.respond_to?(:cuisines) && priority_suborganization.cuisines.any?
+        with("#{fake_kind}_category", categories.map(&:mb_chars).map(&:downcase))
+        with("#{fake_kind}_feature", priority_suborganization.features.map(&:mb_chars).map(&:downcase)) if priority_suborganization.respond_to?(:features) && priority_suborganization.features.any?
+        with("#{fake_kind}_offer", priority_suborganization.offers.map(&:mb_chars).map(&:downcase)) if priority_suborganization.respond_to?(:offers) && priority_suborganization.offers.any?
+        with("#{fake_kind}_cuisine", priority_suborganization.cuisines.map(&:mb_chars).map(&:downcase)) if priority_suborganization.respond_to?(:cuisines) && priority_suborganization.cuisines.any?
       end
 
       order_by_geodist(:location, lat, lon)

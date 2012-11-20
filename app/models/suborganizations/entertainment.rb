@@ -30,11 +30,11 @@ class Entertainment < ActiveRecord::Base
   end
 
   def features
-    feature.split(',').map(&:squish)
+    (feature || '').split(',').map(&:squish)
   end
 
   def offers
-    offer.split(',').map(&:squish)
+    (offer || '').split(',').map(&:squish)
   end
 
   delegate :rating, :to => :organization, :prefix => true

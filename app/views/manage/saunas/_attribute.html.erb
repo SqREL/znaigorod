@@ -12,7 +12,7 @@
         <% if object.send(field).eql?(true) %>
           да
         <% else %>
-          <%= object.send(field).zero? ? "Бесплатно" : "#{object.send(field)} руб." %>
+          <%= object.send(field).to_i.zero? ? "Бесплатно" : "#{object.send(field)} руб." %>
         <% end %>
       </span>
     <% end %>

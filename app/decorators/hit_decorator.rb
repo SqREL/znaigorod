@@ -24,14 +24,18 @@ class HitDecorator < ApplicationDecorator
     ""
   end
 
+  # FIXME: грязный хак ;(
+  def fake_kind
+      kind = suborganization.class.name.underscore.gsub(/_decorator/, '')
+    %w[billiard sauna].include?(kind) ? 'entertainment' : kind
+  end
+
   def kind_links
     kind = ""
     if organization?
-      organization_class = suborganization.class.name.underscore.gsub(/_decorator/, '').pluralize
-      organization_class = 'entertainments' if organization_class == 'billiards'
       suborganization.categories.each do |category|
         kind << h.content_tag(:li,
-                              h.link_to(category, h.organizations_path(organization_class: organization_class,
+                              h.link_to(category, h.organizations_path(organization_class: fake_kind.pluralize,
                                                                        category: category.mb_chars.downcase)))
       end
     else
