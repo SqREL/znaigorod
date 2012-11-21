@@ -77,6 +77,15 @@
   </div>
 
   <div>
+    <span class="label">Приоритетная подорганизация:</span>
+    <% if resource.priority_suborganization_kind.present? %>
+      <span class="value"><%= t("organization.kind.#{resource.priority_suborganization_kind}") %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+
+  <div>
     <span class="label">Парковка:</span>
     <% if resource.organization_stand %>
       <span class="value">
