@@ -8,6 +8,6 @@ class SaunaDecorator < SuborganizationDecorator
   end
 
   def characteristics_on_show
-    "Find me at #{__FILE__}:#{__LINE__}"
+    #"Find me at #{__FILE__}:#{__LINE__}"
   end
 end
