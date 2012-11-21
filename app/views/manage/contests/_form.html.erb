@@ -1,0 +1,14 @@
+<div class='form_view'>
+  <%= simple_form_for @contest, :url => [:manage, @contest], :html => { :novalidate => true }  do |f| %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.input :starts_on, :as => :string %>
+    <%= f.input :ends_on, :as => :string %>
+
+    <div class="actions">
+      <%= link_to "&larr; Назад".html_safe, :back %>
+      <%= button_tag 'Сохранить'.html_safe %>
+      <%= link_to 'Удалить'.html_safe, resource_path, method: :delete, confirm: 'Уверены что хотите удалить?', class: :destroy unless resource.new_record? %>
+    </div>
+  <% end %>
+</div>

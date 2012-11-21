@@ -6,6 +6,7 @@ Znaigorod::Application.routes.draw do
       resources type.name.underscore.pluralize
     end
 
+    resources :contests
     resources :search, :only => :index
 
     resources :affiches do

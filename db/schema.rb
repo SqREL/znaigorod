@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120053358) do
+ActiveRecord::Schema.define(:version => 20121121045532) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -77,6 +77,15 @@ ActiveRecord::Schema.define(:version => 20121120053358) do
     t.text     "description"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+  end
+
+  create_table "contests", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.date     "starts_on"
+    t.date     "ends_on"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "creations", :force => true do |t|
@@ -424,5 +433,17 @@ ActiveRecord::Schema.define(:version => 20121120053358) do
     t.string   "title"
     t.text     "description"
   end
+
+  create_table "works", :force => true do |t|
+    t.text     "image_url"
+    t.string   "author_info"
+    t.integer  "contest_id"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "works", ["contest_id"], :name => "index_works_on_contest_id"
 
 end

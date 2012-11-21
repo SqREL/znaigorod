@@ -14,6 +14,7 @@ ru:
   eating: Заведения
   edit: Редактировать
   edit_concert: Редактировать информацию о концерте
+  edit_contest: Редактировать информацию о конкурсе
   edit_exhibition: Редактировать информацию о выставке
   edit_movie: Редактировать информацию о фильме
   edit_organization: Редактировать информацию о заведении
@@ -27,6 +28,7 @@ ru:
   meal: Заведения питания
   new_affiche: Добавить новое событие
   new_concert: Новый концерт
+  new_contest: Новый конкурс
   new_exhibition: Новая выставка
   new_movie: Новый фильм
   new_organization: Добавить новое заведение
@@ -230,6 +232,7 @@ ru:
     models:
       affiche: Вся афиша
       concert: Концерты
+      contest: Конкурс
       meal: Заведение питания
       exhibition: Выставки
       entertainment: Развлекательное заведение
@@ -249,12 +252,17 @@ ru:
       sauna_stuff: Разное
 
     attributes:
-
       address:
         house: Дом
         latitude: Широта
         longitude: Долгота
         street: Улица
+
+      contest:
+        title: Название
+        description: Описание
+        starts_on: Дата начала
+        ends_on: Дата окончания
 
       affiche:
         description: Описание
