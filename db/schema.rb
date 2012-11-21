@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121120053058) do
+ActiveRecord::Schema.define(:version => 20121120053358) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -377,14 +377,6 @@ ActiveRecord::Schema.define(:version => 20121120053058) do
   end
 
   add_index "sauna_stuffs", ["sauna_id"], :name => "index_sauna_stuffs_on_sauna_id"
-
-  create_table "saunas", :force => true do |t|
-    t.integer  "organization_id"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  add_index "saunas", ["organization_id"], :name => "index_saunas_on_organization_id"
 
   create_table "schedules", :force => true do |t|
     t.integer  "day"
