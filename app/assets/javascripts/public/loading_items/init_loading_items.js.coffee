@@ -23,7 +23,7 @@
       busy = true
       search_params = ""
       if window.location.search.match(/(\?|&)q=/) && window.location.search.match(/(\?|&)utf8=/)
-        search_params = window.location.search.replace(/^\?/, "&")
+        search_params = window.location.search.replace(/^\?/, "&").replace(/&page=\d+/, "")
       $.ajax
         url: "#{list_url}?page=#{parseInt(page) + 1}#{search_params}"
         beforeSend: (jqXHR, settings) ->
