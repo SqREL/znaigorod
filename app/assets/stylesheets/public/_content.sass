@@ -342,15 +342,21 @@
                 text-transform: uppercase
             td
               padding: 2px 4px
-          ul li:before
-            content: "\2013"
-            padding-right: 5px
+          ul li
+            &:before
+              content: "\2013"
+              padding-right: 5px
+            ul, ol
+              margin-left: 15px
           ol
             counter-reset: li
-            li:before
-              content: counter(li)"."
-              counter-increment: li
-              padding-right: 5px
+            li
+              ul, ol
+                margin-left: 15px
+              &:before
+                content: counter(li)"."
+                counter-increment: li
+                padding-right: 5px
           .closest
             p
               +inline-block
