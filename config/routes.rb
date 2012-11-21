@@ -6,8 +6,11 @@ Znaigorod::Application.routes.draw do
       resources type.name.underscore.pluralize
     end
 
-    resources :contests
     resources :search, :only => :index
+
+    resources :contests do
+      resources :works, :except => [:index, :show]
+    end
 
     resources :affiches do
       resources :attachments, :only => [:new, :create, :destroy, :edit, :update]

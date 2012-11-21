@@ -1,7 +1,13 @@
 class Work < ActiveRecord::Base
-  attr_accessible :author_info, :image_url
+  attr_accessible :author_info, :image_url, :title, :description
 
   belongs_to :contest
+
+  validates_presence_of :image_url
+
+  def vfs_path
+    I18n.transliterate("/znaigorod/contests/#{contest.title}").gsub(' ', '_')
+  end
 end
 
 # == Schema Information

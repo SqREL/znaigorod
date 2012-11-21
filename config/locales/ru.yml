@@ -264,6 +264,12 @@ ru:
         starts_on: Дата начала
         ends_on: Дата окончания
 
+      work:
+        title: Название
+        description: Описание
+        author_info: Информация об авторе
+
+
       affiche:
         description: Описание
         original_title: Оригинальное название
