@@ -20,7 +20,7 @@ class SportDecorator < SuborganizationDecorator
       content << "</tr>\n"
       services.each do |service|
         content << "<tr>"
-        content << h.content_tag(:td, h.raw("#{h.content_tag(:p, service.title, class: :offer)}\n#{service.description.as_html}"))
+        content << h.content_tag(:td, h.raw("#{h.content_tag(:p, service.title, class: :offer)}\n#{htmlize_text(service.description)}"))
         content << h.content_tag(:td, service.age)
         content << "</tr>\n"
       end

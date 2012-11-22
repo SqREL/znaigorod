@@ -38,4 +38,8 @@ class SuborganizationDecorator < ApplicationDecorator
     categories.first.mb_chars.downcase
   end
 
+  def htmlize_text(text)
+    text.blank? ? "" : text.as_html
+  end
+
 end

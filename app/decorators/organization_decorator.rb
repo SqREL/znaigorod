@@ -73,7 +73,7 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def suborganizations
-    @suborganizations ||= [priority_suborganization] + (%w[meal entertainment culture] - [priority_suborganization_kind]).map { |kind| organization.send(kind) }.compact
+    @suborganizations ||= [priority_suborganization] + (%w[meal entertainment culture sport creation billiard sauna] - [priority_suborganization_kind]).map { |kind| organization.send(kind) }.compact.uniq
   end
 
   def decorated_suborganizations
