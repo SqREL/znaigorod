@@ -199,14 +199,12 @@ HasSearcher.create_searcher :sport do
 
   property :sport_category
   property :sport_feature
-  property :sport_offer
 
   scope do
     adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
 
     facet(:sport_category)
     facet(:sport_feature)
-    facet(:sport_offer)
   end
 end
 
@@ -215,14 +213,12 @@ HasSearcher.create_searcher :creation do
 
   property :creation_category
   property :creation_feature
-  property :creation_offer
 
   scope do
     adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
 
     facet(:creation_category)
     facet(:creation_feature)
-    facet(:creation_offer)
   end
 end
 
