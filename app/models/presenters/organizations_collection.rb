@@ -106,7 +106,8 @@ class OrganizationsCollection
     groups = []
     groups << 'category' if category == 'all'
     groups << 'cuisine' if organization_class == 'meal'
-    groups += ['offer', 'feature']
+    groups << 'offer' unless %w[sport creation].include?(organization_class)
+    groups += ['feature']
   end
 
   def filters
