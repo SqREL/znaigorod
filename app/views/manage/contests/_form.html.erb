@@ -2,8 +2,8 @@
   <%= simple_form_for @contest, :url => [:manage, @contest], :html => { :novalidate => true }  do |f| %>
     <%= f.input :title %>
     <%= f.input :description %>
-    <%= f.input :starts_on, :as => :string %>
-    <%= f.input :ends_on, :as => :string %>
+    <%= f.input :starts_on, :as => :string, :as => :date_picker %>
+    <%= f.input :ends_on, :as => :string, :as => :date_picker %>
 
     <div class="actions">
       <%= link_to "&larr; Назад".html_safe, :back %>
