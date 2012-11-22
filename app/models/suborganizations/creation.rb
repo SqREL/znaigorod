@@ -19,7 +19,7 @@ class Creation < ActiveRecord::Base
   end
 
   def self.facets
-    %w[category feature offer]
+    %w[category feature]
   end
 
   def self.facet_field(facet)
@@ -27,15 +27,11 @@ class Creation < ActiveRecord::Base
   end
 
   def category
-    services.pluck(:title).uniq.compact.join(', ')
+    services.pluck(:category).uniq.compact.join(', ')
   end
 
   def feature
     services.pluck(:feature).uniq.compact.join(', ')
-  end
-
-  def offer
-    services.pluck(:offer).uniq.compact.join(', ')
   end
 
   def categories
@@ -44,10 +40,6 @@ class Creation < ActiveRecord::Base
 
   def features
     feature.split(',').map(&:squish)
-  end
-
-  def offers
-    offer.split(',').map(&:squish)
   end
 
   delegate :rating, :to => :organization, :prefix => true

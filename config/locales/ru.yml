@@ -481,9 +481,9 @@ ru:
       service:
         title:        Название
         feature:      Особенности
-        offer:        Предложения
         age:          Возраст
-        tag:          Тэги
+        category:     Категория
+        description:  Описание
 
       sport:
         title: Название

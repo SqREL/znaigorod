@@ -1,6 +1,6 @@
+<%= f.input :category %>
 <%= f.input :title %>
 <%= f.input :feature %>
-<%= f.input :offer %>
+<%= f.input :description, :input_html => { :class => 'service_description' } %>
 <%= f.input :age %>
-<%= f.input :tag %>
 <%= f.link_to_remove 'Удалить эту услугу' %>
