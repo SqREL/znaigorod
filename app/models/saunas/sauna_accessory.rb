@@ -1,7 +1,7 @@
 class SaunaAccessory < ActiveRecord::Base
   include UsefulAttributes
 
-  attr_accessible :sheets, :sneakers, :bathrobes, :towels, :ware, :title, :description
+  attr_accessible :sheets, :sneakers, :bathrobes, :towels, :ware
 
   belongs_to :sauna
 end

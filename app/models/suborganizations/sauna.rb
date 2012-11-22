@@ -24,7 +24,7 @@ class Sauna < Entertainment
   accepts_nested_attributes_for :sauna_stuff
   accepts_nested_attributes_for :sauna_massage
 
-  delegate :title, :to => :organization
+  delegate :title, :to => :organization, :prefix => true
 end
 
 # == Schema Information
