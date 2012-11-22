@@ -16,7 +16,7 @@
 <ul class='collection'>
   <% collection.each do |item| %>
     <li>
-      <%= link_to item.title, [:manage, item.organization] %>
+      <%= link_to item.organization.title, [:manage, item.organization] %>
       <%= content_tag :span, item.respond_to?(:category) ? item.category : item.class.model_name.human, :class => 'category' %>
     </li>
   <% end %>
