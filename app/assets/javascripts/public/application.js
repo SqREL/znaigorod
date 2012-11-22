@@ -9,7 +9,7 @@
  * = require public/sugar
  * = require public/swfobject
  *
- * = require public/3dtourme_stat
+ * = require public/yandex_stat
  * = require public/common
  * = require public/jscrollpane
  * = require public/main_page

@@ -78,7 +78,11 @@
     </ul>
     <div class="adv">
       <div class="item">
-        <%= link_to image_tag("public/prokachkov.png", size: "200x100", alt: "Prokachkov.ru"), "http://prokachkov.ru/", target: :_blank, rel: :nofollow %>
+        <%= link_to image_tag("public/prokachkov.png", size: "200x100", alt: "Prokachkov.ru"),
+                    "http://prokachkov.ru/",
+                    target: :_blank,
+                    rel: :nofollow,
+                    class: Rails.env.production? ? "prokachkov" : "prokachkov development" %>
       </div>
     </div>
     <div class="vk_group_wrapper">
