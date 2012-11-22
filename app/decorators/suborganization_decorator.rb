@@ -19,7 +19,8 @@ class SuborganizationDecorator < ApplicationDecorator
     content = ""
     content << h.content_tag(:li, I18n.t("activerecord.attributes.#{self.decorate.model.class.name.downcase}.#{name.singularize}"), class: "title")
     content << "\n"
-    organization_class = self.decorate.model.class == Billiard ? 'entertainments' : self.decorate.model.class.name.downcase.pluralize
+    # FIXME: грязный хак ;(
+    organization_class = [Billiard, Sauna].include?(self.decorate.model.class) ? 'entertainments' : self.decorate.model.class.name.downcase.pluralize
     self.send(name).each do |value|
       content << h.content_tag(:li, h.link_to(value, h.organizations_path(organization_class: organization_class,
                                                                           category: priority_category,

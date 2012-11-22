@@ -347,6 +347,144 @@ ru:
         few: "WiFi: %{count} рубля"
         many: "WiFi: %{count} рублей"
         other: "WiFi: %{count} рубля"
+    sauna_hall_capacity:
+      title: "Вместительность"
+      default:
+        zero: "Вместительность: 0"
+        one: "Вместительность: %{count} человек"
+        few: "Вместительность: %{count} человека"
+        many: "Вместительность: %{count} человек"
+        other: "Вместительность: %{count} человека"
+      maximal:
+        zero: "Максимальная вместительность: 0"
+        one: "Максимальная вместительность: %{count} человек"
+        few: "Максимальная вместительность: %{count} человека"
+        many: "Максимальная вместительность: %{count} человек"
+        other: "Максимальная вместительность: %{count} человека"
+      extra_guest_cost:
+        zero: "Стоимость c дополнительного человека: 0"
+        one: "Стоимость c дополнительного человека: %{count} рубль"
+        few: "Стоимость c дополнительного человека: %{count} рубля"
+        many: "Стоимость c дополнительного человека: %{count} рублей"
+        other: "Стоимость c дополнительного человека: %{count} рубля"
+    sauna_hall_schedules:
+      title: "Стоимость"
+    sauna_hall_bath:
+      title: "Парные"
+      finnish:
+        "true": "Финская"
+      infrared:
+        "true": "Инфракрасная (лечебная)"
+      japanese:
+        "true": "Японская (водяная)"
+      russian:
+        "true": "Русская"
+      turkish:
+        "true": "Турецкая"
+    sauna_hall_pool:
+      title: "Бассейн"
+      contraflow:
+        "true": "Есть противоток"
+      geyser:
+        "true": "Есть гейзер"
+      size: "Размеры"
+      water_filter: "Система очистки воды"
+      waterfall:
+        "true": "Есть водопад"
+      jacuzzi:
+        zero: "Бесплатное джакузи"
+        one: "Джакузи: %{count} рубль"
+        few: "Джакузи: %{count} рубля"
+        many: "Джакузи: %{count} рублей"
+        other: "Джакузи: %{count} рубля"
+      bucket:
+        zero: "Бесплатное ведро-обливайка"
+        one: "Ведро-обливайка: %{count} рубль"
+        few: "Ведро-обливайка: %{count} рубля"
+        many: "Ведро-обливайка: %{count} рублей"
+        other: "Ведро-обливайка: %{count} рубля"
+    sauna_hall_entertainment:
+      title: "Развлечения"
+      aerohockey:
+        zero: "Бесплатный аерохоккей"
+        one: "Аэрохокей: %{count} рубль"
+        few: "Аэрохокей: %{count} рубля"
+        many: "Аэрохокей: %{count} рублей"
+        other: "Аэрохокей: %{count} рубля"
+      billiard:
+        zero: "Бесплатный бильярд"
+        one: "Бильярд: %{count} рубль"
+        few: "Бильярд: %{count} рубля"
+        many: "Бильярд: %{count} рублей"
+        other: "Бильярд: %{count} рубля"
+      ping_pong:
+        zero: "Бесплатный настольный теннис"
+        one: "Настольный теннис: %{count} рубль"
+        few: "Настольный теннис: %{count} рубля"
+        many: "Настольный теннис: %{count} рублей"
+        other: "Настольный теннис: %{count} рубля"
+      hookah:
+        zero: "Бесплатный кальян"
+        one: "Кальян: %{count} рубль"
+        few: "Кальян: %{count} рубля"
+        many: "Кальян: %{count} рублей"
+        other: "Кальян: %{count} рубля"
+      karaoke:
+        zero: "Бесплатное караоке"
+        one: "Караоке: %{count} рубль"
+        few: "Караоке: %{count} рубля"
+        many: "Караоке: %{count} рублей"
+        other: "Караоке: %{count} рубля"
+      tv:
+        zero: "Бесплатная теле/видео аппаратура"
+        one: "Теле/видео аппаратура: %{count} рубль"
+        few: "Теле/видео аппаратура: %{count} рубля"
+        many: "Теле/видео аппаратура: %{count} рублей"
+        other: "Теле/видео аппаратура: %{count} рубля"
+      guitar:
+        zero: "Бесплатная гитара"
+        one: "Гитара: %{count} рубль"
+        few: "Гитара: %{count} рубля"
+        many: "Гитара: %{count} рублей"
+        other: "Гитара: %{count} рубля"
+      checkers:
+        zero: "Бесплатные шашки"
+        one: "Шашки: %{count} рубль"
+        few: "Шашки: %{count} рубля"
+        many: "Шашки: %{count} рублей"
+        other: "Шашки: %{count} рубля"
+      chess:
+        zero: "Бесплатные шахматы"
+        one: "Шахматы: %{count} рубль"
+        few: "Шахматы: %{count} рубля"
+        many: "Шахматы: %{count} рублей"
+        other: "Шахматы: %{count} рубля"
+      backgammon:
+        zero: "Бесплатные нарды"
+        one: "Нарды: %{count} рубль"
+        few: "Нарды: %{count} рубля"
+        many: "Нарды: %{count} рублей"
+        other: "Нарды: %{count} рубля"
+    sauna_hall_interior:
+      title: "Обстановка"
+      floors:
+        zero: "нет этажей"
+        one: "%{count} этаж/уровень"
+        few: "%{count} этажа/уровня"
+        many: "%{count} этажей/уровней"
+        other: "%{count} этажа/уровня"
+      lounges:
+        zero: "нет комнат отдыха"
+        one: "%{count} комната отдыха"
+        few: "%{count} комнаты отдаха"
+        many: "%{count} комнят отдыха"
+        other: "%{count} комнаты отдаха"
+      pit:
+        "true": "Есть танцпол"
+      pylon:
+        "true": "Есть пилон"
+      barbecue:
+        "true": "Есть мангал/барбекю"
 
   activerecord:
     models:
@@ -505,6 +643,10 @@ ru:
         to: до
         price: Цена
 
+      sauna:
+        feature: Особенности
+        offer: Предложение
+
       sauna_accessory:
         sheets: Простыни
         sneakers: Тапочки
@@ -571,8 +713,8 @@ ru:
         ping_pong:    Настольный теннис
         aerohockey:   Аэрохоккей
         hookah:       Кальян
-        checkers:     Шахматы
-        chess:        Шашки
+        checkers:     Шашки
+        chess:        Шахматы
         backgammon:   Нарды
         guitar:       Гитара
 

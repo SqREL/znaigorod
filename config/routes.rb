@@ -93,7 +93,7 @@ Znaigorod::Application.routes.draw do
   end
 
   get ':organization_class/(:category)/(*query)' => 'organizations#index',
-      :organization_class => /organizations|meals|entertainments|cultures|sports|creations/, :as => :organizations
+      :organization_class => /organizations|meals|entertainments|cultures|sports|creations|saunas/, :as => :organizations
 
   root :to => 'application#main_page'
 
