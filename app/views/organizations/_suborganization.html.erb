@@ -5,7 +5,7 @@
     <ul class="categories">
       <% suborganization.categories.each do |category| %>
         <li>
-          <%= link_to category, organizations_path(organization_class: @organizations_collection.organization_class.pluralize, category: category.mb_chars.downcase) %>
+          <%= link_to category.hyphenate, organizations_path(organization_class: @organizations_collection.organization_class.pluralize, category: category.mb_chars.downcase) %>
         </li>
       <% end %>
     </ul>
