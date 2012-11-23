@@ -1,5 +1,7 @@
 class Billiard < Entertainment
   has_many :pool_tables, :dependent => :destroy
+
+  include Rating
 end
 
 # == Schema Information

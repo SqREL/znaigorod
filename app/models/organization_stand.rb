@@ -1,6 +1,9 @@
 class OrganizationStand < ActiveRecord::Base
-  belongs_to :organization
   attr_accessible :guarded, :places, :video_observation
+
+  belongs_to :organization
+
+  include Rating
 end
 
 # == Schema Information

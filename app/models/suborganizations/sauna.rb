@@ -25,6 +25,9 @@ class Sauna < Entertainment
   accepts_nested_attributes_for :sauna_massage
 
   delegate :title, :to => :organization, :prefix => true
+
+  include Rating
+  use_for_rating :sauna_halls, :sauna_accessory, :sauna_broom, :sauna_alcohol, :sauna_oil, :sauna_child_stuff, :sauna_stuff, :sauna_massage
 end
 
 # == Schema Information

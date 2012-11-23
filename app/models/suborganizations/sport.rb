@@ -52,6 +52,8 @@ class Sport < ActiveRecord::Base
 
     float :organization_rating
   end
+
+  include Rating
 end
 
 # == Schema Information

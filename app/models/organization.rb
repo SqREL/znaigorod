@@ -4,7 +4,8 @@ class Organization < ActiveRecord::Base
   attr_accessible :address_attributes, :description, :email, :halls_attributes,
                   :images_attributes, :organization_id, :phone, :schedules_attributes,
                   :site, :title, :vfs_path, :attachments_attributes, :logotype_url,
-                  :tour_link, :non_cash, :priority_suborganization_kind, :comment
+                  :tour_link, :non_cash, :priority_suborganization_kind, :comment,
+                  :organization_stand_attributes
 
   belongs_to :organization
 
@@ -17,22 +18,24 @@ class Organization < ActiveRecord::Base
   has_many :sauna_halls,    :through => :sauna
   has_many :showings,       :dependent => :destroy
 
-  has_one :address,         :dependent => :destroy
-  has_one :culture,         :dependent => :destroy
-  has_one :entertainment,   :dependent => :destroy, :conditions => { type: nil }
-  has_one :meal,            :dependent => :destroy
-  has_one :sauna,           :dependent => :destroy
-  has_one :sport,           :dependent => :destroy
-  has_one :billiard,        :dependent => :destroy
-  has_one :creation,        :dependent => :destroy
+  has_one :address,             :dependent => :destroy
+  has_one :culture,             :dependent => :destroy
+  has_one :entertainment,       :dependent => :destroy, :conditions => { type: nil }
+  has_one :meal,                :dependent => :destroy
+  has_one :sauna,               :dependent => :destroy
+  has_one :sport,               :dependent => :destroy
+  has_one :billiard,            :dependent => :destroy
+  has_one :creation,            :dependent => :destroy
+  has_one :organization_stand,  :dependent => :destroy
 
   validates_presence_of :title, :priority_suborganization_kind
 
-  accepts_nested_attributes_for :address,   :reject_if => :all_blank
-  accepts_nested_attributes_for :halls,     :allow_destroy => true, :reject_if => :all_blank
-  accepts_nested_attributes_for :images,    :allow_destroy => true, :reject_if => :all_blank
-  accepts_nested_attributes_for :attachments,    :allow_destroy => true, :reject_if => :all_blank
-  accepts_nested_attributes_for :schedules, :allow_destroy => true, :reject_if => :all_blank
+  accepts_nested_attributes_for :address,             :reject_if => :all_blank
+  accepts_nested_attributes_for :attachments,         :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :halls,               :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :images,              :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :organization_stand,  :reject_if => :all_blank
+  accepts_nested_attributes_for :schedules,           :reject_if => :all_blank, :allow_destroy => true
 
   delegate :category, :cuisine, :feature, :offer, :payment,
            :to => :meal, :allow_nil => true, :prefix => true
@@ -54,9 +57,6 @@ class Organization < ActiveRecord::Base
 
   paginates_per Settings['pagination.per_page'] || 10
 
-  has_one :organization_stand, :dependent => :destroy
-  accepts_nested_attributes_for :organization_stand, :reject_if => :all_blank
-  attr_accessible :organization_stand_attributes
 
   alias_attribute :poster_url, :logotype_url
 
@@ -75,7 +75,6 @@ class Organization < ActiveRecord::Base
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
 
     string(:kind) { 'organization' }
-    string :priority_suborganization_kind
 
     text :title,                :boost => 1.0 * 1.2
     text :title_ru,             :boost => 1.0,              :more_like_this => true
@@ -161,13 +160,11 @@ class Organization < ActiveRecord::Base
   private
 
   def set_rating
-    self.rating = nearest_affiches.count + images.count
-    self.rating += 1 if description?
-    self.rating += 1 if email?
-    self.rating += 1 if phone?
-    self.rating += 1 if tour_link?
-    self.rating / 100.0
+    self.rating = summary_rating + nearest_affiches.count + images.count
   end
+
+  include Rating
+  use_for_rating :culture, :entertainment, :meal, :sauna, :sport, :billiard, :creation, :organization_stand
 end
 
 # == Schema Information

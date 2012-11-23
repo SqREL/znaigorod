@@ -22,6 +22,15 @@ class SaunaHall < ActiveRecord::Base
   accepts_nested_attributes_for :sauna_hall_interior
   accepts_nested_attributes_for :sauna_hall_pool
   accepts_nested_attributes_for :sauna_hall_schedules, :allow_destroy => true, :reject_if => :all_blank
+
+  include Rating
+  use_for_rating :sauna_hall_bath, :sauna_hall_capacity, :sauna_hall_entertainment, :sauna_hall_interior, :sauna_hall_pool
+
+  def summary_rating_with_images
+    summary_rating_without_images + images.count
+  end
+
+  alias_method_chain :summary_rating, :images
 end
 
 # == Schema Information
