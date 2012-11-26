@@ -26,5 +26,6 @@ end
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  category     :text
+#  description  :text
 #
 

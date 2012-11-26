@@ -94,6 +94,7 @@ class Organization < ActiveRecord::Base
     text :description,          :boost => 0.1 * 1.2                                                     do text_description end
     text :description_ru,       :boost => 0.1,                                        :stored => true   do text_description end
 
+    text(:services_info) { services.map { |s| "#{s.title} #{s.description} #{s.category} #{s.feature}" }.join(' ') }
     text :term
   end
 
@@ -150,6 +151,15 @@ class Organization < ActiveRecord::Base
     Dir.chdir(Rails.root.join('app/models/suborganizations')) {
       Dir['*.rb'].map { |f| f.gsub('.rb', '') }
     }
+  end
+
+  def suborganizations
+    available_suborganization_kinds.map { |kind| send(kind) }.compact
+  end
+
+  def services
+    suborganizations.select{ |s| s.respond_to?(:services) }.
+      flat_map { |suborganization| suborganization.services }
   end
 
   def priority_suborganization
