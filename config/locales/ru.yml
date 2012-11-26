@@ -746,6 +746,8 @@ ru:
         offer:        Предложения
         age:          Возраст
         tag:          Тэги
+        category:     Категория
+        description:  Описание
 
       sport:
         title: Название

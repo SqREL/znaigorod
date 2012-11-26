@@ -27,19 +27,19 @@ class Creation < ActiveRecord::Base
   end
 
   def category
-    services.pluck(:category).uniq.compact.join(', ')
+    services.pluck(:category).compact.uniq.join(', ')
   end
 
   def feature
-    services.pluck(:feature).uniq.compact.join(', ')
+    services.pluck(:feature).compact.uniq.join(', ')
   end
 
   def categories
-    category.split(',').map(&:squish)
+    category.split(',').map(&:squish).uniq
   end
 
   def features
-    feature.split(',').map(&:squish)
+    feature.split(',').map(&:squish).uniq
   end
 
   delegate :rating, :to => :organization, :prefix => true
