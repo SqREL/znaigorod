@@ -14,6 +14,7 @@
 <%= f.input :priority_suborganization_kind,
   :as => :select,
   :collection => f.object.available_suborganization_kinds.map { |kind| [t("organization.kind.#{kind}"), kind] } %>
+<%= f.input :additional_rating %>
 
 <fieldset class='organization_stand'>
   <legend>Парковка</legend>

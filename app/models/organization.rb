@@ -5,7 +5,7 @@ class Organization < ActiveRecord::Base
                   :images_attributes, :organization_id, :phone, :schedules_attributes,
                   :site, :title, :vfs_path, :attachments_attributes, :logotype_url,
                   :tour_link, :non_cash, :priority_suborganization_kind, :comment,
-                  :organization_stand_attributes
+                  :organization_stand_attributes, :additional_rating
 
   belongs_to :organization
 
@@ -49,7 +49,7 @@ class Organization < ActiveRecord::Base
   scope :parental,              where(:organization_id => nil)
 
   before_save :set_rating
-  after_save :index_additional_attributes
+  after_save :index_suborganizations
 
   alias_attribute :to_s, :title
 
@@ -127,12 +127,8 @@ class Organization < ActiveRecord::Base
     end
   end
 
-  def additional_attributes
-    [meal, entertainment].compact
-  end
-
-  def index_additional_attributes
-    additional_attributes.map(&:index)
+  def index_suborganizations
+    suborganizations.map(&:index)
   end
 
   def self.grouped_collection_for_select
@@ -167,10 +163,16 @@ class Organization < ActiveRecord::Base
     send priority_suborganization_kind
   end
 
+  def rating_position
+    count = self.class.count
+
+    self.class.solr_search_ids { order_by(:rating, :desc); paginate(:page => 1, :per_page => count) }.index(id) + 1
+  end
+
   private
 
   def set_rating
-    self.rating = summary_rating + nearest_affiches.count + images.count
+    self.rating = summary_rating + nearest_affiches.count + images.count + additional_rating.to_i
   end
 
   include Rating
@@ -198,5 +200,6 @@ end
 #  non_cash                      :boolean
 #  priority_suborganization_kind :string(255)
 #  comment                       :text
+#  additional_rating             :integer
 #
 
