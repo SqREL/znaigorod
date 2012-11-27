@@ -48,8 +48,8 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   # FIXME: грязный хак ;(
-  def fake_class
-    [Billiard, Sauna].include?(priority_suborganization.class) ? Entertainment : priority_suborganization.class
+  def fake_class(suborganization)
+    [Billiard, Sauna].include?(suborganization.class) ? Entertainment : suborganization.class
   end
 
   def breadcrumbs
@@ -115,7 +115,7 @@ class OrganizationDecorator < ApplicationDecorator
 
          arr<< Link.new(
            title: category,
-           url: h.organizations_path(organization_class: fake_class.name.downcase.pluralize, category: category.mb_chars.downcase)
+           url: h.organizations_path(organization_class: fake_class(suborganization).name.downcase.pluralize, category: category.mb_chars.downcase)
          )
         end
       end
