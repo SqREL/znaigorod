@@ -572,6 +572,7 @@ ru:
         title: Название зала
 
       organization:
+        additional_rating: Дополнительный рейтинг
         address: Адрес организации
         category: Категория
         comment: Комментарий
