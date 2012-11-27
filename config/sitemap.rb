@@ -70,6 +70,9 @@ SitemapGenerator::Sitemap.create do
   # Культурные заведения в Томске
   add organizations_path('cultures'),           :changefreq => 'daily', :priority => 0.7, :lastmod => Culture.unscoped.last.updated_at
 
+  # Спортивные заведения
+  add organizations_path('sports'),             :changefreq => 'daily', :priority => 0.7, :lastmod => Sport.unscoped.last.updated_at
+
   max_popularity = Affiche.all.map(&:popularity).max
 
   Affiche.find_each do |affiche|
