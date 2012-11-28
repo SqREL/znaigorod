@@ -1,0 +1,27 @@
+=has_ribbon
+  .ribbon_wrapper
+    width: 120px
+    font-size: 10px
+    line-height: 1.4
+    position: absolute
+    background: transparent image_url('public/premiere_ribbon_bg.png') no-repeat right top
+    +box-shadow(#777 0 4px 2px -2px)
+    +border-left-radius(2px)
+    border-left: 2px solid #c4102b
+    padding-right: 15px
+    margin: 45px 0 0 -7px
+    .ribbon
+      color: #fff
+      +text-shadow(#c4102b 1px 1px 1px)
+      background-color: #e3223f
+      padding: 5px 0 5px 10px
+    &:after
+      content: ' '
+      position: absolute
+      width: 0
+      height: 0
+      left: -1px
+      top: 100%
+      border-width: 3px 3px
+      border-style: solid
+      border-color: #75010e #75010e transparent transparent
