@@ -602,11 +602,14 @@ ru:
 
       culture:
         category: Категория
+        category_list: Категория
+        description: Описание
         feature: Особенности
+        feature_list: Особенности
         offer: Предложение
+        offer_list: Предложение
         payment: Способы оплаты
         title: Название
-        description: Описание
 
       meal:
         category: Категория
