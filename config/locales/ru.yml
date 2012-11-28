@@ -623,11 +623,14 @@ ru:
 
       entertainment:
         category: Категория
+        category_list: Категория
+        description: Описание
         feature: Особенности
+        feature_list: Особенности
         offer: Предложение
+        offer_list: Предложение
         payment: Способы оплаты
         title: Название
-        description: Описание
 
       billiard:
         category: Категория

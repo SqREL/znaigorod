@@ -43,14 +43,14 @@ class Meal < ActiveRecord::Base
   presents_as_checkboxes :category,
     :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_category).rows.map(&:value).map(&:mb_chars).map(&:capitalize).map(&:to_s) }
 
-  presents_as_checkboxes :cuisine,
-    :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_cuisine).rows.map(&:value).map(&:mb_chars).map(&:capitalize).map(&:to_s) }
-
   presents_as_checkboxes :feature,
     :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_feature).rows.map(&:value) }
 
   presents_as_checkboxes :offer,
     :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_offer).rows.map(&:value) }
+
+  presents_as_checkboxes :cuisine,
+    :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_cuisine).rows.map(&:value).map(&:mb_chars).map(&:capitalize).map(&:to_s) }
 end
 
 # == Schema Information

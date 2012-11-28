@@ -20,7 +20,7 @@ module PresentsAsCheckboxes
       before_validation "set_#{field}", :if => "#{field}_list?"
 
       define_method field.to_s.pluralize do
-        self.send(field).split(',').map(&:squish)
+        (self.send(field) || '').split(',').map(&:squish)
       end
 
       define_method "#{field}_list?" do

@@ -115,9 +115,10 @@ class Organization < ActiveRecord::Base
     meal_cuisine
   end
 
+  # FIXME: вроде бы нигде не используется
   %w[category feature offer payment].each do |method|
     define_method method do
-      [send("entertainment_#{method}"), send("meal_#{method}")].delete_if(&:blank?).compact.join(', ')
+      suborganizations.map { |s| s.send(method) }.delete_if(&:blank?).join(', ')
     end
   end
 
