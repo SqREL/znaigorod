@@ -1,7 +1,17 @@
 class Billiard < Entertainment
   has_many :pool_tables, :dependent => :destroy
 
-  include Rating
+  presents_as_checkboxes :category, :available_values => -> {
+    HasSearcher.searcher(:entertainment, :entertainment_type => 'Billiard').facet(:entertainment_category).rows.map(&:value).map(&:mb_chars).map(&:capitalize).map(&:to_s)
+  }
+
+  presents_as_checkboxes :feature, :available_values => -> {
+    HasSearcher.searcher(:entertainment, :entertainment_type => 'Billiard').facet(:entertainment_feature).rows.map(&:value)
+  }
+
+  presents_as_checkboxes :offer, :available_values => -> {
+    HasSearcher.searcher(:entertainment, :entertainment_type => 'Billiard').facet(:entertainment_offer).rows.map(&:value)
+  }
 end
 
 # == Schema Information
