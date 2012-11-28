@@ -16,6 +16,10 @@ class AfficheDecorator < ApplicationDecorator
     truncated_link(45)
   end
 
+  def has_ribbon
+    h.content_tag(:div, h.content_tag(:div, "Премьера недели", class: :ribbon), class: :ribbon_wrapper) if premiere?
+  end
+
   def kind
     affiche.class.name.downcase
   end
