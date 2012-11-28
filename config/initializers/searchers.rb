@@ -168,6 +168,7 @@ HasSearcher.create_searcher :entertainment do
   property :entertainment_category
   property :entertainment_feature
   property :entertainment_offer
+  property :entertainment_type
 
   scope do
     adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }

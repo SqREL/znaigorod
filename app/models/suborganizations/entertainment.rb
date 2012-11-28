@@ -34,6 +34,7 @@ class Entertainment < ActiveRecord::Base
     end
 
     float :organization_rating
+    string(:entertainment_type) { self.type }
   end
 
   include Rating

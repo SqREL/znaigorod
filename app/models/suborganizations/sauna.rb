@@ -26,8 +26,19 @@ class Sauna < Entertainment
 
   delegate :title, :to => :organization, :prefix => true
 
-  include Rating
   use_for_rating :sauna_halls, :sauna_accessory, :sauna_broom, :sauna_alcohol, :sauna_oil, :sauna_child_stuff, :sauna_stuff, :sauna_massage
+
+  presents_as_checkboxes :category, :available_values => -> {
+    HasSearcher.searcher(:entertainment, :entertainment_type => 'Sauna').facet(:entertainment_category).rows.map(&:value).map(&:mb_chars).map(&:capitalize).map(&:to_s)
+  }
+
+  presents_as_checkboxes :feature, :available_values => -> {
+    HasSearcher.searcher(:entertainment, :entertainment_type => 'Sauna').facet(:entertainment_feature).rows.map(&:value)
+  }
+
+  presents_as_checkboxes :offer, :available_values => -> {
+    HasSearcher.searcher(:entertainment, :entertainment_type => 'Sauna').facet(:entertainment_offer).rows.map(&:value)
+  }
 end
 
 # == Schema Information
