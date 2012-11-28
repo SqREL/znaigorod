@@ -25,22 +25,6 @@ class Meal < ActiveRecord::Base
     "#{model_name.underscore}_#{facet}"
   end
 
-  def categories
-    category.split(',').map(&:squish)
-  end
-
-  def features
-    feature.split(',').map(&:squish)
-  end
-
-  def offers
-    offer.split(',').map(&:squish)
-  end
-
-  def cuisines
-    cuisine.split(',').map(&:squish)
-  end
-
   delegate :rating, :to => :organization, :prefix => true
   searchable do
     facets.each do |facet|
@@ -53,6 +37,20 @@ class Meal < ActiveRecord::Base
   end
 
   include Rating
+
+  include PresentsAsCheckboxes
+
+  presents_as_checkboxes :category,
+    :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_category).rows.map(&:value).map(&:mb_chars).map(&:capitalize).map(&:to_s) }
+
+  presents_as_checkboxes :cuisine,
+    :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_cuisine).rows.map(&:value).map(&:mb_chars).map(&:capitalize).map(&:to_s) }
+
+  presents_as_checkboxes :feature,
+    :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_feature).rows.map(&:value) }
+
+  presents_as_checkboxes :offer,
+    :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_offer).rows.map(&:value) }
 end
 
 # == Schema Information

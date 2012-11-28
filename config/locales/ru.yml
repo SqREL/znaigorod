@@ -610,12 +610,16 @@ ru:
 
       meal:
         category: Категория
+        category_list: Категория
         cuisine: Кухня
+        cuisine_list: Кухня
+        description: Описание
         feature: Особенности
+        feature_list: Особенности
         offer: Предложение
+        offer_list: Предложение
         payment: Способы оплаты
         title: Название
-        description: Описание
 
       entertainment:
         category: Категория

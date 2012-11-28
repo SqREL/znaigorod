@@ -1,7 +1,6 @@
 <%= f.input :title %>
 <%= f.input :description %>
-<%= f.input :category %>
-<%= f.input :cuisine %>
-<%= f.input :feature %>
-<%= f.input :offer %>
-<%= f.input :payment %>
+<%= f.input :category_list, :as => :check_boxes, :collection => f.object.available_categories, :checked => f.object.categories %>
+<%= f.input :cuisine_list, :as => :check_boxes, :collection => f.object.available_cuisines, :checked => f.object.cuisines %>
+<%= f.input :feature_list, :as => :check_boxes, :collection => f.object.available_features, :checked => f.object.features %>
+<%= f.input :offer_list, :as => :check_boxes, :collection => f.object.available_offers, :checked => f.object.offers %>

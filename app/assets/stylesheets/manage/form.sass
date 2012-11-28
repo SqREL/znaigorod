@@ -18,6 +18,31 @@
       input, textarea, select
         border-color: #F37447 !important
 
+    div.boolean
+      label.boolean
+        width: 198px
+
+        input
+          float: right
+          margin: 0 0 0 15px
+
+    div.check_boxes
+      width: 798px
+
+      label.check_boxes
+        margin: 0 100% 0 0
+
+      .checkbox
+        +clearfix
+        display: block
+        margin: 5px 0 5px 170px
+        width: 160px
+
+        input
+          float: right
+          margin: 0 0 0 10px
+          width: auto
+
     .input
       +clearfix
       margin: 0 0 15px 0
@@ -58,9 +83,14 @@
 
       #organization_description, #movie_description, #concert_description, #exhibition_description, #other_description,
       #party_description, #spectacle_description, #sports_event_description, #movie_trailer_code, #entertainment_feature,
-      #entertainment_offer, #meal_feature, #meal_offer, #image_description, #attachment_description, #culture_feature, #culture_offer
-        width: 75%
+      #entertainment_offer, #meal_feature, #meal_offer, #image_description, #attachment_description, #culture_feature,
+      #culture_offer
         height: 400px
+        width: 75%
+
+      #meal_description
+        height: 250px
+        width: 75%
 
       #organization_comment
         width: 75%
