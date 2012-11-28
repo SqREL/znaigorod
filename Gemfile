@@ -3,7 +3,7 @@ source :rubygems
 group :assets do
   gem 'coffee-rails'
   gem 'compass-rails'
-  gem 'jquery-rails'
+  gem 'jquery-rails', '2.0.3'
   gem 'sass-rails'
   gem 'therubyracer',                                 :platform => :ruby
   gem 'uglifier'
@@ -34,7 +34,7 @@ group :default do
   gem 'simple-navigation'
   gem 'simple_form'
   gem 'sitemap_generator'
-  gem 'sunspot_rails'
+  gem 'sunspot_rails', '2.0.0.pre.120925'
   gem 'text-hyphen'
   gem 'timecop',                                      :require => false
   gem 'vkontakte_api',                                :require => false
@@ -46,7 +46,7 @@ group :development do
   gem 'rvm-capistrano'
   gem 'hirb'
   gem 'rails-erd'
-  gem 'sunspot_solr'
+  gem 'sunspot_solr', '2.0.0.pre.120925'
 end
 
 group :test do
