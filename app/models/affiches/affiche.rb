@@ -137,6 +137,10 @@ class Affiche < ActiveRecord::Base
     @text_description ||= html_description.as_text
   end
 
+  def premiere?
+    false
+  end
+
   private
 
   def affiche_schedule_attributes_blank?(attributes)
@@ -204,9 +208,6 @@ class Affiche < ActiveRecord::Base
     self.popularity = 0.3 * yandex_metrika_page_views + vkontakte_likes
   end
 
-  def premiere?
-    false
-  end
 end
 
 # == Schema Information

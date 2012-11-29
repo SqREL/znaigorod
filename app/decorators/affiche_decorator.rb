@@ -17,7 +17,7 @@ class AfficheDecorator < ApplicationDecorator
   end
 
   def has_ribbon
-    h.content_tag(:div, h.content_tag(:div, "Премьера недели", class: :ribbon), class: :ribbon_wrapper) if premiere?
+    h.content_tag(:div, h.content_tag(:div, "Премьера недели", class: :ribbon), class: :ribbon_wrapper) if affiche.premiere?
   end
 
   def kind
