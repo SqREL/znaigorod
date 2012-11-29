@@ -123,10 +123,9 @@ GEM
     json (1.7.5)
     jwt (0.1.5)
       multi_json (>= 1.0)
-    kaminari (0.13.0)
+    kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-      railties (>= 3.0.0)
     kgio (2.7.4)
     libv8 (3.3.10.4)
     mail (2.4.4)
@@ -300,7 +299,7 @@ DEPENDENCIES
   hirb
   inherited_resources!
   jquery-rails (= 2.0.3)
-  kaminari (= 0.13.0)
+  kaminari
   nested_form
   openteam-commons
   pg
