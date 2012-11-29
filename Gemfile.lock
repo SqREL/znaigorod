@@ -316,7 +316,7 @@ DEPENDENCIES
   sitemap_generator
   sqlite3
   sunspot_matchers
-  sunspot_rails (= 2.0.0.pre.120925)
+  sunspot_rails
   sunspot_solr (= 2.0.0.pre.120925)
   text-hyphen
   therubyracer

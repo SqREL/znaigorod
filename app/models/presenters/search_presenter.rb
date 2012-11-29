@@ -19,11 +19,15 @@ class SearchPresenter
     @collection ||= searcher.paginate(page: page, per_page: 10)
   end
 
+  def paginated_collection
+    collection.results
+  end
+
   def hits
     HitDecorator.decorate(collection.hits).select { |h| !h.organization? || h.raw_suborganization }
   end
 
   def hits?
-    !collection.total.zero?
+    collection.any?
   end
 end

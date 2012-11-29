@@ -34,7 +34,7 @@ group :default do
   gem 'simple-navigation'
   gem 'simple_form'
   gem 'sitemap_generator'
-  gem 'sunspot_rails', '2.0.0.pre.120925'
+  gem 'sunspot_rails'
   gem 'text-hyphen'
   gem 'timecop',                                      :require => false
   gem 'vkontakte_api',                                :require => false
