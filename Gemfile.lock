@@ -300,7 +300,7 @@ DEPENDENCIES
   hirb
   inherited_resources!
   jquery-rails (= 2.0.3)
-  kaminari
+  kaminari (= 0.13.0)
   nested_form
   openteam-commons
   pg
