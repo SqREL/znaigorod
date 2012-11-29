@@ -17,14 +17,14 @@ group :default do
   gem 'curb',                                         :require => false
   gem 'default_value_for'
   gem 'draper'
-  gem 'friendly_id'
   gem 'el_vfs_client'
+  gem 'friendly_id'
   gem 'gilenson'
   gem 'has_scope'
   gem 'has_searcher'
   gem 'hashie'
   gem 'inherited_resources',                          :git => 'git://github.com/DouweM/inherited_resources', :branch => 'nested-singletons' # NOTE: https://github.com/josevalim/inherited_resources/pull/194
-  gem 'kaminari'
+  gem 'kaminari', '0.13.0'
   gem 'nested_form'
   gem 'openteam-commons'
   gem 'pg',                                           :require => false
