@@ -105,18 +105,27 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def schedule_today
+    klass = "schedule_today "
     content = "Сегодня "
     wday = Time.zone.today.wday
     wday = 7 if wday == 0
     schedule = organization.schedules.find_by_day(wday)
-    content += if schedule.holiday?
-                 "выходной"
-               elsif schedule.from == schedule.to
-                 "работает круглосуточно"
-               else
-                 "работает с #{I18n.l(schedule.from, :format => "%H:%M")} до #{I18n.l(schedule.to, :format => "%H:%M")}"
-               end
-    h.content_tag(:div, content, class: :schedule_today) unless content.blank?
+    if schedule.holiday?
+      content << "выходной"
+    elsif schedule.from == schedule.to
+      content << "работает круглосуточно"
+      klass << "twenty_four"
+    else
+      content << "работает с #{I18n.l(schedule.from, :format => "%H:%M")} до #{I18n.l(schedule.to, :format => "%H:%M")}"
+      now = Time.zone.now
+      time = Time.utc(2000, "jan", 1, now.hour, now.min)
+      if time.between?(schedule.from, schedule.to)
+        klass << "opened"
+      else
+        klass << "closed"
+      end
+    end
+    h.content_tag(:div, content, class: klass) unless content.blank?
   end
 
   def link_to_priority_category

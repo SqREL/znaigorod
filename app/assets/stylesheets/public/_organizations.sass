@@ -148,8 +148,22 @@
 
           .schedule_today
             margin-bottom: 5px
-            font-size: 11px
+            &.twenty_four
+              line-height: 2
+              background: transparent image_url('public/organization_twenty_four.png') no-repeat left
+              padding-left: 57px
+            &.opened
+              line-height: 2
+              background: transparent image_url('public/organization_opened.png') no-repeat left
+              padding-left: 57px
+            &.closed
+              line-height: 2
+              background: transparent image_url('public/organization_closed.png') no-repeat left
+              padding-left: 57px
+
+          .schedule_today,
           .contacts
+            line-height: 1.2
             font-size: 11px
 
   .organizations_filter

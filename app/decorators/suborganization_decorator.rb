@@ -14,12 +14,11 @@ class SuborganizationDecorator < ApplicationDecorator
   end
 
   def contacts
-    content = ""
-    content << phone unless phone.blank?
-    content << ", " unless content.blank? || site_link.blank?
+    content = []
+    content << phone.squish unless phone.blank?
+    content << email_link unless email_link.blank?
     content << site_link unless site_link.blank?
-    content = "Контакты: #{content}" unless content.blank?
-    h.content_tag(:div, content.html_safe, class: :contacts) unless content.blank?
+    h.content_tag(:div, content.join(", ").html_safe, class: :contacts) unless content.blank?
   end
 
   def snipped_links
