@@ -196,7 +196,7 @@ class OrganizationsCollection
   end
 
   def paginated_suborganizations
-     self.send("#{organization_class}_searcher", list_search_params).paginate(:page => page, :per_page => 5).results
+     self.send("#{organization_class}_searcher", list_search_params).paginate(:page => page, :per_page => 10).results
   end
 
   def view

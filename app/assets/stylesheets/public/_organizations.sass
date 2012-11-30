@@ -98,35 +98,46 @@
         +clearfix
         .image
           float: left
-          width: 180px
-          height: 180px
+          width: 100px
+          height: 100px
           margin: 0 10px 5px 0
           img
-            width: 180px
-            height: 180px
+            width: 100px
+            height: 100px
         .info
-          +schedule_styles
+          +clearfix
           .categories
             +clearfix
-            float: right
             font-size: 11px
-            width: 160px
+            float: right
+            margin-left: 10px
             li
               float: right
+              clear: right
               background-color: #70398a
               +border-radius(3px)
               padding: 2px 3px 4px
-              margin: 0 0 5px 10px
+              margin: 0 0 5px 0
             a
               color: #fff
 
           h2
-            font-size: 22px
+            font-size: 18px
             line-height: 1.4
-            margin-bottom: 15px
+            margin-bottom: 5px
+
+          .snipped_links
+            +clearfix
+            margin-bottom: 5px
+            li
+              font-size: 14px
+              float: left
+              line-height: 1.4
+              margin: 0 10px 0 0
+              padding: 0
 
           .place
-            margin-bottom: 15px
+            margin-bottom: 10px
             font-weight: bold
             line-height: 1.4
             a
@@ -134,36 +145,12 @@
               height: 16px
               padding-left: 13px
               background: transparent image_url('public/address.png') no-repeat -3px 0
+
+          .schedule_today
+            margin-bottom: 5px
+            font-size: 11px
           .contacts
-            table
-              width: 465px
-              padding-bottom: 20px
-              &.full
-                width: 100%
-              tr:nth-child(odd) td
-                background-color: #e8e0eb
-              tr td:first-child
-                width: 100px
-                white-space: nowrap
-                font-weight: bold
-                &:first-letter
-                  text-transform: uppercase
-              td
-                line-height: 1.4
-                padding: 2px 4px
-          hr
-            border: none
-            border-bottom: 1px dotted #948f96
-            padding: 0
-            margin: 10px 0 0 0
-          .description
-            line-height: 1.4
-            margin-top: 10px
-            .more
-              font-size: 11px
-              text-align: right
-          .characteristics
-            +characteristics_style
+            font-size: 11px
 
   .organizations_filter
     float: left

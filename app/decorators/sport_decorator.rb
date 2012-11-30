@@ -8,7 +8,7 @@ class SportDecorator < SuborganizationDecorator
   end
 
   def characteristics_on_show
-
+    return "" if services.blank?
     content = "<tr>" +
               "<th>Предложения</th>" +
               "<th>Возраст</th>" +

@@ -13,7 +13,7 @@ class OrganizationDecorator < ApplicationDecorator
 
   def logo_link
     if organization.logotype_url?
-      h.link_to image_tag(organization.logotype_url, 180, 180, organization.title.text_gilensize), h.organization_path(organization)
+      h.link_to image_tag(organization.logotype_url, 100, 100, organization.title.text_gilensize), h.organization_path(organization)
     end
   end
 
@@ -35,11 +35,11 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def email_link
-    h.mail_to email
+    h.mail_to email.squish unless email.blank?
   end
 
   def site_link
-    h.link_to site.squish, site.squish, rel: "nofollow", target: "_blank"
+    h.link_to site.squish, site.squish, rel: "nofollow", target: "_blank" unless site.blank?
   end
 
   # FIXME: грязный хак ;(
@@ -102,6 +102,21 @@ class OrganizationDecorator < ApplicationDecorator
       content << h.content_tag(:li, (day + schedule_content).html_safe, class: I18n.l(Date.today, :format => '%a') == schedule.short_human_day ? 'today' : nil)
     end
     h.content_tag(:ul, content.html_safe, class: :schedule)
+  end
+
+  def schedule_today
+    content = "Сегодня "
+    wday = Time.zone.today.wday
+    wday = 7 if wday == 0
+    schedule = organization.schedules.find_by_day(wday)
+    content += if schedule.holiday?
+                 "выходной"
+               elsif schedule.from == schedule.to
+                 "работает круглосуточно"
+               else
+                 "работает с #{I18n.l(schedule.from, :format => "%H:%M")} до #{I18n.l(schedule.to, :format => "%H:%M")}"
+               end
+    h.content_tag(:div, content, class: :schedule_today) unless content.blank?
   end
 
   def link_to_priority_category

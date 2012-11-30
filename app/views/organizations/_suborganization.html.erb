@@ -13,76 +13,13 @@
 
   <h2><%= suborganization.title_link %></h2>
 
+  <%= suborganization.snipped_links %>
+
   <%= content_tag :div, suborganization.address_link, :class => "place" unless suborganization.address_link.blank? %>
 
-  <div class="contacts">
-    <table<%= raw(" class='full'") if suborganization.logo_link.blank? %>>
-      <% if suborganization.phone.present? %>
-        <tr>
-          <td>Телефон:</td>
-          <td><%= suborganization.phone %></td>
-        </tr>
-      <% end %>
-      <% if suborganization.site.present? %>
-        <tr>
-          <td>Сайт:</td>
-          <td><%= suborganization.site_link %></td>
-        </tr>
-      <% end %>
-      <% if suborganization.email.present? %>
-        <tr>
-          <td>E-mail:</td>
-          <td><%= suborganization.email_link %></td>
-        </tr>
-      <% end %>
-      <tr>
-        <td>Режим работы:</td>
-        <td>
-          <ul class="schedule">
-            <% suborganization.schedules.each do |schedule| %>
-              <li<%= raw(" class='today'") if l(Date.today, :format => '%a') == schedule.short_human_day %>>
-                <div class="dow">
-                  <%= schedule.short_human_day %>
-                </div>
-                <div class="time">
-                  <% if schedule.holiday? %>
-                    <div class="string"><%= "Выходной".hyphenate %></div>
-                  <% else %>
-                    <% if schedule.from == schedule.to %>
-                      <div class="string"><%= "Круглосуточно".hyphenate %></div>
-                    <% else %>
-                      <div class="from">
-                        <%= l schedule.from, :format => "%H:%M" %>
-                      </div>
-                      <div class="to">
-                        <%= l schedule.to, :format => "%H:%M" %>
-                      </div>
-                    <% end %>
-                  <% end %>
-                </div>
-              </li>
-            <% end %>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td>Парковка:</td>
-        <td><%= suborganization.stand_info %></td>
-      </tr>
-    </table>
-  </div>
+  <%= suborganization.schedule_today %>
 
-  <%= content_tag :hr unless suborganization.truncated_description.blank? %>
+  <%= suborganization.contacts %>
 
-  <% unless suborganization.truncated_description.blank? %>
-    <div class="description">
-      <%= suborganization.truncated_description %>
-      <p class="more"><%= link_to "Подробнее&hellip;".html_safe, organization_path(suborganization.organization) %></p>
-    </div>
-  <% end %>
-
-  <%= content_tag :hr unless suborganization.characteristics_on_list.blank? %>
-
-  <%= suborganization.characteristics_on_list %>
 
 </div>

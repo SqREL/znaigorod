@@ -1,7 +1,6 @@
 @init_move_to_top = () ->
   link = $("a.move_to_top")
 
-
   barrier = link.prev("div").outerHeight(true, true) + 100
 
   link.css
@@ -15,11 +14,21 @@
 
   $(window).scroll ->
     if link.is(":hidden") && $(this).scrollTop() > barrier
-      link.fadeIn()
+      link.fadeTo('fast', 0.5)
     if link.is(":visible") && $(this).scrollTop() < barrier
-      link.fadeOut()
+      link.fadeOut('fast')
+
+  link.hover ->
+    $(this).css
+      opacity: 1
+    true
+  , ->
+    $(this).css
+      opacity: 0.5
+    true
 
   link.click (event) ->
     window.scrollTo(0, 0)
     false
+
   true

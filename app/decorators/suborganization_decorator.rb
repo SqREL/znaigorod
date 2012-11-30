@@ -1,14 +1,37 @@
+# encoding: utf-8
+
 class SuborganizationDecorator < ApplicationDecorator
   def decorated_organization
     OrganizationDecorator.decorate organization
   end
 
   delegate :logo_link, :title_link, :address_link, :html_description,
-    :truncated_description, :site_link, :email_link, :stand_info,
+    :truncated_description, :site_link, :email_link, :stand_info, :schedule_today,
     :to => :decorated_organization
 
   def decorated_title
     h.content_tag :h3, title, class: :suborganization if title?
+  end
+
+  def contacts
+    content = ""
+    content << phone unless phone.blank?
+    content << ", " unless content.blank? || site_link.blank?
+    content << site_link unless site_link.blank?
+    content = "Контакты: #{content}" unless content.blank?
+    h.content_tag(:div, content.html_safe, class: :contacts) unless content.blank?
+  end
+
+  def snipped_links
+    links = []
+    %w(photogallery tour affiche).each do |method|
+      links << Link.new(
+        title: I18n.t("organization.#{method}"),
+        url: h.send("#{method}_organization_path", organization)
+      ) if self.decorated_organization.send("has_#{method}?")
+    end
+    return "" if links.empty?
+    h.content_tag :ul, links.map {|l| h.content_tag :li, l.to_s}.join("\n").html_safe, class: :snipped_links
   end
 
   def decorated_description
