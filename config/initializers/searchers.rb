@@ -140,7 +140,8 @@ HasSearcher.create_searcher :actual_organization do
   property :culture_offer
 
   scope do
-    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
+    #adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
+    order_by(:organization_rating, :desc)
   end
 end
 
@@ -153,7 +154,8 @@ HasSearcher.create_searcher :meal do
   property :meal_cuisine
 
   scope do
-    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
+    #adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
+    order_by(:organization_rating, :desc)
 
     facet(:meal_category)
     facet(:meal_feature)
@@ -171,7 +173,8 @@ HasSearcher.create_searcher :entertainment do
   property :entertainment_type
 
   scope do
-    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
+    #adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
+    order_by(:organization_rating, :desc)
 
     facet(:entertainment_category)
     facet(:entertainment_feature)
@@ -187,7 +190,8 @@ HasSearcher.create_searcher :culture do
   property :culture_offer
 
   scope do
-    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_fs}*:*" }
+    #adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_fs}*:*" }
+    order_by(:organization_rating, :desc)
 
     facet(:culture_category)
     facet(:culture_feature)
@@ -202,7 +206,8 @@ HasSearcher.create_searcher :sport do
   property :sport_feature
 
   scope do
-    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
+    #adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
+    order_by(:organization_rating, :desc)
 
     facet(:sport_category)
     facet(:sport_feature)
@@ -216,7 +221,8 @@ HasSearcher.create_searcher :creation do
   property :creation_feature
 
   scope do
-    adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
+    #adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
+    order_by(:organization_rating, :desc)
 
     facet(:creation_category)
     facet(:creation_feature)
