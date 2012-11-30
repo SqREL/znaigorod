@@ -40,9 +40,8 @@ class OrganizationsCollection
   end
 
   def kind_links
-    hidden_elements = %w[Creation] # FIXME remove when not needed
     {}.tap do |links|
-      self.class.kinds.map(&:name).delete_if{|name| hidden_elements.include?(name)}.map(&:downcase).each do |klass|
+      self.class.kinds.map(&:name).map(&:downcase).each do |klass|
         links[Link.new(title: I18n.t("organization.kind.#{klass}"), url: organizations_path(organization_class: klass.pluralize))] = self.send("#{klass}_categories_links")
       end
     end
