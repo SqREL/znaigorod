@@ -119,7 +119,10 @@ class OrganizationDecorator < ApplicationDecorator
       content << "работает с #{I18n.l(schedule.from, :format => "%H:%M")} до #{I18n.l(schedule.to, :format => "%H:%M")}"
       now = Time.zone.now
       time = Time.utc(2000, "jan", 1, now.hour, now.min)
-      if time.between?(schedule.from, schedule.to)
+      from = schedule.from
+      to = schedule.to
+      to = to + 1.day if to.hour < 12
+      if time.between?(from, to)
         klass << "opened"
       else
         klass << "closed"
