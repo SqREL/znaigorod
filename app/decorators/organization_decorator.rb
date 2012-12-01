@@ -112,6 +112,7 @@ class OrganizationDecorator < ApplicationDecorator
     schedule = organization.schedules.find_by_day(wday)
     if schedule.holiday?
       content << "выходной"
+      klass << "closed"
     elsif schedule.from == schedule.to
       content << "работает круглосуточно"
       klass << "twenty_four"
