@@ -1,8 +1,5 @@
 module Rating
-  def self.included(base)
-    base.extend ClassMethods
-    base.send :include, InstanceMethods
-  end
+  extend ActiveSupport::Concern
 
   module ClassMethods
     attr_accessor :association_names
@@ -12,22 +9,20 @@ module Rating
     end
   end
 
-  module InstanceMethods
-    def own_rating
-      attribute_names.inject(0) { |sum, attribute| sum += 1 if send("#{attribute}?"); sum } / attribute_names.count.to_f
-    end
+  def own_rating
+    attribute_names.inject(0) { |sum, attribute| sum += 1 if send("#{attribute}?"); sum } / attribute_names.count.to_f
+  end
 
-    def association_ratings
-      self.class.association_names.map { |association_name|
-        [*(send association_name)].inject(0) { |sum, obj| sum += obj.summary_rating if obj.respond_to?(:summary_rating); sum }
-      }.sum
-    end
+  def association_ratings
+    self.class.association_names.map { |association_name|
+      [*(send association_name)].inject(0) { |sum, obj| sum += obj.summary_rating if obj.respond_to?(:summary_rating); sum }
+    }.sum
+  end
 
-    def summary_rating
-      result = own_rating
-      result += association_ratings if self.class.association_names
+  def summary_rating
+    result = own_rating
+    result += association_ratings if self.class.association_names
 
-      result
-    end
+    result
   end
 end

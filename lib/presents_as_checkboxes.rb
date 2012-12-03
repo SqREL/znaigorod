@@ -28,7 +28,4 @@ module PresentsAsCheckboxes
       end
     end
   end
-
-  module InstanceMethods
-  end
 end
