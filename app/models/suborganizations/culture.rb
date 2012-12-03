@@ -11,6 +11,9 @@ class Culture < ActiveRecord::Base
 
   validates_presence_of :category, :organization_id
 
+  delegate :save, to: :organization, prefix: true
+  after_save :organization_save
+
   def self.or_facets
     %w[category]
   end

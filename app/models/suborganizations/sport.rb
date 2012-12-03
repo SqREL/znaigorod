@@ -5,14 +5,16 @@ class Sport < ActiveRecord::Base
 
   has_many :services, :as => :context, :dependent => :destroy, :order => 'id'
 
-  accepts_nested_attributes_for :services, :reject_if => :all_blank, :allow_destroy =>  true
-
   delegate :images, :address, :phone, :schedules, :halls,
            :site?, :site, :email?, :email, :affiches,
            :latitude, :longitude, :nearest_affiches, :to => :organization
 
-  delegate :touch, :title, :description, :description?, :to => :organization, :prefix => true
-  after_save :organization_touch
+  delegate :title, :description, :description?, :to => :organization, :prefix => true
+
+  accepts_nested_attributes_for :services, :reject_if => :all_blank, :allow_destroy =>  true
+
+  delegate :save, to: :organization, prefix: true
+  after_save :organization_save
 
   def self.or_facets
     %w[category]

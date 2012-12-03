@@ -7,11 +7,12 @@ class Meal < ActiveRecord::Base
            :site?, :site, :email?, :email, :affiches,
            :latitude, :longitude, :nearest_affiches, :to => :organization
 
-  delegate :title, :description, :description?, :touch, to: :organization, prefix: true
+  delegate :title, :description, :description?, to: :organization, prefix: true
 
   validates_presence_of :category, :organization_id
 
-  after_save :organization_touch
+  delegate :save, to: :organization, prefix: true
+  after_save :organization_save
 
   def self.facets
     %w[category payment cuisine feature offer]

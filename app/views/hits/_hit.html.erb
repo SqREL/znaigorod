@@ -16,7 +16,7 @@
 <% if Rails.env.development? %>
   <div class='debug'>
     <%= hit.score %> |
-    <%= hit.result.popularity if hit.result.respond_to? :popularity %>
+    <%= hit.result.popularity if hit.result.respond_to? :popularity %> |
     <%= hit.result.rating if hit.result.respond_to? :rating %>
   </div>
 <% end %>
