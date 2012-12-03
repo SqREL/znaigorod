@@ -3,10 +3,8 @@ class Movie < Affiche
 
   before_save :set_wmode_for_trailer
 
-  scope :premieres, where('distribution_starts_on >= ? AND distribution_starts_on <= ?', Date.today.beginning_of_week, Date.today.end_of_week)
-
   def premiere?
-    self.class.premieres.include?(self)
+    distribution_starts_on && distribution_starts_on >= Date.today.beginning_of_week && distribution_starts_on <= Date.today.end_of_week
   end
 
   private
