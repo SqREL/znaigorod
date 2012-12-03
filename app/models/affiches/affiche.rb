@@ -205,7 +205,7 @@ class Affiche < ActiveRecord::Base
   end
 
   def set_popularity
-    self.popularity = 0.3 * yandex_metrika_page_views + vkontakte_likes
+    self.popularity = 0.3 * yandex_metrika_page_views.to_f + vkontakte_likes.to_f
   end
 
 end

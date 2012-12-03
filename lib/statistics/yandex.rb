@@ -7,13 +7,10 @@ module Statistics
       puts 'Updating affiches...'
 
       slugs_with_page_views.each do |slug, page_views|
-        affiche = Affiche.find_by_slug(slug)
         pb.increment!
+        affiche = Affiche.find_by_slug(slug)
 
-        unless affiche
-          puts "Affiche with slug #{slug} not found"
-          next
-        end
+        next unless affiche
 
         affiche.yandex_metrika_page_views = page_views
         affiche.save!
@@ -72,7 +69,11 @@ module Statistics
       response_hash.data.
         select { |h| h.url =~ /(concert|exhibition|movie|other|party|spectacle|sportsevent)\// }.tap { |hash|
           hash.each do |e|
-            e.url = remove_anchor(e.url)
+            url = remove_anchor(e.url)
+
+            next unless Affiche.with_showings.find_by_slug(slug_from(url))
+
+            e.url = url
             e.page_views = e.page_views.to_i
           end
         }

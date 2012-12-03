@@ -10,16 +10,12 @@ module Statistics
       puts 'Updating affiches...'
 
       likes_with_slugs.each do |e|
+        pb.increment!
         affiche = Affiche.find_by_slug(e.slug)
 
-        unless affiche
-          puts "Affiche with slug #{e.slug} not found"
-          next
-        end
+        next unless affiche
 
-        puts "Affiche with slug #{e.slug} has #{e.likes} likes"
         affiche.update_attribute :vkontakte_likes, e.likes
-        pb.increment!
       end
     end
 
@@ -51,11 +47,10 @@ module Statistics
 
         pb = ProgressBar.new(urls.count)
         urls.each do |url|
+          pb.increment!
           slug = url.split('/').last
           likes = likes_for(url)
-
           array << Hashie::Mash.new(slug: slug, likes: likes) unless likes.zero?
-          pb.increment!
         end
       }
     end
