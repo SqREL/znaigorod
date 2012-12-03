@@ -79,6 +79,10 @@ class OrganizationsCollection
     query_to_hash['cuisines'] || []
   end
 
+  def stuffs
+    query_to_hash['stuffs'] || []
+  end
+
   def keywords
     filter_groups.map(&:pluralize)
   end
@@ -100,11 +104,13 @@ class OrganizationsCollection
 
   def subtitle
     return title if category == 'all'
+
     category
   end
 
   def filter_groups
     groups = []
+    groups << 'stuff'
     groups << 'category' if category == 'all'
     groups << 'cuisine' if organization_class == 'meal'
     groups << 'offer' unless %w[sport creation].include?(organization_class)
@@ -121,6 +127,7 @@ class OrganizationsCollection
 
   def category_search_params
     return {} if category == 'all'
+
     { "#{organization_class}_category" => [category] }
   end
 
@@ -186,6 +193,16 @@ class OrganizationsCollection
             url: filter_link_url(feature: value),
             html_options: { :class => (features.include?(value) ? 'selected' : nil) },
             disabled: !existed_features.include?(value)}
+  end
+
+  def stuff_filters
+    existed_stuffs = self.send("#{organization_class}_searcher", list_search_params).facet("#{organization_class}_stuff").rows.map(&:value)
+    self.send("#{organization_class}_searcher", category_search_params).facet("#{organization_class}_stuff").rows.map(&:value).map { |value|
+      Link.new title: value,
+        url: filter_link_url(stuff: value),
+        html_options: { :class => (stuffs.include?(value) ? 'selected' : nil)},
+        disabled:  !existed_stuffs.include?(value)
+    }
   end
 
   def decorator_class

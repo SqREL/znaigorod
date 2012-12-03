@@ -152,6 +152,7 @@ HasSearcher.create_searcher :meal do
   property :meal_feature
   property :meal_offer
   property :meal_cuisine
+  property :meal_stuff
 
   scope do
     #adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
@@ -161,6 +162,7 @@ HasSearcher.create_searcher :meal do
     facet(:meal_feature)
     facet(:meal_offer)
     facet(:meal_cuisine)
+    facet(:meal_stuff)
   end
 end
 

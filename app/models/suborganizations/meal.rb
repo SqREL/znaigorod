@@ -15,7 +15,7 @@ class Meal < ActiveRecord::Base
   after_save :organization_save
 
   def self.facets
-    %w[category payment cuisine feature offer]
+    %w[category payment cuisine feature offer stuff]
   end
 
   def self.or_facets
@@ -24,6 +24,16 @@ class Meal < ActiveRecord::Base
 
   def self.facet_field(facet)
     "#{model_name.underscore}_#{facet}"
+  end
+
+  def stuff
+    stuffs = [].tap do |array|
+      array << I18n.t('suborganizations.with_3d_tour') if organization.tour_link?
+      array << I18n.t('suborganizations.with_site')    if organization.site?
+      array << I18n.t('suborganizations.with_images')  if organization.images.any?
+    end
+
+    stuffs.join(', ')
   end
 
   delegate :rating, :to => :organization, :prefix => true
