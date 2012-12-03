@@ -67,17 +67,17 @@ class Photogallery
 
   private
 
-  def key_words
+  def keywords
     %w[categories tags]
   end
 
   def query_to_hash
     {}.tap do |hash|
-      key_word = ''
+      keyword = ''
 
       query.split('/').each do |word|
-        key_word = word and hash[word] ||= [] and next if key_words.include?(word)
-        hash[key_word] << word
+        keyword = word and hash[keyword] ||= [] and next if keywords.include?(word)
+        hash[keyword] << word
       end
     end
   end

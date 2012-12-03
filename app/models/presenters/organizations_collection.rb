@@ -9,10 +9,12 @@ class OrganizationsCollection
 
   def initialize(params)
     super(params)
-    @organization_class ||= 'organizations'
-    @organization_class = @organization_class.singularize
+
     @category ||= 'all'
     @category = @category.mb_chars.downcase
+    @organization_class ||= 'organizations'
+    @organization_class = @organization_class.singularize
+    @query ||= ''
   end
 
   def self.kinds
@@ -62,32 +64,32 @@ class OrganizationsCollection
   end
 
   def categories
-    parameters['categories'] || []
+    query_to_hash['categories'] || []
   end
 
   def features
-    parameters['features'] || []
+    query_to_hash['features'] || []
   end
 
   def offers
-    parameters['offers'] || []
+    query_to_hash['offers'] || []
   end
 
   def cuisines
-    parameters['cuisines'] || []
+    query_to_hash['cuisines'] || []
   end
 
-  def parameters
-    return {} if query.blank?
-    {}.tap do |parameters|
-      filter = ""
-      query.split("/").each do |param|
-        if filter_groups.include?(param.singularize)
-          filter = param
-          parameters[filter] = []
-          next
-        end
-        parameters[filter] << param if parameters[filter]
+  def keywords
+    filter_groups.map(&:pluralize)
+  end
+
+  def query_to_hash
+    {}.tap do |hash|
+      keyword = ''
+
+      query.split('/').each do |word|
+        keyword = word and hash[keyword] ||= [] and next if keywords.include?(word)
+        hash[keyword] << word
       end
     end
   end
@@ -123,7 +125,7 @@ class OrganizationsCollection
   end
 
   def list_search_params
-    category_search_params.merge(Hash[parameters.map do |key, value| ["#{organization_class}_#{key.singularize}", value] end ])
+    category_search_params.merge(Hash[query_to_hash.map do |key, value| ["#{organization_class}_#{key.singularize}", value] end ])
   end
 
   def filter_link_url(params)
