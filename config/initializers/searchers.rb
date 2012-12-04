@@ -173,6 +173,7 @@ HasSearcher.create_searcher :entertainment do
   property :entertainment_feature
   property :entertainment_offer
   property :entertainment_type
+  property :entertainment_stuff
 
   scope do
     #adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
@@ -181,6 +182,7 @@ HasSearcher.create_searcher :entertainment do
     facet(:entertainment_category)
     facet(:entertainment_feature)
     facet(:entertainment_offer)
+    facet(:entertainment_stuff)
   end
 end
 
@@ -190,6 +192,7 @@ HasSearcher.create_searcher :culture do
   property :culture_category
   property :culture_feature
   property :culture_offer
+  property :culture_stuff
 
   scope do
     #adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_fs}*:*" }
@@ -198,6 +201,7 @@ HasSearcher.create_searcher :culture do
     facet(:culture_category)
     facet(:culture_feature)
     facet(:culture_offer)
+    facet(:culture_stuff)
   end
 end
 
@@ -206,6 +210,7 @@ HasSearcher.create_searcher :sport do
 
   property :sport_category
   property :sport_feature
+  property :sport_stuff
 
   scope do
     #adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
@@ -213,6 +218,7 @@ HasSearcher.create_searcher :sport do
 
     facet(:sport_category)
     facet(:sport_feature)
+    facet(:sport_stuff)
   end
 end
 
@@ -221,6 +227,7 @@ HasSearcher.create_searcher :creation do
 
   property :creation_category
   property :creation_feature
+  property :creation_stuff
 
   scope do
     #adjust_solr_params { |params| params[:q] = "{!boost b=organization_rating_f}*:*" }
@@ -228,6 +235,7 @@ HasSearcher.create_searcher :creation do
 
     facet(:creation_category)
     facet(:creation_feature)
+    facet(:creation_stuff)
   end
 end
 

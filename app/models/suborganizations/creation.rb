@@ -16,18 +16,6 @@ class Creation < ActiveRecord::Base
   delegate :save, to: :organization, prefix: true
   after_save :organization_save
 
-  def self.or_facets
-    %w[category]
-  end
-
-  def self.facets
-    %w[category feature]
-  end
-
-  def self.facet_field(facet)
-    "#{model_name.underscore}_#{facet}"
-  end
-
   def category
     services.pluck(:category).compact.uniq.join(', ')
   end
@@ -44,18 +32,11 @@ class Creation < ActiveRecord::Base
     feature.split(',').map(&:squish).uniq
   end
 
-  delegate :rating, :to => :organization, :prefix => true
-  searchable do
-    facets.each do |facet|
-      text facet
-      string(facet_field(facet), :multiple => true) { self.send(facet).to_s.split(',').map(&:squish).map(&:mb_chars).map(&:downcase) }
-      latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
-    end
-
-    float :organization_rating
-  end
-
   include Rating
+
+  include SearchWithFacets
+
+  search_with_facets :category, :feature, :stuff
 end
 
 # == Schema Information

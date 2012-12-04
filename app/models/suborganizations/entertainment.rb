@@ -14,30 +14,6 @@ class Entertainment < ActiveRecord::Base
   delegate :save, to: :organization, prefix: true
   after_save :organization_save
 
-  def self.or_facets
-    %w[category]
-  end
-
-  def self.facets
-    %w[category payment feature offer]
-  end
-
-  def self.facet_field(facet)
-    "#{model_name.underscore}_#{facet}"
-  end
-
-  delegate :rating, :to => :organization, :prefix => true
-  searchable do
-    facets.each do |facet|
-      text facet
-      string(facet_field(facet), :multiple => true) { self.send(facet).to_s.split(',').map(&:squish).map(&:mb_chars).map(&:downcase) }
-      latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
-    end
-
-    float :organization_rating
-    string(:entertainment_type) { self.type }
-  end
-
   include Rating
 
   include PresentsAsCheckboxes
@@ -50,6 +26,10 @@ class Entertainment < ActiveRecord::Base
 
   presents_as_checkboxes :offer,
     :available_values => -> { HasSearcher.searcher(:entertainment).facet(:entertainment_offer).rows.map(&:value) }
+
+  include SearchWithFacets
+
+  search_with_facets :category, :payment, :feature, :offer, :stuff
 end
 
 # == Schema Information

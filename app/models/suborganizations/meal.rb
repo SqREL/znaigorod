@@ -3,9 +3,9 @@ class Meal < ActiveRecord::Base
 
   belongs_to :organization
 
-  delegate :images, :address, :phone, :schedules, :halls,
-           :site?, :site, :email?, :email, :affiches,
-           :latitude, :longitude, :nearest_affiches, :to => :organization
+  delegate :address, :phone, :schedules, :halls, :site?, :site,
+    :email?, :email, :affiches, :nearest_affiches,
+    to: :organization
 
   delegate :title, :description, :description?, to: :organization, prefix: true
 
@@ -13,39 +13,6 @@ class Meal < ActiveRecord::Base
 
   delegate :save, to: :organization, prefix: true
   after_save :organization_save
-
-  def self.facets
-    %w[category payment cuisine feature offer stuff]
-  end
-
-  def self.or_facets
-    %w[categories cuisine]
-  end
-
-  def self.facet_field(facet)
-    "#{model_name.underscore}_#{facet}"
-  end
-
-  def stuff
-    stuffs = [].tap do |array|
-      array << I18n.t('suborganizations.with_3d_tour') if organization.tour_link?
-      array << I18n.t('suborganizations.with_site')    if organization.site?
-      array << I18n.t('suborganizations.with_images')  if organization.images.any?
-    end
-
-    stuffs.join(', ')
-  end
-
-  delegate :rating, :to => :organization, :prefix => true
-  searchable do
-    facets.each do |facet|
-      text facet
-      string(facet_field(facet), :multiple => true) { self.send(facet).to_s.split(',').map(&:squish).map(&:mb_chars).map(&:downcase) }
-      latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
-    end
-
-    float :organization_rating
-  end
 
   include Rating
 
@@ -62,6 +29,10 @@ class Meal < ActiveRecord::Base
 
   presents_as_checkboxes :cuisine,
     :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_cuisine).rows.map(&:value).map(&:mb_chars).map(&:capitalize).map(&:to_s) }
+
+  include SearchWithFacets
+
+  search_with_facets :category, :payment, :cuisine, :feature, :offer, :stuff
 end
 
 # == Schema Information
