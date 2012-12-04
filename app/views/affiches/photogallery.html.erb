@@ -11,14 +11,22 @@
       </div>
     </div>
   </div>
-  <div class="gallery_container">
-    <% @affiche.images.each do |image| %>
-      <% if image.thumbnail_url? %>
-        <%= link_to image_tag(image.thumbnail_url, :width => '124', :height => '93', :title => image.description), image.url %>
-      <% else %>
-        <%= link_to @affiche.image_tag(image.url, 124, 93, image.description), image.url %>
+  <ul class="gallery_container">
+    <% @affiche.images.each_slice(4) do |slice| %>
+      <% slice.each do |image| %>
+        <li class="<%= cycle('first', 'second', 'third', 'fourth') %>">
+          <% if image.thumbnail_url? %>
+            <% if (image.height * 130 / image.width) > 97 %>
+              <%= link_to image_tag(image.thumbnail_url, :title => image.description, width: 130, height: (image.height * 130 / image.width)), image.url %>
+            <% else %>
+              <%= link_to image_tag(image.thumbnail_url, :title => image.description, width: (image.width * 97 / image.height), height: 97), image.url %>
+            <% end %>
+          <% else %>
+            <%= link_to @affiche.image_tag(image.url, 130, 97, image.description), image.url %>
+          <% end %>
+        </li>
       <% end %>
     <% end %>
-  </div>
+  </ul>
 <% end %>
 <%= render :file => "affiches/wrapper" %>

@@ -159,7 +159,7 @@ class Affiche < ActiveRecord::Base
       ).tap do |image|
         image.width  = image_hash['photo']['width']
         image.height = image_hash['photo']['height']
-        image.description = image_hash['photo']['text'].present? ? image_hash['photo']['text'] : 'без описания'
+        image.description = image_hash['photo']['text']
         image.save!
       end
     end
@@ -191,10 +191,13 @@ class Affiche < ActiveRecord::Base
 
   def save_images_from_yandex_fotki
     get_images_from_yandex_fotki.each do |image_hash|
+      jj image_hash
       image_hash = image_hash['img']
 
-      self.images.find_or_initialize_by_url_and_thumbnail_url(:url => image_hash['XXL']['href'], :thumbnail_url => image_hash['S']['href']).tap do |image|
-        image.description = image_hash['summary'].present? ? image_hash['summary'] : 'без описания'
+      self.images.find_or_initialize_by_url_and_thumbnail_url(:url => image_hash['XXL']['href'], :thumbnail_url => image_hash['M']['href']).tap do |image|
+        image.width  = image_hash['XXL']['width']
+        image.height = image_hash['XXL']['height']
+        image.description = image_hash['summary']
         image.save!
       end
     end

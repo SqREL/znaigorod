@@ -1,5 +1,9 @@
-<% @organizations_collection.suborganizations.each do |suborganization| %>
-  <li>
-    <%= render partial: 'organizations/suborganization', locals: { suborganization: suborganization } %>
-  </li>
+<% unless @organizations_collection.suborganizations.blank? %>
+  <% @organizations_collection.suborganizations.each do |suborganization| %>
+    <li>
+      <%= render partial: 'organizations/suborganization', locals: { suborganization: suborganization } %>
+    </li>
+  <% end %>
+<% else %>
+  <p class="empty_items_list">По заданным параметрам ничего не найдено ;(</p>
 <% end %>

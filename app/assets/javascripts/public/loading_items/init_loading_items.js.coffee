@@ -1,4 +1,7 @@
 @init_loading_items = () ->
+
+  return true unless $('body > nav.pagination').length
+
   $('body > nav.pagination').css
     'height': '0'
     'visibility': 'hidden'
@@ -33,6 +36,7 @@
           $('li.ajax_loading_items_indicator', list).remove()
           true
         success: (data, textStatus, jqXHR) ->
+          return true if data.match(/empty_items_list/)
           list.append(data)
           last_item = first_item.siblings().last()
           last_item_top = last_item.position().top
