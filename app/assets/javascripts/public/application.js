@@ -5,6 +5,7 @@
  * = require public/twitter
  * = require public/vk
  * = require public/cookie
+ * = require public/colorbox
  * = require public/scroll_to
  * = require public/sugar
  * = require public/swfobject
