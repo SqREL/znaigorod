@@ -98,12 +98,12 @@
         +clearfix
         .image
           float: left
-          width: 100px
-          height: 100px
-          margin: 0 10px 5px 0
+          width: 80px
+          height: 80px
+          margin: 0 10px 0 0
           img
-            width: 100px
-            height: 100px
+            width: 80px
+            height: 80px
         .info
           +clearfix
           .categories
@@ -117,28 +117,24 @@
               background-color: #70398a
               +border-radius(3px)
               padding: 2px 3px 4px
-              margin: 0 0 5px 0
+              margin: 0 0 3px 0
             a
               color: #fff
 
           h2
-            font-size: 18px
+            font-size: 16px
             line-height: 1.4
-            margin-bottom: 5px
 
           .snipped_links
             +clearfix
-            margin-bottom: 5px
             li
-              font-size: 14px
               float: left
               line-height: 1.4
               margin: 0 10px 0 0
               padding: 0
 
           .place
-            margin-bottom: 10px
-            font-weight: bold
+            font-size: 11px
             line-height: 1.4
             a
               +inline-block
@@ -147,7 +143,6 @@
               background: transparent image_url('public/address.png') no-repeat -3px 0
 
           .schedule_today
-            margin-bottom: 5px
             &.twenty_four
               line-height: 2
               background: transparent image_url('public/organization_twenty_four.png') no-repeat left

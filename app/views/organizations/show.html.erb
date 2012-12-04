@@ -35,10 +35,12 @@
               <%= @organization.schedule_content %>
             </td>
           </tr>
-          <tr>
-            <td>Парковка:</td>
-            <td><%= @organization.stand_info %></td>
-          </tr>
+          <% if @organization.stand_info.present? %>
+            <tr>
+              <td>Парковка:</td>
+              <td><%= @organization.stand_info %></td>
+            </tr>
+          <% end %>
         </table>
         <div class="text">
           <%= @organization.html_description.hyphenate if @organization.description? %>

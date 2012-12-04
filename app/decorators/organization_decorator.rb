@@ -13,7 +13,7 @@ class OrganizationDecorator < ApplicationDecorator
 
   def logo_link
     if organization.logotype_url?
-      h.link_to image_tag(organization.logotype_url, 100, 100, organization.title.text_gilensize), h.organization_path(organization)
+      h.link_to image_tag(organization.logotype_url, 80, 80, organization.title.text_gilensize), h.organization_path(organization)
     end
   end
 
@@ -172,8 +172,6 @@ class OrganizationDecorator < ApplicationDecorator
       res << I18n.t("organization_stand.places", count: organization_stand.places)
       organization_stand.guarded? ? res << ", охраняется" : res << ", не охраняется"
       organization_stand.video_observation? ? res << ", есть видеонаблюдение" : res << ", без видеонаблюдения"
-    else
-      res << "отсутствует"
     end
     res
   end
