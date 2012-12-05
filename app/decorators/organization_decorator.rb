@@ -73,7 +73,7 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def suborganizations
-    @suborganizations ||= [priority_suborganization] + (%w[meal entertainment culture sport creation billiard sauna] - [priority_suborganization_kind]).map { |kind| organization.send(kind) }.compact.uniq
+    @suborganizations ||= ([priority_suborganization] + (%w[meal entertainment culture sport creation billiard sauna] - [priority_suborganization_kind]).map { |kind| organization.send(kind) }).compact.uniq
   end
 
   def decorated_suborganizations
@@ -85,6 +85,7 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def priority_category
+    return '' unless priority_suborganization
     priority_suborganization.categories.first || ''
   end
 
@@ -235,6 +236,7 @@ class OrganizationDecorator < ApplicationDecorator
   # FIXME: может быть как-то можно использовать config/initializers/searchers.rb
   # но пока фиг знает как ;(
   def raw_similar_organizations
+    return [] unless priority_suborganization
     lat, lon = organization.latitude, organization.longitude
     radius = 3
 
