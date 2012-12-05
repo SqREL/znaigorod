@@ -493,6 +493,10 @@ ru:
     with_images: с фотографиями
 
   activerecord:
+    errors:
+      email:
+        invalid_format: имеет неверное значение
+
     models:
       affiche: Вся афиша
       concert: Концерты
