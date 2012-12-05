@@ -18,6 +18,7 @@ group :default do
   gem 'default_value_for'
   gem 'draper'
   gem 'el_vfs_client'
+  gem 'fastimage'
   gem 'friendly_id'
   gem 'gilenson'
   gem 'has_scope'

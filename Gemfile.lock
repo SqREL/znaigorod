@@ -99,6 +99,7 @@ GEM
     faraday_middleware-parse_oj (0.1)
       faraday_middleware (~> 0.8)
       oj (~> 1.2)
+    fastimage (1.2.13)
     fattr (2.2.1)
     freeze_time (0.1)
     friendly_id (4.0.9)
@@ -291,6 +292,7 @@ DEPENDENCIES
   draper
   el_vfs_client
   fabrication
+  fastimage
   freeze_time
   friendly_id
   gilenson
