@@ -16,7 +16,8 @@
       <% slice.each do |image| %>
         <li class="<%= cycle('first', 'second', 'third', 'fourth') %>">
           <% if image.thumbnail_url? %>
-            <% if image.width.present? && image.height.present? %>
+            <% if image.width.present? && !image.width.zero? &&
+                  image.height.present? && !image.height.zero? %>
               <% if (image.height * 130 / image.width) > 97 %>
                 <%= link_to image_tag(image.thumbnail_url, :title => image.description, width: 130, height: (image.height * 130 / image.width)), image.url %>
               <% else %>

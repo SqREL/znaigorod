@@ -7,13 +7,13 @@ task :update_image_dimensions => :environment do
 
   bar = ProgressBar.new(images.count)
   images.each do |image|
-    dimensions = image.url
+    dimensions = FastImage.size(image.url)
     if dimensions.present?
       image.width = dimensions[0]
       image.height = dimensions[1]
       image.save!
     else
-      puts "broken url: #{image.url}"
+      puts "BROKEN URI: #{image.url}"
     end
     bar.increment!
   end
