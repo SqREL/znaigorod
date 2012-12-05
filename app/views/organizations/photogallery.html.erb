@@ -1,11 +1,15 @@
 <% content_for :organization_content do  %>
 
   <div class="organization">
-    <div class="gallery_container">
-      <% @organization.images.each do |image| %>
-        <%= link_to @organization.image_tag(image.url, 124, 93, image.description), image.url %>
+    <ul class="gallery_container">
+      <% @organization.images.each_slice(4) do |slice| %>
+        <% slice.each do |image| %>
+          <li class="<%= cycle('first', 'second', 'third', 'fourth') %>">
+            <%= link_to @organization.image_tag(image.url, 130, 97, image.description), image.url %>
+          </li>
+        <% end %>
       <% end %>
-    </div>
+    </ul>
   </div>
 
   <% if Rails.env.production? %>
