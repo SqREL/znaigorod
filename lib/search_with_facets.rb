@@ -14,6 +14,7 @@ module SearchWithFacets
       delegate :rating, :tour_link?, :site?, :images, to: :organization, prefix: true
       delegate :latitude, :longitude, :to => :organization
 
+      klass = self
       searchable do
         facets.each do |facet|
           latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
@@ -24,6 +25,9 @@ module SearchWithFacets
         end
 
         float :organization_rating
+
+        # dirty ;(
+        string(:entertainment_type) { self.type } if klass == Entertainment
       end
     end
   end
