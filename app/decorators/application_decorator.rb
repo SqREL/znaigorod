@@ -7,7 +7,7 @@ class ApplicationDecorator < Draper::Base
     image_url, image_id, image_width, image_height, image_crop, image_filename =
       url.match(%r{(.*)/files/(\d+)/(?:(\d+)-(\d+)(\!)?/)?(.*)})[1..-1]
 
-    image_crop = crop ? '!' : ''
+    image_crop = crop ? '!n' : ''
 
     "#{image_url}/files/#{image_id}/#{width}-#{height}#{image_crop}/#{image_filename}"
   end
