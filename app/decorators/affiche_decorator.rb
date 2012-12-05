@@ -16,6 +16,10 @@ class AfficheDecorator < ApplicationDecorator
     truncated_link(45)
   end
 
+  def posters_title_link
+    truncated_link(25)
+  end
+
   def has_ribbon
     h.content_tag(:div, h.content_tag(:div, "Премьера недели", class: :ribbon), class: :ribbon_wrapper) if affiche.premiere?
   end
@@ -121,8 +125,8 @@ class AfficheDecorator < ApplicationDecorator
     links
   end
 
-  def main_page_place
-    max_lenght = 45
+  def affiche_place(length = 45)
+    max_lenght = length
     place_output = ""
     places.each_with_index do |place, index|
       place_title = place.organization ? place.organization.title : place.title
@@ -139,6 +143,14 @@ class AfficheDecorator < ApplicationDecorator
       place_output += ", " if index < places.size - 1
     end
     h.raw place_output
+  end
+
+  def main_page_place
+    affiche_place
+  end
+
+  def posters_place
+    affiche_place(23)
   end
 
   def places

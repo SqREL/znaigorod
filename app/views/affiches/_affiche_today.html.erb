@@ -45,9 +45,10 @@
 <div class="main_page_block_wrapper more_in_city">
   <div class="main_page_block">
     <ul>
-      <li><%= link_to "#{t("affiche_periods.all.#{@affiche_today.current_link.kind}")} (#{@affiche_today.counters[@affiche_today.current_link.kind].all})", affiches_path(@affiche_today.kind, :all) %></li>
+      <li><%= link_to "#{t('affiche_periods.today')} (#{@affiche_today.counters[@affiche_today.current_link.kind].today})", affiches_path(@affiche_today.kind, :today) %></li>
       <li><%= link_to "#{t('affiche_periods.weekly')} (#{@affiche_today.counters[@affiche_today.current_link.kind].weekly})", affiches_path(@affiche_today.kind, :weekly) %></li>
       <li><%= link_to "#{t('affiche_periods.weekend')} (#{@affiche_today.counters[@affiche_today.current_link.kind].weekend})", affiches_path(@affiche_today.kind, :weekend) %></li>
+      <li><%= link_to "#{t("affiche_periods.all.#{@affiche_today.current_link.kind}")} (#{@affiche_today.counters[@affiche_today.current_link.kind].all})", affiches_path(@affiche_today.kind, :all) %></li>
     </ul>
   </div>
 </div>
