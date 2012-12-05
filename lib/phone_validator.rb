@@ -9,6 +9,7 @@ class PhoneValidator < ActiveModel::EachValidator
 
   def valid?(value)
     return false if value =~ /[[:alpha]]/
+    return true if value =~ /^\d{3}$/
 
     !!regexp.match(value)
   end
