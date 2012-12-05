@@ -12,6 +12,7 @@
     "maxWidth": "90%"
     "maxHeight": "98%"
     "opacity": "0.5"
+    "photo": "true"
     "current": "{current} / {total}"
     "previous": "предыдущая"
     "next": "следующая"
