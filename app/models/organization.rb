@@ -31,12 +31,14 @@ class Organization < ActiveRecord::Base
   validates_presence_of :title, :priority_suborganization_kind
 
   validates  :email, :email_format => {
-    :message => I18n.t('activerecord.errors.email.invalid_format'),
+    :message => I18n.t('activerecord.errors.messages.invalid'),
     :allow_nil => true,
     :allow_blank => true
   }
 
   validates :site, :format => URI::regexp(%w(http https)), :if => :site?
+
+  validates :phone, :phone => true, :if => :phone?
 
   accepts_nested_attributes_for :address,             :reject_if => :all_blank
   accepts_nested_attributes_for :attachments,         :reject_if => :all_blank, :allow_destroy => true
@@ -66,7 +68,7 @@ class Organization < ActiveRecord::Base
   paginates_per Settings['pagination.per_page'] || 10
 
   normalize_attribute :email, :with => [:strip, :blank]
-  normalize_attribute :site, :with => [:strip, :blank]
+  normalize_attribute :site,  :with => [:strip, :blank]
 
   alias_attribute :poster_url, :logotype_url
   alias_attribute :title_ru, :title
