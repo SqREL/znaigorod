@@ -26,6 +26,8 @@ module PresentsAsCheckboxes
       define_method "#{field}_list?" do
         !!self.send("#{field}_list")
       end
+
+      validates_presence_of "#{field}_list" if options[:validates_presence]
     end
   end
 end

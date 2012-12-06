@@ -28,7 +28,7 @@ class Sauna < Entertainment
 
   use_for_rating :sauna_halls, :sauna_accessory, :sauna_broom, :sauna_alcohol, :sauna_oil, :sauna_child_stuff, :sauna_stuff, :sauna_massage
 
-  presents_as_checkboxes :category, :available_values => -> {
+  presents_as_checkboxes :category, :validates_presence => true, :available_values => -> {
     HasSearcher.searcher(:entertainment, :entertainment_type => 'Sauna').facet(:entertainment_category).rows.map(&:value).map(&:mb_chars).map(&:capitalize).map(&:to_s)
   }
 

@@ -9,7 +9,7 @@ class Meal < ActiveRecord::Base
 
   delegate :title, :description, :description?, to: :organization, prefix: true
 
-  validates_presence_of :category, :organization_id
+  validates_presence_of :organization_id
 
   delegate :save, to: :organization, prefix: true
   after_save :organization_save
@@ -19,7 +19,8 @@ class Meal < ActiveRecord::Base
   include PresentsAsCheckboxes
 
   presents_as_checkboxes :category,
-    :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_category).rows.map(&:value).map(&:mb_chars).map(&:capitalize).map(&:to_s) }
+    :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_category).rows.map(&:value).map(&:mb_chars).map(&:capitalize).map(&:to_s) },
+    :validates_presence => true
 
   presents_as_checkboxes :feature,
     :available_values => -> { HasSearcher.searcher(:meal).facet(:meal_feature).rows.map(&:value) }

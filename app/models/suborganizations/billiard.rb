@@ -1,7 +1,7 @@
 class Billiard < Entertainment
   has_many :pool_tables, :dependent => :destroy
 
-  presents_as_checkboxes :category, :available_values => -> {
+  presents_as_checkboxes :category, :validates_presence => true, :available_values => -> {
     HasSearcher.searcher(:entertainment, :entertainment_type => 'Billiard').facet(:entertainment_category).rows.map(&:value).map(&:mb_chars).map(&:capitalize).map(&:to_s)
   }
 
