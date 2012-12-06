@@ -1,6 +1,6 @@
 <%= f.input :title %>
 <%= f.input :description %>
-<%= f.input :category_list, :as => :check_boxes, :collection => f.object.available_categories, :checked => f.object.categories %>
+<%= f.input :category_list, :as => :check_boxes, :collection => f.object.available_categories, :checked => f.object.categories, :wrapper_html => { :class => :category_list } %>
 <%= f.input :feature_list, :as => :check_boxes, :collection => f.object.available_features, :checked => f.object.features %>
 <%= f.input :offer_list, :as => :check_boxes, :collection => f.object.available_offers, :checked => f.object.offers %>
 

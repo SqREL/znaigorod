@@ -27,7 +27,10 @@ module PresentsAsCheckboxes
         !!self.send("#{field}_list")
       end
 
-      validates_presence_of "#{field}_list" if options[:validates_presence]
+      if options[:validates_presence]
+        message = options[:message] || I18n.t('activerecord.errors.messages.blank')
+        validates_presence_of "#{field}_list", :message => message
+      end
     end
   end
 end
