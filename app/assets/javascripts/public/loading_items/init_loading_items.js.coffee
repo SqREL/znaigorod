@@ -1,7 +1,5 @@
 @init_loading_items = () ->
 
-  return true unless $('body > nav.pagination').length
-
   $('body > nav.pagination').css
     'height': '0'
     'visibility': 'hidden'
