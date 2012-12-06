@@ -22,9 +22,13 @@ class AfficheToday
     settings_kinds[Random.rand(0..settings_kinds.size - 1)].downcase
   end
 
+  def affiche_descendants_for_main_page
+    Affiche.ordered_descendants - [Other]
+  end
+
   def links
     links = []
-    Affiche.ordered_descendants.each do |affiche_kind|
+    affiche_descendants_for_main_page.each do |affiche_kind|
       kind = affiche_kind.model_name.downcase.pluralize
       links << Link.new(:title => affiche_kind.model_name.human, :current => kind == self.kind, :kind => kind, :html_options => {}, :url => affiches_path(kind, :today))
     end
@@ -41,9 +45,11 @@ class AfficheToday
 
   def counters
     counters = {}
+
     Affiche.ordered_descendants.each do |affiche_kind|
       counters[affiche_kind.model_name.downcase.pluralize] = Counter.new(:kind => affiche_kind.model_name.downcase)
     end
+
     counters
   end
 

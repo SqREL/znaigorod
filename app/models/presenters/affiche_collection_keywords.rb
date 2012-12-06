@@ -32,6 +32,8 @@ class AfficheCollectionKeywords
     classes = case kind
               when 'affiches'
                 Affiche.ordered_descendants
+              when 'masterclasses'
+                [MasterClass]
               when 'sportsevents'
                 [SportsEvent]
               else

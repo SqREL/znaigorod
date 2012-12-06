@@ -17,4 +17,6 @@
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.singular 'affiches', 'affiche'
   inflect.singular 'address', 'address'
+  inflect.singular 'masterclass', 'masterclass'
+  inflect.singular 'masterclasses', 'masterclass'
 end

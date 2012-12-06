@@ -82,7 +82,7 @@ class Affiche < ActiveRecord::Base
   alias_attribute :human_model_name_ru, :human_model_name
 
   def self.ordered_descendants
-    [Movie, Concert, Party, Spectacle, Exhibition, SportsEvent, Other]
+    [Movie, Concert, Party, Spectacle, Exhibition, SportsEvent, MasterClass, Other]
   end
 
   def tags

@@ -16,6 +16,7 @@ ru:
   edit_concert: Редактировать информацию о концерте
   edit_contest: Редактировать информацию о конкурсе
   edit_exhibition: Редактировать информацию о выставке
+  edit_master_class: Редактировать информацию о мастер-классе
   edit_movie: Редактировать информацию о фильме
   edit_organization: Редактировать информацию о заведении
   edit_other: Редактировать информацию о событии
@@ -36,6 +37,7 @@ ru:
   new_party: Новая вечеринка
   new_spectacle: Новый спектакль
   new_sports_event: Новое спортивное мероприятие
+  new_master_class: Новый мастер-класс
   organization: Заведения
   organizations: Заведения
   our_social_link: Контакты
@@ -116,6 +118,7 @@ ru:
       exhibitions: выставок
       sportsevents: спортивных мероприятий
       others: других мероприятий
+      masterclasses: мастер-классов
 
     sort:
       closest: По ближайшему сеансу
@@ -136,6 +139,7 @@ ru:
       exhibitions: Все выставки
       sportsevents: Все спортивные мероприятия
       others: Все другие мероприятия
+      masterclasses: Все мастер-классы
 
   actual_organizations:
     sauna: Сауны
@@ -503,6 +507,8 @@ ru:
       meal: Заведение питания
       exhibition: Выставки
       entertainment: Развлекательное заведение
+      master_class: Мастер-классы
+      masterclass: Мастер-классы
       movie: Кино
       organization: Организации
       other: Другое
@@ -789,6 +795,7 @@ ru:
     add_entertainment: Добавление развлекательного заведения
     add_exhibition: Добавление выставки
     add_image: Добавить изображение в галерею
+    add_master_class: Добавление мастер-класса
     add_meal: Добавление заведения питания
     add_movie: Добавление фильма
     add_organization: Добавление заведения
