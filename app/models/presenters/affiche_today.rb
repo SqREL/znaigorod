@@ -23,7 +23,7 @@ class AfficheToday
   end
 
   def affiche_descendants_for_main_page
-    Affiche.ordered_descendants - [Other]
+    Affiche.ordered_descendants
   end
 
   def links
