@@ -37,4 +37,5 @@ $(window).load ->
   init_3dtourme_stat() if $("a.3dtourme").length
   init_prokachkov_stat() if $("a.prokachkov").length
   init_move_to_top() if $("a.move_to_top").length
+
   true
