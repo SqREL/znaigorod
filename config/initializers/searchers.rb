@@ -63,7 +63,9 @@ HasSearcher.create_searcher :affiche do
   end
 
   scope :affiches do
-    group :affiche_id_str
+    group :affiche_id_str do
+      limit 1000
+    end
   end
 
   scope :categories do

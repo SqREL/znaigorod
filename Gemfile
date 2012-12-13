@@ -45,9 +45,9 @@ end
 group :development do
   gem 'annotate',                                     :require => false
   gem 'capistrano'
-  gem 'rvm-capistrano'
   gem 'hirb'
   gem 'rails-erd'
+  gem 'rvm-capistrano'
   gem 'sunspot_solr', '2.0.0.pre.120925'
 end
 

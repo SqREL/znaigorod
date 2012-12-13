@@ -150,10 +150,11 @@ class AfficheCollection
   end
 
   def affiches
-    [].tap do |array|
-      paginated_affiches.map(&:value).map { |id| Affiche.find(id) }.each do |affiche|
-        array << AfficheDecorator.new(affiche, ShowingDecorator.decorate(searcher(search_params(affiche.id)).results))
-      end
+    searcher(search_params).paginate(:page => page, :per_page => per_page).affiches.group(:affiche_id_str).groups.map do |group|
+      affiche = Affiche.find(group.value)
+      showings = group.hits.map(&:result)
+
+      AfficheDecorator.new(affiche, ShowingDecorator.decorate(showings))
     end
   end
 
