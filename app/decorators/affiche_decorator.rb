@@ -193,6 +193,11 @@ class AfficheDecorator < ApplicationDecorator
     poster_with_link affiche, 170, 228
   end
 
+  def resized_poster_url(width, height, crop)
+    h.resized_image_url(affiche.poster_url, width, height, crop)
+  end
+
+
   def tags_for_vk
     desc = ""
     desc << when_with_price

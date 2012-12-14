@@ -21,6 +21,7 @@ group :default do
   gem 'fastimage'
   gem 'friendly_id'
   gem 'gilenson'
+  gem 'grape'
   gem 'has_scope'
   gem 'has_searcher'
   gem 'hashie'

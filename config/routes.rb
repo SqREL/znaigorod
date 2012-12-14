@@ -1,4 +1,6 @@
 Znaigorod::Application.routes.draw do
+  mount Affiches::API => '/'
+
   namespace :manage do
     post 'red_cloth' => 'red_cloth#show'
 
