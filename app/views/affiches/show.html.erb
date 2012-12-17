@@ -1,3 +1,12 @@
+<% content_for :twitter_cards do %>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="@znaigorod"/>
+  <meta name="twitter:url" content="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>"/>
+  <meta name="twitter:title" content="<%= @affiche.title %>"/>
+  <meta name="twitter:description" content="<%= @affiche.description %>"/>
+  <meta name="twitter:image" content="<%= @affiche.poster_url %>"/>
+<% end %>
+
 <% content_for :affiche_content do %>
   <%= content_tag(:div, link_to(@affiche.human_kind, affiches_path(@affiche.pluralized_kind, 'all')), :class => 'kind') %>
   <div class="head">
