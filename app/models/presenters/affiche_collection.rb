@@ -38,6 +38,7 @@ class AfficheCollection
   end
 
   def per_page
+    return 6 if presentation_mode == '3dtour'
     return 5 if presentation_mode == 'list'
     return 12
   end

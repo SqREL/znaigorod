@@ -19,7 +19,7 @@ module Affiches
 
     resource :popular do
       get do
-        present AfficheCollection.new({"kind"=>"affiches", "period"=>"all"}).affiches, :with => Entities::Affiche
+        present AfficheCollection.new("kind"=>"affiches", "period"=>"all", "list_settings" => '{ "presentation": "3dtour" }').affiches, :with => Entities::Affiche
       end
     end
   end
