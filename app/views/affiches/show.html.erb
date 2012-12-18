@@ -4,7 +4,7 @@
   <meta name="twitter:url" content="<%= "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>"/>
   <meta name="twitter:title" content="<%= @affiche.title %>"/>
   <meta name="twitter:description" content="<%= @affiche.truncated_description %>"/>
-  <meta name="twitter:image" content="<%= @affiche.resized_poster_url(120, 120, true) %>"/>
+  <meta name="twitter:image" content="<%= @affiche.resized_poster_url(120, 120, false) %>"/>
 <% end %>
 
 <% content_for :affiche_content do %>
