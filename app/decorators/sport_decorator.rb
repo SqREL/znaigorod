@@ -8,13 +8,13 @@ class SportDecorator < SuborganizationDecorator
   end
 
   def characteristics_on_show
-    return "" if services.blank?
+    return "" if services.filled.empty?
     content = "<tr>" +
               "<th>Предложения</th>" +
               "<th>Возраст</th>" +
               "</tr>\n"
 
-    services.group_by(&:category).each do |category, services|
+    services.filled.group_by(&:category).each do |category, services|
       content << "<tr>"
       content << h.content_tag(:td, category, class: "title", colspan: 2)
       content << "</tr>\n"

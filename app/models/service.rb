@@ -10,7 +10,9 @@ class Service < ActiveRecord::Base
   delegate :index, :to => :context, :prefix => true
   after_save :context_index
 
-  normalize_attributes :feature, :with => :blank
+  normalize_attributes :feature, :title, :with => :blank
+
+  scope :filled, -> { where('title IS NOT NULL') }
 end
 
 # == Schema Information
