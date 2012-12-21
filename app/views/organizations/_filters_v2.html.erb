@@ -1,0 +1,35 @@
+<div class='filters_wrapper'>
+  <div class="filters">
+    <h1><%= @organizations_collection.subtitle.capitalize %> в Томске</h1>
+
+    <form action="#">
+      <div class="filter">
+        <%= link_to "убрать", '#', :class => 'remove_filter_link' %>
+        <div class="filter_label wide">Стоимость</div>
+        <div class="filter_inputs">
+          <div class="input">
+            <label for="#">от</label>
+            <input id="#" name="#" type="text" />
+          </div>
+          <div class="input">
+            <label for="#">до</label>
+            <input id="#" name="#" type="text" />
+          </div>
+        </div>
+        <div class='filter_input_label'>рублей</div>
+      </div>
+      <div class="submit_action">
+        <div class="submit_wrapper">
+          <input type="submit" value="Применит фильтр" class='submit' />
+        </div>
+        <div class="results_counter">
+          Найдено заведений: <span class='counter'>10</span>
+        </div>
+        <div class="clear_wrapper">
+          <%= link_to "Очистить", '#' %>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
