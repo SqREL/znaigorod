@@ -24,8 +24,9 @@ class SaunaHall < ActiveRecord::Base
   accepts_nested_attributes_for :sauna_hall_schedules, :allow_destroy => true, :reject_if => :all_blank
 
   searchable do
-    integer :price_min
+    integer :capacity
     integer :price_max
+    integer :price_min
   end
 
   include Rating
@@ -37,15 +38,18 @@ class SaunaHall < ActiveRecord::Base
 
   alias_method_chain :summary_rating, :images
 
+  def capacity
+    sauna_hall_capacity.maximal || sauna_hall_capacity.default
+  end
+
   def min_sauna_hall_schedules_price
     sauna_hall_schedules.pluck(:price).min
   end
+  alias_method :price_min, :min_sauna_hall_schedules_price
 
   def max_sauna_hall_schedules_price
     sauna_hall_schedules.pluck(:price).max
   end
-
-  alias_method :price_min, :min_sauna_hall_schedules_price
   alias_method :price_max, :max_sauna_hall_schedules_price
 end
 

@@ -4,8 +4,9 @@
   <thead>
     <tr>
       <th style="width: 200px">Название</th>
-      <th style="width: 100px">От</th>
-      <th style="width: 100px">До</th>
+      <th style="width: 100px">Цена от</th>
+      <th style="width: 100px">Цена до</th>
+      <th style="width: 100px">Вместительность</th>
     </tr>
   </thead>
 
@@ -16,12 +17,9 @@
           <b><%= sauna_hall.sauna.organization.title %></b>
           <%= sauna_hall.title %>
         </td>
-        <td>
-          <%= sauna_hall.price_min %>
-        </td>
-        <td>
-          <%= sauna_hall.price_max %>
-        </td>
+        <td><%= sauna_hall.price_min %></td>
+        <td><%= sauna_hall.price_max %></td>
+        <td><%= sauna_hall.capacity %></td>
       </tr>
     <% end %>
   </tbody>
