@@ -1,4 +1,4 @@
-<h1>Поиск по саунам</h1>
+<%= render :partial => 'filters' %>
 
 <table>
   <thead>
@@ -10,7 +10,7 @@
   </thead>
 
   <tbody>
-    <% @collection.each do |sauna_hall| %>
+    <% @presenter.collection.each do |sauna_hall| %>
       <tr>
         <td>
           <b><%= sauna_hall.sauna.organization.title %></b>
