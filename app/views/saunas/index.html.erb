@@ -1,0 +1,28 @@
+<h1>Поиск по саунам</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 200px">Название</th>
+      <th style="width: 100px">От</th>
+      <th style="width: 100px">До</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @collection.each do |sauna_hall| %>
+      <tr>
+        <td>
+          <b><%= sauna_hall.sauna.organization.title %></b>
+          <%= sauna_hall.title %>
+        </td>
+        <td>
+          <%= sauna_hall.price_min %>
+        </td>
+        <td>
+          <%= sauna_hall.price_max %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

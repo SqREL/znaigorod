@@ -59,6 +59,8 @@ Znaigorod::Application.routes.draw do
 
   get 'cooperation' => 'cooperation#index'
 
+  resources :saunas, :only => :index
+
   get ':kind/:period/(:on)/(categories/*categories)/(tags/*tags)' => 'affiches#index',
       :kind => /movies|concerts|parties|spectacles|exhibitions|sportsevents|others|affiches|masterclasses/,
       :period => /today|weekly|weekend|all|daily/, :as => :affiches

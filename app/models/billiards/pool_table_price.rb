@@ -1,7 +1,7 @@
 class PoolTablePrice < ActiveRecord::Base
   attr_accessible :day, :from, :price, :to
 
-  belongs_to :pool_tabre
+  belongs_to :pool_table
 
   default_scope order('day, pool_table_prices.from')
 
