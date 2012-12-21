@@ -1,5 +1,5 @@
 class SaunasController < ApplicationController
   def index
-    @collection = SaunaHallPresenter.new(params).collection
+    @presenter = SaunaHallPresenter.new(params)
   end
 end

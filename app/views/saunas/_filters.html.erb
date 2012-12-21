@@ -1,19 +1,19 @@
 <div class='filters_wrapper'>
   <div class="filters">
-    <h1><%= @organizations_collection.subtitle.capitalize %> в Томске</h1>
+    <h1>Подбор сауны</h1>
 
-    <form action="#">
+    <%= form_tag saunas_path, :method => :get do %>
       <div class="filter hide" id='amount'>
         <%= link_to "убрать", '#', :class => 'remove_filter_link' %>
         <div class="filter_label wide">Стоимость</div>
         <div class="filter_inputs">
           <div class="input">
-            <label for="#">от</label>
-            <input id="#" name="#" type="text" class='min' />
+            <%= label_tag :price_min, 'от' %>
+            <%= text_field_tag :price_min, @presenter.price_min, :class => 'min' %>
           </div>
           <div class="input">
-            <label for="#">до</label>
-            <input id="#" name="#" type="text" class='max' />
+            <%= label_tag :price_max, 'до' %>
+            <%= text_field_tag :price_max, @presenter.price_max, :class => 'max' %>
           </div>
         </div>
         <div class='filter_input_label'>рублей</div>
@@ -41,7 +41,7 @@
           <%= link_to "Очистить", '#' %>
         </div>
       </div>
-    </form>
+    <% end %>
 
   </div>
 </div>
