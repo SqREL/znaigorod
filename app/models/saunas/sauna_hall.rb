@@ -28,6 +28,8 @@ class SaunaHall < ActiveRecord::Base
     integer :price_max
     integer :price_min
 
+    latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
+
     string :baths,          :multiple => true
     string :features,       :multiple => true
     string :pool_features,  :multiple => true
@@ -55,6 +57,14 @@ class SaunaHall < ActiveRecord::Base
     sauna_hall_schedules.pluck(:price).max
   end
   alias_method :price_max, :max_sauna_hall_schedules_price
+
+  def latitude
+    sauna.organization.latitude
+  end
+
+  def longitude
+    sauna.organization.longitude
+  end
 
   def filled?(value)
     !value.nil? && !!value && !value.blank?
