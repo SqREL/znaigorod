@@ -5,9 +5,10 @@ class SaunaHallsPresenter
                 :price_min, :price_max,
                 :baths, :features, :pool,
                 :lat, :lon, :radius,
+                :order_by, :direction,
                 :page
 
-  alias :pool_features :pool
+  alias :pool_features  :pool
 
   def initialize(args = {})
     super(args)
@@ -16,6 +17,7 @@ class SaunaHallsPresenter
     self.capacity_max = self.capacity_max.blank? ? nil : self.capacity_max
     self.price_min    = self.price_min.blank? ? nil : self.price_min
     self.price_max    = self.price_max.blank? ? nil : self.price_max
+    self.radius       = self.radius.blank? ? nil : self.radius
 
     self.baths    = (self.baths || []).delete_if(&:blank?)
     self.features = (self.features || []).delete_if(&:blank?)
@@ -23,8 +25,24 @@ class SaunaHallsPresenter
 
     self.lat    ||= 56.488611121111
     self.lon    ||= 84.952222232222
-    self.radius ||= 11
     self.page   ||= 1
+
+    self.order_by  = %w[distance popularity price].include?(self.order_by) ? self.order_by : 'popularity'
+  end
+
+  def criterion
+    order_by == 'price' ? 'price_min' : order_by
+
+    # NOTE: stub
+    'price_min'
+  end
+
+  def direction
+    order_by == 'popularity' ? 'desc' : 'asc'
+  end
+
+  def order_by_distance?
+    order_by == 'distance'
   end
 
   def capacity
@@ -61,7 +79,14 @@ class SaunaHallsPresenter
         with(:pool_features, feature)
       end
 
-      with(:location).in_radius(lat, lon, radius)
+      if order_by_distance?
+        with(:location).in_radius(lat, lon, radius)
+
+        order_by_geodist(:location, lat, lon)
+      else
+        order_by(criterion, direction)
+      end
+
 
       facet :baths,         sort: :index, zeros: true
       facet :features,      sort: :index, zeros: true
