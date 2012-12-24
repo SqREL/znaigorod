@@ -9,17 +9,17 @@
         <div class="filter_inputs">
           <div class="input">
             <%= label_tag :price_min, 'от' %>
-            <%= text_field_tag :price_min, @presenter.price_min, :class => 'min' %>
+            <%= text_field_tag :price_min, @presenter.price.selected.minimum, :class => 'min' %>
           </div>
           <div class="input">
             <%= label_tag :price_max, 'до' %>
-            <%= text_field_tag :price_max, @presenter.price_max, :class => 'max' %>
+            <%= text_field_tag :price_max, @presenter.price.selected.maximum, :class => 'max' %>
           </div>
         </div>
         <div class='filter_input_label'>рублей</div>
 
         <div class="filter_slider_wrapper">
-          <div class="filter_slider" data-min='<%= @presenter.min_price %>' data-max='<%= @presenter.max_price %>' data-step='50'></div>
+          <div class="filter_slider" data-min='<%= @presenter.price.available.minimum %>' data-max='<%= @presenter.price.available.maximum %>' data-step='50'></div>
         </div>
       </div>
 
@@ -29,17 +29,17 @@
         <div class="filter_inputs">
           <div class="input">
             <%= label_tag :capacity_min, 'от' %>
-            <%= text_field_tag :capacity_min, @presenter.capacity_min, :class => 'min' %>
+            <%= text_field_tag :capacity_min, @presenter.capacity.available.minimum, :class => 'min' %>
           </div>
           <div class="input">
             <%= label_tag :capacity_max, 'до' %>
-            <%= text_field_tag :capacity_max, @presenter.capacity_max, :class => 'max' %>
+            <%= text_field_tag :capacity_max, @presenter.capacity.available.maximum, :class => 'max' %>
           </div>
         </div>
         <div class='filter_input_label'>человек</div>
 
         <div class="filter_slider_wrapper">
-          <div class="filter_slider" data-min='<%= @presenter.min_capacity %>' data-max='<%= @presenter.max_capacity %>' data-step='50'></div>
+          <div class="filter_slider" data-min='<%= @presenter.capacity.selected.min %>' data-max='<%= @presenter.capacity.selected.max %>' data-step='50'></div>
         </div>
       </div>
 

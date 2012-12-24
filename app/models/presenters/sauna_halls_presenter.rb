@@ -4,6 +4,7 @@ class SaunaHallsPresenter
   attr_accessor :capacity_min, :capacity_max,
                 :price_min, :price_max,
                 :baths, :features, :pool,
+                :lat, :lon, :radius,
                 :page
 
   alias :pool_features :pool
@@ -11,18 +12,35 @@ class SaunaHallsPresenter
   def initialize(args = {})
     super(args)
 
-    self.page     ||= 1
     self.baths    = (self.baths || []).delete_if(&:blank?)
     self.features = (self.features || []).delete_if(&:blank?)
     self.pool     = (self.pool || []).delete_if(&:blank?)
+    self.lat      ||= '56.488611121111'
+    self.lon      ||= '84.952222232222'
+    self.radius   ||= 11
+    self.page     ||= 1
+  end
+
+  def capacity
+    Hashie::Mash.new(
+      available: { minimum: SaunaHallCapacity.maximum(:maximal), maximum: SaunaHallCapacity.maximum(:maximal) },
+      selected: { minimum: capacity_min, maximum: capacity_max }
+    )
+  end
+
+  def price
+    Hashie::Mash.new(
+      available: { minimum: SaunaHallSchedule.minimum(:price), maximum: SaunaHallSchedule.maximum(:price) },
+      selected: { minimum: price_min, maximum: price_max }
+    )
   end
 
   def search
-    SaunaHall.search {
-      with(:capacity).greater_than_or_equal_to(capacity_min) if capacity_min
-      with(:capacity).less_than_or_equal_to(capacity_max) if capacity_max
+    @search ||= SaunaHall.search {
+      with(:capacity).greater_than_or_equal_to(capacity_min)  if capacity_min
+      with(:capacity).less_than_or_equal_to(capacity_max)     if capacity_max
 
-      without(:price_max).less_than(price_min) if price_min
+      without(:price_max).less_than(price_min)    if price_min
       without(:price_min).greater_than(price_max) if price_max
 
       baths.each do |bath|
@@ -36,6 +54,8 @@ class SaunaHallsPresenter
       pool_features.each do |feature|
         with(:pool_features, feature)
       end
+
+      with(:location).in_radius(lat, lon, radius)
 
       facet :baths,         sort: :index, zeros: true
       facet :features,      sort: :index, zeros: true
@@ -51,22 +71,6 @@ class SaunaHallsPresenter
 
   def total_count
     search.total
-  end
-
-  def min_price
-    SaunaHallSchedule.minimum(:price)
-  end
-
-  def max_price
-    SaunaHallSchedule.maximum(:price)
-  end
-
-  def min_capacity
-    SaunaHallCapacity.minimum(:default)
-  end
-
-  def max_capacity
-    SaunaHallCapacity.maximum(:maximal)
   end
 
   def faceted_rows(facet)
