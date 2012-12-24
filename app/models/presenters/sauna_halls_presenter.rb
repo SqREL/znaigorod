@@ -29,7 +29,7 @@ class SaunaHallsPresenter
 
   def capacity
     Hashie::Mash.new(
-      available: { minimum: SaunaHallCapacity.maximum(:maximal), maximum: SaunaHallCapacity.maximum(:maximal) },
+      available: { minimum: SaunaHallCapacity.minimum(:default), maximum: SaunaHallCapacity.maximum(:maximal) },
       selected: { minimum: capacity_min, maximum: capacity_max }
     )
   end
@@ -69,6 +69,14 @@ class SaunaHallsPresenter
 
       paginate(:page => page, :per_page => 1000)
     }
+  end
+
+  def price_filter_used?
+    price.selected.values.compact.any?
+  end
+
+  def capacity_filter_used?
+    capacity.selected.values.compact.any?
   end
 
   def collection

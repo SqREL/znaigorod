@@ -6,6 +6,8 @@ criteria_handler = () ->
 
 set_previous_state = () ->
   $('.filters_wrapper .hide').hide()
+  $('.filters_wrapper .show').each (index, item) ->
+    $('.'+$(item).attr('id')).hide()
 
 remove_filter_handler = () ->
   $('.remove_filter_link').on 'click', ->
@@ -58,8 +60,9 @@ $.fn.add_handler = () ->
       filter_slider.parent().find('.ui-corner-all').removeClass('ui-corner-all')
       filter_slider.find('.ui-slider-handle').map (index, item) ->
         $(item).addClass('handle'+index)
-      filter_slider.slider('values', 0, $(this).parent().siblings('.filter_inputs').find('.min').val())
-      filter_slider.slider('values', 1, $(this).parent().siblings('.filter_inputs').find('.max').val())
+      if filter_slider.parent().parent().hasClass('show')
+        filter_slider.slider('values', 0, $(this).parent().siblings('.filter_inputs').find('.min').val())
+        filter_slider.slider('values', 1, $(this).parent().siblings('.filter_inputs').find('.max').val())
 
     slide: (event, ui) ->
       inputs = filter_slider.parent().siblings('.filter_inputs').find('input')
