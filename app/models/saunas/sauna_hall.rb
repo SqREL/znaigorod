@@ -27,6 +27,9 @@ class SaunaHall < ActiveRecord::Base
     integer :capacity
     integer :price_max
     integer :price_min
+
+    string :baths,          :multiple => true
+    string :pool_features,  :multiple => true
   end
 
   include Rating
@@ -51,6 +54,26 @@ class SaunaHall < ActiveRecord::Base
     sauna_hall_schedules.pluck(:price).max
   end
   alias_method :price_max, :max_sauna_hall_schedules_price
+
+  def pool_features
+    sauna_hall_pool.useful_attributes.select { |attribute|
+        attribute if !sauna_hall_pool.send(attribute).nil? &&
+                     !!sauna_hall_pool.send(attribute) &&
+                     !sauna_hall_pool.send(attribute).blank?
+    }.map { |attribute| sauna_hall_pool.class.human_attribute_name(attribute) }.
+      map(&:mb_chars).
+      map(&:downcase)
+  end
+
+  def baths
+    sauna_hall_bath.useful_attributes.select { |attribute|
+      attribute if !sauna_hall_bath.send(attribute).nil? &&
+        !!sauna_hall_bath.send(attribute) &&
+        !sauna_hall_bath.send(attribute).blank?
+    }.map { |attribute| sauna_hall_bath.class.human_attribute_name(attribute) }.
+      map(&:mb_chars).
+      map(&:downcase)
+  end
 end
 
 # == Schema Information

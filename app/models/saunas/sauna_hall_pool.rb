@@ -1,9 +1,10 @@
 class SaunaHallPool < ActiveRecord::Base
-  include UsefulAttributes
-
   attr_accessible :contraflow, :geyser, :size, :water_filter, :waterfall, :jacuzzi, :bucket
 
   belongs_to :sauna_hall
+
+  include UsefulAttributes
+  use_attributes :exclude => :size
 end
 
 # == Schema Information
