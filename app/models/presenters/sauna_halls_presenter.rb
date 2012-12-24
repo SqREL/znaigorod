@@ -13,10 +13,10 @@ class SaunaHallsPresenter
   def initialize(args = {})
     super(args)
 
-    self.capacity_min = self.capacity_min.blank? ? nil : self.capacity_min
-    self.capacity_max = self.capacity_max.blank? ? nil : self.capacity_max
-    self.price_min    = self.price_min.blank? ? nil : self.price_min
-    self.price_max    = self.price_max.blank? ? nil : self.price_max
+    self.capacity_min = self.capacity_min.to_i.zero? ? SaunaHallCapacity.minimum(:default) : self.capacity_min.to_i
+    self.capacity_max = self.capacity_max.to_i.zero? ? SaunaHallCapacity.maximum(:maximal) : self.capacity_max.to_i
+    self.price_min    = self.price_min.blank? ?  SaunaHallSchedule.minimum(:price) : self.price_min
+    self.price_max    = self.price_max.blank? ?  SaunaHallSchedule.maximum(:price) : self.price_max
     self.radius       = self.radius.blank? ? nil : self.radius
 
     self.baths    = (self.baths || []).delete_if(&:blank?)
@@ -61,8 +61,7 @@ class SaunaHallsPresenter
 
   def search
     @search ||= SaunaHall.search {
-      with(:capacity).greater_than_or_equal_to(capacity_min)  if capacity_min
-      with(:capacity).less_than_or_equal_to(capacity_max)     if capacity_max
+      with(:capacity).between(capacity_min..capacity_max)
 
       without(:price_max).less_than(price_min)    if price_min
       without(:price_min).greater_than(price_max) if price_max
@@ -86,7 +85,6 @@ class SaunaHallsPresenter
       else
         order_by(criterion, direction)
       end
-
 
       facet :baths,         sort: :index, zeros: true
       facet :features,      sort: :index, zeros: true
