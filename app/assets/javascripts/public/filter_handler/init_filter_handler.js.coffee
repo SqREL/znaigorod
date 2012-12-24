@@ -18,7 +18,7 @@ remove_filter_handler = () ->
 clear_form_handler = () ->
   $('.clear_wrapper a').on 'click', ->
     $('.filters_wrapper .filter_inputs input').val('')
-    $('.filters_wrapper .remove_filter_link').click()
+    $('.filters_wrapper .remove_filter_link:visible').click()
     false
 
 $.fn.draw_scale = (min, max) ->
@@ -30,7 +30,11 @@ $.fn.draw_scale = (min, max) ->
                               </div>')
 
 filter_slider_handler = () ->
-  filter_slider = $('.filter_slider')
+  $('.filter_slider').each (index, item) ->
+    $(item).add_handler()
+
+$.fn.add_handler = () ->
+  filter_slider = $(this)
   min = filter_slider.data('min')
   max = filter_slider.data('max')
   step = filter_slider.data('step')
@@ -51,15 +55,21 @@ filter_slider_handler = () ->
     step: step
     values: [min, max]
     create: (event, ui) ->
-      $('.filter_slider_wrapper').find('.ui-corner-all').removeClass('ui-corner-all')
+      filter_slider.parent().find('.ui-corner-all').removeClass('ui-corner-all')
       filter_slider.find('.ui-slider-handle').map (index, item) ->
         $(item).addClass('handle'+index)
-      $(this).slider('values', 0, $(this).parent().siblings('.filter_inputs').find('.min').val())
-      $(this).slider('values', 1, $(this).parent().siblings('.filter_inputs').find('.max').val())
+      filter_slider.slider('values', 0, $(this).parent().siblings('.filter_inputs').find('.min').val())
+      filter_slider.slider('values', 1, $(this).parent().siblings('.filter_inputs').find('.max').val())
 
-    change: (event, ui) ->
-      inputs = $(this).parent().siblings('.filter_inputs').find('input')
-      values = $(this).slider('values')
+    slide: (event, ui) ->
+      inputs = filter_slider.parent().siblings('.filter_inputs').find('input')
+      values = filter_slider.slider('values')
+      inputs.map (index, item) ->
+        $(item).val(values[index])
+
+    stop: (event, ui) ->
+      inputs = filter_slider.parent().siblings('.filter_inputs').find('input')
+      values = filter_slider.slider('values')
       inputs.map (index, item) ->
         $(item).val(values[index])
 

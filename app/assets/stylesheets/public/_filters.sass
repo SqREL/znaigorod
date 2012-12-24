@@ -12,6 +12,7 @@
     border: 1px solid #fffdff
     margin: 0 auto
     padding: 12px 0 8px
+    position: relative
     width: 970px
 
     h1
@@ -31,7 +32,7 @@
         width: 60px
 
         &.wide
-          width: 90px
+          width: 115px
 
       .filter_inputs
         +clearfix
@@ -72,6 +73,8 @@
       float: left
       height: 31px
       padding: 0 9px
+      position: absolute
+      left: 390px
 
       .scale_block
         +clearfix
@@ -88,9 +91,11 @@
         .min
           left: 0
         .middle
-          left: 43%
+          left: 42%
+          text-align: center
         .max
           left: 88%
+          text-align: center
 
       .filter_slider
         background: #f0a2a0
@@ -99,9 +104,15 @@
         height: 4px
         width: 241px
 
+        &:hover
+          cursor: pointer
+
         .ui-slider-range
           background: #de4341
           @include background-image(linear-gradient(#de4341, #b23638))
+
+          &:hover
+            cursor: pointer
 
         .ui-slider-handle
           border: none
