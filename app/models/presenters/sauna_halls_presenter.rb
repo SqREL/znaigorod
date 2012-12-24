@@ -21,10 +21,10 @@ class SaunaHallsPresenter
     self.features = (self.features || []).delete_if(&:blank?)
     self.pool     = (self.pool || []).delete_if(&:blank?)
 
-    self.lat      ||= '56.488611121111'
-    self.lon      ||= '84.952222232222'
-    self.radius   ||= 11
-    self.page     ||= 1
+    self.lat    ||= 56.488611121111
+    self.lon    ||= 84.952222232222
+    self.radius ||= 11
+    self.page   ||= 1
   end
 
   def capacity
@@ -98,6 +98,10 @@ class SaunaHallsPresenter
 
     define_method "selected_#{name}" do
       send("available_#{name}") & send(name)
+    end
+
+    define_method "#{name}_filter_used?" do
+      send("selected_#{name}").any?
     end
   end
 end
