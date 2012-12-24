@@ -7,6 +7,8 @@
       <th style="width: 100px">Цена от</th>
       <th style="width: 100px">Цена до</th>
       <th style="width: 100px">Вместительность</th>
+      <th style="width: 100px">Бассейн</th>
+      <th style="width: 100px">Парная</th>
     </tr>
   </thead>
 
@@ -20,6 +22,8 @@
         <td><%= sauna_hall.price_min %></td>
         <td><%= sauna_hall.price_max %></td>
         <td><%= sauna_hall.capacity %></td>
+        <td><%= sauna_hall.pool_features.join(', ') %></td>
+        <td><%= sauna_hall.baths.join(', ') %></td>
       </tr>
     <% end %>
   </tbody>
