@@ -22,31 +22,54 @@
 
     .filter
       +clearfix
+      +min-height(35px)
       border-bottom: 1px dotted #a5a2a9
-      height: 35px
       padding: 5px 10px
+      position: relative
 
       .filter_label
+        bottom: 0
         float: left
-        line-height: 35px
-        width: 60px
-
-        &.wide
-          width: 115px
+        height: 10px
+        left: 10px
+        margin: auto
+        position: absolute
+        top: 0
 
       .filter_inputs
         +clearfix
         float: left
         line-height: 35px
+        margin: 0 0 0 115px
 
         div.input
           float: left
 
           input
+            background: #fff
             border: 1px solid #835999
             margin: 0 10px 0 5px
             padding: 0
             width: 56px
+
+      .filter_checkboxes
+        +clearfix
+        padding: 5px 0
+        margin: 0 0 0 115px
+        width: 785px
+
+        div.checkbox
+          +clearfix
+          float: left
+          height: 16px
+          margin: 0 20px 5px 0
+          width: 175px
+
+          input
+            background: #fff
+            border: 1px solid #835999
+            float: left
+            margin: 0 5px 0 0
 
       .filter_input_label
         float: left

@@ -1,16 +1,6 @@
 <div class="content_wrapper">
   <%= render :partial => 'filters' %>
 
-<p>Все значения для парных: <%= @presenter.available_baths.join(', ') %></p>
-<p>Выбранные значения для парных: <%= @presenter.selected_baths.join(', ') %></p>
-<hr />
-<p>Все значения особенностей: <%= @presenter.available_features.join(', ') %></p>
-<p>Выбранные значения особенностей: <%= @presenter.selected_features.join(', ') %></p>
-<hr />
-<p>Все значения для бассейнов: <%= @presenter.available_pool_features.join(', ') %></p>
-<p>Выбранные значения для бассейнов: <%= @presenter.selected_pool_features.join(', ') %></p>
-<hr />
-
 <table>
   <thead>
     <tr>
