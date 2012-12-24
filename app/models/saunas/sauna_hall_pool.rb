@@ -4,7 +4,7 @@ class SaunaHallPool < ActiveRecord::Base
   belongs_to :sauna_hall
 
   include UsefulAttributes
-  use_attributes :exclude => :size
+  use_attributes :exclude => [:size, :water_filter]
 end
 
 # == Schema Information

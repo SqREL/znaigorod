@@ -1,5 +1,15 @@
 <%= render :partial => 'filters' %>
 
+<p>Все значения для парных: <%= @presenter.available_baths.join(', ') %></p>
+<p>Выбранные значения для парных: <%= @presenter.selected_baths.join(', ') %></p>
+<hr />
+<p>Все значения особенностей: <%= @presenter.available_features.join(', ') %></p>
+<p>Выбранные значения особенностей: <%= @presenter.selected_features.join(', ') %></p>
+<hr />
+<p>Все значения для бассейнов: <%= @presenter.available_pool_features.join(', ') %></p>
+<p>Выбранные значения для бассейнов: <%= @presenter.selected_pool_features.join(', ') %></p>
+<hr />
+
 <table>
   <thead>
     <tr>
@@ -9,6 +19,7 @@
       <th style="width: 100px">Вместительность</th>
       <th style="width: 100px">Бассейн</th>
       <th style="width: 100px">Парная</th>
+      <th style="width: 100px">Особенности</th>
     </tr>
   </thead>
 
@@ -24,6 +35,7 @@
         <td><%= sauna_hall.capacity %></td>
         <td><%= sauna_hall.pool_features.join(', ') %></td>
         <td><%= sauna_hall.baths.join(', ') %></td>
+        <td><%= sauna_hall.features.join(', ') %></td>
       </tr>
     <% end %>
   </tbody>

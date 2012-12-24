@@ -3,8 +3,7 @@ class SaunaHallsPresenter
 
   attr_accessor :capacity_min, :capacity_max,
                 :price_min, :price_max,
-                :baths,
-                :pool,
+                :baths, :features, :pool,
                 :page
 
   alias :pool_features :pool
@@ -12,13 +11,10 @@ class SaunaHallsPresenter
   def initialize(args = {})
     super(args)
 
-    self.page ||= 1
-    self.pool = (self.pool || []).delete_if(&:blank?)
-    self.baths = (self.baths || []).delete_if(&:blank?)
-  end
-
-  def collection
-    search.results
+    self.page     ||= 1
+    self.baths    = (self.baths || []).delete_if(&:blank?)
+    self.features = (self.features || []).delete_if(&:blank?)
+    self.pool     = (self.pool || []).delete_if(&:blank?)
   end
 
   def search
@@ -29,15 +25,41 @@ class SaunaHallsPresenter
       without(:price_max).less_than(price_min) if price_min
       without(:price_min).greater_than(price_max) if price_max
 
-      pool_features.each do |feature|
-        with(:pool_features, feature)
-      end
-
       baths.each do |bath|
         with(:baths, bath)
       end
 
+      features.each do |feature|
+        with(:features, feature)
+      end
+
+      pool_features.each do |feature|
+        with(:pool_features, feature)
+      end
+
+      facet :baths,         sort: :index, zeros: true
+      facet :features,      sort: :index, zeros: true
+      facet :pool_features, sort: :index, zeros: true
+
       paginate(:page => page)
     }
+  end
+
+  def collection
+    search.results
+  end
+
+  def faceted_rows(facet)
+    [*search.facet(facet).rows.map(&:value)]
+  end
+
+  %w[baths features pool_features].each do |name|
+    define_method "available_#{name}" do
+      faceted_rows name
+    end
+
+    define_method "selected_#{name}" do
+      send("available_#{name}") & send(name)
+    end
   end
 end
