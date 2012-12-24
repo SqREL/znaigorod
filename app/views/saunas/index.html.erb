@@ -1,4 +1,5 @@
-<%= render :partial => 'filters' %>
+<div class="content_wrapper">
+  <%= render :partial => 'filters' %>
 
 <p>Все значения для парных: <%= @presenter.available_baths.join(', ') %></p>
 <p>Выбранные значения для парных: <%= @presenter.selected_baths.join(', ') %></p>
@@ -40,3 +41,4 @@
     <% end %>
   </tbody>
 </table>
+</div>
