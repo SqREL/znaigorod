@@ -1,5 +1,6 @@
 .filters_wrapper
   +clearfix
+  font-size: 11px
   padding: 4px
   margin: 0 0 20px 0
   width: 992px
@@ -26,7 +27,6 @@
 
       .filter_label
         float: left
-        font-size: 12px
         line-height: 35px
         width: 60px
 
@@ -48,7 +48,9 @@
             width: 56px
 
       .filter_input_label
+        float: left
         line-height: 35px
+        margin: 0 10px 0 0
 
       .remove_filter_link
         background: image_url('remove.png') no-repeat center center
@@ -63,6 +65,83 @@
         &:active
           top: 1px
           left: 1px
+
+    .filter_slider_wrapper
+      +clearfix
+      background: image_url('scale.png') no-repeat 9px 11px
+      float: left
+      height: 31px
+      padding: 0 9px
+
+      .scale_block
+        +clearfix
+        height: 16px
+        margin-left: -3px
+        position: relative
+        width: 261px
+
+        span
+          display: block
+          position: absolute
+          width: 30px
+
+        .min
+          left: 0
+        .middle
+          left: 43%
+        .max
+          left: 88%
+
+      .filter_slider
+        background: #f0a2a0
+        @include background-image(linear-gradient(#f0a2a0, #da999d))
+        border: 1px solid #434544
+        height: 4px
+        width: 241px
+
+        .ui-slider-range
+          background: #de4341
+          @include background-image(linear-gradient(#de4341, #b23638))
+
+        .ui-slider-handle
+          border: none
+          height: 9px
+          margin: 0
+          top: 5px
+          width: 10px
+
+          &:hover
+            cursor: pointer
+
+        .handle0
+          background: image_url('left_handle.png') no-repeat
+          margin: 0 0 0 -10px
+
+        .handle1
+          background: image_url('right_handle.png') no-repeat
+
+    .criteria_list
+      +clearfix
+      height: 14px
+      padding: 10px
+
+      .criteria_label
+        float: left
+        height: 14px
+        margin: 0
+
+      ul
+        +clearfix
+        list-style: none
+
+        li
+          float: left
+          margin: 0 7px
+
+          a
+            display: block
+            height: 14px
+            line-height: 14px
 
     .submit_action
       +clearfix

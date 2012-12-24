@@ -8,6 +8,8 @@
 <% end %>
 
 <div class="content_wrapper">
+  <%= render :partial => 'filters_v2' %>
+  <% if false %>
   <div class="organizations_list">
     <h1><span class="strong"><%= @organizations_collection.subtitle.capitalize %></span> в Томске</h1>
     <ul class="items_list">
@@ -58,6 +60,7 @@
   </div>
 
   <a href="#" class="move_to_top">наверх</a>
+  <% end %>
 
 </div>
 

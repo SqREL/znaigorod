@@ -22,6 +22,7 @@
  * = require public/distribution
  * = require public/galleria
  * = require public/filters_toggler
+ * = require public/filter_handler
  * = require public/prepare_organizations
  * = require public/loading_items
  * = require public/list_settings

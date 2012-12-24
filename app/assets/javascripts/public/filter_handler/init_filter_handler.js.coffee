@@ -1,0 +1,71 @@
+criteria_handler = () ->
+  $('.criteria_list ul li a').on 'click', ->
+    target = $('#'+$(this).attr('class'))
+    $(this).add(target).toggle()
+    false
+
+set_previous_state = () ->
+  $('.filters_wrapper .hide').hide()
+
+remove_filter_handler = () ->
+  $('.remove_filter_link').on 'click', ->
+    filter = $(this).parent()
+    filter.find('input').val('')
+    target = $('.'+filter.toggle().attr('id'))
+    target.toggle()
+    false
+
+clear_form_handler = () ->
+  $('.clear_wrapper a').on 'click', ->
+    $('.filters_wrapper .filter_inputs input').val('')
+    $('.filters_wrapper .remove_filter_link').click()
+    false
+
+$.fn.draw_scale = (min, max) ->
+  middle = (max / 2.0).round()
+  scale_block = $(this).before('<div class="scale_block">
+                                <span class="min">'+min+'</span>
+                                <span class="middle">'+middle+'</span>
+                                <span class="max">'+max+'</span>
+                              </div>')
+
+filter_slider_handler = () ->
+  filter_slider = $('.filter_slider')
+  min = filter_slider.data('min')
+  max = filter_slider.data('max')
+  step = filter_slider.data('step')
+
+  filter_slider.draw_scale(min, max)
+
+  filter_slider.parent().siblings('.filter_inputs').find('input').on 'change', ->
+    value = $(this).val()
+    if $(this).hasClass('min')
+      filter_slider.slider('values', 0, value)
+    if $(this).hasClass('max')
+      filter_slider.slider('values', 1, value)
+
+  filter_slider.slider
+    max: max
+    min: min
+    range: true
+    step: step
+    values: [min, max]
+    create: (event, ui) ->
+      $('.filter_slider_wrapper').find('.ui-corner-all').removeClass('ui-corner-all')
+      filter_slider.find('.ui-slider-handle').map (index, item) ->
+        $(item).addClass('handle'+index)
+      $(this).slider('values', 0, $(this).parent().siblings('.filter_inputs').find('.min').val())
+      $(this).slider('values', 1, $(this).parent().siblings('.filter_inputs').find('.max').val())
+
+    change: (event, ui) ->
+      inputs = $(this).parent().siblings('.filter_inputs').find('input')
+      values = $(this).slider('values')
+      inputs.map (index, item) ->
+        $(item).val(values[index])
+
+@init_filter_handler = () ->
+  set_previous_state()
+  remove_filter_handler()
+  criteria_handler()
+  filter_slider_handler()
+  clear_form_handler()

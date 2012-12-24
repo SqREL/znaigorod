@@ -21,6 +21,7 @@ $ ->
   init_distribution() if $(".content .distribution").length
   init_galleria() if $(".content .gallery_container").length
   init_filters_toggler() if $(".need_toggler li").length
+  init_filter_handler() if $(".filters_wrapper").length
   init_prepare_organizations() if $(".organizations_list .info .characteristics").length
   init_photogallery() if $(".content_wrapper .was_in_city_photos li").length
   init_loading_items() if $(".content_wrapper .affiches_list ul.items_list li").length
