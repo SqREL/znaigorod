@@ -19,14 +19,38 @@
         <div class='filter_input_label'>рублей</div>
 
         <div class="filter_slider_wrapper">
-          <div class="filter_slider" data-min='0' data-max='2500' data-step='50'></div>
+          <div class="filter_slider" data-min='<%= @presenter.min_price %>' data-max='<%= @presenter.max_price %>' data-step='50'></div>
         </div>
       </div>
+
+      <div class="filter hide" id='capacity'>
+        <%= link_to "убрать", '#', :class => 'remove_filter_link' %>
+        <div class="filter_label wide">Вместительность</div>
+        <div class="filter_inputs">
+          <div class="input">
+            <%= label_tag :capacity_min, 'от' %>
+            <%= text_field_tag :capacity_min, @presenter.capacity_min, :class => 'min' %>
+          </div>
+          <div class="input">
+            <%= label_tag :capacity_max, 'до' %>
+            <%= text_field_tag :capacity_max, @presenter.capacity_max, :class => 'max' %>
+          </div>
+        </div>
+        <div class='filter_input_label'>человек</div>
+
+        <div class="filter_slider_wrapper">
+          <div class="filter_slider" data-min='<%= @presenter.min_capacity %>' data-max='<%= @presenter.max_capacity %>' data-step='50'></div>
+        </div>
+      </div>
+
       <div class="criteria_list">
         <div class="criteria_label">Добавить критерии:</div>
         <ul>
           <li>
             <%= link_to "Стоимость", '#', :class => 'amount'  %>
+          </li>
+          <li>
+            <%= link_to "Вместительность", '#', :class => 'capacity'  %>
           </li>
         </ul>
       </div>
@@ -35,7 +59,7 @@
           <input type="submit" value="Применить фильтр" class='submit' />
         </div>
         <div class="results_counter">
-          Найдено заведений: <span class='counter'>10</span>
+          Найдено заведений: <span class='counter'><%= @presenter.total_count %></span>
         </div>
         <div class="clear_wrapper">
           <%= link_to "Очистить", '#' %>

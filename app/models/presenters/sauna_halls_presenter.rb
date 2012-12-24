@@ -41,12 +41,32 @@ class SaunaHallsPresenter
       facet :features,      sort: :index, zeros: true
       facet :pool_features, sort: :index, zeros: true
 
-      paginate(:page => page)
+      paginate(:page => page, :per_page => 1000)
     }
   end
 
   def collection
     search.results
+  end
+
+  def total_count
+    search.total
+  end
+
+  def min_price
+    SaunaHallSchedule.minimum(:price)
+  end
+
+  def max_price
+    SaunaHallSchedule.maximum(:price)
+  end
+
+  def min_capacity
+    SaunaHallCapacity.minimum(:default)
+  end
+
+  def max_capacity
+    SaunaHallCapacity.maximum(:maximal)
   end
 
   def faceted_rows(facet)
