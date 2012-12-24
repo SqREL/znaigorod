@@ -12,14 +12,15 @@ set_previous_state = () ->
 remove_filter_handler = () ->
   $('.remove_filter_link').on 'click', ->
     filter = $(this).parent()
-    filter.find('input').val('')
+    filter.find('input').val('').attr('checked', false).change()
     target = $('.'+filter.toggle().attr('id'))
     target.toggle()
     false
 
 clear_form_handler = () ->
   $('.clear_wrapper a').on 'click', ->
-    $('.filters_wrapper .filter_inputs input').val('')
+    $('.filters_wrapper .filter_inputs input').val('').change()
+    $('.filters_wrapper .filter_checkboxes input').attr('checked', false).change()
     $('.filters_wrapper .remove_filter_link:visible').click()
     false
 
@@ -46,9 +47,15 @@ $.fn.add_handler = () ->
   filter_slider.parent().siblings('.filter_inputs').find('input').on 'change', ->
     value = $(this).val()
     if $(this).hasClass('min')
-      filter_slider.slider('values', 0, value)
+      if value.match(/\d+/)
+        filter_slider.slider('values', 0, value)
+      else
+        filter_slider.slider('values', 0, min)
     if $(this).hasClass('max')
-      filter_slider.slider('values', 1, value)
+      if value.match(/\d+/)
+        filter_slider.slider('values', 1, value)
+      else
+        filter_slider.slider('values', 1, max)
 
   filter_slider.slider
     max: max
@@ -60,7 +67,7 @@ $.fn.add_handler = () ->
       filter_slider.parent().find('.ui-corner-all').removeClass('ui-corner-all')
       filter_slider.find('.ui-slider-handle').map (index, item) ->
         $(item).addClass('handle'+index)
-      if filter_slider.parent().parent().hasClass('show')
+      if filter_slider.parent().parent().is(':visible') && filter_slider.parent().parent().hasClass('used')
         filter_slider.slider('values', 0, $(this).parent().siblings('.filter_inputs').find('.min').val())
         filter_slider.slider('values', 1, $(this).parent().siblings('.filter_inputs').find('.max').val())
 
