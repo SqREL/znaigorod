@@ -1,9 +1,10 @@
 class SaunaHallInterior < ActiveRecord::Base
-  include UsefulAttributes
-
   attr_accessible :floors, :lounges, :pit, :pylon, :barbecue
 
   belongs_to :sauna_hall
+
+  include UsefulAttributes
+  use_attributes :exclude => [:floors, :lounges]
 end
 
 # == Schema Information

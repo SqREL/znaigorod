@@ -1,5 +1,6 @@
 class SaunaHallEntertainment < ActiveRecord::Base
   include UsefulAttributes
+
   attr_accessible :aerohockey, :billiard, :ping_pong,
                   :hookah, :karaoke, :tv, :guitar,
                   :checkers, :chess, :backgammon

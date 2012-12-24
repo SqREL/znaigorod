@@ -29,6 +29,7 @@ class SaunaHall < ActiveRecord::Base
     integer :price_min
 
     string :baths,          :multiple => true
+    string :features,       :multiple => true
     string :pool_features,  :multiple => true
   end
 
@@ -55,11 +56,13 @@ class SaunaHall < ActiveRecord::Base
   end
   alias_method :price_max, :max_sauna_hall_schedules_price
 
+  def filled?(value)
+    !value.nil? && !!value && !value.blank?
+  end
+
   def pool_features
     sauna_hall_pool.useful_attributes.select { |attribute|
-        attribute if !sauna_hall_pool.send(attribute).nil? &&
-                     !!sauna_hall_pool.send(attribute) &&
-                     !sauna_hall_pool.send(attribute).blank?
+      attribute if filled?(sauna_hall_pool.send(attribute))
     }.map { |attribute| sauna_hall_pool.class.human_attribute_name(attribute) }.
       map(&:mb_chars).
       map(&:downcase)
@@ -67,12 +70,30 @@ class SaunaHall < ActiveRecord::Base
 
   def baths
     sauna_hall_bath.useful_attributes.select { |attribute|
-      attribute if !sauna_hall_bath.send(attribute).nil? &&
-        !!sauna_hall_bath.send(attribute) &&
-        !sauna_hall_bath.send(attribute).blank?
+      attribute if filled?(sauna_hall_bath.send(attribute))
     }.map { |attribute| sauna_hall_bath.class.human_attribute_name(attribute) }.
       map(&:mb_chars).
       map(&:downcase)
+  end
+
+  def sauna_hall_entertainment_features
+    sauna_hall_entertainment.useful_attributes.select { |attribute|
+      attribute if filled?(sauna_hall_entertainment.send(attribute))
+    }.map { |attribute| sauna_hall_entertainment.class.human_attribute_name(attribute) }.
+      map(&:mb_chars).
+      map(&:downcase)
+  end
+
+  def sauna_hall_interior_features
+    sauna_hall_interior.useful_attributes.select { |attribute|
+      attribute if filled?(sauna_hall_interior.send(attribute))
+    }.map { |attribute| sauna_hall_interior.class.human_attribute_name(attribute) }.
+      map(&:mb_chars).
+      map(&:downcase)
+  end
+
+  def features
+    sauna_hall_entertainment_features + sauna_hall_interior_features
   end
 end
 
