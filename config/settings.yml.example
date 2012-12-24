@@ -20,12 +20,3 @@ errors:
 
 storage:
   url:                  http://storage.host
-
-deploy:
-  application:          appname.ru
-  domain:               user@host
-  port:                 port
-  pg_domain:            user@port
-  pg_port:              port
-  solr_domain:          user@host
-  solr_port:            port
