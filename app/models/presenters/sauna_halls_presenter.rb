@@ -12,9 +12,15 @@ class SaunaHallsPresenter
   def initialize(args = {})
     super(args)
 
+    self.capacity_min = self.capacity_min.blank? ? nil : self.capacity_min
+    self.capacity_max = self.capacity_max.blank? ? nil : self.capacity_max
+    self.price_min    = self.price_min.blank? ? nil : self.price_min
+    self.price_max    = self.price_max.blank? ? nil : self.price_max
+
     self.baths    = (self.baths || []).delete_if(&:blank?)
     self.features = (self.features || []).delete_if(&:blank?)
     self.pool     = (self.pool || []).delete_if(&:blank?)
+
     self.lat      ||= '56.488611121111'
     self.lon      ||= '84.952222232222'
     self.radius   ||= 11
