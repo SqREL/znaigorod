@@ -74,7 +74,7 @@ module Statistics
         slug = item.url.split('/').last
 
         if affiche = Affiche.find_by_slug(slug)
-          affiche.update_column :yandex_metrika_page_views, item.page_views
+          affiche.update_attribute :yandex_metrika_page_views, item.page_views
         end
       end
     end
