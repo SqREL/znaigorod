@@ -32,9 +32,6 @@ class SaunaHallsPresenter
 
   def criterion
     order_by == 'price' ? 'price_min' : order_by
-
-    # NOTE: stub
-    'price_min'
   end
 
   def direction
