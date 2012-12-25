@@ -5,18 +5,9 @@ module Statistics
   VkontakteApi.log_requests = false
 
   class Vkontakte
-    def update_affiches
-      pb = ProgressBar.new(likes_with_slugs.size)
-      puts 'Updating affiches...'
-
-      likes_with_slugs.each do |e|
-        pb.increment!
-        affiche = Affiche.find_by_slug(e.slug)
-
-        next unless affiche
-
-        affiche.update_attribute :vkontakte_likes, e.likes
-      end
+    def update_statistics
+      update_affiches
+      update_organizations
     end
 
     private
@@ -41,22 +32,38 @@ module Statistics
       end
     end
 
-    def likes_with_slugs
-      @likes_with_slugs ||= [].tap { |array|
-        puts 'Getting data from Vk...'
-
-        pb = ProgressBar.new(urls.count)
-        urls.each do |url|
-          pb.increment!
-          slug = url.split('/').last
-          likes = likes_for(url)
-          array << Hashie::Mash.new(slug: slug, likes: likes) unless likes.zero?
-        end
-      }
+    def yandex_statistics
+      @yandex_statistics ||= Yandex.new
     end
 
-    def urls
-      @urls ||= Yandex.new.urls
+    delegate :affiche_urls, :organization_urls, to: :yandex_statistics
+
+    def update_affiches
+      puts 'Updating affiches...'
+      pb = ProgressBar.new(affiche_urls.size)
+
+      affiche_urls.each do |url|
+        pb.increment!
+        slug = url.split('/').last
+
+        if affiche = Affiche.find_by_slug(slug)
+          affiche.update_column :vkontakte_likes, likes_for(url)
+        end
+      end
+    end
+
+    def update_organizations
+      puts 'Updating organizations...'
+      pb = ProgressBar.new(organization_urls.size)
+
+      organization_urls.each do |url|
+        pb.increment!
+        slug = url.split('/').last
+
+        if organization = Organization.find_by_slug(slug)
+          organization.update_attribute :vkontakte_likes, likes_for(url)
+        end
+      end
     end
   end
 end

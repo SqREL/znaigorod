@@ -1,0 +1,21 @@
+<div class="affiches">
+  <h4>Мероприятия</h4>
+  <table>
+    <tbody>
+      <% affiches.each do |affiche| %>
+        <tr>
+          <td>
+            <%= link_to image_tag(resized_image_url(affiche.poster_url, 25, 40, false)), affiche.kind_affiche_path  %>
+          </td>
+          <td>
+            <%= link_to affiche.title, affiche.kind_affiche_path  %>
+          </td>
+          <td>
+            <%= affiche.send attribute %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

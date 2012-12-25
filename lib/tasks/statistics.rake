@@ -6,7 +6,7 @@ namespace :statistics do
 
   desc 'Update VK likes count'
   task :vkontakte => :environment do
-    Statistics::Vkontakte.new.update_affiches
+    Statistics::Vkontakte.new.update_statistics
   end
 
   desc 'Update Yandex.metrika and VK statistics'
