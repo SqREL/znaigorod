@@ -27,4 +27,11 @@ class StatisticsPresenter
       limit(10).
       map { |a| OrganizationDecorator.new(a) }
   end
+
+  def organizations_with_likes
+    Organization.unscoped.
+      where('vkontakte_likes IS NOT NULL').order('vkontakte_likes DESC').
+      limit(10).
+      map { |a| OrganizationDecorator.new(a) }
+  end
 end

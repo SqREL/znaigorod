@@ -1,0 +1,21 @@
+<div class="organizations">
+  <h4>Заведения</h4>
+  <table>
+    <tbody>
+      <% organizations.each do |organization| %>
+        <tr>
+          <td>
+            <%= link_to image_tag(resized_image_url(organization.logotype_url, 25, 40, false)), organization_path(organization) if organization.logotype_url? %>
+          </td>
+          <td>
+            <%= link_to organization.title, organization_path(organization)  %>
+          </td>
+          <td>
+            <%= organization.send attribute %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

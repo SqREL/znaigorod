@@ -7,6 +7,14 @@ module Statistics
       update_organizations
     end
 
+    def affiche_urls
+      affiche_items.sort_by { |item| item.page_views }.reverse.first(100).map(&:url)
+    end
+
+    def organization_urls
+      organization_items.sort_by { |item| item.page_views }.reverse.first(100).map(&:url)
+    end
+
     private
 
     def api_url
@@ -66,7 +74,7 @@ module Statistics
         slug = item.url.split('/').last
 
         if affiche = Affiche.find_by_slug(slug)
-          affiche.update_attribute :yandex_metrika_page_views, item.page_views
+          affiche.update_column :yandex_metrika_page_views, item.page_views
         end
       end
     end
