@@ -20,4 +20,11 @@ class StatisticsPresenter
   def from_date
     1.month.ago
   end
+
+  def organizations_with_page_views
+    Organization.unscoped.
+      where('yandex_metrika_page_views IS NOT NULL').order('yandex_metrika_page_views DESC').
+      limit(10).
+      map { |a| OrganizationDecorator.new(a) }
+  end
 end

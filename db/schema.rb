@@ -193,6 +193,8 @@ ActiveRecord::Schema.define(:version => 20121227021642) do
     t.string   "priority_suborganization_kind"
     t.text     "comment"
     t.integer  "additional_rating"
+    t.integer  "yandex_metrika_page_views"
+    t.integer  "vkontakte_likes"
   end
 
   add_index "organizations", ["slug"], :name => "index_organizations_on_slug", :unique => true

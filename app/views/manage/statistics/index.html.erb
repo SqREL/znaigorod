@@ -1,0 +1,67 @@
+<div class="statistics">
+  <h3>Статистика Яндекс.Метрика (количество просмотров)</h3>
+  <div class="yandex">
+    <div class="affiches">
+      <table>
+        <tbody>
+          <% @statistics_presenter.affiches_with_page_views.each do |affiche| %>
+            <tr>
+              <td>
+                <%= link_to image_tag(resized_image_url(affiche.poster_url, 25, 40, false)), affiche.kind_affiche_path  %>
+              </td>
+              <td>
+                <%= link_to affiche.title, affiche.kind_affiche_path  %>
+              </td>
+              <td>
+                <%= affiche.yandex_metrika_page_views %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="organizations">
+      <table>
+        <tbody>
+          <% @statistics_presenter.organizations_with_page_views.each do |organization| %>
+            <tr>
+              <td>
+                <%= link_to image_tag(resized_image_url(organization.logotype_url, 25, 40, false)), organization_path(organization)  %>
+              </td>
+              <td>
+                <%= link_to organization.title, organization_path(organization)  %>
+              </td>
+              <td>
+                <%= organization.yandex_metrika_page_views %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3>Статистика Вконтакте (количество лайков)</h3>
+  <div class="vk">
+    <div class="affiches">
+      <table>
+        <tbody>
+          <% @statistics_presenter.affiches_with_likes.each do |affiche| %>
+            <tr>
+              <td>
+                <%= link_to image_tag(resized_image_url(affiche.poster_url, 25, 40, false)), affiche.kind_affiche_path  %>
+              </td>
+              <td>
+                <%= link_to affiche.title, affiche.kind_affiche_path  %>
+              </td>
+              <td>
+                <%= affiche.yandex_metrika_page_views %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
