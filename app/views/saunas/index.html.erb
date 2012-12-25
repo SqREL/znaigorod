@@ -1,34 +1,11 @@
 <div class="content_wrapper">
   <%= render :partial => 'filters' %>
 
-<table>
-  <thead>
-    <tr>
-      <th style="width: 200px">Название</th>
-      <th style="width: 100px">Цена от</th>
-      <th style="width: 100px">Цена до</th>
-      <th style="width: 100px">Вместительность</th>
-      <th style="width: 100px">Бассейн</th>
-      <th style="width: 100px">Парная</th>
-      <th style="width: 100px">Особенности</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @presenter.collection.each do |sauna_hall| %>
-      <tr>
-        <td>
-          <b><%= sauna_hall.sauna.organization.title %></b>
-          <%= sauna_hall.title %>
-        </td>
-        <td><%= sauna_hall.price_min %></td>
-        <td><%= sauna_hall.price_max %></td>
-        <td><%= sauna_hall.capacity %></td>
-        <td><%= sauna_hall.pool_features.join(', ') %></td>
-        <td><%= sauna_hall.baths.join(', ') %></td>
-        <td><%= sauna_hall.features.join(', ') %></td>
-      </tr>
+  <ul class='sauna_list'>
+    <% @presenter.collection.each do |sauna| %>
+      <li class='sauna_item'>
+        <%= render :partial => 'sauna', :locals => { :sauna => OrganizationDecorator.decorate(sauna.sauna.organization), :sauna_hall => sauna } %>
+      </li>
     <% end %>
-  </tbody>
-</table>
+  </ul>
 </div>

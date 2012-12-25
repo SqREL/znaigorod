@@ -7,14 +7,13 @@ criteria_handler = () ->
 set_previous_state = () ->
   $('.filters_wrapper .hide').hide()
   $('.filters_wrapper .show').each (index, item) ->
-    $('.'+$(item).attr('id')).hide()
+    $('.'+$(item).attr('id'), '.filters_wrapper').hide()
 
 remove_filter_handler = () ->
   $('.remove_filter_link').on 'click', ->
     filter = $(this).parent()
     filter.find('input').val('').attr('checked', false).change()
-    target = $('.'+filter.toggle().attr('id'))
-    target.toggle()
+    $('.'+filter.toggle().attr('id'), '.filters_wrapper').toggle()
     false
 
 clear_form_handler = () ->
