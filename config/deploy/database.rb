@@ -37,7 +37,7 @@ namespace :db do
     run_locally("ssh #{gateway} -At ssh #{pg_domain} pg_dump -U #{db_username} #{database} | psql #{local_database}")
     run_locally("bin/cap solr:import")
     run_locally("bin/rake sunspot:solr:start")
-    run_locally("bin/rake db:migrate")
     run_locally("bin/rake db:migrate RAILS_ENV=test")
+    run_locally("bin/rake db:migrate")
   end
 end
