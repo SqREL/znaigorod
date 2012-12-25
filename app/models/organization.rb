@@ -63,6 +63,10 @@ class Organization < ActiveRecord::Base
 
   alias_attribute :to_s, :title
 
+  # NOTE: не забыть раскоментить после слияния saunas_search и master
+  #default_value_for :yandex_metrika_page_views, 0
+  #default_value_for :vkontakte_likes,           0
+
   friendly_id :title, use: :slugged
 
   paginates_per Settings['pagination.per_page'] || 10
@@ -175,6 +179,7 @@ class Organization < ActiveRecord::Base
 
   def priority_suborganization
     return nil unless priority_suborganization_kind?
+
     send priority_suborganization_kind
   end
 
@@ -187,7 +192,10 @@ class Organization < ActiveRecord::Base
   private
 
   def set_rating
-    self.rating = summary_rating + nearest_affiches.count + images.count + additional_rating.to_i
+    filling     = summary_rating + nearest_affiches.count + images.count
+    popularity  = 0.3 * yandex_metrika_page_views.to_f + vkontakte_likes.to_f
+
+    self.rating = 0.1 * filling + popularity + additional_rating.to_i
   end
 
   include Rating

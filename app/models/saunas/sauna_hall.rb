@@ -31,6 +31,8 @@ class SaunaHall < ActiveRecord::Base
     integer :price_max
     integer :price_min
 
+    float(:popularity) { sauna.organization.rating }
+
     latlon(:location) { Sunspot::Util::Coordinates.new(latitude, longitude) }
 
     string :baths,          :multiple => true

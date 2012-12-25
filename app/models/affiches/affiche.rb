@@ -30,27 +30,27 @@ class Affiche < ActiveRecord::Base
   accepts_nested_attributes_for :showings, :allow_destroy => true
 
   default_scope order('affiches.id DESC')
-  default_value_for :yandex_metrika_page_views, 0
-  default_value_for :vkontakte_likes, 0
 
   scope :latest,           ->(count) { limit(count) }
   scope :with_images,      -> { where('image_url IS NOT NULL') }
   scope :with_showings,    -> { includes(:showings).where('showings.starts_at > :date OR showings.ends_at > :date', { :date => Date.today }) }
 
-  alias_attribute :to_s, :title
+
+  default_value_for :yandex_metrika_page_views, 0
+  default_value_for :vkontakte_likes,           0
+  before_save :set_popularity
 
   friendly_id :title, use: :slugged
 
   normalize_attribute :image_url
 
-  after_save :save_images_from_vk, :if => :vk_aid?
-  after_save :save_images_from_yandex_fotki, :if => :yandex_fotki_url?
+  after_save :save_images_from_vk,            :if => :vk_aid?
+  after_save :save_images_from_yandex_fotki,  :if => :yandex_fotki_url?
 
-  alias_attribute :tag_ru, :tag
-  alias_attribute :title_ru, :title
-  alias_attribute :title_translit, :title
-
-  before_save :set_popularity
+  alias_attribute :to_s,            :title
+  alias_attribute :tag_ru,          :tag
+  alias_attribute :title_ru,        :title
+  alias_attribute :title_translit,  :title
 
   searchable do
     text :title,                :boost => 1.0 * 1.2
@@ -89,17 +89,16 @@ class Affiche < ActiveRecord::Base
     tag.split(/,\s+/).map(&:squish)
   end
 
-  def place
-    showings.pluck(:place).uniq.join(' ')
-  end
-
-  alias_method :place_ru, :place
-
   def address
     addresses.uniq.join(' ')
   end
 
+  def place
+    showings.pluck(:place).uniq.join(' ')
+  end
+
   alias_method :address_ru, :address
+  alias_method :place_ru,   :place
 
   def first_showing
     showings.first
