@@ -2,23 +2,9 @@ require 'curb'
 
 module Statistics
   class Yandex
-    def update_affiches
-      pb = ProgressBar.new(slugs_with_page_views.size)
-      puts 'Updating affiches...'
-
-      slugs_with_page_views.each do |slug, page_views|
-        pb.increment!
-        affiche = Affiche.find_by_slug(slug)
-
-        next unless affiche
-
-        affiche.yandex_metrika_page_views = page_views
-        affiche.save!
-      end
-    end
-
-    def urls
-      selected_elements.map(&:url)
+    def update_statistics
+      update_affiches
+      update_organizations
     end
 
     private
@@ -48,47 +34,55 @@ module Statistics
     end
 
     def params
-      CGI.unescape(
-        { oauth_token: oauth_token, id: counter_id, per_page: per_page }.to_query
-      )
+      CGI.unescape({ oauth_token: oauth_token, id: counter_id, per_page: per_page }.to_query)
     end
 
     def request_url
       "#{api_url}/#{method_name}.#{results_format}?#{params}"
     end
 
-    def response_hash
+    def response
       Hashie::Mash.new JSON.parse(Curl.get(request_url).body_str)
     end
 
-    def remove_anchor(url)
-      url.gsub(/#.*/, '')
+    def data
+      @data ||= response.data
     end
 
-    def selected_elements
-      response_hash.data.
-        select { |h| h.url =~ /(concert|exhibition|movie|other|party|spectacle|sportsevent)\// }.tap { |hash|
-          hash.each do |e|
-            url = remove_anchor(e.url)
-
-            next unless Affiche.with_showings.find_by_slug(slug_from(url))
-
-            e.url = url
-            e.page_views = e.page_views.to_i
-          end
-        }
+    def affiche_items
+      @affiche_items ||= data.select { |item| item.url =~ %r{(concert|exhibition|movie|other|party|spectacle|sportsevent)/[^#/]+$} }
     end
 
-    def slug_from(url)
-      url.split('/').last
+    def organization_items
+      @organization_items ||= data.select { |item| item.url =~ %r{organizations/[^#/]+$} }
     end
 
-    def slugs_with_page_views
-      @slugs_with_page_views ||= {}.tap { |hash|
-        selected_elements.each do |e|
-          hash[slug_from(e.url)] = [hash[slug_from(e.url)].to_i, e.page_views].max
+    def update_affiches
+      puts 'Updating affiches...'
+      pb = ProgressBar.new(affiche_items.size)
+
+      affiche_items.each do |item|
+        pb.increment!
+        slug = item.url.split('/').last
+
+        if affiche = Affiche.find_by_slug(slug)
+          affiche.update_attribute :yandex_metrika_page_views, item.page_views
         end
-      }
+      end
+    end
+
+    def update_organizations
+      puts 'Updating organizations...'
+      pb = ProgressBar.new(organization_items.size)
+
+      organization_items.each do |item|
+        pb.increment!
+        slug = item.url.split('/').last
+
+        if organization = Organization.find_by_slug(slug)
+          organization.update_attribute :yandex_metrika_page_views, item.page_views
+        end
+      end
     end
   end
 end

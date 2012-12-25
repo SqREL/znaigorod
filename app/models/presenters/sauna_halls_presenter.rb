@@ -38,7 +38,7 @@ class SaunaHallsPresenter
   end
 
   def direction
-    order_by == 'popularity' ? 'desc' : 'asc'
+    criterion == 'popularity' ? 'desc' : 'asc'
   end
 
   def order_by_distance?

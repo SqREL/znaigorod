@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121128024329) do
+ActiveRecord::Schema.define(:version => 20121225020300) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -184,6 +184,8 @@ ActiveRecord::Schema.define(:version => 20121128024329) do
     t.string   "priority_suborganization_kind"
     t.text     "comment"
     t.integer  "additional_rating"
+    t.integer  "yandex_metrika_page_views"
+    t.integer  "vkontakte_likes"
   end
 
   add_index "organizations", ["slug"], :name => "index_organizations_on_slug", :unique => true

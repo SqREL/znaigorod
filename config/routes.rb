@@ -46,7 +46,7 @@ Znaigorod::Application.routes.draw do
     resources :sports,          :only => :index
     resources :creations,       :only => :index
 
-    match 'statistics' => 'affiches#statistics'
+    get 'statistics' => 'statistics#index'
 
     root :to => 'organizations#index'
   end
