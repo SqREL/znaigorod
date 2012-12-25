@@ -47,7 +47,7 @@ module Statistics
         slug = url.split('/').last
 
         if affiche = Affiche.find_by_slug(slug)
-          affiche.update_column :vkontakte_likes, likes_for(url)
+          affiche.update_attribute :vkontakte_likes, likes_for(url)
         end
       end
     end
