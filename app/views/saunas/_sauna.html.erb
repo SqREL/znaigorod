@@ -1,0 +1,60 @@
+<div class="organization_attributes">
+  <div class="poster">
+    <%= sauna.logo_link %>
+  </div>
+  <div class="attributes">
+    <%= sauna.title_link %>
+    <% if sauna.address_link.present? %>
+      <div class="address">
+        <%= sauna.address_link %>
+        <%#<span>(15 минут пешком)</span>%>
+      </div>
+    <% end %>
+    <div class="schedule">
+      <%= sauna.schedule_today %>
+    </div>
+  </div>
+</div>
+<div class="top_info_block">
+  <div class="hall_title">
+    <% if sauna_hall.title.present? %>
+      <%= sauna_hall.title %>
+    <% else %>
+      Зал без названия
+    <% end %>
+  </div>
+  <div class="features">
+    <%= sauna_hall.features.join(', ') %>
+    <%#<img src="http://dummyimage.com/16x16/77438e" alt="фотогалерея" />%>
+    <%#<img src="http://dummyimage.com/16x16/77438e" alt="3D-тур" />%>
+    <%#<img src="http://dummyimage.com/16x16/77438e" alt="Visa" />%>
+    <%#<img src="http://dummyimage.com/16x16/77438e" alt="WiFi" />%>
+  </div>
+</div>
+<div class="middle_info_block">
+  <div class="prices">
+    <% if sauna_hall.price_min == sauna_hall.price_max %>
+      <span><%= sauna_hall.price_min %></span> руб.,
+    <% else %>
+      <span><%= sauna_hall.price_min %></span> &mdash; <span><%= sauna_hall.price_max %></span> руб.,
+    <% end %>
+  </div>
+  <div class="capacity">
+    <% if sauna_hall.sauna_hall_capacity.default == sauna_hall.sauna_hall_capacity.maximal %>
+      <span class='bold'><%= sauna_hall.sauna_hall_capacity.default %></span> чел.</span>
+    <% else %>
+      <span class='bold'><%= sauna_hall.sauna_hall_capacity.default %></span> чел. <span class='light'>Максимум <%= sauna_hall.sauna_hall_capacity.maximal %> чел. Дополнительная плата &mdash; <%= sauna_hall.sauna_hall_capacity.extra_guest_cost %> руб./чел.</span>
+    <% end %>
+  </div>
+</div>
+<div class="bottom_info_block">
+  <% if sauna_hall.baths.any? %>
+    <div class="baths"><span>Парная:</span> <%= sauna_hall.baths.join(', ') %></div>
+  <% end %>
+  <% if sauna_hall.pool_features.any? || sauna_hall.pool_size.gsub(/-/,'').present? %>
+    <div class="pool">
+      <span>Бассейн:</span> <%= [sauna_hall.pool_size.gsub(/-/,''), sauna_hall.pool_features].flatten.delete_if(&:blank?).join(', ') %>
+    </div>
+  <% end %>
+  <%#<div class="bedrooms"><span>1 комната отдыха</span></div>%>
+</div>

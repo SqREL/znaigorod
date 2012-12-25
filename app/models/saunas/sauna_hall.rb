@@ -23,6 +23,9 @@ class SaunaHall < ActiveRecord::Base
   accepts_nested_attributes_for :sauna_hall_pool
   accepts_nested_attributes_for :sauna_hall_schedules, :allow_destroy => true, :reject_if => :all_blank
 
+  delegate :organization_title, :to => :sauna
+  delegate :size, :to => :sauna_hall_pool, :prefix => :pool
+
   searchable do
     integer :capacity
     integer :price_max
