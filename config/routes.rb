@@ -47,7 +47,7 @@ Znaigorod::Application.routes.draw do
       end
     end
 
-    match 'statistics' => 'affiches#statistics'
+    get 'statistics' => 'statistics#index'
 
     root :to => 'organizations#index'
   end
