@@ -1,31 +1,24 @@
-settings_yml_path = "config/settings.yml"
+settings_yml_path = "config/deploy.yml"
 config = YAML::load(File.open(settings_yml_path))
-raise "not found deploy key in settings.yml. see settings.yml.example" unless config['deploy']
+
+raise "not found deploy key in deploy.yml. see deploy.yml.example" unless config['deploy']
+gateway = config['deploy']["gateway"]
+raise "not found deploy.gateway key in deploy.yml. see deploy.yml.example" unless gateway
+application = config['deploy']["application"]
+raise "not found deploy.application key in deploy.yml. see deploy.yml.example" unless application
+domain = config['deploy']["domain"]
+raise "not found deploy.domain key in deploy.yml. see deploy.yml.example" unless domain
 solr_domain = config['deploy']["solr_domain"]
 raise "not found deploy.solr_domain key in settings.yml. see settings.yml.example" unless solr_domain
-solr_port = config['deploy']["solr_port"]
-raise "not found deploy.solr_port key in settings.yml. see settings.yml.example" unless solr_port
 
 namespace :solr do
-  desc "Upload local solr config to remote server"
-  task :export_config do
-    run_locally("scp -r -P #{solr_port} solr/conf/ #{solr_domain}:/var/lib/tomcat6/solr/")
-    run_locally("scp -r -P #{solr_port} solr/lib/ #{solr_domain}:/var/lib/tomcat6/solr/")
-    run_locally("ssh #{solr_domain} -p #{solr_port} chown -R tomcat6:tomcat6 /var/lib/tomcat6/solr/")
-  end
-
-  desc "Download remote solr config"
-    task :import_config do
-      run_locally("scp -r -P #{solr_port} #{solr_domain}:/var/lib/tomcat6/solr/conf/ solr/")
-  end
-
   desc "Import solr index files"
-    task :import do
-      run_locally("rsync -a --delete -e='ssh -p#{solr_port}' #{solr_domain}:/var/lib/tomcat6/solr/data/ solr/data/development; true")
+  task :import do
+    run_locally("rsync -a --delete -e='ssh #{gateway} -A ssh' #{solr_domain}:/srv/solr/data/#{application}/data/ solr/data/development; true")
   end
 
-  desc "Restart Tomcat6/Solr server"
+  desc "Restart Solr server"
   task :restart do
-    run_locally("ssh #{solr_domain} -p #{solr_port} /etc/init.d/tomcat6 restart")
+    run_locally("ssh #{gateway} -At ssh #{solr_domain} supervisorctl restart solr")
   end
 end
