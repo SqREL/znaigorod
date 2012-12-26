@@ -1,7 +1,142 @@
+get_coordinates = () ->
+  coords = {}
+  $('.filter_geo:visible .hidden_inputs input').each (index, item) ->
+    $item = $(item)
+    switch $item.attr('class')
+      when 'lat'    then coords['lat'] = $item.val()
+      when 'lon'    then coords['lon'] = $item.val()
+      when 'radius' then coords['radius'] = $item.val()
+  coords
+
+set_coordinates = (coords) ->
+  $('.filter_geo:visible .hidden_inputs input').each (index, item) ->
+    $item = $(item)
+    switch $item.attr('class')
+      when 'lat'    then $item.val(coords['lat'])
+      when 'lon'    then $item.val(coords['lon'])
+      when 'radius' then $item.val(coords['radius'])
+
+initialize_map = () ->
+  draw_map(get_coordinates())
+
+draw_map = (coords) ->
+  container = $('.filter_geo .map_wrapper')[0]
+  center    = new DG.GeoPoint(coords.lon, coords.lat)
+  map       = new DG.Map(container)
+  scale     = 14 #TODO: JS#Менять масштаб в зависимости от радиуса
+  DG.autoload ->
+  map.controls.add(new DG.Controls.Zoom())
+  map.setCenter(center, scale)
+  map.geoclicker.disable()
+  map.fullscreen.disable()
+  self_marker = create_marker(coords, 'self')
+  map.markers.add(self_marker)
+
+  $(map).draw_circle(coords)
+  radius_slider_handler(coords)
+
+  get_items_locations().each (item, index) ->
+    return true if item.lat == undefined
+    map.markers.add(create_marker(item, 'item'))
+
+  $('.filter_geo input.radius').on 'change', ->
+    coords.radius = $(this).val()
+    $('.info_radius .rad').html(parseFloat(coords.radius)*1000)
+    $(map).draw_circle(coords)
+
+  self_marker_listener = map.addEventListener(
+    map,
+    'DgClick',
+    (event) ->
+      coordinate = event.getGeoPoint()
+      coords.lat = coordinate.lat
+      coords.lon = coordinate.lon
+      self_marker.setPosition(new DG.GeoPoint(coords.lon, coords.lat))
+      $(map).draw_circle(coords)
+      set_coordinates(coords)
+  )
+
+$.fn.draw_circle = (coords) ->
+  map = this[0]
+  map.geometries.removeAll()
+  style = new DG.Style.Geometry()
+  style.strokeColor = "#71706e"
+  style.strokeOpacity = 0.6
+  style.strokeWidth = 1
+  style.fillColor = "#fdfffe"
+  style.fillOpacity = 0.5
+  circle = new DG.Geometries.Circle(new DG.GeoPoint(coords.lon, coords.lat), coords.radius*1000, style)
+  map.geometries.add(circle)
+
+create_marker = (coords, type) ->
+  if type == 'self'
+    icon = new DG.Icon()
+    icon = new DG.Icon(
+      '/assets/self_marker.png',
+      new DG.Size(17, 31)
+    )
+  else
+    icon = new DG.Icon(
+      '/assets/item_marker.png',
+      new DG.Size(16, 20)
+    )
+  new DG.Markers.Common {
+    geoPoint: new DG.GeoPoint(coords.lon, coords.lat),
+    icon: icon
+    hint: coords['title']
+  }
+
+radius_slider_handler = (coords) ->
+  $('.radius_slider').slider
+    max:  11
+    min:  0.1
+    step: 0.05
+    value: parseFloat(coords.radius)
+    slide: (event, ui) ->
+      $('.filter_geo input.radius').val(ui.value).change()
+
+    stop: (event, ui) ->
+      $('.filter_geo input.radius').val(ui.value).change()
+
+get_current_location = () ->
+  coords = {}
+  coords['lat'] = 56.484605
+  coords['lon'] = 84.948128
+  coords['radius'] = 11
+  coords['title']  = 'Ваше местоположение'
+  if navigator.geolocation
+    navigator.geolocation.getCurrentPosition(
+      (position) ->
+        coords['lat'] = position.coords.latitude
+        coords['lon'] = position.coords.longitude
+        set_coordinates(coords)
+        draw_map coords
+      ,
+      (error) ->
+        draw_map coords
+        set_coordinates(coords)
+    )
+  else
+    draw_map coords
+    set_coordinates(coords)
+
+get_items_locations = () ->
+  items_coords = []
+  $('.organization_attributes .attributes').each (index, item) ->
+    $item = $(item)
+    item_coords = {}
+    item_coords['title'] = $item.children('a').text()
+    item_coords['lat']   = $item.children('.address').find('a').attr('latitude')
+    item_coords['lon']   = $item.children('.address').find('a').attr('longitude')
+    items_coords.push(item_coords)
+
+  return items_coords
+
 criteria_handler = () ->
   $('.criteria_list ul li a').on 'click', ->
     target = $('#'+$(this).attr('class'))
     $(this).add(target).toggle()
+    get_current_location() if $(this).hasClass('geo')
     false
 
 set_previous_state = () ->
@@ -88,3 +223,4 @@ $.fn.add_handler = () ->
   criteria_handler()
   filter_slider_handler()
   clear_form_handler()
+  initialize_map() if $('#geo', '.filters_wrapper').is(':visible')
