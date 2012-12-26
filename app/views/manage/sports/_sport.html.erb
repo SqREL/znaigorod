@@ -2,6 +2,7 @@
   <h3>
     Спортивное заведение
     <%= link_to t('edit'), edit_manage_organization_sport_path(sport.organization), :class => 'edit_link' %>
+    <%= link_to t('add_image'), new_manage_sport_image_path(sport), :class => 'edit_link' %>
     <%= link_to t('delete'), manage_organization_sport_path(sport.organization), :method => :delete, :confirm => 'Вы уверены?', :class => 'delete_link' %>
   </h3>
 
@@ -38,4 +39,10 @@
   <% else %>
     <span class="blank">Не указано</span>
   <% end %>
+  <div>
+    <% sport.images.each do |image| %>
+      <%= image_tag(resized_image_url(image.url, 100, 100, false), :alt => image.description, :title => image.description) %>
+      <%= link_to "Удалить", manage_sport_image_path(sport, image), :method => :delete, :confirm => 'Вы уверены?' %>
+    <% end %>
+  </div>
 </div>

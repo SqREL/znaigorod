@@ -2,6 +2,7 @@
   <h3>
     Сауна
     <%= link_to t('edit'), edit_manage_organization_sauna_path(sauna.organization), :class => 'edit_link' %>
+    <%= link_to t('add_image'), new_manage_sauna_image_path(sauna), :class => 'edit_link' %>
     <%= link_to t('delete'), manage_organization_sauna_path(sauna.organization), :method => :delete, :confirm => 'Вы уверены?', :class => 'delete_link' %>
   </h3>
 
@@ -21,7 +22,12 @@
       <% vfs_path = "/znaigorod/sauna_halls/#{Time.now.strftime('%Y/%m/%d/%H-%M')}-#{SecureRandom.hex(4)}" %>
       <%= link_to 'Добавить зал', new_manage_organization_sauna_sauna_hall_path(sauna.organization, 'sauna_hall[vfs_path]' => vfs_path) %>
     </fieldset>
-
+    <div>
+      <% sauna.images.each do |image| %>
+        <%= image_tag(resized_image_url(image.url, 100, 100, false), :alt => image.description, :title => image.description) %>
+        <%= link_to "Удалить", manage_sauna_image_path(sauna, image), :method => :delete, :confirm => 'Вы уверены?' %>
+      <% end %>
+    </div>
   </div>
 </div>
 

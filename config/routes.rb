@@ -43,15 +43,11 @@ Znaigorod::Application.routes.draw do
       resources :organizations, :only => [:new, :create, :destroy]
     end
 
-    resources :cultures,        :only => :index do
-      resources :images, :only => [:new, :create, :destroy, :edit, :update]
+    Organization.available_suborganization_kinds.each do |kind|
+      resources kind.pluralize, :only => :index do
+        resources :images, :only => [:new, :create, :destroy, :edit, :update]
+      end
     end
-
-    resources :entertainments,  :only => :index
-    resources :meals,           :only => :index
-    resources :saunas,          :only => :index
-    resources :sports,          :only => :index
-    resources :creations,       :only => :index
 
     match 'statistics' => 'affiches#statistics'
 

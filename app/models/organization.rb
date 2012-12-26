@@ -154,10 +154,14 @@ class Organization < ActiveRecord::Base
     @text_description ||= html_description.as_text
   end
 
-  def available_suborganization_kinds
+  def self.available_suborganization_kinds
     Dir.chdir(Rails.root.join('app/models/suborganizations')) {
       Dir['*.rb'].map { |f| f.gsub('.rb', '') }
     }
+  end
+
+  def available_suborganization_kinds
+    self.class.available_suborganization_kinds
   end
 
   def suborganizations

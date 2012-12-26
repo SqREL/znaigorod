@@ -2,6 +2,7 @@
   <h3>
     Творческо-развивающее заведение
     <%= link_to t('edit'), edit_manage_organization_creation_path(creation.organization), :class => 'edit_link' %>
+    <%= link_to t('add_image'), new_manage_creation_image_path(creation), :class => 'edit_link' %>
     <%= link_to t('delete'), manage_organization_creation_path(creation.organization), :method => :delete, :confirm => 'Вы уверены?', :class => 'delete_link' %>
   </h3>
 
@@ -38,4 +39,10 @@
   <% else %>
     <span class="blank">Не указано</span>
   <% end %>
+  <div>
+    <% creation.images.each do |image| %>
+      <%= image_tag(resized_image_url(image.url, 100, 100, false), :alt => image.description, :title => image.description) %>
+      <%= link_to "Удалить", manage_creation_image_path(creation, image), :method => :delete, :confirm => 'Вы уверены?' %>
+    <% end %>
+  </div>
 </div>

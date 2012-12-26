@@ -123,7 +123,7 @@ module ApplicationHelper
       [:manage, resource]
     elsif [Culture, Entertainment, Meal, Sauna, Sport, Billiard, Creation].include?(resource_class)
       send("manage_organization_#{resource_class.model_name.underscore}_path", parent)
-    elsif [Culture, Entertainment, Meal, Sauna, Sport, Billiard, Creation].include?(parent_class)
+    elsif resource.is_a?(Image) && [Culture, Entertainment, Meal, Sauna, Sport, Billiard, Creation].include?(parent_class)
         [:manage, parent, resource]
     elsif parent.class.superclass == Affiche
       if (resource_class == Image || resource_class == Attachment) && resource.persisted?
