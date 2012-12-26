@@ -23,8 +23,9 @@ class SaunaHallsPresenter
     self.features = (self.features || []).delete_if(&:blank?)
     self.pool     = (self.pool || []).delete_if(&:blank?)
 
-    self.lat    ||= 56.488611121111
-    self.lon    ||= 84.952222232222
+    self.lat    = self.lat.blank? ? nil : self.lat
+    self.lon    = self.lon.blank? ? nil : self.lon
+    self.radius = self.radius.blank? ? nil : self.radius
     self.page   ||= 1
 
     self.order_by  = %w[distance popularity price].include?(self.order_by) ? self.order_by : 'popularity'
@@ -56,6 +57,12 @@ class SaunaHallsPresenter
     )
   end
 
+  def geo
+    Hashie::Mash.new(
+      selected: { lat: lat, lon: lon, radius: radius }
+    )
+  end
+
   def search
     @search ||= SaunaHall.search {
       with(:capacity).between(capacity_min..capacity_max)
@@ -75,13 +82,13 @@ class SaunaHallsPresenter
         with(:pool_features, feature)
       end
 
-      if order_by_distance?
-        with(:location).in_radius(lat, lon, radius)
-
+      if order_by_distance? && lat && lon && radius
         order_by_geodist(:location, lat, lon)
       else
         order_by(criterion, direction)
       end
+
+      with(:location).in_radius(lat, lon, radius) if lat && lon && radius
 
       facet :baths,         sort: :index, zeros: true
       facet :features,      sort: :index, zeros: true
@@ -97,6 +104,10 @@ class SaunaHallsPresenter
 
   def capacity_filter_used?
     capacity.selected.values.compact.any?
+  end
+
+  def geo_filter_used?
+    geo.selected.values.compact.any?
   end
 
   def collection
