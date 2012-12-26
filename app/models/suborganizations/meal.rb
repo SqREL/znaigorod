@@ -14,6 +14,14 @@ class Meal < ActiveRecord::Base
   delegate :save, to: :organization, prefix: true
   after_save :organization_save
 
+  # OPTIMIZE: similar code
+  attr_accessor :vfs_path
+  attr_accessible :vfs_path
+  def vfs_path
+    "#{organization.vfs_path}/#{self.class.name.underscore}"
+  end
+  has_many :images, :as => :imageable, :dependent => :destroy
+
   include Rating
 
   include PresentsAsCheckboxes

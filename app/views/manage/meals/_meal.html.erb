@@ -2,6 +2,7 @@
   <h3>
     Заведение питания
     <%= link_to t('edit'), edit_manage_organization_meal_path(meal.organization), :class => 'edit_link' %>
+    <%= link_to t('add_image'), new_manage_meal_image_path(meal), :class => 'edit_link' %>
     <%= link_to t('delete'), manage_organization_meal_path(meal.organization), :method => :delete, :confirm => 'Вы уверены?', :class => 'delete_link' %>
   </h3>
   <div>
@@ -50,6 +51,12 @@
       <span class="value"><%= meal.offer %></span>
     <% else %>
       <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <% meal.images.each do |image| %>
+      <%= image_tag(resized_image_url(image.url, 100, 100, false), :alt => image.description, :title => image.description) %>
+      <%= link_to "Удалить", manage_meal_image_path(meal, image), :method => :delete, :confirm => 'Вы уверены?' %>
     <% end %>
   </div>
 </div>
