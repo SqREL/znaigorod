@@ -2,6 +2,7 @@
   <h3>
     Культурное заведение
     <%= link_to t('edit'), edit_manage_organization_culture_path(culture.organization), :class => 'edit_link' %>
+    <%= link_to t('add_photo'), new_manage_culture_image_path(culture), :class => 'edit_link' %>
     <%= link_to t('delete'), manage_organization_culture_path(culture.organization), :method => :delete, :confirm => 'Вы уверены?', :class => 'delete_link' %>
 </h3>
   <div>
@@ -42,6 +43,12 @@
       <span class="value"><%= culture.offer %></span>
     <% else %>
       <span class="blank">Не указано</span>
+    <% end %>
+  </div>
+  <div>
+    <% culture.images.each do |image| %>
+      <%= image_tag(resized_image_url(image.url, 100, 100, false), :alt => image.description, :title => image.description) %>
+      <%= link_to "Удалить", manage_culture_image_path(culture, image), :method => :delete, :confirm => 'Вы уверены?' %>
     <% end %>
   </div>
 </div>

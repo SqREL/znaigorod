@@ -3,7 +3,7 @@ class Culture < ActiveRecord::Base
 
   belongs_to :organization
 
-  delegate :images, :address, :phone, :schedules, :halls,
+  delegate :address, :phone, :schedules, :halls,
            :site?, :site, :email?, :email, :affiches,
            :latitude, :longitude, :nearest_affiches, :to => :organization
 
@@ -13,6 +13,13 @@ class Culture < ActiveRecord::Base
 
   delegate :save, to: :organization, prefix: true
   after_save :organization_save
+
+  attr_accessor :vfs_path
+  attr_accessible :vfs_path
+  def vfs_path
+    "#{organization.vfs_path}/#{self.class.name.underscore}"
+  end
+  has_many :images, :as => :imageable, :dependent => :destroy
 
   include Rating
 
