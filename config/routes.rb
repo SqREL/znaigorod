@@ -39,7 +39,10 @@ Znaigorod::Application.routes.draw do
       resources :organizations, :only => [:new, :create, :destroy]
     end
 
-    resources :cultures,        :only => :index
+    resources :cultures,        :only => :index do
+      resources :images, :only => [:new, :create, :destroy, :edit, :update]
+    end
+
     resources :entertainments,  :only => :index
     resources :meals,           :only => :index
     resources :saunas,          :only => :index
