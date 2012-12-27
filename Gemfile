@@ -18,6 +18,7 @@ group :default do
   gem 'default_value_for'
   gem 'draper'
   gem 'el_vfs_client'
+  gem 'esp-ckeditor'
   gem 'fastimage'
   gem 'friendly_id'
   gem 'gilenson'
@@ -41,6 +42,7 @@ group :default do
   gem 'timecop',                                      :require => false
   gem 'validates_email_format_of'
   gem 'vkontakte_api',                                :require => false
+  gem 'formtastic'
 end
 
 group :development do
