@@ -47,6 +47,7 @@ class OrganizationDecorator < ApplicationDecorator
     content << site_link.to_s
     content << ', ' if content.present? && email_link.present?
     content << email_link.to_s
+
     content.html_safe
   end
 
