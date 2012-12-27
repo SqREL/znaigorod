@@ -25,7 +25,7 @@
   </div>
   <div class="features">
     <% sauna_hall.features.each do |feature|%>
-      <div class='<%= I18n.transliterate(feature).gsub(/\W+/,'_') %>'></div>
+      <div class='<%= I18n.transliterate(feature).gsub(/\W+/,'_') %>' title='<%= feature %>'></div>
     <% end %>
   </div>
 </div>
