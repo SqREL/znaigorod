@@ -1,0 +1,6 @@
+<%= simple_form_for [:manage, @post] do |f| %>
+  <%= f.input :title %>
+  <%= f.input :annotation %>
+  <%= f.input :content %>
+  <%= f.submit "Сохранить" %>
+<% end %>
