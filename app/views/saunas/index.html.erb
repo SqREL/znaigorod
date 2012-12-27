@@ -1,6 +1,17 @@
 <div class="content_wrapper">
   <%= render :partial => 'filters' %>
 
+  <div class="list_settings">
+    <div class="presentation">
+    </div>
+    <div class="sort">
+      <p>Сортировка:</p>
+      <ul>
+        <%= @presenter.sort_links %>
+      </ul>
+    </div>
+  </div>
+
   <ul class='sauna_list'>
     <% @presenter.collection.each do |sauna| %>
       <li class='sauna_item'>

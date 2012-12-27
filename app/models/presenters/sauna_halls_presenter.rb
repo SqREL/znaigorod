@@ -1,5 +1,7 @@
 class SaunaHallsPresenter
   include ActiveAttr::MassAssignment
+  include ActionView::Helpers
+  include Rails.application.routes.url_helpers
 
   attr_accessor :capacity_min, :capacity_max,
                 :price_min, :price_max,
@@ -134,5 +136,17 @@ class SaunaHallsPresenter
     define_method "#{name}_filter_used?" do
       send("selected_#{name}").any?
     end
+  end
+
+  def sort_links
+    links = []
+
+    %w[popularity price distance].each do |order|
+      links << content_tag(:li,
+                           Link.new(:title => I18n.t("sauna.sort.#{order}"), :html_options => {}, :url => '#')
+      )
+    end
+
+    (links.join(content_tag(:li, content_tag(:span, '&nbsp;'.html_safe, class: 'separator')))).html_safe
   end
 end
