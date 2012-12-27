@@ -569,6 +569,10 @@ ru:
         price_min: Минимальная цена
         price_max: Максимальная цена
 
+      post:
+        title: Название
+
+
       image:
         description: Описание
 
