@@ -99,6 +99,63 @@
           height: 228px
           width: 808px
 
+          .dg-callout
+            color: #fcffff
+
+            .dg-callout-sprite
+              background: #724985
+              display: none
+
+            .dg-callout-top
+              +border-radius(3px)
+              background: #724985
+              border: none
+              margin: 0
+              text-align: center
+
+            .dg-callout-content
+              background: #724985
+              border: none
+              padding: 3px 5px
+              text-align: center !important
+
+              a
+                background: image_url('balloon_link_bg.png') no-repeat left 3px
+                color: #fcffff
+                padding: 0 0 0 12px
+
+              .contentwrapper
+                color: #cac8c9
+                float: none !important
+                font-size: 11px
+                margin: 5px 0 0 0 !important
+
+              div
+                margin: 0 auto !important
+                width: auto !important
+
+            .dg-callout-bottom
+              +border-radius(3px)
+              background: #724985
+              border: none
+              margin: 0
+              text-align: center
+
+            .dg-callout-close
+              display: none
+
+            .dg-callout-tail
+              .dg-callout-sprite
+                display: block
+                background: image_url('callout_sprite.png')
+
+            .dg-hidden
+              display: none
+              height: 0
+              margin: 0
+              padding: 0
+              width: 0
+
       .radius_slider_wrapper
         +clearfix
         margin: 232px 26px 0 115px
@@ -122,9 +179,25 @@
           float: left
 
         .radius_slider
+          +border-radius(3px)
+          background: #757984
+          border: none
           float: left
-          margin: 0 10px
+          height: 12px
+          margin: 0 25px
           width: 300px
+
+          .ui-slider-handle
+            +border-radius(3px)
+            background: #6b4381 image_url('radius_handle.png') no-repeat center center
+            border: none
+            top: -2px
+            height: 16px
+            margin-left: -20px
+            width: 41px
+
+            &:hover
+              cursor: pointer
 
     .filter_slider_wrapper
       +clearfix
@@ -257,4 +330,3 @@
         a
           font-size: 10px
           color: #e50000
-

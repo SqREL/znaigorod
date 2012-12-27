@@ -1,5 +1,6 @@
 get_coordinates = () ->
   coords = {}
+  coords['title'] = 'Ваше местоположение'
   $('.filter_geo:visible .hidden_inputs input').each (index, item) ->
     $item = $(item)
     switch $item.attr('class')
@@ -37,12 +38,20 @@ draw_map = (coords) ->
 
   get_items_locations().each (item, index) ->
     return true if item.lat == undefined
-    map.markers.add(create_marker(item, 'item'))
+    item_marker = create_marker(item, 'item')
+    map.markers.add(item_marker)
 
   $('.filter_geo input.radius').on 'change', ->
-    coords.radius = $(this).val()
-    $('.info_radius .rad').html(parseFloat(coords.radius)*1000)
-    $(map).draw_circle(coords)
+    if $(this).val() == ''
+      coords.radius = 11
+      $('.info_radius .rad').html(parseFloat(coords.radius)*1000)
+      $('.info_radius .time').html(((parseFloat(coords.radius)*1000)/54.6).toFixed(1))
+      $(map).draw_circle(coords)
+    else
+      coords.radius = $(this).val()
+      $('.info_radius .rad').html(parseFloat(coords.radius)*1000)
+      $('.info_radius .time').html(((parseFloat(coords.radius)*1000)/54.6).toFixed(1))
+      $(map).draw_circle(coords)
 
   self_marker_listener = map.addEventListener(
     map,
@@ -80,10 +89,14 @@ create_marker = (coords, type) ->
       '/assets/item_marker.png',
       new DG.Size(16, 20)
     )
-  new DG.Markers.Common {
+
+  new DG.Markers.MarkerWithBalloon {
     geoPoint: new DG.GeoPoint(coords.lon, coords.lat),
     icon: icon
-    hint: coords['title']
+    balloonOptions:
+      headerContentHtml: coords['title']
+      contentHtml: coords['address']
+      isClosed: false
   }
 
 radius_slider_handler = (coords) ->
@@ -92,6 +105,9 @@ radius_slider_handler = (coords) ->
     min:  0.1
     step: 0.05
     value: parseFloat(coords.radius)
+    create: () ->
+     $(this).parent().find('.ui-corner-all').removeClass('ui-corner-all')
+
     slide: (event, ui) ->
       $('.filter_geo input.radius').val(ui.value).change()
 
@@ -125,7 +141,8 @@ get_items_locations = () ->
   $('.organization_attributes .attributes').each (index, item) ->
     $item = $(item)
     item_coords = {}
-    item_coords['title'] = $item.children('a').text()
+    item_coords['title'] = $item.children('a')[0].outerHTML
+    item_coords['address'] = $item.children('.address').find('a').text()
     item_coords['lat']   = $item.children('.address').find('a').attr('latitude')
     item_coords['lon']   = $item.children('.address').find('a').attr('longitude')
     items_coords.push(item_coords)
