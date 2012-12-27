@@ -1,13 +1,17 @@
-<h1>
-  <%= @post.title %>
-</h1>
+<div class="show">
+  <h1>
+    <%= @post.title %>
+    <%= link_to "Редактировать пост", edit_manage_post_path, :class => 'edit_link' %>
+    <%= link_to "Посмотреть в публичном виде", '#', :class => 'edit_link' %>
+  </h1>
 
-<div class="annotation">
-  <%= @post.annotation.html_safe %>
+  <div class="annotation">
+    <h4>Аннотация</h4>
+    <%= @post.annotation.html_safe %>
+  </div>
+
+  <div class="content">
+    <h4>Контент</h4>
+    <%= @post.content.html_safe %>
+  </div>
 </div>
-
-<div class="content">
-  <%= @post.content.html_safe %>
-</div>
-
-<%= link_to "edit", edit_manage_post_path %>
