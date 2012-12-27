@@ -18,7 +18,7 @@ $ ->
   init_affiches_filter() if $(".affiches_filter .periods .daily").length
   init_affiches_filter() if $(".navigation .periods .daily").length
   init_tabs() if $(".content .tabs").length
-  init_poster() if $(".content .image img").length
+  init_poster() if $(".content .image a img, .organization_info .image a img").length
   init_distribution() if $(".content .distribution").length
   init_galleria() if $(".content .gallery_container").length
   init_filters_toggler() if $(".need_toggler li").length
