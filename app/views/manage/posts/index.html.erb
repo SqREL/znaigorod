@@ -1,5 +1,5 @@
 <div class="new_link">
-  <%= link_to "Добавить новый пост", new_manage_post_path %>
+  <%= link_to "Добавить новый пост", new_manage_post_path('post[vfs_path]' => Post.generate_vfs_path) %>
 </div>
 
 <ul class="collection">
@@ -7,12 +7,6 @@
     <li>
       <span class="title">
         <%= link_to post.title, manage_post_path(post) %>
-      </span>
-      <span class="annotation">
-        <%= post.annotation %>
-      </span>
-      <span class="date">
-        <%= post.created_at %>
       </span>
     </li>
   <% end %>

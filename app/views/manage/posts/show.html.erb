@@ -3,11 +3,11 @@
 </h1>
 
 <div class="annotation">
-  <%= @post.annotation %>
+  <%= @post.annotation.html_safe %>
 </div>
 
 <div class="content">
-  <%= @post.content %>
+  <%= @post.content.html_safe %>
 </div>
 
-<%= @post.created_at %>
+<%= link_to "edit", edit_manage_post_path %>
