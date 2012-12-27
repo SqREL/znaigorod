@@ -4,9 +4,9 @@
     <h1><%= @organization.title %></h1>
     <%= content_tag(:div, link_to(image_tag_for(@organization.logotype_url, 130, 130), @organization.logotype_url), class: :image) if @organization.logotype_url? %>
     <%= content_tag(:div, @organization.address_link, class: :place) if  @organization.address_link.present? %>
+    <%= @organization.work_schedule %>
     <%= content_tag(:div, @organization.phone, class: :phone) if @organization.phone.present? %>
     <%= content_tag(:div, @organization.contact_links, class: :links) if @organization.contact_links.present? %>
-    <%= @organization.work_schedule %>
     <ul class="categories">
       <li class='title'>Категории:</li>
       <%= @organization.categories_links.map { |link| content_tag :li, link }.join.mb_chars.downcase.html_safe %>
