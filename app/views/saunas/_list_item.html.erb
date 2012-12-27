@@ -24,11 +24,9 @@
     <% end %>
   </div>
   <div class="features">
-    <%= sauna_hall.features.join(', ') %>
-    <%#<img src="http://dummyimage.com/16x16/77438e" alt="фотогалерея" />%>
-    <%#<img src="http://dummyimage.com/16x16/77438e" alt="3D-тур" />%>
-    <%#<img src="http://dummyimage.com/16x16/77438e" alt="Visa" />%>
-    <%#<img src="http://dummyimage.com/16x16/77438e" alt="WiFi" />%>
+    <% sauna_hall.features.each do |feature|%>
+      <div class='<%= I18n.transliterate(feature).gsub(/\W+/,'_') %>'></div>
+    <% end %>
   </div>
 </div>
 <div class="middle_info_block">
