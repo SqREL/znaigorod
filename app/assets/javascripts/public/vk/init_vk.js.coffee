@@ -24,6 +24,13 @@ if typeof VK != "undefined"
     attach: "*"
   true
 
+@init_vk_organization_comments = () ->
+  VK.Widgets.Comments "vk_organization_comments"
+    limit: 10
+    width: "1000"
+    attach: "*"
+  true
+
 @init_vk_group_thin = () ->
   VK.Widgets.Group "vk_group_thin"
     mode: 0

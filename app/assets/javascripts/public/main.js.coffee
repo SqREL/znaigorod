@@ -5,6 +5,7 @@ $ ->
     init_vk_like() if $("#vk_like").length
     init_vk_recommended() if $("#vk_recommended").length
     init_vk_comments() if $("#vk_comments").length
+    init_vk_organization_comments() if $("#vk_organization_comments").length
     init_vk_group_thin() if $("#vk_group_thin").length
     init_vk_group_thick() if $("#vk_group_thick").length
     init_vk_group_news() if $("#vk_group_news").length

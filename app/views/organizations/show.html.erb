@@ -1,68 +1,33 @@
 <% content_for :organization_content do  %>
-  <div class="organization">
-    <div class="info">
-
-      <% if @organization.logotype_url? %>
-        <div class="image">
-          <%= link_to image_tag_for(@organization.logotype_url, 180, 180), @organization.logotype_url %>
-        </div>
-      <% end %>
-
-      <div class="description">
-
-        <table<%= raw(" class='full'") unless @organization.logotype_url? %>>
-          <% if @organization.phone.present? %>
-            <tr>
-              <td>Телефон:</td>
-              <td><%= @organization.phone %></td>
-            </tr>
-          <% end %>
-          <% if @organization.site.present? %>
-            <tr>
-              <td>Сайт:</td>
-              <td><%= @organization.site_link %></td>
-            </tr>
-          <% end %>
-          <% if @organization.email.present? %>
-            <tr>
-              <td>E-mail:</td>
-              <td><%= @organization.email_link %></td>
-            </tr>
-          <% end %>
-          <tr>
-            <td>Режим работы:</td>
-            <td>
-              <%= @organization.schedule_content %>
-            </td>
-          </tr>
-          <% if @organization.stand_info.present? %>
-            <tr>
-              <td>Парковка:</td>
-              <td><%= @organization.stand_info %></td>
-            </tr>
-          <% end %>
-        </table>
-        <div class="text">
-          <%= @organization.html_description.hyphenate if @organization.description? %>
-        </div>
-      </div>
-
-      <% @organization.decorated_suborganizations.each do |suborganization| %>
-        <%= suborganization.decorated_title %>
-        <%= suborganization.decorated_description %>
-        <%= suborganization.characteristics_on_show %>
-      <% end %>
-
-      <div class="share_organization">
-        <%= render :partial => "commons/share_this" %>
-      </div>
-
-    </div>
+  <div class="info">
+    <%= @organization.iconize_info %>
+    <h1><%= @organization.title %></h1>
+    <%= content_tag(:div, link_to(image_tag_for(@organization.logotype_url, 130, 130), @organization.logotype_url), class: :image) if @organization.logotype_url? %>
+    <%= content_tag(:div, @organization.address_link, class: :place) if  @organization.address_link.present? %>
+    <%= content_tag(:div, @organization.phone, class: :phone) if @organization.phone.present? %>
+    <%= content_tag(:div, @organization.contact_links, class: :links) if @organization.contact_links.present? %>
+    <ul class="categories">
+      <li class='title'>Категории:</li>
+      <%= @organization.categories_links.map { |link| content_tag :li, link }.join.mb_chars.downcase.html_safe %>
+    </ul>
+    <% if @organization.has_photogallery? %>
+      <ul class="photogallery">
+        <% @organization.images.each do |image| %>
+          <li><%= link_to(image_tag_for(image.url, 124, 94), image.url) %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <% @organization.decorated_suborganizations.each do |suborganization| %>
+    <%= render suborganization %>
+  <% end %>
+  <div class="share_organization">
+    <%= render :partial => "commons/share_this" %>
   </div>
 
   <% if Rails.env.production? %>
-    <div id="vk_comments"></div>
-    <%= render :partial => "commons/fb_comments" %>
+    <div id="vk_organization_comments"></div>
+    <%= render :partial => "commons/fb_organization_comments" %>
   <% end %>
 
 <% end %>

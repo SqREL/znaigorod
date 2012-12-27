@@ -4,7 +4,7 @@
   <ul class='sauna_list'>
     <% @presenter.collection.each do |sauna| %>
       <li class='sauna_item'>
-        <%= render :partial => 'sauna', :locals => { :sauna => OrganizationDecorator.decorate(sauna.sauna.organization), :sauna_hall => sauna } %>
+        <%= render :partial => 'list_item', :locals => { :sauna => OrganizationDecorator.decorate(sauna.sauna.organization), :sauna_hall => sauna } %>
       </li>
     <% end %>
   </ul>

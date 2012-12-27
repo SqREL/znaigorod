@@ -42,6 +42,14 @@ class OrganizationDecorator < ApplicationDecorator
     h.link_to site.squish, site.squish, rel: "nofollow", target: "_blank" unless site.blank?
   end
 
+  def contact_links
+    content = ''
+    content << site_link
+    content << ', ' if content.present?
+    content << email_link
+    content.html_safe
+  end
+
   # FIXME: грязный хак ;(
   def fake_kind
     %w[billiard sauna].include?(priority_suborganization_kind) ? 'entertainment' : priority_suborganization_kind
@@ -230,6 +238,21 @@ class OrganizationDecorator < ApplicationDecorator
 
   def truncated_description
     description.excerpt.hyphenate
+  end
+
+  def iconize_info
+    content = ''
+    if description.present?
+      link = h.link_to('информация', '#', class: :description_icon)
+      text = h.content_tag(:div, description, class: :description_text)
+      content << h.content_tag(:li, "#{link}\n#{text}")
+    end
+    #if description.present?
+      #link = h.content_tag(:a, 'информация', '#', class: :description_icon)
+      #text = h.content_tag(:div, description, class: :description_text)
+      #content << h.content_tag(:li, "#{link}\n#{text}")
+    #end
+    h.content_tag :ul, content, class: :iconize_info if content.present?
   end
 
   # FIXME: может быть как-то можно использовать config/initializers/searchers.rb
