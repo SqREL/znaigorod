@@ -104,8 +104,8 @@ class OrganizationDecorator < ApplicationDecorator
       if from.eql?(to)
         content = "Работает круглосуточно"
       else
-        from = from.first if from.is_a?(Array)
-        to = to.first if to.is_a?(Array)
+        from = from.compact.first if from.is_a?(Array)
+        to = to.compact.first if to.is_a?(Array)
         content = "Работает ежедневно с #{I18n.l(from, :format => "%H:%M")} до #{I18n.l(to, :format => "%H:%M")}"
       end
     else
@@ -116,7 +116,7 @@ class OrganizationDecorator < ApplicationDecorator
     end
     from = from.first if from.is_a?(Array)
     to = to.first if to.is_a?(Array)
-    h.content_tag(:div, content, class: "schedule_today " + open_closed(from, to)) unless content.blank?
+    h.content_tag(:div, content, class: "work_schedule #{open_closed(from, to)}") unless content.blank?
   end
 
   def open_closed(from, to)
