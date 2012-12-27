@@ -96,6 +96,40 @@ class OrganizationDecorator < ApplicationDecorator
     priority_suborganization.categories.first || ''
   end
 
+  def work_schedule
+    content = ""
+    from = schedules.map(&:from).uniq
+    to = schedules.map(&:to).uniq
+    if from.one? && to.one?
+      if from.eql?(to)
+        content = "Работает круглосуточно"
+      else
+        from = from.first if from.is_a?(Array)
+        to = to.first if to.is_a?(Array)
+        content = "Работает ежедневно с #{I18n.l(from, :format => "%H:%M")} до #{I18n.l(to, :format => "%H:%M")}"
+      end
+    else
+      wday = Time.zone.today.wday
+      wday = 7 if wday == 0
+      schedule = organization.schedules.find_by_day(wday)
+      content = "Сегодня работает с #{I18n.l(schedule.from, :format => "%H:%M")} до #{I18n.l(schedule.to, :format => "%H:%M")}"
+    end
+    from = from.first if from.is_a?(Array)
+    to = to.first if to.is_a?(Array)
+    h.content_tag(:div, content, class: "schedule_today " + open_closed(from, to)) unless content.blank?
+  end
+
+  def open_closed(from, to)
+    now = Time.zone.now
+    time = Time.utc(2000, "jan", 1, now.hour, now.min)
+    to = to + 1.day if to.hour < 12
+    if time.between?(from, to)
+      return "opened"
+    else
+      return "closed"
+    end
+  end
+
   def schedule_content
     content = ""
     schedules.each do |schedule|
