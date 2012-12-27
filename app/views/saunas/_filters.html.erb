@@ -4,7 +4,7 @@
 
     <%= form_tag saunas_path, :method => :get do %>
       <div class="filter <%= @presenter.price_filter_used? ? 'used' : 'not_used' %>" id='amount'>
-        <div class="filter_label wide">Стоимость</div>
+        <div class="filter_label wide">Цена</div>
         <div class="filter_inputs">
           <div class="input">
             <%= label_tag :price_min, 'от' %>
@@ -15,7 +15,7 @@
             <%= text_field_tag :price_max, @presenter.price.selected.maximum, :class => 'max' %>
           </div>
         </div>
-        <div class='filter_input_label'>рублей</div>
+        <div class='filter_input_label'>руб./час</div>
 
         <div class="filter_slider_wrapper">
           <div class="filter_slider" data-min='<%= @presenter.price.available.minimum %>' data-max='<%= @presenter.price.available.maximum %>' data-step='50'></div>

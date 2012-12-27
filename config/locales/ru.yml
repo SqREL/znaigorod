@@ -489,6 +489,10 @@ ru:
         "true": "Есть пилон"
       barbecue:
         "true": "Есть мангал/барбекю"
+    sort:
+      popularity: По популярности
+      price:      По цене
+      distance:   По расстоянию
 
   suborganizations:
     with_3d_tour: c 3D-туром
