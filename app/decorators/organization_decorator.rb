@@ -44,9 +44,9 @@ class OrganizationDecorator < ApplicationDecorator
 
   def contact_links
     content = ''
-    content << site_link
+    content << site_link.to_s
     content << ', ' if content.present?
-    content << email_link
+    content << email_link.to_s
     content.html_safe
   end
 
@@ -243,16 +243,16 @@ class OrganizationDecorator < ApplicationDecorator
   def iconize_info
     content = ''
     if description.present?
-      link = h.link_to('информация', '#', class: :description_icon)
-      text = h.content_tag(:div, description, class: :description_text)
-      content << h.content_tag(:li, "#{link}\n#{text}")
+      link = h.link_to('информация', '#', :class => :description_icon, :'data-link' => :description_text)
+      text = h.content_tag(:div, description, :class => :description_text)
+      content << h.content_tag(:li, "#{link}\n#{text}".html_safe)
     end
-    #if description.present?
-      #link = h.content_tag(:a, 'информация', '#', class: :description_icon)
-      #text = h.content_tag(:div, description, class: :description_text)
-      #content << h.content_tag(:li, "#{link}\n#{text}")
-    #end
-    h.content_tag :ul, content, class: :iconize_info if content.present?
+    if tour_link.present?
+      link = h.link_to('3D-тур', '#', :class => :tour_icon, :'data-link' => :tour_link)
+      text = h.content_tag(:div, tour_link, class: :tour_link)
+      content << h.content_tag(:li, "#{link}\n#{text}".html_safe)
+    end
+    h.content_tag :ul, content.html_safe, class: :iconize_info if content.present?
   end
 
   # FIXME: может быть как-то можно использовать config/initializers/searchers.rb
