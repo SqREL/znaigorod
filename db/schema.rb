@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121225020300) do
+ActiveRecord::Schema.define(:version => 20121227021642) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -212,6 +212,17 @@ ActiveRecord::Schema.define(:version => 20121225020300) do
   end
 
   add_index "pool_tables", ["billiard_id"], :name => "index_pool_tables_on_billiard_id"
+
+  create_table "posts", :force => true do |t|
+    t.text     "title"
+    t.text     "annotation"
+    t.text     "content"
+    t.text     "poster_url"
+    t.string   "vfs_path"
+    t.string   "slug"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "sauna_accessories", :force => true do |t|
     t.integer  "sauna_id"

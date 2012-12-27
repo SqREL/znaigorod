@@ -15,6 +15,8 @@ Znaigorod::Application.routes.draw do
       resources :images, :only => [:new, :create, :destroy, :edit, :update]
     end
 
+    resources :posts
+
     resources :organizations do
       resource :culture, :except => [:index, :show]
       resource :entertainment, :except => [:index, :show]
