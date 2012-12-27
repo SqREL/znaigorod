@@ -93,7 +93,7 @@
           </div>
         </div>
         <div class="radius_slider_wrapper">
-          <div class="info_radius"><span class='bold'>Радиус:</span> <span class='rad'><%= "%.0f" % (@presenter.geo.selected.radius.to_f*1000) %></span> м (<span class='time'>120</span> мин пешком)</div>
+          <div class="info_radius"><span class='bold'>Радиус:</span> <span class='rad'><%= "%.0f" % (@presenter.geo.selected.radius.to_f*1000) %></span> м (<span class='time'><%= "%.1f" % (@presenter.geo.selected.radius.to_f*1000/54.6) %></span> мин пешком)</div>
           <div class="wrapper_box">
             <div class="min_radius">100 м</div>
             <div class="radius_slider"></div>
