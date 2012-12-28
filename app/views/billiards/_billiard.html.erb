@@ -27,7 +27,10 @@
           <h2><%= kind %></h2>
           <% pool_tables.each do |pool_table| %>
             <div class="pool_details">
-              <%= pool_table.count %> x <%= pool_table.ft %> <%= pool_table.price %> <%= pool_table.schedule %>
+              <span class='count'><%= pool_table.count %> x</span>
+              <span class='size'><%= pool_table.ft %></span>
+              <span class='price'><%= pool_table.price %></span>
+              <%= pool_table.schedule %>
             </div>
           <% end %>
         </li>
