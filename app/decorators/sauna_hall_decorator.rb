@@ -67,6 +67,18 @@ class SaunaHallDecorator < ApplicationDecorator
     h.content_tag(:div, content + pools.compact.join(". "), class: 'pool')
   end
 
+  def htmlise_entertainment_on_show
+    return "" unless sauna_hall_entertainment.present?
+    entertainment_atts = []
+    sauna_hall_entertainment.class.accessible_attributes.each do |field|
+      entertainment_atts << attribute_decorate(sauna_hall_entertainment, field)
+    end
+    %w[pit pylon lounges barbecue].each do |field|
+      entertainment_atts << attribute_decorate(sauna_hall_interior, field)
+    end
+    h.content_tag(:div, entertainment_atts.compact.join(". "), class: 'entertainment')
+  end
+
   def attribute_decorate(model, field)
     return nil unless model.respond_to?(field)
     case value = model.send(field)
