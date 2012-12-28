@@ -184,6 +184,38 @@
           background: transparent image_url('public/icon_clock_green.png') no-repeat left center
         &.closed
           background: transparent image_url('public/icon_clock_gray.png') no-repeat left center
+        .time
+          &.clickable
+            cursor: pointer
+            text-decoration: underline
+            &:hover
+              text-decoration: none
+      .more_schedule
+        top: 0
+        left: 0
+        position: absolute
+        font-size: 11px
+        border: 1px solid #bcb0cb
+        +border-radius(3px)
+        +box-shadow(#a0a0a0 0 0 4px, #fff 0 0 1px inset)
+        background-color: #eaf2f4
+        padding: 10px
+        .arrow_wrapper
+          position: relative
+          .arrow
+            position: absolute
+            top: -19px
+            display: block
+            width: 16px
+            height: 14px
+            +clearfix
+            background: transparent image_url('public/more_schedule_arrow.png') no-repeat center center
+        .days
+          +inline-block
+          width: 45px
+          font-weight: bold
+        .hours
+          +inline-block
       .categories
         +clearfix
         margin-top: 10px

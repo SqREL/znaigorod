@@ -25,6 +25,7 @@
  * = require public/filter_handler
  * = require public/prepare_organizations
  * = require public/iconize_info
+ * = require public/schedule_toggle
  * = require public/loading_items
  * = require public/list_settings
  * = require public/swfkrpano
