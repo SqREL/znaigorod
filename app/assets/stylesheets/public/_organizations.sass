@@ -235,10 +235,15 @@
 
   .organization_info
     .photogallery
-      +clearfix
       clear: left
+      ul
+        +clearfix
       li
         float: left
+        border: 4px solid #fff
+        +border-radius
+        +box-shadow(#aaa 0 0 3px)
+        margin: 3px
 
     .share_organization
       +clearfix
