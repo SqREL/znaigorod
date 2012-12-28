@@ -28,8 +28,8 @@ class MealDecorator < SuborganizationDecorator
   end
 
   def htmlise_offers_and_features_on_show
-    content = htmlise_offers_on_show + htmlise_features_on_show
-    h.content_tag(:ul, content, class: :offers_and_features) if content. present?
+    content = htmlise_offers_on_show.to_s + htmlise_features_on_show.to_s
+    h.content_tag(:ul, content.html_safe, class: :offers_and_features) if content. present?
   end
 
   def htmlise_offers_on_show
