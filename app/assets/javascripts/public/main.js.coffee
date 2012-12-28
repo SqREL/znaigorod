@@ -24,6 +24,7 @@ $ ->
   init_filters_toggler() if $(".need_toggler li").length
   init_filter_handler() if $(".filters_wrapper").length
   init_prepare_organizations() if $(".organizations_list .info .characteristics").length
+  init_prepare_sauna() if $(".organization_info .sauna_hall_details").length
   init_iconize_info() if $(".organization_info .iconize_info li").length
   init_organization_photos() if $(".organization_info .photogallery li").length
   init_schedule_toggle() if $(".organization_info .more_schedule").length
