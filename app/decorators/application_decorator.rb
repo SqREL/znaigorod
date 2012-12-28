@@ -51,7 +51,7 @@ class ApplicationDecorator < Draper::Base
       days = days[eql_index+1..days.size-1]
       result << "#{short_wday_name(out_days.first)}" if out_days.one?
       result << out_days.map {|d| short_wday_name(d)}.join(", ") if out_days.size == 2
-      result << "#{short_wday_name(out_days.first)} - #{short_wday_name(out_days.last)}" if out_days.size > 2
+      result << "#{short_wday_name(out_days.first)}-#{short_wday_name(out_days.last)}" if out_days.size > 2
       result << ", " unless days.empty?
     end while days.any?
     result.squish
