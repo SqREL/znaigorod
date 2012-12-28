@@ -12,11 +12,13 @@
       <%= @organization.categories_links.map { |link| content_tag :li, link }.join.mb_chars.downcase.html_safe %>
     </ul>
     <% if @organization.has_photogallery? %>
-      <ul class="photogallery">
-        <% @organization.images.each do |image| %>
-          <li><%= link_to(image_tag_for(image.url, 124, 94), image.url) %></li>
-        <% end %>
-      </ul>
+      <div class="photogallery">
+        <ul>
+          <% @organization.images.each do |image| %>
+            <li><%= link_to(image_tag_for(image.url, 124, 94), image.url) %></li>
+          <% end %>
+        </ul>
+      </div>
     <% end %>
   </div>
   <% @organization.decorated_suborganizations.each do |suborganization| %>
