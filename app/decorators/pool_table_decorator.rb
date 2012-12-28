@@ -23,15 +23,22 @@ class PoolTableDecorator < ApplicationDecorator
         grouped_schedule[price][daily_schedule] << schedule.day
       end
     end
-    content = ""
-    printed_days = []
+    orderly_grouped_schedule = {}
     grouped_schedule.each do |price, schedules|
       schedules.each do |schedule_time, days|
-        li = printed_days.eql?(days) ? "<strong>#{schedule_time}:</strong> #{price}" :  "<strong>#{schedule_day_names(days)} #{schedule_time}:</strong> #{price}"
-        content << h.content_tag(:li, li.html_safe)
-        printed_days = days
+        decorated_days = schedule_day_names(days)
+        orderly_grouped_schedule[decorated_days] ||= []
+        orderly_grouped_schedule[decorated_days] << {schedule_time => price}
       end
     end
-    h.content_tag(:div, "<span class='show_more_schedule'>расписание</span>".html_safe, class: "work_schedule") + h.content_tag(:ul, content.html_safe, class: :more_schedule)
+    content = ""
+    orderly_grouped_schedule.each do |days, schedules|
+      timely_content = ""
+      schedules.each do |schedule|
+        timely_content << h.content_tag(:li, "<span class='time'>#{schedule.keys.first}</span><span class='price'>#{schedule.values.first} руб.</span>".html_safe)
+      end
+      content << h.content_tag(:li, (days + h.content_tag(:ul, timely_content.html_safe)).html_safe)
+    end
+    h.content_tag(:div, "<span class='show_more_schedule'>расписание</span>".html_safe, class: "work_schedule") + h.content_tag(:ul, content.html_safe, class: :more_schedule).html_safe
   end
 end
