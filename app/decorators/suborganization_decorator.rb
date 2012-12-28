@@ -13,6 +13,10 @@ class SuborganizationDecorator < ApplicationDecorator
     h.content_tag :h3, title, class: :suborganization if title?
   end
 
+  def viewable?
+    false
+  end
+
   def contacts
     content = []
     content << phone.squish unless phone.blank?

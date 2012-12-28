@@ -22,7 +22,7 @@
     <% end %>
   </div>
   <% @organization.decorated_suborganizations.each do |suborganization| %>
-    <%= render suborganization %>
+    <%= render suborganization if suborganization.viewable? %>
   <% end %>
   <div class="share_organization">
     <%= render :partial => "commons/share_this" %>
