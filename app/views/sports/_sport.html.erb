@@ -11,7 +11,6 @@
       </td>
     </tr>
   </table>
-  <%= sport.services_on_show %>
   <% if sport.has_photogallery? %>
     <div class="photogallery">
       <ul>
@@ -19,6 +18,37 @@
           <li><%= link_to(image_tag_for(image.url, 124, 94, true, 'n'), image.url, rel: :sport_gallery) %></li>
         <% end %>
       </ul>
+    </div>
+  <% end %>
+  <% if sport.services.any? %>
+    <div class="services_tables">
+      <% sport.grouped_decorated_services.each do |kind, services| %>
+        <ul class="services_table">
+          <li>
+            <h2><%= kind %></h2>
+            <div class="services">
+              <% services.each do |service| %>
+                <div class="services_details">
+                  <span class='service_title'>
+                    <%= service.title %>
+                    <% if service.feature %>
+                      <ul class="iconize_info">
+                        <li>
+                          <a href="#" class="description_icon" data-link="service_text" title='информация'>информация</a>
+                          <div class="description_text">
+                            <p><%= service.feature %></p>
+                          </div>
+                        </li>
+                      </ul>
+                    <% end %>
+                  </span>
+                  <span class='ages'><%= service.age %></span>
+                </div>
+              <% end %>
+            </div>
+          </li>
+        </ul>
+      <% end %>
     </div>
   <% end %>
 </div>

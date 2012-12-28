@@ -42,7 +42,7 @@
                       </ul>
                     <% end %>
                   </span>
-                  <span class='ages'><%= service.age.gsub(/[;\s[[:alpha:]]]+/,'').gsub(/-/, '&mdash;').html_safe %> лет</span>
+                  <span class='ages'><%= service.age %></span>
                 </div>
               <% end %>
             </div>
