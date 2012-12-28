@@ -312,16 +312,16 @@
           +clearfix
           > li
             +clearfix
-            margin: 10px 0
+            margin: 5px 0
             h2
               float: left
               font-size: 17px
               color: #fff
-              width: 230px
+              width: 260px
               position: relative
               background-color: #894195
               padding: 7px 10px
-              margin-right: 30px
+              margin: 5px 30px 5px 0
               &:after
                 content: ' '
                 position: absolute
@@ -333,25 +333,33 @@
                 border-right: 15px solid transparent
                 border-left: 15px solid #894195
                 border-bottom: 16px solid transparent
-            .pool_details
+            .pools
               float: left
-              .count,
-              .size,
-              .price,
-              .work_schedule
-                +inline-block
-              .count
-                color: #784391
-                font-size: 16px
-                font-weight: bold
-              .size
-                color: #fff
-                font-size: 16px
-                font-weight: bold
-                background: transparent image_url('public/pool_size_bg.png') no-repeat center center
-                padding: 10px
-              .work_schedule
-                font-size: 11px
+              .pool_details
+                margin: 5px 10px 5px 0
+                .count,
+                .size,
+                .price,
+                .work_schedule
+                  +inline-block
+                .count
+                  color: #784391
+                  font-size: 16px
+                  font-weight: bold
+                .size
+                  color: #fff
+                  text-align: center
+                  width: 50px
+                  font-size: 16px
+                  font-weight: bold
+                  background: transparent image_url('public/pool_size_bg.png') no-repeat center center
+                  padding: 10px
+                .price
+                  color: #b40825
+                  font-size: 17px
+                  margin: 0 5px
+                .work_schedule
+                  font-size: 11px
 
   .organization_info
     .share_organization

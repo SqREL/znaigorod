@@ -25,14 +25,16 @@
       <ul class="pool_table">
         <li>
           <h2><%= kind %></h2>
-          <% pool_tables.each do |pool_table| %>
-            <div class="pool_details">
-              <span class='count'><%= pool_table.count %> x</span>
-              <span class='size'><%= pool_table.ft %></span>
-              <span class='price'><%= pool_table.price %></span>
-              <%= pool_table.schedule %>
-            </div>
-          <% end %>
+          <div class="pools">
+            <% pool_tables.each do |pool_table| %>
+              <div class="pool_details">
+                <span class='count'><%= pool_table.count %> x</span>
+                <span class='size'><%= pool_table.ft %></span>
+                <span class='price'><%= pool_table.price %></span>
+                <%= pool_table.schedule %>
+              </div>
+            <% end %>
+          </div>
         </li>
       </ul>
     <% end %>
