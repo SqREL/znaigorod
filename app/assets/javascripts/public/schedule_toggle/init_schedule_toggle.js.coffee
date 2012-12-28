@@ -1,7 +1,7 @@
 @init_schedule_toggle = () ->
   schedule = $(".organization_info .more_schedule")
   schedule.each (index, item) ->
-    $('<li class=\'arrow_wrapper\'><span class=\'arrow\'></span></li>').prependTo(schedule)
+    $('<li class=\'arrow_wrapper\'><span class=\'arrow\'></span></li>').prependTo($(item))
     link = $('.show_more_schedule', $(item).prev('.work_schedule'))
     return true unless link.position()
     $(item).css

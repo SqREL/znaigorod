@@ -1,20 +1,20 @@
-<div class="suborganization_info sauna">
+<div class='suborganization_info sauna'>
   <table>
     <tr>
       <td class='border'>
         <%= sauna.htmlise_title_on_show %>
       </td>
       <td>
-        <div class="details">
+        <div class='details'>
           <%= sauna.characteristics_on_show %>
         </div>
       </td>
     </tr>
   </table>
   <% sauna.decorated_halls.each_with_index do |sauna_hall, index| %>
-    <div class="sauna_hall_info">
+    <div class='sauna_hall_info'>
       <div class='sauna_hall_header'>
-        <div class="left">
+        <div class='left'>
           <h2>
             <span class='index'>№<%= index + 1 %></span>
             <%= sauna_hall.title %>
@@ -22,15 +22,27 @@
           <%= sauna_hall.price %>
           <%= sauna_hall.schedule %>
         </div>
-        <div class="right">
+        <div class='right'>
           <%= sauna_hall.htmlise_capacity_on_show %>
         </div>
       </div>
-      <%= sauna_hall.htmlise_bath_on_show %>
-      <%= sauna_hall.htmlise_pool_on_show %>
-      <%= sauna_hall.htmlise_entertainment_on_show %>
+      <div class='sauna_hall_details'>
+        <table>
+          <tr>
+            <td>
+              <%= sauna_hall.htmlise_bath_on_show %>
+            </td>
+            <td>
+              <%= sauna_hall.htmlise_pool_on_show %>
+            </td>
+            <td>
+              <%= sauna_hall.htmlise_entertainment_on_show %>
+            </td>
+          </tr>
+        </table>
+      </div>
       <% if sauna_hall.has_photogallery? %>
-        <div class="photogallery">
+        <div class='photogallery'>
           <ul>
             <% sauna_hall.images.each do |image| %>
               <li><%= link_to(image_tag_for(image.url, 124, 94), image.url, rel: :info_gallery) %></li>
