@@ -1,17 +1,19 @@
-<%= billiard.htmlise_title_on_show %>
-<%= billiard.htmlise_features_on_show %>
-<% if billiard.has_photogallery? %>
-  <div class="photogallery">
-    <ul>
-      <% billiard.images.each do |image| %>
-        <li><%= link_to(image_tag_for(image.url, 124, 94), image.url, rel: :info_gallery) %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-<% billiard.grouped_decorated_pool_tables.each do |kind, pool_tables| %>
-  <h2><%= kind %></h2>
-  <% pool_tables.each do |pool_table| %>
-    <%= pool_table.count %> x <%= pool_table.ft %> <%= pool_table.price %> <%= pool_table.schedule %>
+<div class="suborganization_info billiard">
+  <%= billiard.htmlise_title_on_show %>
+  <%= billiard.htmlise_features_on_show %>
+  <% if billiard.has_photogallery? %>
+    <div class="photogallery">
+      <ul>
+        <% billiard.images.each do |image| %>
+          <li><%= link_to(image_tag_for(image.url, 124, 94, true, 'n'), image.url, rel: :billiard_gallery) %></li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-<% end %>
+  <% billiard.grouped_decorated_pool_tables.each do |kind, pool_tables| %>
+    <h2><%= kind %></h2>
+    <% pool_tables.each do |pool_table| %>
+      <%= pool_table.count %> x <%= pool_table.ft %> <%= pool_table.price %> <%= pool_table.schedule %>
+    <% end %>
+  <% end %>
+</div>
