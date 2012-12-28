@@ -3,6 +3,18 @@
 class SaunaDecorator < SuborganizationDecorator
   decorates :sauna
 
+  def viewable?
+    sauna_halls.any?
+  end
+
+  def title
+    sauna.title? ? sauna.title : "Сауна"
+  end
+
+  def htmlise_title_on_show
+    h.content_tag :h1, title, :class => 'sauna'
+  end
+
   def characteristics_on_list
     characteristics_by_type("features offers")
   end

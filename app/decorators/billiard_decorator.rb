@@ -3,6 +3,10 @@
 class BilliardDecorator < SuborganizationDecorator
   decorates :billiard
 
+  def viewable?
+    billiard.pool_tables.any?
+  end
+
   def title
     billiard.title? ? billiard.title : "Бильярдный зал"
   end

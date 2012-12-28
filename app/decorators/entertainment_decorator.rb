@@ -3,6 +3,10 @@
 class EntertainmentDecorator < SuborganizationDecorator
   decorates :entertainment
 
+  def viewable?
+    entertainment.offers.any? || entertainment.features.any?
+  end
+
   def characteristics_on_list
     characteristics_by_type("features offers")
   end

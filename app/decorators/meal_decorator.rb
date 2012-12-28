@@ -3,6 +3,10 @@
 class MealDecorator < SuborganizationDecorator
   decorates :meal
 
+  def viewable?
+    meal.cuisines.any? || meal.offers.any? || meal.features.any?
+  end
+
   def characteristics_on_list
     characteristics_by_type("features offers cuisines")
   end
