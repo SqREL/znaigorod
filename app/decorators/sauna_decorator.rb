@@ -20,13 +20,13 @@ class SaunaDecorator < SuborganizationDecorator
   end
 
   def characteristics_on_show
+
     content = ""
-    %w[sauna_accessory sauna_broom sauna_alcohol sauna_oil sauna_massage sauna_child_stuff sauna_stuff].each do |model_name|
+    %w[sauna_accessory sauna_alcohol sauna_broom sauna_oil sauna_massage sauna_child_stuff].each do |model_name|
       content << sauna_model_decorate(model_name)
     end
-    content << sauna_halls_decorate
+    #content << sauna_halls_decorate
     content = h.content_tag :div, content.html_safe, class: :sauna_characteristics
-    content << characteristics_by_type("features offers").to_s
     content.html_safe
   end
 
@@ -38,7 +38,7 @@ class SaunaDecorator < SuborganizationDecorator
       model.class.accessible_attributes.each do |field|
         li << attribute_decorate(model, field)
       end
-      content << h.content_tag(:ul, li.html_safe) if li.present?
+      content << h.content_tag(:ul, li.html_safe, class: model_name) if li.present?
     end
     content
   end
@@ -53,7 +53,7 @@ class SaunaDecorator < SuborganizationDecorator
     when TrueClass
       h.content_tag :li, I18n.t("sauna.#{model.class.name.underscore}.#{field}.true")
     when FalseClass
-      return "" if %w[sauna_hall_bath sauna_hall_pool sauna_hall_interior].include?(model.class.name.underscore)
+      return "" if %w[sauna_accessory sauna_alcohol sauna_broom sauna_oil sauna_massage sauna_child_stuff sauna_hall_bath sauna_hall_pool sauna_hall_interior].include?(model.class.name.underscore)
       h.content_tag :li, I18n.t("sauna.#{model.class.name.underscore}.#{field}.false")
     when NilClass
       ""
