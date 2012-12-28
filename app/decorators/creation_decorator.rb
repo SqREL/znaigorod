@@ -23,7 +23,7 @@ class CreationDecorator < SuborganizationDecorator
     characteristics_by_type("features")
   end
 
-  def characteristics_on_show
+  def services_on_show
     content = ""
     services.filled.group_by(&:category).each do |category, services|
       content << h.content_tag(:h2, category, class: "title")

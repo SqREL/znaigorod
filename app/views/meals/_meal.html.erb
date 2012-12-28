@@ -2,3 +2,12 @@
 <%= meal.htmlise_cuisines_on_show %>
 <%= meal.htmlise_offers_on_show %>
 <%= meal.htmlise_features_on_show %>
+<% if meal.has_photogallery? %>
+  <div class="photogallery">
+    <ul>
+      <% meal.images.each do |image| %>
+        <li><%= link_to(image_tag_for(image.url, 124, 94), image.url, rel: :info_gallery) %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

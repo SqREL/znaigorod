@@ -69,4 +69,8 @@ class SuborganizationDecorator < ApplicationDecorator
     text.blank? ? "" : text.as_html
   end
 
+  def has_photogallery?
+    images.any?
+  end
+
 end
