@@ -1,7 +1,16 @@
 <div class="suborganization_info culture">
-  <%= culture.htmlise_title_on_show %>
-  <%= culture.htmlise_offers_on_show %>
-  <%= culture.htmlise_features_on_show %>
+  <table>
+    <tr>
+      <td class='border'>
+        <%= culture.htmlise_title_on_show %>
+      </td>
+      <td>
+        <div class="details">
+          <%= culture.htmlise_offers_and_features_on_show %>
+        </div>
+      </td>
+    </tr>
+  </table>
   <% if culture.has_photogallery? %>
     <div class="photogallery">
       <ul>
