@@ -23,6 +23,10 @@ class CreationDecorator < SuborganizationDecorator
     characteristics_by_type("features")
   end
 
+  def grouped_decorated_services
+    Hash[services.group_by(&:category)]
+  end
+
   def services_on_show
     content = ""
     services.filled.group_by(&:category).each do |category, services|

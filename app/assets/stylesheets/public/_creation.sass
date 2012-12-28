@@ -4,8 +4,8 @@
       +clearfix
       h1
         float: left
-        padding: 10px 10px 10px 84px
-        background: transparent image_url('public/icon_creation.png') no-repeat 18px center
+        padding: 10px 10px 10px 54px
+        background: transparent image_url('public/icon_creation.png') no-repeat left center
 
       .services_tables
         border-top: 1px dotted #cfcfd1
@@ -14,7 +14,8 @@
           +clearfix
           > li
             +clearfix
-            margin: 5px 0
+            background: image_url('service_header_bg.png') repeat-x top
+            margin: 0
             h2
               float: left
               font-size: 17px
@@ -23,7 +24,8 @@
               position: relative
               background-color: #894195
               padding: 7px 10px
-              margin: 5px 30px 5px 0
+              //margin: 5px 30px 5px 0
+              margin: 0
               &:after
                 content: ' '
                 position: absolute
@@ -37,28 +39,27 @@
                 border-bottom: 16px solid transparent
             .services
               float: left
-              .pool_details
+              width: 100%
+              .services_details
+                float: left
                 margin: 5px 10px 5px 0
-                .count,
-                .size,
-                .price,
-                .work_schedule
-                  +inline-block
-                .count
-                  color: #784391
-                  font-size: 16px
+                width: 200px
+                .service_title
+                  font-size: 14px
                   font-weight: bold
-                .size
-                  color: #fff
-                  text-align: center
-                  width: 50px
-                  font-size: 16px
-                  font-weight: bold
-                  background: transparent image_url('public/pool_size_bg.png') no-repeat center center
-                  padding: 10px
-                .price
-                  color: #b40825
-                  font-size: 17px
-                  margin: 0 5px
-                .work_schedule
-                  font-size: 11px
+                  color: #8302A5
+                  display: block
+                  padding: 7px 10px
+                  .iconize_info
+                    +inline-block
+                  .description_icon
+                    +clearfix
+                    background: transparent image_url('public/icon_information.png') no-repeat center center
+                    display: block
+                    height: 24px
+                    text-indent: -9999em
+                    width: 24px
+                  .description_text
+                    display: none
+                .ages
+                  padding: 7px 20px
