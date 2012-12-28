@@ -4,7 +4,7 @@ class CreationDecorator < SuborganizationDecorator
   decorates :creation
 
   def viewable?
-    creation.services.filled.any?
+    services.filled.any?
   end
 
   def title
