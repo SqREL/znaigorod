@@ -159,7 +159,7 @@ class OrganizationDecorator < ApplicationDecorator
       content << "работает круглосуточно"
       klass << "twenty_four"
     else
-      content << "работает с #{I18n.l(schedule.from, :format => "%H:%M")} до #{I18n.l(schedule.to, :format => "%H:%M")}"
+      content << "работает #{schedule_time(schedule.from, schedule.to)}"
       now = Time.zone.now
       time = Time.utc(2000, "jan", 1, now.hour, now.min)
       from = schedule.from
