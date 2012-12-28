@@ -1,6 +1,16 @@
 <div class="suborganization_info sport">
-  <%= sport.htmlise_title_on_show %>
-  <%= sport.htmlise_features_on_show %>
+  <table>
+    <tr>
+      <td class='border'>
+        <%= sport.htmlise_title_on_show %>
+      </td>
+      <td>
+        <div class="details">
+          <%= sport.htmlise_features_on_show %>
+        </div>
+      </td>
+    </tr>
+  </table>
   <%= sport.services_on_show %>
   <% if sport.has_photogallery? %>
     <div class="photogallery">
