@@ -16,7 +16,7 @@ class EntertainmentDecorator < SuborganizationDecorator
   end
 
   def title
-    entertainment.title? ? meal.title : categories.first
+    entertainment.title? ? entertainment.title : categories.first
   end
 
   def htmlise_title_on_show
