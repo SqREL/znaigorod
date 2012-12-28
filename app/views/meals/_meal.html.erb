@@ -1,13 +1,27 @@
-<%= meal.htmlise_title_on_show %>
-<%= meal.htmlise_cuisines_on_show %>
-<%= meal.htmlise_offers_on_show %>
-<%= meal.htmlise_features_on_show %>
-<% if meal.has_photogallery? %>
-  <div class="photogallery">
-    <ul>
-      <% meal.images.each do |image| %>
-        <li><%= link_to(image_tag_for(image.url, 124, 94), image.url, rel: :info_gallery) %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<div class="suborganization_info meal">
+  <table>
+    <tr>
+      <td class='border'>
+        <%= meal.htmlise_title_on_show %>
+      </td>
+      <td>
+        <div class="details">
+          <div class="cuisines">
+            <strong>Кухня:</strong>
+            <%= meal.htmlise_cuisines_on_show %>
+          </div>
+          <%= meal.htmlise_offers_and_features_on_show %>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <% if meal.has_photogallery? %>
+    <div class="photogallery">
+      <ul>
+        <% meal.images.each do |image| %>
+          <li><%= link_to(image_tag_for(image.url, 124, 94), image.url, rel: :info_gallery) %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>

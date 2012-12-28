@@ -27,12 +27,17 @@ class MealDecorator < SuborganizationDecorator
     h.content_tag(:ul, cuisines.map {|f| h.content_tag(:li, f)}.join("\n").html_safe, :class => 'cuisines') if cuisines.any?
   end
 
+  def htmlise_offers_and_features_on_show
+    content = htmlise_offers_on_show + htmlise_features_on_show
+    h.content_tag(:ul, content, class: :offers_and_features) if content. present?
+  end
+
   def htmlise_offers_on_show
-    h.content_tag(:ul, offers.map {|f| h.content_tag(:li, f)}.join("\n").html_safe, :class => 'offers') if offers.any?
+    offers.map {|f| h.content_tag(:li, f)}.join("\n").html_safe if offers.any?
   end
 
   def htmlise_features_on_show
-    h.content_tag(:ul, features.map {|f| h.content_tag(:li, f)}.join("\n").html_safe, :class => 'features') if features.any?
+    features.map {|f| h.content_tag(:li, f)}.join("\n").html_safe if features.any?
   end
 
 end
