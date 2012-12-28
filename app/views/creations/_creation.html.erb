@@ -1,7 +1,16 @@
 <div class="suborganization_info creation">
-  <%= creation.htmlise_title_on_show %>
-  <%= creation.htmlise_features_on_show %>
-  <%= creation.services_on_show %>
+  <table>
+    <tr>
+      <td class='border'>
+        <%= creation.htmlise_title_on_show %>
+      </td>
+      <td>
+        <div class="details">
+          <%= creation.htmlise_features_on_show %>
+        </div>
+      </td>
+    </tr>
+  </table>
   <% if creation.has_photogallery? %>
     <div class="photogallery">
       <ul>
@@ -11,4 +20,26 @@
       </ul>
     </div>
   <% end %>
+  <div class="services_tables">
+    <%= creation.services_on_show %>
+    <% if false %>
+    <% billiard.grouped_decorated_pool_tables.each do |kind, pool_tables| %>
+      <ul class="services_table">
+        <li>
+          <h2><%= kind %></h2>
+          <div class="services">
+            <% pool_tables.each do |pool_table| %>
+              <div class="services_details">
+                <span class='count'><%= pool_table.count %> x</span>
+                <span class='size'><%= pool_table.ft %></span>
+                <span class='price'><%= pool_table.price %></span>
+                <%= pool_table.schedule %>
+              </div>
+            <% end %>
+          </div>
+        </li>
+      </ul>
+    <% end %>
+    <% end %>
+  </div>
 </div>
