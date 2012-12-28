@@ -21,16 +21,9 @@
       </div>
     <% end %>
   </div>
+
   <% @organization.decorated_suborganizations.each do |suborganization| %>
     <%= render suborganization if suborganization.viewable? %>
-  <% end %>
-  <div class="share_organization">
-    <%= render :partial => "commons/share_this" %>
-  </div>
-
-  <% if Rails.env.production? %>
-    <div id="vk_organization_comments"></div>
-    <%= render :partial => "commons/fb_organization_comments" %>
   <% end %>
 
   <% if @affiche_collection.affiches.any? %>
@@ -58,6 +51,14 @@
     </div>
   <% end %>
 
+  <div class="share_organization">
+    <%= render :partial => "commons/share_this" %>
+  </div>
+
+  <% if Rails.env.production? %>
+    <div id="vk_organization_comments"></div>
+    <%= render :partial => "commons/fb_organization_comments" %>
+  <% end %>
+
 <% end %>
 <%= render :file => "organizations/wrapper" %>
-
