@@ -114,7 +114,7 @@ class OrganizationDecorator < ApplicationDecorator
       wday = Time.zone.today.wday
       wday = 7 if wday == 0
       schedule = organization.schedules.find_by_day(wday)
-      content = "Сегодня работает <span class='time'>#{schedule_time(schedule.from, schedule.to)}</span>".html_safe
+      content = "Сегодня работает <span class='show_more_schedule'>#{schedule_time(schedule.from, schedule.to)}</span>".html_safe
       hash_schedule = {}
       schedules.each do |schedule|
         daily_schedule = schedule_time(schedule.from, schedule.to)

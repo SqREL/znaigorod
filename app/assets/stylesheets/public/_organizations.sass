@@ -184,39 +184,6 @@
           background: transparent image_url('public/icon_clock_green.png') no-repeat left center
         &.closed
           background: transparent image_url('public/icon_clock_gray.png') no-repeat left center
-        .time
-          &.clickable
-            cursor: pointer
-            text-decoration: underline
-            &:hover
-              text-decoration: none
-      .more_schedule
-        display: none
-        top: 0
-        left: 0
-        position: absolute
-        font-size: 11px
-        border: 1px solid #bcb0cb
-        +border-radius(3px)
-        +box-shadow(#a0a0a0 0 0 4px, #fff 0 0 1px inset)
-        background-color: #eaf2f4
-        padding: 10px
-        .arrow_wrapper
-          position: relative
-          .arrow
-            position: absolute
-            top: -19px
-            display: block
-            width: 16px
-            height: 14px
-            +clearfix
-            background: transparent image_url('public/more_schedule_arrow.png') no-repeat center center
-        .days
-          +inline-block
-          width: 45px
-          font-weight: bold
-        .hours
-          +inline-block
       .categories
         +clearfix
         margin-top: 10px
@@ -234,6 +201,40 @@
             color: #333
 
   .organization_info
+    .show_more_schedule
+      &.clickable
+        cursor: pointer
+        text-decoration: underline
+        &:hover
+          text-decoration: none
+    .more_schedule
+      display: none
+      top: 0
+      left: 0
+      position: absolute
+      font-size: 11px
+      border: 1px solid #bcb0cb
+      +border-radius(3px)
+      +box-shadow(#a0a0a0 0 0 4px, #fff 0 0 1px inset)
+      background-color: #eaf2f4
+      padding: 10px
+      .arrow_wrapper
+        position: relative
+        .arrow
+          position: absolute
+          top: -19px
+          display: block
+          width: 16px
+          height: 14px
+          +clearfix
+          background: transparent image_url('public/more_schedule_arrow.png') no-repeat center center
+      .days
+        +inline-block
+        width: 45px
+        font-weight: bold
+      .hours
+        +inline-block
+
     .photogallery
       clear: left
       +clearfix
@@ -263,17 +264,12 @@
         margin: 0
       .photogallery
         margin: 5px 10px 10px 10px
-
-    .meal
-      +clearfix
       table
+        width: 100%
         margin: 5px 10px
-      .border
-        border-right: 1px solid #d3d3d3
-      h1
-        float: left
-        padding: 10px 10px 10px 85px
-        background: transparent image_url('public/icon_meal.png') no-repeat left center
+        .border
+          width: 1%
+          border-right: 1px solid #d3d3d3
       .details
         +clearfix
         float: left
@@ -287,6 +283,8 @@
             display: block
             float: left
             margin-right: 10px
+        .features,
+        .offers,
         .offers_and_features
           +clearfix
           font-size: 11px
@@ -294,6 +292,49 @@
             float: left
             width: 180px
             margin-bottom: 5px
+
+    .meal
+      +clearfix
+      h1
+        float: left
+        padding: 10px 10px 10px 84px
+        background: transparent image_url('public/icon_meal.png') no-repeat left center
+    .billiard
+      +clearfix
+      h1
+        float: left
+        padding: 10px 10px 10px 77px
+        background: transparent image_url('public/icon_billiard.png') no-repeat left center
+      .pool_tables
+        border-top: 1px dotted #cfcfd1
+        background-color: #fbfcff
+        .pool_table
+          +clearfix
+          > li
+            +clearfix
+            margin: 10px 0
+            h2
+              float: left
+              font-size: 17px
+              color: #fff
+              width: 230px
+              position: relative
+              background-color: #894195
+              padding: 7px 10px
+              margin-right: 30px
+              &:after
+                content: ' '
+                position: absolute
+                width: 0
+                height: 0
+                left: 100%
+                top: 0
+                border-top: 15px solid transparent
+                border-right: 15px solid transparent
+                border-left: 15px solid #894195
+                border-bottom: 16px solid transparent
+            .pool_details
+              float: left
 
   .organization_info
     .share_organization

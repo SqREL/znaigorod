@@ -32,6 +32,6 @@ class PoolTableDecorator < ApplicationDecorator
         printed_days = days
       end
     end
-    h.content_tag(:div, "расписание", class: "work_schedule") + h.content_tag(:ul, content.html_safe, class: :more_schedule)
+    h.content_tag(:div, "<span class='show_more_schedule'>расписание</span>".html_safe, class: "work_schedule") + h.content_tag(:ul, content.html_safe, class: :more_schedule)
   end
 end
