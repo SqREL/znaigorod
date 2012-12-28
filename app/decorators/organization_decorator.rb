@@ -98,8 +98,8 @@ class OrganizationDecorator < ApplicationDecorator
 
   def work_schedule
     content = ""
-    from = schedules.map(&:from).uniq
-    to = schedules.map(&:to).uniq
+    from = schedules.map(&:from).uniq.compact
+    to = schedules.map(&:to).uniq.compact
     if from.one? && to.one?
       from = from.first
       to = to.first
@@ -113,7 +113,7 @@ class OrganizationDecorator < ApplicationDecorator
       wday = Time.zone.today.wday
       wday = 7 if wday == 0
       schedule = organization.schedules.find_by_day(wday)
-      content = "Сегодня работает с #{I18n.l(schedule.from, :format => "%H:%M")} до #{I18n.l(schedule.to, :format => "%H:%M")}"
+      content = "Сегодня работает с <span class='time'>#{I18n.l(schedule.from, :format => "%H:%M")} до #{I18n.l(schedule.to, :format => "%H:%M")}</span>".html_safe
       hash_schedule = {}
       schedules.each do |schedule|
         daily_schedule = "#{I18n.l(schedule.from, :format => "%H:%M")}-#{I18n.l(schedule.to, :format => "%H:%M")}"
@@ -122,8 +122,9 @@ class OrganizationDecorator < ApplicationDecorator
       end
       more_schedule = ""
       hash_schedule.each do |daily_scheule, days|
-        more_schedule << h.content_tag(:li, schedule_day_names(days) + daily_scheule)
+        more_schedule << h.content_tag(:li, "<strong>#{schedule_day_names(days)}:</strong> #{daily_scheule}".html_safe)
       end
+      more_schedule = h.content_tag(:ul, more_schedule.html_safe, class: :more_schedule)
       h.content_tag(:div, content, class: "work_schedule #{open_closed(schedule.from, schedule.to)}") + more_schedule
     end
   end
@@ -153,7 +154,7 @@ class OrganizationDecorator < ApplicationDecorator
       days = days[eql_index+1..days.size-1]
       result << "#{short_wday_name(out_days.first)}" if out_days.one?
       result << out_days.map {|d| short_wday_name(d)}.join(", ") if out_days.size == 2
-      result << "#{short_wday_name(out_days.first)} - #{short_wday_name(out_days.last)}" if out_days.size > 2
+      result << "#{short_wday_name(out_days.first)}-#{short_wday_name(out_days.last)}" if out_days.size > 2
       result << ", " unless days.empty?
     end while days.any?
     result.squish
