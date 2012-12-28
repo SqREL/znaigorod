@@ -1,4 +1,5 @@
 <div class='suborganization_info sauna'>
+  <%= sauna.iconize_info %>
   <table>
     <tr>
       <td class='border'>
@@ -35,7 +36,7 @@
         <div class='photogallery'>
           <ul>
             <% sauna_hall.images.each do |image| %>
-              <li><%= link_to(image_tag_for(image.url, 124, 94), image.url, rel: :info_gallery) %></li>
+              <li><%= link_to(image_tag_for(image.url, 124, 94), image.url, rel: "info_gallery_#{sauna_hall.id}") %></li>
             <% end %>
           </ul>
         </div>

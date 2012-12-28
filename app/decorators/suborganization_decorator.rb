@@ -17,6 +17,16 @@ class SuborganizationDecorator < ApplicationDecorator
     false
   end
 
+  def iconize_info
+    content = ''
+    if description.present?
+      link = h.link_to('информация', '#', :class => :description_icon, :'data-link' => :description_text)
+      text = h.content_tag(:div, description.as_html, :class => :description_text)
+      content << h.content_tag(:li, "#{link}\n#{text}".html_safe)
+    end
+    h.content_tag :ul, content.html_safe, class: :iconize_info if content.present?
+  end
+
   def contacts
     content = []
     content << phone.squish unless phone.blank?
