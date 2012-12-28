@@ -252,6 +252,48 @@
           &:hover img
             +opacity(1)
 
+  .organization_info
+    .suborganization_info
+      border: 1px solid #fff
+      +border-radius(3px)
+      +box-shadow(#d7d7d7 0 0 5px)
+      margin: 15px 5px
+      h1
+        margin: 0
+
+    .meal
+      +clearfix
+      table
+        margin: 5px 10px
+      .border
+        border-right: 1px solid #d3d3d3
+      h1
+        float: left
+        font-size: 20px
+        padding: 10px 10px 10px 85px
+        background: transparent image_url('public/icon_meal.png') no-repeat left center
+      .details
+        +clearfix
+        float: left
+        margin: 5px 5px 0 10px
+        .cuisines
+          +clearfix
+          color: #8003a5
+          font-size: 14px
+          margin-bottom: 5px
+          strong, li
+            display: block
+            float: left
+            margin-right: 10px
+        .offers_and_features
+          +clearfix
+          font-size: 11px
+          li
+            float: left
+            width: 180px
+            margin-bottom: 5px
+
+  .organization_info
     .share_organization
       +clearfix
       font-size: 13px
