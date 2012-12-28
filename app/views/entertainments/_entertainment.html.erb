@@ -1,7 +1,16 @@
 <div class="suborganization_info entertainment">
-  <%= entertainment.htmlise_title_on_show %>
-  <%= entertainment.htmlise_offers_on_show %>
-  <%= entertainment.htmlise_features_on_show %>
+  <table>
+    <tr>
+      <td class='border'>
+        <%= entertainment.htmlise_title_on_show %>
+      </td>
+      <td>
+        <div class="details">
+          <%= entertainment.htmlise_offers_and_features_on_show %>
+        </div>
+      </td>
+    </tr>
+  </table>
   <% if entertainment.has_photogallery? %>
     <div class="photogallery">
       <ul>
