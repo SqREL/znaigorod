@@ -8,12 +8,16 @@ class SaunaHallsPresenter
                 :baths, :features, :pool,
                 :lat, :lon, :radius,
                 :order_by, :direction,
-                :page
+                :params, :page
 
   alias :pool_features  :pool
 
   def initialize(args = {})
     super(args)
+
+    self.params = args
+    self.params.delete('controller')
+    self.params.delete('action')
 
     self.capacity_min = self.capacity_min.to_i.zero? ? SaunaHallCapacity.minimum(:default) : self.capacity_min.to_i
     self.capacity_max = self.capacity_max.to_i.zero? ? SaunaHallCapacity.maximum(:maximal) : self.capacity_max.to_i
@@ -39,10 +43,6 @@ class SaunaHallsPresenter
 
   def direction
     criterion == 'popularity' ? 'desc' : 'asc'
-  end
-
-  def order_by_distance?
-    order_by == 'distance'
   end
 
   def capacity
@@ -84,8 +84,12 @@ class SaunaHallsPresenter
         with(:pool_features, feature)
       end
 
-      if order_by_distance? && lat && lon && radius
-        order_by_geodist(:location, lat, lon)
+      if order_by_distance?
+        if lat && lon && radius
+          order_by_geodist(:location, lat, lon)
+        else
+          order_by(:popularity, :desc)
+        end
       else
         order_by(criterion, direction)
       end
@@ -100,18 +104,6 @@ class SaunaHallsPresenter
     }
   end
 
-  def price_filter_used?
-    price.selected.values.compact.any?
-  end
-
-  def capacity_filter_used?
-    capacity.selected.values.compact.any?
-  end
-
-  def geo_filter_used?
-    geo.selected.values.compact.any?
-  end
-
   def collection
     search.results
   end
@@ -122,6 +114,12 @@ class SaunaHallsPresenter
 
   def faceted_rows(facet)
     [*search.facet(facet).rows.map(&:value)]
+  end
+
+  %w[capacity geo price].each do |name|
+    define_method "#{name}_filter_used?" do
+      self.send(name).selected.values.compact.any?
+    end
   end
 
   %w[baths features pool_features].each do |name|
@@ -138,15 +136,32 @@ class SaunaHallsPresenter
     end
   end
 
-  def sort_links
-    links = []
-
-    %w[popularity price distance].each do |order|
-      links << content_tag(:li,
-                           Link.new(:title => I18n.t("sauna.sort.#{order}"), :html_options => {}, :url => '#')
-      )
+  %w[popularity price].each do |name|
+    define_method "order_by_#{name}?" do
+      order_by == name
     end
 
-    (links.join(content_tag(:li, content_tag(:span, '&nbsp;'.html_safe, class: 'separator')))).html_safe
+    define_method "#{name}_sort_link" do
+      html_options = self.send("order_by_#{name}?") ? { class: 'selected' } : {}
+
+      content_tag :li, link_to(I18n.t("sauna.sort.#{name}"), saunas_path(params.merge(order_by: name)), html_options)
+    end
+  end
+
+  def order_by_distance?
+    order_by == 'distance'
+  end
+
+  def distance_sort_link
+    html_options = { class: 'disabled' } unless geo_filter_used?
+    html_options = { class: 'selected' } if order_by_distance? && geo_filter_used?
+
+    content_tag :li, link_to(I18n.t('sauna.sort.distance'), saunas_path(params.merge(order_by: 'distance')), html_options)
+  end
+
+  def sort_links
+    separator = content_tag(:li, content_tag(:span, '&nbsp;', class: 'separator')).html_safe
+
+    [popularity_sort_link, price_sort_link, distance_sort_link].join(separator).html_safe
   end
 end

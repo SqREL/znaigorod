@@ -3,6 +3,7 @@
     <h1>Подбор сауны</h1>
 
     <%= form_tag saunas_path, :method => :get do %>
+
       <div class="filter <%= @presenter.price_filter_used? ? 'used' : 'not_used' %>" id='amount'>
         <div class="filter_label wide">Цена</div>
         <div class="filter_inputs">
@@ -90,6 +91,7 @@
             <%= hidden_field_tag :lat,    @presenter.geo.selected.lat, :class => 'lat' %>
             <%= hidden_field_tag :lon,    @presenter.geo.selected.lon, :class => 'lon' %>
             <%= hidden_field_tag :radius, @presenter.geo.selected.radius, :class => 'radius' %>
+            <%= hidden_field_tag :order_by, @presenter.criterion %>
           </div>
         </div>
         <div class="radius_slider_wrapper">
