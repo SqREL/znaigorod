@@ -26,7 +26,7 @@ $ ->
   init_prepare_organizations() if $(".organizations_list .info .characteristics").length
   init_iconize_info() if $(".organization_info .iconize_info li").length
   init_organization_photos() if $(".organization_info .photogallery li").length
-  init_schedule_toggle() if $(".organization_info .info .more_schedule").length
+  init_schedule_toggle() if $(".organization_info .more_schedule").length
   init_photogallery() if $(".content_wrapper .was_in_city_photos li").length
   init_loading_items() if $(".content_wrapper .affiches_list ul.items_list li").length
   init_loading_items() if $(".content_wrapper .affiches_list ul.was_in_city_photos li").length

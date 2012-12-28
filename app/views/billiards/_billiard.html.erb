@@ -1,6 +1,16 @@
 <div class="suborganization_info billiard">
-  <%= billiard.htmlise_title_on_show %>
-  <%= billiard.htmlise_features_on_show %>
+  <table>
+    <tr>
+      <td class='border'>
+        <%= billiard.htmlise_title_on_show %>
+      </td>
+      <td>
+        <div class="details">
+          <%= billiard.htmlise_features_on_show %>
+        </div>
+      </td>
+    </tr>
+  </table>
   <% if billiard.has_photogallery? %>
     <div class="photogallery">
       <ul>
@@ -10,10 +20,18 @@
       </ul>
     </div>
   <% end %>
-  <% billiard.grouped_decorated_pool_tables.each do |kind, pool_tables| %>
-    <h2><%= kind %></h2>
-    <% pool_tables.each do |pool_table| %>
-      <%= pool_table.count %> x <%= pool_table.ft %> <%= pool_table.price %> <%= pool_table.schedule %>
+  <div class="pool_tables">
+    <% billiard.grouped_decorated_pool_tables.each do |kind, pool_tables| %>
+      <ul class="pool_table">
+        <li>
+          <h2><%= kind %></h2>
+          <% pool_tables.each do |pool_table| %>
+            <div class="pool_details">
+              <%= pool_table.count %> x <%= pool_table.ft %> <%= pool_table.price %> <%= pool_table.schedule %>
+            </div>
+          <% end %>
+        </li>
+      </ul>
     <% end %>
-  <% end %>
+  </div>
 </div>
