@@ -335,6 +335,23 @@
                 border-bottom: 16px solid transparent
             .pool_details
               float: left
+              .count,
+              .size,
+              .price,
+              .work_schedule
+                +inline-block
+              .count
+                color: #784391
+                font-size: 16px
+                font-weight: bold
+              .size
+                color: #fff
+                font-size: 16px
+                font-weight: bold
+                background: transparent image_url('public/pool_size_bg.png') no-repeat center center
+                padding: 10px
+              .work_schedule
+                font-size: 11px
 
   .organization_info
     .share_organization
