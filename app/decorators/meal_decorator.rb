@@ -11,4 +11,24 @@ class MealDecorator < SuborganizationDecorator
     characteristics_by_type("features offers cuisines")
   end
 
+  def title
+    meal.title? ? meal.title : categories.first
+  end
+
+  def htmlise_title_on_show
+    h.content_tag :h1, title, :class => I18n.transliterate(categories.first).downcase
+  end
+
+  def htmlise_cuisines_on_show
+    h.content_tag(:ul, cuisines.map {|f| h.content_tag(:li, f)}.join("\n").html_safe, :class => 'cuisines') if cuisines.any?
+  end
+
+  def htmlise_offers_on_show
+    h.content_tag(:ul, offers.map {|f| h.content_tag(:li, f)}.join("\n").html_safe, :class => 'offers') if offers.any?
+  end
+
+  def htmlise_features_on_show
+    h.content_tag(:ul, features.map {|f| h.content_tag(:li, f)}.join("\n").html_safe, :class => 'features') if features.any?
+  end
+
 end
