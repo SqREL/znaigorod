@@ -1,5 +1,4 @@
 @init_prepare_sauna = () ->
-  console.log '!!!'
   height = Math.max(
     $('.sauna_hall_details .bath').outerHeight(true, true),
     $('.sauna_hall_details .pool').outerHeight(true, true),

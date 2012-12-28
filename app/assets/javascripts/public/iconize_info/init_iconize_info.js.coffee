@@ -3,10 +3,12 @@
   block.each (index, item) ->
     block_item = $(item)
     $('a', block_item).click (event) ->
-      if  block_item.next('h1').length
+      if block_item.next('h1').length
         title = block_item.next('h1').html()
-      else
+      else if block_item.next('span').text()
         title = block_item.next('span').text()
+      else
+        title = $('h1', block_item.closest('tr')).text()
 
       data = "<h1>#{title}</h1>"
       if $(this).attr('data-link') == 'description_text'
