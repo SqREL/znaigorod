@@ -45,7 +45,7 @@ class OrganizationDecorator < ApplicationDecorator
   def contact_links
     content = ''
     content << site_link.to_s
-    content << ', ' if content.present?
+    content << ', ' if content.present? && email_link.present?
     content << email_link.to_s
     content.html_safe
   end
@@ -278,7 +278,7 @@ class OrganizationDecorator < ApplicationDecorator
     content = ''
     if description.present?
       link = h.link_to('информация', '#', :class => :description_icon, :'data-link' => :description_text)
-      text = h.content_tag(:div, description, :class => :description_text)
+      text = h.content_tag(:div, description.as_html, :class => :description_text)
       content << h.content_tag(:li, "#{link}\n#{text}".html_safe)
     end
     if tour_link.present?
