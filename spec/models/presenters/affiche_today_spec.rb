@@ -15,7 +15,7 @@ describe AfficheToday do
 
   describe "#links" do
     subject { affiche_today.links }
-    its(:size) { should == 7 }
+    its(:size) { should == 8 }
     describe "for Parties" do
       subject { affiche_today.links[2] }
       its(:title) { should == "Вечеринки" }
@@ -26,7 +26,7 @@ describe AfficheToday do
 
   describe "#counters" do
     subject { affiche_today.counters }
-    its(:size) { should == 7 }
+    its(:size) { should == 8 }
     describe "for Exhebition" do
       subject { affiche_today.counters['exhibitions'] }
       before {
