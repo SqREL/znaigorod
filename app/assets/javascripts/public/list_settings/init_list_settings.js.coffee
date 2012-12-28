@@ -1,9 +1,10 @@
 @init_list_settings = () ->
+  return true # TODO this broke links params. FIX THIS
   unless $.cookie
     console.error "$.cookie() is not a function. please include it" if console && console.error
     return false
   $(".content_wrapper .list_settings .sort ul li a, .content_wrapper .list_settings .presentation ul li a").each (index, item) ->
-    $(item).attr("href", window.location.pathname)
+    $(item).attr("href", window.location.pathname + window.location.search)
     true
   $.cookie.defaults =
     path: "/"
