@@ -1,11 +1,11 @@
 <div class="suborganization_info meal">
-  <%= meal.iconize_info %>
   <table>
     <tr>
       <td class='border'>
         <%= meal.htmlise_title_on_show %>
       </td>
       <td>
+        <%= meal.iconize_info %>
         <div class="details">
           <% if meal.htmlise_cuisines_on_show.present? %>
             <div class="cuisines">
