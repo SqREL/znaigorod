@@ -1,0 +1,57 @@
+.content_wrapper
+  .organization_info
+    .sauna
+      +clearfix
+      h1
+        float: left
+        padding: 15px 10px 15px 49px
+        background: transparent image_url('public/icon_sauna.png') no-repeat left center
+
+      .sauna_characteristics
+        +clearfix
+        li
+          font-size: 11px
+          line-height: 1.4
+          float: left
+          width: 295px
+          margin-bottom: 5px
+      .sauna_hall_header
+        +clearfix
+        background-color: #cfedf7
+        .left
+          float: left
+          +clearfix
+          h2
+            float: left
+            font-size: 17px
+            color: #fff
+            position: relative
+            background-color: #894195
+            padding: 7px 10px
+            margin: 0 25px 0 0
+            &:after
+              content: ' '
+              position: absolute
+              width: 0
+              height: 0
+              left: 100%
+              top: 0
+              border-top: 15px solid transparent
+              border-right: 15px solid transparent
+              border-left: 15px solid #894195
+              border-bottom: 16px solid transparent
+            .index
+              border-right: 1px solid #b082b3
+              padding-right: 4px
+          .price
+            float: left
+            color: #b40825
+            font-size: 17px
+            margin: 6px 5px
+          .work_schedule
+            float: left
+            font-size: 11px
+            margin: 10px 0 0 0
+        .right
+          float: right
+          +clearfix

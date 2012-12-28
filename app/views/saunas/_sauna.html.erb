@@ -1,22 +1,43 @@
 <div class="suborganization_info sauna">
-  <%= sauna.htmlise_title_on_show %>
-  <%= sauna.characteristics_on_show %>
+  <table>
+    <tr>
+      <td class='border'>
+        <%= sauna.htmlise_title_on_show %>
+      </td>
+      <td>
+        <div class="details">
+          <%= sauna.characteristics_on_show %>
+        </div>
+      </td>
+    </tr>
+  </table>
   <% sauna.decorated_halls.each_with_index do |sauna_hall, index| %>
-    <%= index+1 %> <%= sauna_hall.title %>
-    <%= sauna_hall.price %>
-    <%= sauna_hall.schedule %>
-    <%= sauna_hall.htmlise_capacity_on_show %>
-    <%= sauna_hall.htmlise_bath_on_show %>
-    <%= sauna_hall.htmlise_pool_on_show %>
-    <%= sauna_hall.htmlise_entertainment_on_show %>
-    <% if sauna_hall.has_photogallery? %>
-      <div class="photogallery">
-        <ul>
-          <% sauna_hall.images.each do |image| %>
-            <li><%= link_to(image_tag_for(image.url, 124, 94), image.url, rel: :info_gallery) %></li>
-          <% end %>
-        </ul>
+    <div class="sauna_hall_info">
+      <div class='sauna_hall_header'>
+        <div class="left">
+          <h2>
+            <span class='index'>№<%= index + 1 %></span>
+            <%= sauna_hall.title %>
+          </h2>
+          <%= sauna_hall.price %>
+          <%= sauna_hall.schedule %>
+        </div>
+        <div class="right">
+          <%= sauna_hall.htmlise_capacity_on_show %>
+        </div>
       </div>
-    <% end %>
+      <%= sauna_hall.htmlise_bath_on_show %>
+      <%= sauna_hall.htmlise_pool_on_show %>
+      <%= sauna_hall.htmlise_entertainment_on_show %>
+      <% if sauna_hall.has_photogallery? %>
+        <div class="photogallery">
+          <ul>
+            <% sauna_hall.images.each do |image| %>
+              <li><%= link_to(image_tag_for(image.url, 124, 94), image.url, rel: :info_gallery) %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </div>
