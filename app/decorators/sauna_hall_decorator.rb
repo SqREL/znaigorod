@@ -34,4 +34,8 @@ class SaunaHallDecorator < ApplicationDecorator
     end
     h.content_tag(:div, "расписание", class: "work_schedule") + h.content_tag(:ul, content.html_safe, class: :more_schedule)
   end
+
+  def has_photogallery?
+    images.any?
+  end
 end
