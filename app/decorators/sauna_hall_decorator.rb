@@ -49,27 +49,29 @@ class SaunaHallDecorator < ApplicationDecorator
     sauna_hall_bath.class.accessible_attributes.each do |field|
       baths << attribute_decorate(sauna_hall_bath, field)
     end
-    h.content_tag(:div, content + baths.compact.join(", "))
+    h.content_tag(:div, content + baths.compact.join(", "), class: 'bath')
   end
 
-  def model_decorate(model_name)
-    content = ""
-    model = sauna_hall.send(model_name)
-    if model.present?
-      li = ""
-      model.class.accessible_attributes.each do |field|
-        li << attribute_decorate(model, field).html_safe
-      end
-      content << h.content_tag(:ul, li.html_safe, class: model_name) if li.present?
+  def htmlise_pool_on_show
+    return "" unless sauna_hall_pool.present?
+    content = "#{I18n.t('sauna.sauna_hall_pool.title')}: "
+    pools = []
+    pool_attrs = []
+    %w[size waterfall contraflow geyser].each do |field|
+      pool_attrs << attribute_decorate(sauna_hall_pool, field)
     end
-    content.html_safe
+    pools << pool_attrs.compact.join(", ")
+    %w[jacuzzi bucket].each do |field|
+      pools << attribute_decorate(sauna_hall_pool, field)
+    end
+    h.content_tag(:div, content + pools.compact.join(". "), class: 'pool')
   end
 
   def attribute_decorate(model, field)
     return nil unless model.respond_to?(field)
     case value = model.send(field)
     when String
-      [I18n.t("sauna.#{model.class.name.underscore}.#{field}"), value].join(": ")
+      value
     when Fixnum
       I18n.t("sauna.#{model.class.name.underscore}.#{field}", count: value)
     when TrueClass
