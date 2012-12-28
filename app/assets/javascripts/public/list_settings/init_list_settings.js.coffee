@@ -1,10 +1,9 @@
 @init_list_settings = () ->
-  return true # TODO this broke links params. FIX THIS
   unless $.cookie
     console.error "$.cookie() is not a function. please include it" if console && console.error
     return false
-  $(".content_wrapper .list_settings .sort ul li a, .content_wrapper .list_settings .presentation ul li a").each (index, item) ->
-    $(item).attr("href", window.location.pathname + window.location.search)
+  $(".content_wrapper .list_settings .sort:not(.saunas) ul li a, .content_wrapper .list_settings .presentation ul li a").each (index, item) ->
+    $(item).attr("href", window.location.pathname)
     true
   $.cookie.defaults =
     path: "/"
@@ -44,6 +43,6 @@ set_cookie = () ->
   sort = $(".content_wrapper .list_settings .sort ul li .selected")
   list_settings.sort.push(sort.attr("class").replace("selected", "").trim())
   presentation = $(".content_wrapper .list_settings .presentation ul li .selected")
-  list_settings.presentation = presentation.attr("class").replace("selected", "").trim()
+  list_settings.presentation = presentation.attr("class").replace("selected", "").trim() if presentation.length
   $.cookie "znaigorod_affiches_list_settings", JSON.stringify(list_settings)
   true
