@@ -36,7 +36,20 @@ class SaunaHallDecorator < ApplicationDecorator
   end
 
   def htmlise_capacity_on_show
-    model_decorate("sauna_hall_capacity")
+    return "" unless sauna_hall_capacity.present?
+    content = h.content_tag(:span, "#{I18n.t('sauna.sauna_hall_capacity.default', count: sauna_hall_capacity.default)}. ")
+    content << h.content_tag(:span, "#{I18n.t('sauna.sauna_hall_capacity.maximal', count: sauna_hall_capacity.maximal)}. ")
+    content << h.content_tag(:span, "#{I18n.t('sauna.sauna_hall_capacity.extra_guest_cost', count: sauna_hall_capacity.extra_guest_cost)}")
+  end
+
+  def htmlise_bath_on_show
+    return "" unless sauna_hall_bath.present?
+    content = "#{I18n.t('sauna.sauna_hall_bath.title')}: "
+    baths = []
+    sauna_hall_bath.class.accessible_attributes.each do |field|
+      baths << attribute_decorate(sauna_hall_bath, field)
+    end
+    h.content_tag(:div, content + baths.compact.join(", "))
   end
 
   def model_decorate(model_name)
@@ -53,19 +66,19 @@ class SaunaHallDecorator < ApplicationDecorator
   end
 
   def attribute_decorate(model, field)
-    return "" unless model.respond_to?(field)
+    return nil unless model.respond_to?(field)
     case value = model.send(field)
     when String
-      h.content_tag :li, [I18n.t("sauna.#{model.class.name.underscore}.#{field}"), value].join(": ")
+      [I18n.t("sauna.#{model.class.name.underscore}.#{field}"), value].join(": ")
     when Fixnum
-      h.content_tag :li, I18n.t("sauna.#{model.class.name.underscore}.#{field}", count: value)
+      I18n.t("sauna.#{model.class.name.underscore}.#{field}", count: value)
     when TrueClass
-      h.content_tag :li, I18n.t("sauna.#{model.class.name.underscore}.#{field}.true")
+      I18n.t("sauna.#{model.class.name.underscore}.#{field}.true")
     when FalseClass
-      return "" if %w[sauna_hall_bath sauna_hall_pool sauna_hall_interior].include?(model.class.name.underscore)
-      h.content_tag :li, I18n.t("sauna.#{model.class.name.underscore}.#{field}.false")
+      return nil if %w[sauna_hall_bath sauna_hall_pool sauna_hall_interior].include?(model.class.name.underscore)
+      I18n.t("sauna.#{model.class.name.underscore}.#{field}.false")
     when NilClass
-      ""
+      nil
     end
   end
 
