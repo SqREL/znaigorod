@@ -123,7 +123,7 @@ class OrganizationDecorator < ApplicationDecorator
       end
       more_schedule = ""
       hash_schedule.each do |daily_scheule, days|
-        more_schedule << h.content_tag(:li, "<strong>#{schedule_day_names(days)}:</strong> #{daily_scheule}".html_safe)
+        more_schedule << h.content_tag(:li, "<span class='days'>#{schedule_day_names(days)}:</span> <span class='hours'>#{daily_scheule}</span>".html_safe)
       end
       more_schedule = h.content_tag(:ul, more_schedule.html_safe, class: :more_schedule)
       h.content_tag(:div, content, class: "work_schedule #{open_closed(schedule.from, schedule.to)}") + more_schedule
