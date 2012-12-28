@@ -1,1 +1,6 @@
-<p>billiard</p>
+<% billiard.grouped_decorated_pool_tables.each do |kind, pool_tables| %>
+  <h2><%= kind %></h2>
+  <% pool_tables.each do |pool_table| %>
+    <%= pool_table.count %> x <%= pool_table.ft %> <%= pool_table.price %> <%= pool_table.schedule %>
+  <% end %>
+<% end %>

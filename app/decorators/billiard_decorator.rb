@@ -3,6 +3,10 @@
 class BilliardDecorator < SuborganizationDecorator
   decorates :billiard
 
+  def grouped_decorated_pool_tables
+    Hash[pool_tables.group_by(&:kind).map { |k,v| [k, PoolTableDecorator.decorate(v)] }]
+  end
+
   def characteristics_on_list
     characteristics_by_type("features offers")
   end
