@@ -107,17 +107,17 @@ class OrganizationDecorator < ApplicationDecorator
       if from.eql?(to)
         content = "Работает круглосуточно"
       else
-        content = "Работает ежедневно с #{I18n.l(from, :format => "%H:%M")} до #{I18n.l(to, :format => "%H:%M")}"
+        content = "Работает ежедневно #{schedule_time(from, to)}"
       end
       h.content_tag(:div, content, class: "work_schedule #{open_closed(from, to)}")
     else
       wday = Time.zone.today.wday
       wday = 7 if wday == 0
       schedule = organization.schedules.find_by_day(wday)
-      content = "Сегодня работает с <span class='time'>#{I18n.l(schedule.from, :format => "%H:%M")} до #{I18n.l(schedule.to, :format => "%H:%M")}</span>".html_safe
+      content = "Сегодня работает <span class='time'>#{schedule_time(schedule.from, schedule.to)}</span>".html_safe
       hash_schedule = {}
       schedules.each do |schedule|
-        daily_schedule = "#{I18n.l(schedule.from, :format => "%H:%M")}-#{I18n.l(schedule.to, :format => "%H:%M")}"
+        daily_schedule = schedule_time(schedule.from, schedule.to)
         hash_schedule[daily_schedule] ||= []
         hash_schedule[daily_schedule] << schedule.day
       end
@@ -128,41 +128,6 @@ class OrganizationDecorator < ApplicationDecorator
       more_schedule = h.content_tag(:ul, more_schedule.html_safe, class: :more_schedule)
       h.content_tag(:div, content, class: "work_schedule #{open_closed(schedule.from, schedule.to)}") + more_schedule
     end
-  end
-
-  def open_closed(from, to)
-    now = Time.zone.now
-    time = Time.utc(2000, "jan", 1, now.hour, now.min)
-    to = to + 1.day if to.hour < 12
-    if time.between?(from, to)
-      return "opened"
-    else
-      return "closed"
-    end
-  end
-
-  def schedule_day_names(days)
-    result = ""
-    sequence = days
-    begin
-      sequence = (days.first..days.last).to_a
-      eql_index = 0
-      sequence.each_with_index do |day, index|
-        break unless days[0..index].eql?(sequence[0..index])
-        eql_index = index
-      end
-      out_days = days[0..eql_index]
-      days = days[eql_index+1..days.size-1]
-      result << "#{short_wday_name(out_days.first)}" if out_days.one?
-      result << out_days.map {|d| short_wday_name(d)}.join(", ") if out_days.size == 2
-      result << "#{short_wday_name(out_days.first)}-#{short_wday_name(out_days.last)}" if out_days.size > 2
-      result << ", " unless days.empty?
-    end while days.any?
-    result.squish
-  end
-
-  def short_wday_name(day)
-    Schedule.days_for_select(:short)[day-1].first
   end
 
   def schedule_content

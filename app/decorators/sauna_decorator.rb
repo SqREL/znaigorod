@@ -48,6 +48,10 @@ class SaunaDecorator < SuborganizationDecorator
     end
   end
 
+  def decorated_halls
+    SaunaHallDecorator.decorate sauna_halls
+  end
+
   def sauna_halls_decorate
     content = ""
     sauna.sauna_halls.each do |sauna_hall|
