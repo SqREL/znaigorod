@@ -27,27 +27,40 @@
   <% end %>
 
   <% if @affiche_collection.affiches.any? %>
-    <h2>Афиша</h2>
-    <div class="affiches_list">
-      <div class="list_settings">
-        <div class="presentation">
-          <p>Настройка списка:</p>
-          <ul>
-            <li><a class="list<%= ' selected' if @affiche_collection.presentation_mode == 'list' %>" title="подробный список" href="">список</a></li>
-            <li><span class="separator">&nbsp;</span></li>
-            <li><a class="posters<%= ' selected' if @affiche_collection.presentation_mode == 'posters' %>" title="краткий список" href="">постеры</a></li>
-          </ul>
+    <div class='suborganization_info affiches_details'>
+      <table>
+        <tr>
+          <td class='border'>
+            <h1>Афиша</h1>
+          </td>
+          <td>
+            <div class="details">
+              &nbsp;
+            </div>
+          </td>
+        </tr>
+      </table>
+      <div class="affiches_list">
+        <div class="list_settings">
+          <div class="presentation">
+            <p>Настройка списка:</p>
+            <ul>
+              <li><a class="list<%= ' selected' if @affiche_collection.presentation_mode == 'list' %>" title="подробный список" href="">список</a></li>
+              <li><span class="separator">&nbsp;</span></li>
+              <li><a class="posters<%= ' selected' if @affiche_collection.presentation_mode == 'posters' %>" title="краткий список" href="">постеры</a></li>
+            </ul>
+          </div>
+          <div class="sort">
+            <p>Сортировка:</p>
+            <ul>
+              <%= @affiche_collection.sort_links %>
+            </ul>
+          </div>
         </div>
-        <div class="sort">
-          <p>Сортировка:</p>
-          <ul>
-            <%= @affiche_collection.sort_links %>
-          </ul>
-        </div>
+        <ul class="items_list <%= @affiche_collection.presentation_mode %>">
+          <%= render partial: @affiche_collection.view_partial %>
+        </ul>
       </div>
-      <ul class="items_list <%= @affiche_collection.presentation_mode %>">
-        <%= render partial: @affiche_collection.view_partial %>
-      </ul>
     </div>
   <% end %>
 
