@@ -31,17 +31,17 @@
               <% services.each do |service| %>
                 <div class="services_details">
                   <span class='service_title'>
-                    <%= service.title %>
-                    <% if service.feature %>
+                    <% if service.description? %>
                       <ul class="iconize_info">
                         <li>
                           <a href="#" class="description_icon" data-link="service_text" title='информация'>информация</a>
                           <div class="description_text">
-                            <p><%= service.feature %></p>
+                            <p><%= service.description %></p>
                           </div>
                         </li>
                       </ul>
                     <% end %>
+                    <span><%= service.title %></span>
                   </span>
                   <span class='ages'><%= service.age %></span>
                 </div>

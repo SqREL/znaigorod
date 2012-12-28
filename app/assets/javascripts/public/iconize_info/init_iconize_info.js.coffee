@@ -3,16 +3,21 @@
   block.each (index, item) ->
     block_item = $(item)
     $('a', block_item).click (event) ->
-      data = "<h1>#{block_item.next('h1').html()}</h1>"
+      if  block_item.next('h1').length
+        title = block_item.next('h1').html()
+      else
+        title = block_item.next('span').text()
+
+      data = "<h1>#{title}</h1>"
       if $(this).attr('data-link') == 'description_text'
         box_width = '700px'
         box_height = 'auto'
         data += $('.description_text', block_item).html()
 
       if $(this).attr('data-link') == 'service_text'
-        box_width = '200px'
+        box_width = '500px'
         box_height = 'auto'
-        data = $('.description_text', block_item).html()
+        data += $('.description_text', block_item).html()
 
       if $(this).attr('data-link') == 'tour_link'
         box_width = '790px'
