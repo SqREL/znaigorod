@@ -66,5 +66,9 @@ class ApplicationDecorator < Draper::Base
     "с #{I18n.l(from, :format => "%H:%M")} до #{I18n.l(to, :format => "%H:%M")}"
   end
 
+  def human_age(age)
+    "#{age} лет"
+  end
+
 
 end
