@@ -69,14 +69,14 @@ describe AfficheDecorator do
     subject { decorator.main_page_poster }
     before { affiche.poster_url = 'http://storage.openteam.ru/files/3434/290-390/123.jpg'}
     it { should =~ /href=\"\/movie\/1\"/ }
-    it { should =~ /src=\"http:\/\/storage.openteam.ru\/files\/3434\/200-268!\/123.jpg\"/ }
+    it { should =~ /src=\"http:\/\/storage.openteam.ru\/files\/3434\/200-268!n\/123.jpg\"/ }
   end
 
   describe "#list_poster" do
     subject { decorator.list_poster }
     before { affiche.poster_url = 'http://storage.openteam.ru/files/3434/290-390/123.jpg'}
     it { should =~ /href=\"\/movie\/1\"/ }
-    it { should =~ /src=\"http:\/\/storage.openteam.ru\/files\/3434\/180-242!\/123.jpg\"/ }
+    it { should =~ /src=\"http:\/\/storage.openteam.ru\/files\/3434\/180-242!n\/123.jpg\"/ }
   end
 
   describe "#more_link" do

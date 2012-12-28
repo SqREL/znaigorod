@@ -20,7 +20,7 @@ describe AfficheCollection do
 
   describe "#kind_links" do
     subject { affiche_collection.kind_links }
-    its(:size) { should == 8 }
+    its(:size) { should == 9 }
     describe "for movies" do
       subject { affiche_collection.kind_links[1] }
       its(:title) { should == "Кино" }
