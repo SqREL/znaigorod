@@ -101,7 +101,6 @@
 
 #cboxContent
   background: #fff
-  overflow: hidden
 
 .cboxIframe
   background: #fff
@@ -166,10 +165,15 @@
 
 #cboxClose
   position: absolute
-  bottom: 0
-  right: 0
+  top: -10px
+  right: -10px
   display: block
-  color: #444
+  width: 30px
+  height: 30px
+  overflow: hidden
+  text-indent: -9999em
+  background: #fff image_url('public/colorbox_close.png') no-repeat center center
+  +border-bottom-left-radius(15px)
 
 /*
  *The following fixes a problem where IE7 and IE8 replace a PNG's alpha transparency with a black fill
@@ -188,6 +192,7 @@
   #cboxTopLeft
     background: image_url('public/ie6/borderTopLeft.png')
   #cboxTopCenter
+
     background: image_url('public/ie6/borderTopCenter.png')
   #cboxTopRight
     background: image_url('public/ie6/borderTopRight.png')
