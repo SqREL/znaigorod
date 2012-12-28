@@ -1,12 +1,14 @@
-<%= entertainment.htmlise_title_on_show %>
-<%= entertainment.htmlise_offers_on_show %>
-<%= entertainment.htmlise_features_on_show %>
-<% if entertainment.has_photogallery? %>
-  <div class="photogallery">
-    <ul>
-      <% entertainment.images.each do |image| %>
-        <li><%= link_to(image_tag_for(image.url, 124, 94), image.url, rel: :info_gallery) %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<div class="suborganization_info entertainment">
+  <%= entertainment.htmlise_title_on_show %>
+  <%= entertainment.htmlise_offers_on_show %>
+  <%= entertainment.htmlise_features_on_show %>
+  <% if entertainment.has_photogallery? %>
+    <div class="photogallery">
+      <ul>
+        <% entertainment.images.each do |image| %>
+          <li><%= link_to(image_tag_for(image.url, 124, 94, true, 'n'), image.url, rel: :entertainmen_gallery) %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>

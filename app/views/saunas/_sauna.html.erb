@@ -1,4 +1,6 @@
-<%= sauna.htmlise_title_on_show %>
-<% sauna.decorated_halls.each do |hall| %>
-  <%= render hall %>
-<% end %>
+<div class="suborganization_info sauna">
+  <%= sauna.htmlise_title_on_show %>
+  <% sauna.decorated_halls.each do |hall| %>
+    <%= render hall %>
+  <% end %>
+</div>

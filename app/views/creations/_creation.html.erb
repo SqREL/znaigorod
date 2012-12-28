@@ -1,12 +1,14 @@
-<%= creation.htmlise_title_on_show %>
-<%= creation.htmlise_features_on_show %>
-<%= creation.services_on_show %>
-<% if creation.has_photogallery? %>
-  <div class="photogallery">
-    <ul>
-      <% creation.images.each do |image| %>
-        <li><%= link_to(image_tag_for(image.url, 124, 94), image.url, rel: :info_gallery) %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
+<div class="suborganization_info creation">
+  <%= creation.htmlise_title_on_show %>
+  <%= creation.htmlise_features_on_show %>
+  <%= creation.services_on_show %>
+  <% if creation.has_photogallery? %>
+    <div class="photogallery">
+      <ul>
+        <% creation.images.each do |image| %>
+          <li><%= link_to(image_tag_for(image.url, 124, 94, true, 'n'), image.url, rel: :creation_gallery) %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
