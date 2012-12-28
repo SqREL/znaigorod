@@ -6,10 +6,12 @@
       </td>
       <td>
         <div class="details">
-          <div class="cuisines">
-            <strong>Кухня:</strong>
-            <%= meal.htmlise_cuisines_on_show %>
-          </div>
+          <% if meal.htmlise_cuisines_on_show.present? %>
+            <div class="cuisines">
+              <strong>Кухня:</strong>
+              <%= meal.htmlise_cuisines_on_show %>
+            </div>
+          <% end %>
           <%= meal.htmlise_offers_and_features_on_show %>
         </div>
       </td>
