@@ -1,5 +1,8 @@
-@init_poster = () ->
-  $('.content .info .image a, .organization_info .info .image a').colorbox
+@init_organization_photos = () ->
+  $('.organization_info .photogallery ul').jcarousel
+    scroll: 5
+    visible: 6
+  $('.organization_info .photogallery a').colorbox
     'maxWidth': '90%'
     'maxHeight': '98%'
     'photo': 'true'
@@ -7,3 +10,4 @@
     'previous': 'предыдущая'
     'next': 'следующая'
     'close': 'закрыть'
+  true
