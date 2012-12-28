@@ -6,6 +6,7 @@
  * = require public/vk
  * = require public/cookie
  * = require public/colorbox
+ * = require public/carousel
  * = require public/scroll_to
  * = require public/sugar
  * = require public/swfobject
@@ -25,6 +26,7 @@
  * = require public/filter_handler
  * = require public/prepare_organizations
  * = require public/iconize_info
+ * = require public/organization_photos
  * = require public/schedule_toggle
  * = require public/loading_items
  * = require public/list_settings
