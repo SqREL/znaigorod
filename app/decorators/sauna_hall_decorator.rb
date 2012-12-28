@@ -24,9 +24,12 @@ class SaunaHallDecorator < ApplicationDecorator
       end
     end
     content = ""
+    printed_days = []
     grouped_schedule.each do |price, schedules|
       schedules.each do |schedule_time, days|
-        content << h.content_tag(:li, "<strong>#{schedule_day_names(days)} #{schedule_time}:</strong> #{price}".html_safe)
+        li = printed_days.eql?(days) ? "<strong>#{schedule_time}:</strong> #{price}" :  "<strong>#{schedule_day_names(days)} #{schedule_time}:</strong> #{price}"
+        content << h.content_tag(:li, li.html_safe)
+        printed_days = days
       end
     end
     h.content_tag(:div, "расписание", class: "work_schedule") + h.content_tag(:ul, content.html_safe, class: :more_schedule)
