@@ -44,9 +44,9 @@ class SaunaHallDecorator < ApplicationDecorator
 
   def htmlise_capacity_on_show
     return "" unless sauna_hall_capacity.present?
-    content = h.content_tag(:span, "#{I18n.t('sauna.sauna_hall_capacity.default', count: sauna_hall_capacity.default)}. ")
-    content << h.content_tag(:span, "#{I18n.t('sauna.sauna_hall_capacity.maximal', count: sauna_hall_capacity.maximal)}. ")
-    content << h.content_tag(:span, "#{I18n.t('sauna.sauna_hall_capacity.extra_guest_cost', count: sauna_hall_capacity.extra_guest_cost)}")
+    content = h.content_tag(:span, "#{I18n.t('sauna.sauna_hall_capacity.default', count: sauna_hall_capacity.default)}.\n", class: :capacity_default)
+    content << h.content_tag(:span, "#{I18n.t('sauna.sauna_hall_capacity.maximal', count: sauna_hall_capacity.maximal)}.\n", class: :capacity_maximal)
+    content << h.content_tag(:span, "#{I18n.t('sauna.sauna_hall_capacity.extra_guest_cost', count: sauna_hall_capacity.extra_guest_cost)}", class: :capacity_extra_guest_cost)
   end
 
   def htmlise_bath_on_show
