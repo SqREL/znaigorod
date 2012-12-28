@@ -35,6 +35,41 @@ class SaunaHallDecorator < ApplicationDecorator
     h.content_tag(:div, "расписание", class: "work_schedule") + h.content_tag(:ul, content.html_safe, class: :more_schedule)
   end
 
+  def htmlise_capacity_on_show
+    model_decorate("sauna_hall_capacity")
+  end
+
+  def model_decorate(model_name)
+    content = ""
+    model = sauna_hall.send(model_name)
+    if model.present?
+      li = ""
+      model.class.accessible_attributes.each do |field|
+        li << attribute_decorate(model, field).html_safe
+      end
+      content << h.content_tag(:ul, li.html_safe, class: model_name) if li.present?
+    end
+    content.html_safe
+  end
+
+  def attribute_decorate(model, field)
+    return "" unless model.respond_to?(field)
+    case value = model.send(field)
+    when String
+      h.content_tag :li, [I18n.t("sauna.#{model.class.name.underscore}.#{field}"), value].join(": ")
+    when Fixnum
+      h.content_tag :li, I18n.t("sauna.#{model.class.name.underscore}.#{field}", count: value)
+    when TrueClass
+      h.content_tag :li, I18n.t("sauna.#{model.class.name.underscore}.#{field}.true")
+    when FalseClass
+      return "" if %w[sauna_hall_bath sauna_hall_pool sauna_hall_interior].include?(model.class.name.underscore)
+      h.content_tag :li, I18n.t("sauna.#{model.class.name.underscore}.#{field}.false")
+    when NilClass
+      ""
+    end
+  end
+
+
   def has_photogallery?
     images.any?
   end
