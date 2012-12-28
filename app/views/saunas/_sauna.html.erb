@@ -27,19 +27,9 @@
         </div>
       </div>
       <div class='sauna_hall_details'>
-        <table>
-          <tr>
-            <td>
-              <%= sauna_hall.htmlise_bath_on_show %>
-            </td>
-            <td>
-              <%= sauna_hall.htmlise_pool_on_show %>
-            </td>
-            <td>
-              <%= sauna_hall.htmlise_entertainment_on_show %>
-            </td>
-          </tr>
-        </table>
+        <%= sauna_hall.htmlise_bath_on_show %>
+        <%= sauna_hall.htmlise_pool_on_show %>
+        <%= sauna_hall.htmlise_entertainment_on_show %>
       </div>
       <% if sauna_hall.has_photogallery? %>
         <div class='photogallery'>
