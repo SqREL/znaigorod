@@ -142,7 +142,7 @@ class SaunaHallsPresenter
     end
 
     define_method "#{name}_sort_link" do
-      html_options = self.send("order_by_#{name}?") ? { class: 'selected' } : {}
+      html_options = self.send("order_by_#{name}?") ? { class: "selected #{name}" } : {}
 
       content_tag :li, link_to(I18n.t("sauna.sort.#{name}"), saunas_path(params.merge(order_by: name)), html_options)
     end
@@ -153,8 +153,8 @@ class SaunaHallsPresenter
   end
 
   def distance_sort_link
-    html_options = { class: 'disabled' } unless geo_filter_used?
-    html_options = { class: 'selected' } if order_by_distance? && geo_filter_used?
+    html_options = { class: 'disabled distance' } unless geo_filter_used?
+    html_options = { class: 'selected distance' } if order_by_distance? && geo_filter_used?
 
     content_tag :li, link_to(I18n.t('sauna.sort.distance'), saunas_path(params.merge(order_by: 'distance')), html_options)
   end
