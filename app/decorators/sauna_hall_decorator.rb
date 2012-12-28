@@ -10,7 +10,7 @@ class SaunaHallDecorator < ApplicationDecorator
   def price
     min_price = sauna_hall_schedules.minimum(:price)
     max_price = sauna_hall_schedules.maximum(:price)
-    humanize_price(min_price, max_price)
+    h.content_tag :div, humanize_price(min_price, max_price), class: :price
   end
 
   def schedule
@@ -32,7 +32,7 @@ class SaunaHallDecorator < ApplicationDecorator
         printed_days = days
       end
     end
-    h.content_tag(:div, "расписание", class: "work_schedule") + h.content_tag(:ul, content.html_safe, class: :more_schedule)
+    h.content_tag(:div, "<span class='show_more_schedule'>расписание</span>".html_safe, class: "work_schedule") + h.content_tag(:ul, content.html_safe, class: :more_schedule)
   end
 
   def htmlise_capacity_on_show

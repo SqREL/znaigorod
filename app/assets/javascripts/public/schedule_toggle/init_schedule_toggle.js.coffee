@@ -5,8 +5,9 @@
     link = $('.show_more_schedule', $(item).prev('.work_schedule'))
     return true unless link.position()
     $(item).css
-      top: link.position().top + link.outerHeight(true, true) + 8
-      left: link.position().left
+      'top': link.position().top + link.outerHeight(true, true) + 8
+      'left': link.position().left
+      'z-index': 99999
     link.addClass('clickable').click () ->
       $(item).toggle()
       true
