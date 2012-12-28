@@ -26,7 +26,7 @@
     href: false,
     title: false,
     rel: false,
-    opacity: 0.9,
+    opacity: 0.3,
     preloading: true,
 
     current: "image {current} of {total}",
