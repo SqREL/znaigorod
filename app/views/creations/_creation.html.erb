@@ -30,7 +30,8 @@
             <div class="services">
               <% services.each do |service| %>
                 <div class="services_details">
-                  <span class='service_title'>
+                  <div class='service_title'>
+                    <div class='title'><%= service.title %></div>
                     <% if service.description? %>
                       <ul class="iconize_info">
                         <li>
@@ -41,9 +42,8 @@
                         </li>
                       </ul>
                     <% end %>
-                    <span><%= service.title %></span>
-                  </span>
-                  <span class='ages'><%= service.age %></span>
+                  </div>
+                  <div class='ages'><%= service.age %></div>
                 </div>
               <% end %>
             </div>

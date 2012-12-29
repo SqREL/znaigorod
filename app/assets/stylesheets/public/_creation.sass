@@ -52,15 +52,17 @@
               .services_details
                 float: left
                 margin: 5px 10px 5px 0
-                width: 200px
                 .service_title
                   font-size: 14px
                   font-weight: bold
+                  text-align: center
                   color: #8302A5
-                  display: block
                   padding: 7px 10px
+                  .title
+                    +inline-block
                   .iconize_info
-                    float: right
+                    float: none
+                    +inline-block
                   .description_icon
                     +clearfix
                     background: transparent image_url('public/icon_information.png') no-repeat center center
@@ -71,4 +73,5 @@
                   .description_text
                     display: none
                 .ages
-                  padding: 7px 20px
+                  text-align: center
+                  padding: 7px 10px
