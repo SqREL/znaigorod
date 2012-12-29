@@ -356,7 +356,7 @@
     sauna_hall_capacity:
       title: "Вместительность"
       default:
-        zero: "вместительность не указана"
+        zero: "не известно"
         one: "%{count} человек"
         few: "%{count} человека"
         many: "%{count} человек"
