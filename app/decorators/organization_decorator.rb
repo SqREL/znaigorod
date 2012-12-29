@@ -276,18 +276,18 @@ class OrganizationDecorator < ApplicationDecorator
 
   def iconize_info
     content = ''
+    if non_cash?
+      text = h.content_tag(:span, 'безналичный расчет', class: 'non_cash', title: 'безналичный расчет')
+      content << h.content_tag(:li, "#{text}".html_safe)
+    end
     if description.present?
-      link = h.link_to('информация', '#', :class => :description_icon, :'data-link' => :description_text)
+      link = h.link_to('информация', '#', :class => :description_icon, :'data-link' => :description_text, title: 'информация')
       text = h.content_tag(:div, description.as_html, :class => :description_text)
       content << h.content_tag(:li, "#{link}\n#{text}".html_safe)
     end
     if tour_link.present?
-      link = h.link_to('3D-тур', '#', :class => :tour_icon, :'data-link' => :tour_link)
+      link = h.link_to('3D-тур', '#', :class => :tour_icon, :'data-link' => :tour_link, title: '3D-тур')
       text = h.content_tag(:div, tour_link, class: :tour_link)
-      content << h.content_tag(:li, "#{link}\n#{text}".html_safe)
-    end
-    if non_cash?
-      text = h.content_tag(:span, "безналичный расчет", class: 'non_cash')
       content << h.content_tag(:li, "#{link}\n#{text}".html_safe)
     end
     h.content_tag :ul, content.html_safe, class: :iconize_info if content.present?

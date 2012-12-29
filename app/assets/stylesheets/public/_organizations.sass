@@ -190,16 +190,20 @@
       li
         float: left
         margin-left: 5px
-      .description_icon,
-      .tour_icon
+      =iconize_style
         display: block
         +clearfix
         width: 24px
         height: 24px
         text-indent: -9999em
+      .non_cash
+        +iconize_style
+        background: transparent image_url('public/icon_non_cache.png') no-repeat center center
       .description_icon
+        +iconize_style
         background: transparent image_url('public/icon_information.png') no-repeat center center
       .tour_icon
+        +iconize_style
         background: transparent image_url('public/icon_tour.png') no-repeat center center
     .suborganization_info
       td
