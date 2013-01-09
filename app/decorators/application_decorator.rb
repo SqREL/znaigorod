@@ -27,6 +27,7 @@ class ApplicationDecorator < Draper::Base
   end
 
   def open_closed(from, to)
+    return "closed" if from.nil? || to.nil?
     now = Time.zone.now
     time = Time.utc(2000, "jan", 1, now.hour, now.min)
     to = to + 1.day if to.hour < 12
