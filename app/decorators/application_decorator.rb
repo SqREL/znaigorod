@@ -63,6 +63,7 @@ class ApplicationDecorator < Draper::Base
   end
 
   def schedule_time(from, to)
+    return "выходной" if from.nil? || to.nil?
     return "круглосуточно" if from == to
     "с #{I18n.l(from, :format => "%H:%M")} до #{I18n.l(to, :format => "%H:%M")}"
   end
