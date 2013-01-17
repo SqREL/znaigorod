@@ -97,6 +97,10 @@ Znaigorod::Application.routes.draw do
   get ':organization_class/(:category)/(*query)' => 'organizations#index',
       :organization_class => /organizations|meals|entertainments|cultures|sports|creations|saunas/, :as => :organizations
 
+  constraints(Subdomain) do
+    match '/' => 'organizations#show'
+  end
+
   root :to => 'application#main_page'
 
   mount ElVfsClient::Engine => '/'

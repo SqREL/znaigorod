@@ -10,7 +10,11 @@ class OrganizationsController < ApplicationController
   end
 
   def show
-    @organization = OrganizationDecorator.find(params[:id])
+    unless request.subdomain.blank?
+      @organization = OrganizationDecorator.find_by_subdomain!(request.subdomain)
+    else
+      @organization = OrganizationDecorator.find(params[:id])
+    end
     @affiche_collection = AfficheCollection.new(params.merge(list_settings: cookies['znaigorod_affiches_list_settings']).merge(organization: @organization))
     render partial: @affiche_collection.view_partial, layout: false and return if request.xhr?
   end
