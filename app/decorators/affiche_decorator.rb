@@ -76,6 +76,10 @@ class AfficheDecorator < ApplicationDecorator
     h.link_to affiche.title.text_gilensize, kind_affiche_path
   end
 
+  def title_link
+    link
+  end
+
   def more_link
     h.link_to "Подробнее...", kind_affiche_path, :title => affiche.title
   end
@@ -135,7 +139,7 @@ class AfficheDecorator < ApplicationDecorator
       place_title = place_title.truncate(max_lenght, :separator => ' ')
       max_lenght -= place_title.size
       if place.organization
-        place_output += h.link_to place_title.text_gilensize.hyphenate, h.organization_path(place.organization), :title => place_link_title.text_gilensize
+        place_output += h.link_to place_title.text_gilensize.hyphenate, OrganizationDecorator.decorate(place.organization).organization_url, :title => place_link_title.text_gilensize
       else
         place_output += place_link_title.blank? ? place_title.text_gilensize.hyphenate : h.content_tag(:abbr, place_title.text_gilensize.hyphenate, :title => place_link_title.text_gilensize)
       end

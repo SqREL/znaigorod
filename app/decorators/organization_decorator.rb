@@ -24,7 +24,7 @@ class OrganizationDecorator < ApplicationDecorator
   def address_link(address = organization.address)
     return "" if organization.address.to_s.blank?
     h.link_to address.to_s.hyphenate,
-      h.organization_path(organization),
+      organization_url,
       :class => 'show_map_link',
       :latitude => organization.address.latitude,
       :longitude => organization.address.longitude
@@ -70,7 +70,7 @@ class OrganizationDecorator < ApplicationDecorator
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
     links << h.content_tag(:li, link_to_priority_category, :class => "crumb")
     links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
-    links << h.content_tag(:li, h.link_to(title, h.organization_path(organization)), :class => "crumb")
+    links << h.content_tag(:li, h.link_to(title, organization_url), :class => "crumb")
     %w(photogallery tour affiche).each do |method|
       if h.controller.action_name == method
         links << h.content_tag(:li, h.content_tag(:span, "&nbsp;".html_safe), :class => "separator")
