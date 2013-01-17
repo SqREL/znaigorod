@@ -17,6 +17,7 @@ class OrganizationsController < ApplicationController
     end
     @affiche_collection = AfficheCollection.new(params.merge(list_settings: cookies['znaigorod_affiches_list_settings']).merge(organization: @organization))
     render partial: @affiche_collection.view_partial, layout: false and return if request.xhr?
+    render layout: "organization_layouts/#{@organization.subdomain}" if @organization.subdomain? && template_exists?(@organization.subdomain, 'layouts/organization_layouts')
   end
 
   def photogallery
