@@ -5,20 +5,20 @@ class OrganizationDecorator < ApplicationDecorator
 
   def image_for_main_page
     unless organization.logotype_url.blank?
-      h.link_to image_tag(organization.logotype_url, 100, 100, organization.title), h.organization_path(organization)
+      h.link_to image_tag(organization.logotype_url, 100, 100, organization.title), organization_url
     else
-      h.link_to h.image_tag("public/stub.jpg", :size => "100x100", :alt => organization.title, :title => organization.title), h.organization_path(organization)
+      h.link_to h.image_tag("public/stub.jpg", :size => "100x100", :alt => organization.title, :title => organization.title), organization_url
     end
   end
 
   def logo_link
     if organization.logotype_url?
-      h.link_to image_tag(organization.logotype_url, 80, 80, organization.title.text_gilensize), h.organization_path(organization)
+      h.link_to image_tag(organization.logotype_url, 80, 80, organization.title.text_gilensize), organization_url
     end
   end
 
   def title_link
-    h.link_to organization.title.text_gilensize.hyphenate, h.organization_path(organization)
+    h.link_to organization.title.text_gilensize.hyphenate, organization_url
   end
 
   def address_link(address = organization.address)
@@ -31,7 +31,7 @@ class OrganizationDecorator < ApplicationDecorator
   end
 
   def organization_url
-    h.organization_url(organization)
+    organization.subdomain? ? h.root_url(subdomain: organization.subdomain) : h.organization_url(organization)
   end
 
   def email_link
@@ -109,7 +109,6 @@ class OrganizationDecorator < ApplicationDecorator
       else
         content = "Работает ежедневно #{schedule_time(from, to)}"
       end
-      h.content_tag(:div, content, class: "work_schedule #{open_closed(from, to)}")
     else
       wday = Time.zone.today.wday
       wday = 7 if wday == 0

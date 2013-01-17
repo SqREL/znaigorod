@@ -2,6 +2,7 @@
 
 
 class ApplicationController < ActionController::Base
+  include UrlHelper
   helper_method :banners, :hot_offers, :page, :per_page
 
   layout 'public'
