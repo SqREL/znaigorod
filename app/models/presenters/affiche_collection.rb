@@ -24,7 +24,7 @@ class AfficheCollection
     self.categories = parameters['categories'] || []
 
     self.list_settings = list_settings.present? ? JSON.parse(list_settings) : {}
-    self.presentation_mode = list_settings['presentation'] || 'list'
+    self.presentation_mode = list_settings['presentation'] || 'posters'
     self.sort = !!list_settings['sort'].try(:any?) ? list_settings['sort'] : ['popular']
   end
 
