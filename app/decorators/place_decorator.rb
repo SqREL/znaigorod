@@ -34,7 +34,7 @@ class PlaceDecorator
   def link_to_organization(gsub = nil)
     place_title = organization.title
     place_title = place_title.gsub(/,.*/, '') if gsub
-    link_title = link_to place_title.text_gilensize, organization_path(organization), :title => organization.title
+    link_title = link_to place_title.text_gilensize, OrganizationDecorator.decorate(organization).organization_url, :title => organization.title
   end
 
 end

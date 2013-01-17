@@ -5,6 +5,19 @@ class HitDecorator < ApplicationDecorator
   ORGANIZATION_FIELDS = %w[category cuisine feature offer payment]
   ADDITIONAL_FIELDS = AFFICHE_FIELDS + ORGANIZATION_FIELDS
 
+
+  def result_decorator
+    @decorator ||= if organization?
+      OrganizationDecorator.new(result)
+    else
+      AfficheDecorator.new(result)
+    end
+  end
+
+  def title_link
+    result_decorator.title_link
+  end
+
   def image
     result.poster_url.presence
   end
@@ -75,20 +88,18 @@ class HitDecorator < ApplicationDecorator
   def snipped_links
     links = []
     if organization?
-      organization_decorator = OrganizationDecorator.new(result)
       %w(photogallery tour affiche).each do |method|
         links << Link.new(
           title: I18n.t("organization.#{method}"),
           url: h.send("#{method}_organization_path", result)
-        ) if organization_decorator.send("has_#{method}?")
+        ) if result_decorator.send("has_#{method}?")
       end
     else
-      affiche_decorator = AfficheDecorator.new(result)
       %w(photogallery trailer).each do |method|
         links << Link.new(
-          title: affiche_decorator.navigation_title(method),
-          url: affiche_decorator.send("kind_affiche_#{method}_path")
-        ) if affiche_decorator.send("has_#{method}?")
+          title: result_decorator.navigation_title(method),
+          url: result_decorator.send("kind_affiche_#{method}_path")
+        ) if result_decorator.send("has_#{method}?")
       end
     end
     return "" if links.empty?
@@ -97,20 +108,17 @@ class HitDecorator < ApplicationDecorator
 
   def closest
     return "" if organization?
-    affiche_decorator = AfficheDecorator.new(result)
-    h.content_tag :div, affiche_decorator.when_with_price, class: :when_with_price
+    h.content_tag :div, result_decorator.when_with_price, class: :when_with_price
   end
 
   def places
     if organization?
       address = highlighted('address')
-      organization_decorator = OrganizationDecorator.new(result)
-      link = address ? organization_decorator.address_link(address) : organization_decorator.address_link
+      link = address ? result_decorator.address_link(address) : result_decorator.address_link
       h.content_tag(:div, h.content_tag(:span, link, class: :address), class: :places)
     else
-      affiche_decorator = AfficheDecorator.new(result)
       result_places = ""
-      affiche_decorator.places.each do |place|
+      result_decorator.places.each do |place|
         result_places << place.place
       end
       h.content_tag :div, result_places.html_safe, class: :places
