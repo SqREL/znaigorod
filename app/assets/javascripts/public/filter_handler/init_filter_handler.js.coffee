@@ -120,6 +120,8 @@ get_current_location = () ->
   coords['lon'] = 84.948128
   coords['radius'] = 11
   coords['title']  = 'Ваше местоположение'
+  draw_map coords
+  set_coordinates(coords)
   if navigator.geolocation
     navigator.geolocation.getCurrentPosition(
       (position) ->
