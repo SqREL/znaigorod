@@ -5,7 +5,8 @@ group :assets do
   gem 'compass-rails'
   gem 'jquery-rails', '2.0.3'
   gem 'sass-rails'
-  gem 'therubyracer',                                 :platform => :ruby
+  gem 'therubyracer',        :platforms => :ruby, :require => 'v8'
+  gem 'libv8',               '~> 3.11.8'   unless RUBY_PLATFORM =~ /freebsd/
   gem 'uglifier'
 end
 
@@ -49,9 +50,11 @@ group :development do
   gem 'annotate',                                     :require => false
   gem 'capistrano'
   gem 'hirb'
+  gem 'quiet_assets'
   gem 'rails-erd'
   gem 'rvm-capistrano'
   gem 'sunspot_solr', '2.0.0.pre.120925'
+  gem 'thin'
 end
 
 group :test do
