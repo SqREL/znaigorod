@@ -1,0 +1,21 @@
+<div class="footer_wrapper">
+  <div class="footer">
+    <div class="our_social_link">
+      <h5><%= t("our_social_link") %></h5>
+      <ul>
+        <li class="vk"><a href="http://vk.com/znaigorod" class="solid_dark_gray">vk.com/znaigorod</a></li>
+        <li class="twitter"><a href="http://twitter.com/znaigorod" class="solid_dark_gray">twitter.com/znaigorod</a></li>
+        <li class="email"><a href="mailto:team@znaigorod.ru" class="solid_dark_gray">team@znaigorod.ru</a></li>
+      </ul>
+    </div>
+
+    <div class="counters">
+      <% if Rails.env.production? %>
+        <a href="http://region70.ru/" target="_blank" title="Сайты Томска"><img src="http://region70.ru/get88x31/" width="88" height="31" border="0"></a>
+        <span style="margin:0;padding:0" id="tbec"><script type="text/javascript">setTimeout('var tbex=document.createElement("SCRIPT");tbex.type="text/javascript";tbex.src="http://c.tbex.ru/z/a!8831!znaigorod.ru!c.js?rev=2"+String.fromCharCode(38)+"rnd="+(new Date().getTime());(document.getElementsByTagName("head")[0]||document.getElementsByTagName("body")[0]).appendChild(tbex)',1)</script></span><noscript><a href="http://tbe.tom.ru/site/znaigorod.ru/"><img src="http://c.tbex.ru/z/a!8831!znaigorod.ru!c.gif" alt="TBE" /></a></noscript>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= render :partial => "commons/metrics" if Rails.env.production? %>

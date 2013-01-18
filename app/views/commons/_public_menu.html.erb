@@ -1,0 +1,30 @@
+<div class="main_menu_wrapper">
+  <ul class="main_menu">
+    <li class="has_submenu">
+      <a href="/affiches/all">Афиша</a>
+      <ul class="submenu">
+        <li><a href="/affiches/all">Все мероприятия</a></li>
+        <% Affiche.ordered_descendants.each do |name| %>
+          <li>
+            <%= link_to name.model_name.human, "/#{name.model_name.pluralize.downcase}/all" %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+    <li class="has_submenu">
+      <a href="<%= organizations_path(:organization_class => "organizations") %>">Заведения</a>
+      <ul class="submenu">
+        <li><%= link_to "Еда", organizations_path(:organization_class => "meals") %></li>
+        <li><%= link_to "Развлечения", organizations_path(:organization_class => "entertainments") %></li>
+        <li><%= link_to "Культура", organizations_path(:organization_class => "cultures") %></li>
+        <li><%= link_to "Спорт", organizations_path(:organization_class => "sports") %></li>
+        <li><%= link_to "Творчество и развитие", organizations_path(:organization_class => "creations") %></li>
+      </ul>
+    </li>
+    <li><%= link_to "Фотогалереи", photogalleries_path(period: "all") %></li>
+    <!--
+    <li><%#= link_to "Вэбкамеры", webcams_path %></li>
+    -->
+    <li class="float_right"><%= link_to "Размещение информации", cooperation_path %></li>
+  </ul>
+</div>
