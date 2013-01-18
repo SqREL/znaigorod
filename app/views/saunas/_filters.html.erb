@@ -81,7 +81,7 @@
         </div>
       </div>
 
-      <div class="filter <%= @presenter.geo_filter_used? ? 'show' : 'hide' %>" id='geo'>
+      <div class="filter <%= @presenter.geo_filter_used? ? 'used show' : 'hide' %>" id='geo'>
         <%= link_to "убрать", '#', :class => 'remove_filter_link' %>
         <div class="filter_label">Местоположение</div>
         <div class="filter_geo">
