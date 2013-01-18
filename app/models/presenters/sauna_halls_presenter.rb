@@ -111,7 +111,7 @@ class SaunaHallsPresenter
       facet :features,      sort: :index, zeros: true
       facet :pool_features, sort: :index, zeros: true
 
-      paginate(:page => page, :per_page => 20)
+      paginate(:page => page, :per_page => 10)
     }
   end
 
