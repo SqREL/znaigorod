@@ -1,0 +1,5 @@
+<% @presenter.collection.each do |sauna_hall| %>
+  <li class='sauna_item'>
+    <%= render :partial => 'list_item', :locals => { :sauna => OrganizationDecorator.decorate(sauna_hall.organization), :sauna_hall => sauna_hall } %>
+  </li>
+<% end %>

@@ -32,7 +32,7 @@ class SaunaHallsPresenter
     self.lat    = self.lat.blank? ? nil : self.lat
     self.lon    = self.lon.blank? ? nil : self.lon
     self.radius = self.radius.blank? ? nil : self.radius
-    self.page   ||= 1
+    self.page     ||= 1
 
     self.order_by  = %w[distance popularity price].include?(self.order_by) ? self.order_by : 'popularity'
   end
@@ -66,7 +66,18 @@ class SaunaHallsPresenter
   end
 
   def search
-    @search ||= SaunaHall.search {
+    @search ||= SaunaHall.search(:include => [
+        :organization,
+        :address,
+        :schedules,
+        :sauna_hall_capacity,
+        :sauna_hall_pool,
+        :sauna_hall_bath,
+        :sauna_hall_entertainment,
+        :sauna_hall_interior,
+        :sauna_hall_schedules,
+        :images
+    ]) {
       with(:capacity).between(capacity_min..capacity_max)
 
       without(:price_max).less_than(price_min)    if price_min
@@ -100,7 +111,7 @@ class SaunaHallsPresenter
       facet :features,      sort: :index, zeros: true
       facet :pool_features, sort: :index, zeros: true
 
-      paginate(:page => page, :per_page => 100_000_000)
+      paginate(:page => page, :per_page => 20)
     }
   end
 

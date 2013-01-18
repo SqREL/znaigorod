@@ -15,6 +15,9 @@ class SaunaHall < ActiveRecord::Base
   has_one :sauna_hall_entertainment, :dependent => :destroy
   has_one :sauna_hall_interior, :dependent => :destroy
   has_one :sauna_hall_pool, :dependent => :destroy
+  has_one :organization, :through => :sauna
+  has_one :address, :through => :organization
+  has_many :schedules, :through => :organization
 
   accepts_nested_attributes_for :sauna_hall_bath
   accepts_nested_attributes_for :sauna_hall_capacity
@@ -54,12 +57,12 @@ class SaunaHall < ActiveRecord::Base
   end
 
   def min_sauna_hall_schedules_price
-    sauna_hall_schedules.pluck(:price).min
+    sauna_hall_schedules.minimum(:price)
   end
   alias_method :price_min, :min_sauna_hall_schedules_price
 
   def max_sauna_hall_schedules_price
-    sauna_hall_schedules.pluck(:price).max
+    sauna_hall_schedules.maximum(:price)
   end
   alias_method :price_max, :max_sauna_hall_schedules_price
 

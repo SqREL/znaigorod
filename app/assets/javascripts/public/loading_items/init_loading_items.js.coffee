@@ -8,6 +8,7 @@
     '.content_wrapper .affiches_list ul.items_list,' +
     '.content_wrapper .affiches_list ul.was_in_city_photos,' +
     '.content_wrapper .organizations_list ul.items_list,' +
+    '.content_wrapper ul.sauna_list,' +
     '.content_wrapper .search_results ul.items_list'
   )
   first_item = $('li:first', list)

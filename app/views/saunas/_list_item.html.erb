@@ -31,10 +31,12 @@
 </div>
 <div class="middle_info_block">
   <div class="prices">
-    <% if sauna_hall.price_min == sauna_hall.price_max %>
-      <span><%= sauna_hall.price_min %></span> руб.,
+    <% price_min = sauna_hall.sauna_hall_schedules.map(&:price).min %>
+    <% price_max = sauna_hall.sauna_hall_schedules.map(&:price).max %>
+    <% if price_min == price_max %>
+      <span><%= price_min %></span> руб.,
     <% else %>
-      <span><%= sauna_hall.price_min %></span> &mdash; <span><%= sauna_hall.price_max %></span> руб.,
+      <span><%= price_min %></span> &mdash; <span><%= price_max %></span> руб.,
     <% end %>
   </div>
   <div class="capacity">

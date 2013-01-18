@@ -33,6 +33,7 @@ $ ->
   init_loading_items() if $(".content_wrapper .affiches_list ul.was_in_city_photos li").length
   init_loading_items() if $(".content_wrapper .organizations_list ul.items_list li").length
   init_loading_items() if $(".content_wrapper .search_results ul.items_list li").length
+  init_loading_items() if $('.content_wrapper ul.sauna_list .sauna_item').length
   init_list_settings() if $(".content_wrapper .list_settings").length
   init_swfkrpano() if $("#krpano").length
   init_webcam_axis() if $(".webcams_list .webcam_axis").length

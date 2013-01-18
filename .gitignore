@@ -18,3 +18,4 @@ clear_logs.rb
 erd.pdf
 log/sunspot-solr-development.log*
 public/assets/
+.DS_Store
