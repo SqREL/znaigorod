@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
-<html lang="ru">
+<html lang='ru'>
   <head>
-    <base href="<%= root_url %>" />
-    <meta charset="UTF-8" />
-    <meta name="google-site-verification" content="4WezRNvvwZCOYCxFNt9PKHdon29hbt-V7bMbhZhaMMk" />
-    <meta name="yandex-verification" content="6f2efa53b5d49370" />
-    <meta property="fb:app_id" content="131807160304776"/>
-    <title><%= (yield :subtitle).squish.html_safe %><%= " — ".html_safe if content_for?(:subtitle) %><%= t('site_title') %></title>
+    <base href='<%= root_url %>' />
+    <meta charset='UTF-8' />
+    <meta name='google-site-verification' content='4WezRNvvwZCOYCxFNt9PKHdon29hbt-V7bMbhZhaMMk' />
+    <meta name='yandex-verification' content='6f2efa53b5d49370' />
+    <meta property='fb:app_id' content='131807160304776'/>
+    <title><%= (yield :subtitle).squish.html_safe %><%= ' — '.html_safe if content_for?(:subtitle) %><%= t('site_title') %></title>
     <%= favicon_link_tag %>
     <%= yield :stylesheets %>
     <%= yield :javascripts %>
@@ -14,7 +14,7 @@
     <%= yield :twitter_cards %>
     <%= csrf_meta_tags %>
   </head>
-  <body<%= raw(" class='noisy'") if @body_class == "noisy" %>>
+  <body<%= raw(" class='noisy'") if @body_class == 'noisy' %>>
     <%= yield :content %>
   </body>
 </html>
