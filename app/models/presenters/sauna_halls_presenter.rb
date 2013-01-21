@@ -78,7 +78,10 @@ class SaunaHallsPresenter
         :sauna_hall_schedules,
         :images
     ]) {
-      with(:capacity).between(capacity_min..capacity_max)
+      any_of do
+        with(:capacity).between(capacity_min..capacity_max)
+        with(:capacity).greater_than(capacity_max)
+      end
 
       without(:price_max).less_than(price_min)    if price_min
       without(:price_min).greater_than(price_max) if price_max
