@@ -1,5 +1,4 @@
 @init_loading_items = () ->
-
   $('body > nav.pagination').css
     'height': '0'
     'visibility': 'hidden'
@@ -24,7 +23,7 @@
     if $(this).scrollTop() + $(this).height() >= last_item_top && !busy
       busy = true
       search_params = ""
-      if window.location.search.match(/(\?|&)q=/) && window.location.search.match(/(\?|&)utf8=/)
+      if window.location.search.match(/(\?|&)q=/) || window.location.search.match(/(\?|&)utf8=/)
         search_params = window.location.search.replace(/^\?/, "&").replace(/&page=\d+/, "")
       $.ajax
         url: "#{list_url}?page=#{parseInt(page) + 1}#{search_params}"

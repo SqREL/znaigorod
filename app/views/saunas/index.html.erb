@@ -12,8 +12,12 @@
     </div>
   </div>
 
-  <ul class='sauna_list'>
-    <%= render :partial => 'sauna_list' %>
-  </ul>
+  <% if @presenter.collection.any? %>
+    <ul class='sauna_list'>
+      <%= render :partial => 'sauna_list' %>
+    </ul>
+  <% else %>
+    <p class="empty_items_list">По заданным параметрам ничего не найдено ;(</p>
+  <% end %>
 </div>
 <%= paginate @presenter.collection %>
