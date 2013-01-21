@@ -19,7 +19,7 @@
         <div class='filter_input_label'>руб./час</div>
 
         <div class="filter_slider_wrapper">
-          <div class="filter_slider" data-min='<%= @presenter.price.available.minimum %>' data-max='<%= @presenter.price.available.maximum %>' data-step='50'></div>
+          <div class="filter_slider" data-range='true' data-min='<%= @presenter.price.available.minimum %>' data-max='<%= @presenter.price.available.maximum %>' data-step='50'></div>
         </div>
       </div>
 
@@ -38,7 +38,7 @@
         <div class='filter_input_label'>человек</div>
 
         <div class="filter_slider_wrapper">
-          <div class="filter_slider" data-min='<%= @presenter.capacity.available.minimum %>' data-max='<%= @presenter.capacity.available.maximum %>' data-step='1'></div>
+          <div class="filter_slider" data-range='true' data-min='<%= @presenter.capacity.available.minimum %>' data-max='<%= @presenter.capacity.available.maximum %>' data-step='1'></div>
         </div>
       </div>
 

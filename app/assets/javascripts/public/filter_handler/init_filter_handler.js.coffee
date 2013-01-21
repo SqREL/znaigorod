@@ -196,7 +196,14 @@ $.fn.add_handler = () ->
   filter_slider = $(this)
   min = filter_slider.data('min')
   max = filter_slider.data('max')
+  range = filter_slider.data('range')
   step = filter_slider.data('step')
+  if range == true
+    values = [min, max]
+  else if range.match(/min/)
+    values = max
+  else if range.match(/max/)
+    values = min
 
   filter_slider.draw_scale(min, max)
 
@@ -216,28 +223,45 @@ $.fn.add_handler = () ->
   filter_slider.slider
     max: max
     min: min
-    range: true
+    range: range
     step: step
-    values: [min, max]
+    values: values
     create: (event, ui) ->
       filter_slider.parent().find('.ui-corner-all').removeClass('ui-corner-all')
-      filter_slider.find('.ui-slider-handle').map (index, item) ->
-        $(item).addClass('handle'+index)
+      if range == true
+        filter_slider.find('.ui-slider-handle').map (index, item) ->
+          $(item).addClass('handle'+index)
+      else if range.match(/min/)
+        filter_slider.find('.ui-slider-handle').addClass('handle1')
+      else if range.match(/max/)
+        filter_slider.find('.ui-slider-handle').addClass('handle0')
+
       if filter_slider.parent().parent().is(':visible') && filter_slider.parent().parent().hasClass('used')
-        filter_slider.slider('values', 0, $(this).parent().siblings('.filter_inputs').find('.min').val())
-        filter_slider.slider('values', 1, $(this).parent().siblings('.filter_inputs').find('.max').val())
+        if range == true
+          filter_slider.slider('values', 0, $(this).parent().siblings('.filter_inputs').find('.min').val())
+          filter_slider.slider('values', 1, $(this).parent().siblings('.filter_inputs').find('.max').val())
+        else
+          filter_slider.slider('value', $(this).parent().siblings('.filter_inputs').find('input').val())
 
     slide: (event, ui) ->
       inputs = filter_slider.parent().siblings('.filter_inputs').find('input')
-      values = filter_slider.slider('values')
-      inputs.map (index, item) ->
-        $(item).val(values[index])
+      if range == true
+        values = filter_slider.slider('values')
+        inputs.map (index, item) ->
+          $(item).val(values[index])
+      else
+        value = filter_slider.slider('value')
+        inputs.val(value)
 
     stop: (event, ui) ->
       inputs = filter_slider.parent().siblings('.filter_inputs').find('input')
-      values = filter_slider.slider('values')
-      inputs.map (index, item) ->
-        $(item).val(values[index])
+      if range == true
+        values = filter_slider.slider('values')
+        inputs.map (index, item) ->
+          $(item).val(values[index])
+      else
+        value = filter_slider.slider('value')
+        inputs.val(value)
 
 @init_filter_handler = () ->
   set_previous_state()
