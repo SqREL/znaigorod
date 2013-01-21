@@ -39,6 +39,7 @@ draw_map = (coords) ->
 
   $(map).draw_circle(coords)
   radius_slider_handler(coords)
+  set_coordinates(coords)
 
   if !$('#geo').hasClass('used')
     if navigator.geolocation
