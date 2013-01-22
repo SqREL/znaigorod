@@ -27,7 +27,7 @@
  * = require public/prepare_organizations
  * = require public/prepare_sauna
  * = require public/iconize_info
- * = require public/organization_photos
+ * = require public/included_photos
  * = require public/schedule_toggle
  * = require public/loading_items
  * = require public/list_settings

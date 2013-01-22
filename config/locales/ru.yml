@@ -576,6 +576,9 @@
       post:
         title: Название
 
+      post_image:
+        attachment: Изображение
+        title: Название
 
       image:
         description: Описание
@@ -807,6 +810,7 @@
     add_master_class: Добавление мастер-класса
     add_meal: Добавление заведения питания
     add_movie: Добавление фильма
+    add_post_image: Добавить изображение
     add_organization: Добавление заведения
     add_other: Добавление события
     add_party: Добавление вечеринки

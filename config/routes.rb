@@ -19,7 +19,9 @@ Znaigorod::Application.routes.draw do
       resources :images, :only => [:new, :create, :destroy, :edit, :update]
     end
 
-    resources :posts
+    resources :posts do
+      resources :post_images
+    end
 
     resources :organizations do
       resource :culture, :except => [:index, :show]
@@ -100,6 +102,8 @@ Znaigorod::Application.routes.draw do
 
   get ':organization_class/(:category)/(*query)' => 'organizations#index',
       :organization_class => /organizations|meals|entertainments|cultures|sports|creations|saunas/, :as => :organizations
+
+  resources :posts
 
   constraints(Subdomain) do
     match '/' => 'organizations#show'

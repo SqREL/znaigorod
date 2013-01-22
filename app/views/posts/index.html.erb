@@ -1,0 +1,22 @@
+<div class="content_wrapper">
+  <%= render 'breadcrumbs', :index => true %>
+  <h1>Обзоры города</h1>
+
+  <ul class="post_list">
+    <% @posts.each do |post| %>
+      <li class="post_item">
+        <div class="post_meta">
+          <h2><%= link_to post.title, post %></h2>
+          <span class="date"><%= l(post.created_at, :format => "%d %B %Y") %></span>
+        </div>
+
+        <div class="post_content">
+          <% if post.post_images.any? %>
+            <%= image_tag post.post_images.first.attachment_url, :alt => post.post_images.first.title, :class => 'preview' %>
+          <% end %>
+          <%= raw post.annotation %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+</div>

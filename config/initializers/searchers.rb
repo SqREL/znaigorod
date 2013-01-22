@@ -101,6 +101,10 @@ HasSearcher.create_searcher :similar_affiches do
   end
 end
 
+HasSearcher.create_searcher :similar_posts do
+  models :post
+end
+
 HasSearcher.create_searcher :photoreport do
   models :image
 

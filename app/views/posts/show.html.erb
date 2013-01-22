@@ -1,0 +1,67 @@
+<div class="content_wrapper">
+  <%= render 'breadcrumbs', :show => true %>
+
+  <div class="clearfix">
+
+    <div class="post">
+      <div class="post_meta">
+        <h2><%= @post.title %></h2>
+        <span class="date"><%= l(@post.created_at, :format => "%d %B %Y") %></span>
+      </div>
+
+      <div class="post_content">
+        <div class="post_annotation">
+          <% if @post.post_images.any? %>
+            <%= image_tag @post.post_images.first.attachment_url, :alt => @post.post_images.first.title, :class => 'preview' %>
+          <% end %>
+          <%= raw @post.annotation %>
+        </div>
+        <div class="post_content">
+          <%= raw @post.content %>
+        </div>
+
+        <% if @post.post_images.any? %>
+          <div class="photogallery">
+            <ul>
+              <% @post.post_images.each do |image| %>
+                <li><%= link_to(image_tag_for(image.attachment_url, 124, 94, true, 'n'), image.attachment_url, rel: :info_gallery) %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+
+    <div class="right_side">
+      <div class="more_like_this">
+        <h2>Наши лучшие статьи</h2>
+        <ul>
+          <% @post.similar_posts.each do |post| %>
+            <li>
+              <% if post.post_images.any? %>
+                <%= image_tag post.post_images.first.attachment_url, :alt => post.post_images.first.title, :class => 'small_preview' %>
+              <% end %>
+              <div class="post_title">
+                <%= link_to post.title, post %>
+              </div>
+            </li>
+          <% end  %>
+        </ul>
+      </div>
+
+      <% if Rails.env.production? %>
+        <div class="vk_recommended_wrapper">
+          <div id="vk_recommended"></div>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+
+  <% if Rails.env.production? %>
+    <div id="vk_comments"></div>
+    <%= render :partial => "commons/fb_comments" %>
+  <% end %>
+
+</div>

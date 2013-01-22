@@ -62,6 +62,7 @@ GEM
     choice (0.1.6)
     chronic (0.8.0)
     chunky_png (1.2.6)
+    cocaine (0.4.2)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -178,6 +179,15 @@ GEM
       whenever
     options (2.3.0)
       fattr
+    paperclip (3.4.0)
+      activemodel (>= 3.0.0)
+      activerecord (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.4.0)
+      mime-types
+    paperclip-elvfs (0.0.5)
+      curb
+      paperclip
     pg (0.14.1)
     polyglot (0.3.3)
     pr_geohash (1.0.0)
@@ -341,6 +351,7 @@ DEPENDENCIES
   libv8 (~> 3.11.8)
   nested_form
   openteam-commons
+  paperclip-elvfs
   pg
   progress_bar
   quiet_assets

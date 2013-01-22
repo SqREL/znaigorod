@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130117030035) do
+ActiveRecord::Schema.define(:version => 20130121082421) do
 
   create_table "addresses", :force => true do |t|
     t.string   "street"
@@ -222,6 +222,20 @@ ActiveRecord::Schema.define(:version => 20130117030035) do
   end
 
   add_index "pool_tables", ["billiard_id"], :name => "index_pool_tables_on_billiard_id"
+
+  create_table "post_images", :force => true do |t|
+    t.string   "title"
+    t.integer  "post_id"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.text     "attachment_url"
+  end
+
+  add_index "post_images", ["post_id"], :name => "index_post_images_on_post_id"
 
   create_table "posts", :force => true do |t|
     t.text     "title"

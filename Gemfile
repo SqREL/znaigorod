@@ -31,6 +31,7 @@ group :default do
   gem 'kaminari'
   gem 'nested_form'
   gem 'openteam-commons'
+  gem 'paperclip-elvfs'
   gem 'pg',                                           :require => false
   gem 'progress_bar'
   gem 'rails'
