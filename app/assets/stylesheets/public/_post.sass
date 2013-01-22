@@ -45,13 +45,14 @@
 
   .post
     +clearfix
-    +single-box-shadow(#d5d5d5)
+    +box-shadow(#d5d5d5 0 0 3px)
     +border-radius(3px)
     background: #fdfffe
     border: 1px solid #d5d5d5
     float: left
     padding: 10px
     width: 735px
+    margin: 1px 1px 15px
 
     .post_meta
       h2
@@ -79,3 +80,6 @@
   .post_title
     text-align: left
     margin: 0 0 0 76px
+  .more_like_this_posts
+    li
+      +clearfix

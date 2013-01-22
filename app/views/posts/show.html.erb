@@ -36,7 +36,7 @@
     <div class="right_side">
       <div class="more_like_this">
         <h2>Наши лучшие статьи</h2>
-        <ul>
+        <ul class='more_like_this_posts'>
           <% @post.similar_posts.each do |post| %>
             <li>
               <% if post.post_images.any? %>
