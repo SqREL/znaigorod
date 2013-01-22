@@ -3,11 +3,13 @@ class Post < ActiveRecord::Base
 
   attr_accessible :annotation, :content, :poster_url, :title, :vfs_path
 
-  has_many :post_images
+  has_many :post_images, :order => 'post_images.id'
 
   validates_presence_of :annotation, :content, :title
 
   friendly_id :title, use: :slugged
+
+  default_scope order('id DESC')
 
   def self.generate_vfs_path
     "/znaigorod/posts/#{Time.now.strftime('%Y/%m/%d/%H-%M')}-#{SecureRandom.hex(4)}"

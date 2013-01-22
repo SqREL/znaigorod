@@ -19,15 +19,18 @@
 
 <div class='attachments'>
   <h3>
-    Прикрепленные файлы
+    Прикрепленные файлы:
     <%= link_to "Добавить файл", new_manage_post_post_image_path(resource), :class => 'edit_link'  %>
   </h3>
+
   <% if resource.post_images.any?  %>
     <span class="value">
       <ul>
         <% resource.post_images.each do |image| %>
           <li>
-            <%= link_to image.title, image.attachment_url %>
+            <%= image_tag image.attachment_url, :alt => image.title, :title => image.title %>
+          </li>
+          <li>
             <%= link_to "Удалить", manage_post_post_image_path(resource, image), :method => :delete, :confirm => 'Вы уверены?' %>
             <%= link_to 'Редактировать', edit_manage_post_post_image_path(resource, image)%>
           </li>
