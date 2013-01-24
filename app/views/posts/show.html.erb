@@ -12,7 +12,7 @@
       <div class="post_content">
         <div class="post_annotation">
           <% if @post.post_images.any? %>
-            <%= image_tag @post.post_images.first.attachment_url, :alt => @post.post_images.first.title, :class => 'preview' %>
+            <%= image_tag @post.post_images.first.attachment_url.gsub(/\/\d+-\d+\//, '/380-284!/'), :alt => @post.post_images.first.title, :class => 'preview' %>
           <% end %>
           <%= raw @post.annotation %>
         </div>
@@ -35,12 +35,12 @@
 
     <div class="right_side">
       <div class="more_like_this">
-        <h2>Наши лучшие статьи</h2>
+        <h2>Похожие статьи</h2>
         <ul class='more_like_this_posts'>
           <% @post.similar_posts.each do |post| %>
             <li>
               <% if post.post_images.any? %>
-                <%= image_tag post.post_images.first.attachment_url, :alt => post.post_images.first.title, :class => 'small_preview' %>
+                <%= image_tag post.post_images.first.attachment_url.gsub(/\/\d+-\d+\//, '/66-44!/'), :alt => post.post_images.first.title, :class => 'small_preview', :size => '66x44' %>
               <% end %>
               <div class="post_title">
                 <%= link_to post.title, post %>
@@ -48,6 +48,10 @@
             </li>
           <% end  %>
         </ul>
+      </div>
+
+      <div class="vk_group_wrapper">
+        <div id="vk_group_thin"></div>
       </div>
 
       <% if Rails.env.production? %>

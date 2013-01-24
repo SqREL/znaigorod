@@ -12,7 +12,7 @@
 
         <div class="post_content">
           <% if post.post_images.any? %>
-            <%= image_tag post.post_images.first.attachment_url, :alt => post.post_images.first.title, :class => 'preview' %>
+            <%= image_tag post.post_images.first.attachment_url.gsub(/\/\d+-\d+\//, '/200-150!/'), :alt => post.post_images.first.title, :class => 'preview' %>
           <% end %>
           <%= raw post.annotation %>
         </div>
