@@ -174,8 +174,9 @@ class SaunaHallsPresenter
   def distance_sort_link
     html_options = { class: 'disabled distance' } unless geo_filter_used?
     html_options = { class: 'selected distance' } if order_by_distance? && geo_filter_used?
+    html_options.merge! :title => 'Не активно, если не определено ваше местоположение.'
 
-    content_tag :li, link_to(I18n.t('sauna.sort.distance'), saunas_path(params.merge(order_by: 'distance'), :title => 'Не активно, если не определено местоположение.'), html_options)
+    content_tag :li, link_to( I18n.t('sauna.sort.distance'), saunas_path(params.merge(order_by: 'distance')), html_options)
   end
 
   def sort_links
