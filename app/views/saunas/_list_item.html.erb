@@ -3,7 +3,10 @@
     <%= sauna.logo_link %>
   </div>
   <div class="attributes">
-    <%= sauna.title_link %>
+    <%= link_to sauna.title.split(',').first, organization_path(sauna) %>
+    <div class="phone">
+      <%= sauna.phone %>
+    </div>
     <% if sauna.address_link.present? %>
       <div class="address">
         <%= sauna.address_link %>
