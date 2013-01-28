@@ -1,9 +1,11 @@
+# encoding: utf-8
+#
 class SaunaHallsPresenter
   include ActiveAttr::MassAssignment
   include ActionView::Helpers
   include Rails.application.routes.url_helpers
 
-  attr_accessor :capacity_min, :capacity_max,
+  attr_accessor :capacity,
                 :price_min, :price_max,
                 :baths, :features, :pool,
                 :lat, :lon, :radius,
@@ -19,8 +21,7 @@ class SaunaHallsPresenter
     self.params.delete('controller')
     self.params.delete('action')
 
-    self.capacity_min = self.capacity_min.to_i.zero? ? SaunaHallCapacity.minimum(:default) : self.capacity_min.to_i
-    self.capacity_max = self.capacity_max.to_i.zero? ? SaunaHallCapacity.maximum(:maximal) : self.capacity_max.to_i
+    self.capacity     = self.capacity.to_i.zero? ? 1 : self.capacity.to_i
     self.price_min    = self.price_min.blank? ?  SaunaHallSchedule.minimum(:price) : self.price_min
     self.price_max    = self.price_max.blank? ?  SaunaHallSchedule.maximum(:price) : self.price_max
     self.radius       = self.radius.blank? ? nil : self.radius
@@ -45,10 +46,10 @@ class SaunaHallsPresenter
     criterion == 'popularity' ? 'desc' : 'asc'
   end
 
-  def capacity
+  def capacity_hash
     Hashie::Mash.new(
       available: { minimum: SaunaHallCapacity.minimum(:default), maximum: SaunaHallCapacity.maximum(:maximal) },
-      selected: { minimum: capacity_min, maximum: capacity_max }
+      selected: capacity
     )
   end
 
@@ -79,8 +80,8 @@ class SaunaHallsPresenter
         :images
     ]) {
       any_of do
-        with(:capacity).between(capacity_min..capacity_max)
-        with(:capacity).greater_than(capacity_max)
+        with(:capacity, capacity)
+        with(:capacity).greater_than(capacity)
       end
 
       without(:price_max).less_than(price_min)    if price_min
@@ -130,7 +131,11 @@ class SaunaHallsPresenter
     [*search.facet(facet).rows.map(&:value)]
   end
 
-  %w[capacity geo price].each do |name|
+  def capacity_filter_used?
+    capacity_hash.selected != 0
+  end
+
+  %w[geo price].each do |name|
     define_method "#{name}_filter_used?" do
       self.send(name).selected.values.compact.any?
     end
@@ -170,7 +175,7 @@ class SaunaHallsPresenter
     html_options = { class: 'disabled distance' } unless geo_filter_used?
     html_options = { class: 'selected distance' } if order_by_distance? && geo_filter_used?
 
-    content_tag :li, link_to(I18n.t('sauna.sort.distance'), saunas_path(params.merge(order_by: 'distance')), html_options)
+    content_tag :li, link_to(I18n.t('sauna.sort.distance'), saunas_path(params.merge(order_by: 'distance'), :title => 'Не активно, если не определено местоположение.'), html_options)
   end
 
   def sort_links

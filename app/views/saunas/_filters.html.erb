@@ -27,18 +27,14 @@
         <div class="filter_label wide">Вместительность</div>
         <div class="filter_inputs">
           <div class="input">
-            <%= label_tag :capacity_min, 'от' %>
-            <%= text_field_tag :capacity_min, @presenter.capacity.selected.minimum, :class => 'min' %>
-          </div>
-          <div class="input">
-            <%= label_tag :capacity_max, 'до' %>
-            <%= text_field_tag :capacity_max, @presenter.capacity.selected.maximum, :class => 'max' %>
+            <%= label_tag :capacity, 'от' %>
+            <%= text_field_tag :capacity, @presenter.capacity_hash.selected, :class => 'max' %>
           </div>
         </div>
         <div class='filter_input_label'>человек</div>
 
         <div class="filter_slider_wrapper">
-          <div class="filter_slider" data-range='true' data-min='<%= @presenter.capacity.available.minimum %>' data-max='<%= @presenter.capacity.available.maximum %>' data-step='1'></div>
+          <div class="filter_slider" data-range='max' data-min='<%= @presenter.capacity_hash.available.minimum %>' data-max='<%= @presenter.capacity_hash.available.maximum %>' data-step='1'></div>
         </div>
       </div>
 

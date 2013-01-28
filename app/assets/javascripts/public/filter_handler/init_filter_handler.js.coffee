@@ -200,6 +200,8 @@ $.fn.add_handler = () ->
   step = filter_slider.data('step')
   if range == true
     values = [min, max]
+  else if range == false
+    values = 0
   else if range.match(/min/)
     values = max
   else if range.match(/max/)
@@ -231,6 +233,8 @@ $.fn.add_handler = () ->
       if range == true
         filter_slider.find('.ui-slider-handle').map (index, item) ->
           $(item).addClass('handle'+index)
+      else if range == false
+        filter_slider.find('.ui-slider-handle').addClass('handle1')
       else if range.match(/min/)
         filter_slider.find('.ui-slider-handle').addClass('handle1')
       else if range.match(/max/)
