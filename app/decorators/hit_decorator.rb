@@ -18,6 +18,10 @@ class HitDecorator < ApplicationDecorator
     result_decorator.title_link
   end
 
+  def show_url
+    result_decorator.show_url
+  end
+
   def image
     result.poster_url.presence
   end

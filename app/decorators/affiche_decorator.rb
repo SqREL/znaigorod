@@ -80,6 +80,10 @@ class AfficheDecorator < ApplicationDecorator
     link
   end
 
+  def show_url
+    kind_affiche_path
+  end
+
   def more_link
     h.link_to "Подробнее...", kind_affiche_path, :title => affiche.title
   end

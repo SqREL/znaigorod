@@ -30,6 +30,10 @@ class OrganizationDecorator < ApplicationDecorator
       :longitude => organization.address.longitude
   end
 
+  def show_url
+    organization_url
+  end
+
   def organization_url
     organization.subdomain? ? h.root_url(subdomain: organization.subdomain) : h.organization_url(organization)
   end
