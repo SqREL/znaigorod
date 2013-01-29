@@ -20,7 +20,7 @@
           <%= raw @post.content %>
         </div>
 
-        <% if @post.post_images.any? %>
+        <% if @post.post_images.many? %>
           <div class="photogallery">
             <ul>
               <% @post.post_images.each do |image| %>
