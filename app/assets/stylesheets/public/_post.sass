@@ -86,7 +86,21 @@
           margin: 0
 
   .share
+    +clearfix
+    font-size: 13px
     float: right
+    .yashare-auto-init
+      float: left
+    .b-share
+      padding-right: 0 !important
+      .b-share__handle:last-child
+        padding-right: 0 !important
+    #vk_like,
+    #vk_like_fake
+      float: left
+      margin-top: 4px
+    #vk_like_fake
+      width: 100px
 
 .more_like_this
   .post_title
