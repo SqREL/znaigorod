@@ -4,73 +4,71 @@
     <%= link_to t("edit_#{resource.class.model_name.underscore}"), [:edit, :manage, resource], :class => 'edit_link' %>
   </h1>
 
-  <div class="column">
-    <div>
-      <span class="label">Описание:</span>
-      <% if resource.description? %>
-        <span class="value"><%= resource.description %></span>
-      <% else %>
-        <span class="blank">Не указано</span>
-      <% end %>
-    </div>
+  <div>
+    <span class="label">Описание:</span>
+    <% if resource.description? %>
+      <span class="value"><%= resource.description %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
 
-    <div>
-      <span class="label">Дата начала:</span>
-      <% if resource.starts_on? %>
-        <span class="value"><%= resource.starts_on %></span>
-      <% else %>
-        <span class="blank">Не указано</span>
-      <% end %>
-    </div>
+  <div>
+    <span class="label">Дата начала:</span>
+    <% if resource.starts_on? %>
+      <span class="value"><%= resource.starts_on %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
 
-    <div>
-      <span class="label">Дата окончания:</span>
-      <% if resource.ends_on? %>
-        <span class="value"><%= resource.ends_on %></span>
-      <% else %>
-        <span class="blank">Не указано</span>
-      <% end %>
-    </div>
+  <div>
+    <span class="label">Дата окончания:</span>
+    <% if resource.ends_on? %>
+      <span class="value"><%= resource.ends_on %></span>
+    <% else %>
+      <span class="blank">Не указано</span>
+    <% end %>
+  </div>
 
-    <div>
-      <span class="label">
-        Работы
-        <%= link_to "Добавить работу", new_manage_contest_work_path(resource), :class => 'edit_link' %>
-      </span>
-      <span class="value">
-        <ul>
-          <% resource.works.each do |work| %>
-            <li>
-              <%= link_to image_tag(resized_image_url(work.image_url, 100, 125, false)), [:edit, :manage, resource, work]  %>
-              <div>
-                <span class="label">Название:</span>
-                <% if work.title? %>
-                  <span class="value"><%= work.title %></span>
-                <% else %>
-                  <span class="value">Не указано</span>
-                <% end %>
-                </div>
-                <div>
-                  <span class="label">Описание:</span>
-                  <% if work.description? %>
-                    <span class="value"><%= work.description %></span>
-                  <% else %>
-                    <span class="value">Не указано</span>
-                  <% end %>
-                </div>
-                <div>
-                  <span class="label">Информация об авторе:</span>
-                  <% if work.author_info? %>
-                    <span class="value"><%= work.author_info %></span>
-                  <% else %>
-                    <span class="value">Не указано</span>
-                  <% end %>
-                </div>
-                <%= link_to 'Редактировать', [:edit, :manage, resource, work]  %>
-            </li>
-          <% end %>
-        </ul>
-      </span>
-    </div>
+  <div>
+    <span class="label">
+      Работы
+      <%= link_to "Добавить работу", new_manage_contest_work_path(resource), :class => 'edit_link' %>
+    </span>
+    <span class="value">
+      <ul>
+        <% resource.works.each do |work| %>
+          <li>
+            <%= link_to image_tag(resized_image_url(work.image_url, 100, 125, false)), [:edit, :manage, resource, work]  %>
+            <div>
+              <span class="label">Название:</span>
+              <% if work.title? %>
+                <span class="value"><%= work.title %></span>
+              <% else %>
+                <span class="value">Не указано</span>
+              <% end %>
+            </div>
+            <div>
+              <span class="label">Описание:</span>
+              <% if work.description? %>
+                <span class="value"><%= work.description %></span>
+              <% else %>
+                <span class="value">Не указано</span>
+              <% end %>
+            </div>
+            <div>
+              <span class="label">Информация об авторе:</span>
+              <% if work.author_info? %>
+                <span class="value"><%= work.author_info %></span>
+              <% else %>
+                <span class="value">Не указано</span>
+              <% end %>
+            </div>
+            <%= link_to 'Редактировать', [:edit, :manage, resource, work]  %>
+          </li>
+        <% end %>
+      </ul>
+    </span>
   </div>
 </div>

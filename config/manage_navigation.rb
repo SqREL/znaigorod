@@ -6,6 +6,7 @@ SimpleNavigation::Configuration.run do |navigation|
   	primary.item :main_page, 'ЗнайГород', root_url
     primary.item :affiches, 'Мероприятия города', manage_affiches_path, :highlights_on => ->(){ controller_name == 'affiches' || resource_class.try(:superclass) == Affiche }
     primary.item :posts, 'Посты города', manage_posts_path, :highlights_on => ->(){ controller_name == 'posts' || resource_class.try(:superclass) == Post }
+    primary.item :contests, 'Конкурсы', manage_contests_path, :highlights_on => ->(){ controller_name == 'contests' || resource_class.try(:superclass) == Contest }
     primary.dom_class = 'navigation'
   end
 end
