@@ -44,7 +44,10 @@ group :default do
   gem 'timecop',                                      :require => false
   gem 'validates_email_format_of'
   gem 'vkontakte_api',                                :require => false
+  gem 'omniauth-vkontakte'
+  gem 'omniauth-twitter'
   gem 'formtastic'
+  gem 'cancan'
 end
 
 group :development do
