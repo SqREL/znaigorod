@@ -79,6 +79,15 @@ ActiveRecord::Schema.define(:version => 20130129120448) do
     t.datetime "updated_at",      :null => false
   end
 
+  create_table "contests", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.date     "starts_on"
+    t.date     "ends_on"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "creations", :force => true do |t|
     t.integer  "organization_id"
     t.string   "title"
@@ -464,5 +473,17 @@ ActiveRecord::Schema.define(:version => 20130129120448) do
   end
 
   add_index "users", ["oauth_key"], :name => "index_users_on_oauth_key", :unique => true
+
+  create_table "works", :force => true do |t|
+    t.text     "image_url"
+    t.string   "author_info"
+    t.integer  "contest_id"
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "works", ["contest_id"], :name => "index_works_on_contest_id"
 
 end

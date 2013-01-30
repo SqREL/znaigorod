@@ -1,0 +1,15 @@
+<%= render :partial => 'kind_links' %>
+
+<div class="new_link">
+  <%= link_to t('new_contest'), new_manage_contest_url, :class => 'new_resource' %>
+</div>
+
+<ul class='collection'>
+  <% collection.each do |item| %>
+    <li>
+      <%= link_to item.title, [:manage, item] %>
+      <%= content_tag :span, item.respond_to?(:category) ? item.category : item.class.model_name.human, :class => 'category' %>
+    </li>
+  <% end %>
+</ul>
+

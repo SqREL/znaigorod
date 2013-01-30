@@ -16,6 +16,8 @@ SimpleNavigation::Configuration.run do |navigation|
       :highlights_on => ->(){ controller_name == 'posts' || resource_class.try(:superclass) == Post },
       :unless => -> { (current_user.roles & ["admin", "post_editor"]).empty? }
 
+    primary.item :contests, 'Конкурсы', manage_contests_path, :highlights_on => ->(){ controller_name == 'contests' || resource_class.try(:superclass) == Contest }
+
     primary.dom_class = 'navigation'
   end
 end
